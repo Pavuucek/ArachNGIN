@@ -1,0 +1,6 @@
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Files.MPQ\obj\Debug\ResolveAssemblyReference.cache
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Files.MPQ\bin\Debug\ArachNGIN.Files.MPQ.dll
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Files.MPQ\bin\Debug\ArachNGIN.Files.MPQ.pdb
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Files.MPQ\obj\Debug\ArachNGIN.Files.MPQ.dll
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Files.MPQ\obj\Debug\ArachNGIN.Files.MPQ.pdb
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Files.MPQ\bin\Debug\ArachNGIN.Files.MPQ.ocx

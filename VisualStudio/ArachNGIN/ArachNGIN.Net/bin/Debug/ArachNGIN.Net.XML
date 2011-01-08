@@ -1,0 +1,1341 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ArachNGIN.Net</name>
+    </assembly>
+    <members>
+        <member name="F:ArachNGIN.Net.Mail.Pop3State.Unknown">
+            <summary>
+            Undefined.
+            </summary>
+        </member>
+        <member name="F:ArachNGIN.Net.Mail.Pop3State.Authorization">
+            <summary>
+            Connected to Pop3 server, but not authorized.
+            May issue any of the following commands QUIT, USER, PASS
+            </summary>
+        </member>
+        <member name="F:ArachNGIN.Net.Mail.Pop3State.Transaction">
+            <summary>
+            Authorized to Pop3 server, can issue any of the following commands;
+            STAT, LIST, RETR, DELE, RSET
+            </summary>
+        </member>
+        <member name="F:ArachNGIN.Net.Mail.Pop3State.Update">
+            <summary>
+            Quit command was sent to server indicating deleted
+            messages should be removed.
+            </summary>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.ListResponse">
+            <summary>
+            This class represents the response message 
+            returned from both a single line and multi line 
+            Pop3 LIST Command.
+            </summary>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.Pop3Response">
+            <summary>
+            This class represents a Pop3 response message and
+            is intended to be used as a base class for all other
+            Pop3Response types.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Response.#ctor(System.Byte[],System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.Pop3Response"/> class.
+            </summary>
+            <param name="responseContents">The response contents.</param>
+            <param name="hostMessage">The host message.</param>
+            <param name="statusIndicator">if set to <c>true</c> [status indicator].</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Response.CreateResponse(System.Byte[])">
+            <summary>
+            Creates the response.
+            </summary>
+            <param name="responseContents">The response contents.</param>
+            <returns></returns>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.Pop3Response.ResponseContents">
+            <summary>
+            Gets the response contents.
+            </summary>
+            <value>The response contents.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.Pop3Response.StatusIndicator">
+            <summary>
+            Gets a value indicating whether message was <c>true</c> +OK or <c>false</c> -ERR
+            </summary>
+            <value><c>true</c> if [status indicator]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.Pop3Response.HostMessage">
+            <summary>
+            Gets the host message.
+            </summary>
+            <value>The host message.</value>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.ListResponse.#ctor(ArachNGIN.Net.Mail.Pop3Response,System.Collections.Generic.List{ArachNGIN.Net.Mail.Pop3ListItem})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.ListResponse"/> class.
+            </summary>
+            <param name="response">The response.</param>
+            <param name="items">The items.</param>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.ListResponse.Items">
+            <summary>
+            Gets or sets the items.
+            </summary>
+            <value>The items.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.ListResponse.MessageNumber">
+            <summary>
+            Gets the message number.
+            </summary>
+            <value>The message number.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.ListResponse.Octets">
+            <summary>
+            Gets number of octets.
+            </summary>
+            <value>The number of octets.</value>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.ListCommand">
+            <summary>
+            This class represents both the multiline and single line Pop3 LIST command.
+            </summary>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.Pop3Command`1">
+            <summary>
+            This class represents a generic Pop3 command and 
+            encapsulates the major operations when executing a
+            Pop3 command against a Pop3 Server.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Command`1.#ctor(System.IO.Stream,System.Boolean,ArachNGIN.Net.Mail.Pop3State)">
+            <summary>
+            Initializes a new instance of the <see cref="!:Pop3CommandBase"/> class.
+            </summary>
+            <param name="stream">The stream.</param>
+            <param name="isMultiline">if set to <c>true</c> [is multiline].</param>
+            <param name="validExecuteState">State of the valid execute.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Command`1.CreateRequestMessage">
+            <summary>
+            Abstract method intended for inheritors to 
+            build out the byte[] request message for 
+            the specific command.
+            </summary>
+            <returns>The byte[] containing the request message.</returns>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Command`1.Send(System.Byte[])">
+            <summary>
+            Sends the specified message.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Command`1.Execute(ArachNGIN.Net.Mail.Pop3State)">
+            <summary>
+            Executes this instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Command`1.EnsurePop3State(ArachNGIN.Net.Mail.Pop3State)">
+            <summary>
+            Ensures the state of the POP3.
+            </summary>
+            <param name="currentState">State of the current.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Command`1.CreateResponse(System.Byte[])">
+            <summary>
+            Creates the response.
+            </summary>
+            <param name="buffer">The buffer.</param>
+            <returns>The <c>Pop3Response</c> containing the results of the
+            Pop3 command execution.</returns>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Command`1.GetResponse">
+            <summary>
+            Gets the response.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Command`1.Receive(System.AsyncCallback)">
+            <summary>
+            Receives the specified callback.
+            </summary>
+            <param name="callback">The callback.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Command`1.WriteReceivedBytesToBuffer(System.Int32)">
+            <summary>
+            Writes the received bytes to buffer.
+            </summary>
+            <param name="bytesReceived">The bytes received.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Command`1.GetSingleLineResponseCallback(System.IAsyncResult)">
+            <summary>
+            Gets the single line response callback.
+            </summary>
+            <param name="ar">The ar.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Command`1.GetMultiLineResponseCallback(System.IAsyncResult)">
+            <summary>
+            Gets the multi line response callback.
+            </summary>
+            <param name="ar">The ar.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Command`1.GetRequestMessage(System.String[])">
+            <summary>
+            Gets the request message.
+            </summary>
+            <param name="args">The args.</param>
+            <returns>A byte[] request message to send to the host.</returns>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Command`1.StripPop3HostMessage(System.Byte[],System.String)">
+            <summary>
+            Strips the POP3 host message.
+            </summary>
+            <param name="bytes">The bytes.</param>
+            <param name="header">The header.</param>
+            <returns>A <c>MemoryStream</c> without the Pop3 server message.</returns>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Command`1.GetResponseLines(System.IO.MemoryStream)">
+            <summary>
+            Gets the response lines.
+            </summary>
+            <param name="stream">The stream.</param>
+            <returns>A string[] of Pop3 response lines.</returns>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.Pop3Command`1.IsMultiline">
+            <summary>
+            Sets a value indicating whether this instance is multiline.
+            </summary>
+            <value>
+            	<c>true</c> if this instance is multiline; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.ListCommand.#ctor(System.IO.Stream,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.ListCommand"/> class.
+            </summary>
+            <param name="stream">The stream.</param>
+            <param name="messageId">The message id.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.ListCommand.CreateRequestMessage">
+            <summary>
+            Creates the LIST request message.
+            </summary>
+            <returns>The byte[] containing the LIST request message.</returns>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.ListCommand.CreateResponse(System.Byte[])">
+            <summary>
+            Creates the response.
+            </summary>
+            <param name="buffer">The buffer.</param>
+            <returns>A <c>ListResponse</c> containing the results of the Pop3 LIST command.</returns>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.Pop3Responses">
+            <summary>
+            This class contains the Positive and Negative starting response strings
+            that can be returned from a Pop3 server.
+            </summary>
+        </member>
+        <member name="F:ArachNGIN.Net.Mail.Pop3Responses.Ok">
+            <summary>
+            The +OK starting of a positive response from the server.
+            </summary>
+        </member>
+        <member name="F:ArachNGIN.Net.Mail.Pop3Responses.Err">
+            <summary>
+            The -ERR starting of a negative response from the server.
+            </summary>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.Pop3Client">
+            <summary>
+            The Pop3Client class provides a wrapper for the Pop3 commands
+            that can be executed against a Pop3Server.  This class will 
+            execute and return results for the various commands that are 
+            executed.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.Pop3Client"/> class using the default POP3 port 110
+            without using SSL.
+            </summary>
+            <param name="hostname">The hostname.</param>
+            <param name="username">The username.</param>
+            <param name="password">The password.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.#ctor(System.String,System.Boolean,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.Pop3Client"/> class using the default POP3 port 110.
+            </summary>
+            <param name="hostname">The hostname.</param>
+            <param name="useSsl">if set to <c>true</c> [use SSL].</param>
+            <param name="username">The username.</param>
+            <param name="password">The password.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.#ctor(System.String,System.Int32,System.Boolean,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.Pop3Client"/> class.
+            </summary>
+            <param name="hostname">The hostname.</param>
+            <param name="port">The port.</param>
+            <param name="useSsl">if set to <c>true</c> [use SSL].</param>
+            <param name="username">The username.</param>
+            <param name="password">The password.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.Pop3Client"/> class.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.EnsureConnection">
+            <summary>
+            Checks the connection.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.SetState(ArachNGIN.Net.Mail.Pop3State)">
+            <summary>
+            Resets the state.
+            </summary>
+            <param name="state">The state.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.EnsureResponse(ArachNGIN.Net.Mail.Pop3Response,System.String)">
+            <summary>
+            Ensures the response.
+            </summary>
+            <param name="response">The response.</param>
+            <param name="error">The error.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.EnsureResponse(ArachNGIN.Net.Mail.Pop3Response)">
+            <summary>
+            Ensures the response.
+            </summary>
+            <param name="response">The response.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.TraceCommand``2(``0)">
+            <summary>
+            Traces the command.
+            </summary>
+            <param name="command">The command.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.Connect">
+            <summary>
+            Connects this instance and properly sets the 
+            client stream to Use Ssl if it is specified.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.SetClientStream(System.IO.Stream)">
+            <summary>
+            Sets the client stream.  If UseSsl <c>true</c> then wrap 
+            the client's <c>NetworkStream</c> in an <c>SslStream</c>, if UseSsl <c>false</c> 
+            then set the client stream to the <c>NetworkStream</c>
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.Authenticate">
+            <summary>
+            Authenticates this instance.
+            </summary>
+            <remarks>A successful execution of this method will result in a Current State of Transaction.
+            Unsuccessful USER or PASS commands can be reattempted by resetting the Username or Password 
+            properties and re-execution of the methods.</remarks>
+            <exception cref="T:ArachNGIN.Net.Mail.Pop3Exception">
+            If the Pop3Server is unable to be connected.
+            If the User command is unable to be successfully executed.
+            If the Pass command is unable to be successfully executed.
+            </exception>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.Dele(ArachNGIN.Net.Mail.Pop3ListItem)">
+            <summary>
+            Executes the POP3 DELE command.
+            </summary>
+            <param name="item">The item.</param>
+            /// <exception cref="T:ArachNGIN.Net.Mail.Pop3Exception">If the DELE command was unable to be executed successfully.</exception>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.Noop">
+            <summary>
+            Executes the POP3 NOOP command.
+            </summary>
+            <exception cref="T:ArachNGIN.Net.Mail.Pop3Exception">If the NOOP command was unable to be executed successfully.</exception>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.Rset">
+            <summary>
+            Executes the POP3 RSET command.
+            </summary>
+            <exception cref="T:ArachNGIN.Net.Mail.Pop3Exception">If the RSET command was unable to be executed successfully.</exception>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.Stat">
+            <summary>
+            Executes the POP3 STAT command.
+            </summary>
+            <returns>A Stat object containing the results of STAT command.</returns>
+            <exception cref="T:ArachNGIN.Net.Mail.Pop3Exception">If the STAT command was unable to be executed successfully.</exception>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.List">
+            <summary>
+            Executes the POP3 List command.
+            </summary>
+            <returns>A generic List of Pop3Items containing the results of the LIST command.</returns>
+            <exception cref="T:ArachNGIN.Net.Mail.Pop3Exception">If the LIST command was unable to be executed successfully.</exception>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.List(System.Int32)">
+            <summary>
+            Lists the specified message.
+            </summary>
+            <param name="message">The message.</param>
+            <returns>A <c>Pop3ListItem</c> for the requested Pop3Item.</returns>
+            <exception cref="T:ArachNGIN.Net.Mail.Pop3Exception">If the LIST command was unable to be executed successfully for the provided message id.</exception>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.RetrMimeEntity(ArachNGIN.Net.Mail.Pop3ListItem)">
+            <summary>
+            Retrs the specified message.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>A MimeEntity for the requested Pop3 Mail Item.</returns>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.RetrMailMessageEx(ArachNGIN.Net.Mail.Pop3ListItem)">
+            <summary>
+            Retrs the mail message ex.
+            </summary>
+            <param name="item">The item.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.Quit">
+            <summary>
+            Executes the Pop3 QUIT command.
+            </summary>
+            <exception cref="T:ArachNGIN.Net.Mail.Pop3Exception">If the quit command returns a -ERR server message.</exception>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.ExecuteCommand``2(``1)">
+            <summary>
+            Provides a common way to execute all commands.  This method
+            validates the connection, traces the command and finally
+            validates the response message for a -ERR response.
+            </summary>
+            <param name="command">The command.</param>
+            <returns>The Pop3Response for the provided command</returns>
+            <exception cref="T:ArachNGIN.Net.Mail.Pop3Exception">If the HostMessage does not start with '+OK'.</exception>
+            <exception cref="T:ArachNGIN.Net.Mail.Pop3Exception">If the client is no longer connected.</exception>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Client.Disconnect">
+            <summary>
+            Disconnects this instance.
+            </summary>
+        </member>
+        <member name="E:ArachNGIN.Net.Mail.Pop3Client.Trace">
+            <summary>
+            Traces the various command objects that executed during this objects
+            lifetime.
+            </summary>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.Pop3Client.Hostname">
+            <summary>
+            Gets the hostname.
+            </summary>
+            <value>The hostname.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.Pop3Client.Port">
+            <summary>
+            Gets the port.
+            </summary>
+            <value>The port.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.Pop3Client.UseSsl">
+            <summary>
+            Gets a value indicating whether [use SSL].
+            </summary>
+            <value><c>true</c> if [use SSL]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.Pop3Client.Username">
+            <summary>
+            Gets or sets the username.
+            </summary>
+            <value>The username.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.Pop3Client.Password">
+            <summary>
+            Gets or sets the password.
+            </summary>
+            <value>The password.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.Pop3Client.CurrentState">
+            <summary>
+            Gets the state of the current.
+            </summary>
+            <value>The state of the current.</value>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.DeleCommand">
+            <summary>
+            This class represents the Pop3 DELE command.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.DeleCommand.#ctor(System.IO.Stream,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.DeleCommand"/> class.
+            </summary>
+            <param name="stream">The stream.</param>
+            <param name="messageId">The message id.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.DeleCommand.CreateRequestMessage">
+            <summary>
+            Creates the DELE request message.
+            </summary>
+            <returns>
+            The byte[] containing the DELE request message.
+            </returns>
+        </member>
+        <member name="T:ArachNGIN.Net.MIME.QuotedPrintableEncoding">
+            <summary>
+            This class is based on the QuotedPrintable class written by Bill Gearhart
+            found at http://www.aspemporium.com/classes.aspx?cid=6
+            </summary>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.NoopCommand">
+            <summary>
+            This class represents the Pop3 NOOP command.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.NoopCommand.#ctor(System.IO.Stream)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.NoopCommand"/> class.
+            </summary>
+            <param name="stream">The stream.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.NoopCommand.CreateRequestMessage">
+            <summary>
+            Creates the NOOP request message.
+            </summary>
+            <returns>
+            The byte[] containing the NOOP request message.
+            </returns>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.UserCommand">
+            <summary>
+            This command represents a Pop3 USER command.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.UserCommand.#ctor(System.IO.Stream,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.UserCommand"/> class.
+            </summary>
+            <param name="stream">The stream.</param>
+            <param name="username">The username.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.UserCommand.CreateRequestMessage">
+            <summary>
+            Creates the USER request message.
+            </summary>
+            <returns>
+            The byte[] containing the USER request message.
+            </returns>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.QuitCommand">
+            <summary>
+            This class represents the Pop3 QUIT command.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.QuitCommand.#ctor(System.IO.Stream)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.QuitCommand"/> class.
+            </summary>
+            <param name="stream">The stream.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.QuitCommand.CreateRequestMessage">
+            <summary>
+            Creates the Quit request message.
+            </summary>
+            <returns>
+            The byte[] containing the QUIT request message.
+            </returns>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.ConnectCommand">
+            <summary>
+            Performs the connect to a Pop3 server and returns a Pop3 
+            response indicating the attempt to connect results and the
+            network stream to use for all subsequent Pop3 Commands.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.ConnectCommand.#ctor(System.Net.Sockets.TcpClient,System.String,System.Int32,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.ConnectCommand"/> class.
+            </summary>
+            <remarks>
+            Even though a network stream is provided to the base constructor the stream
+            does not already exist so we have to send in a dummy stream until the actual
+            connect has taken place.  Then we'll reset network stream to the 
+            stream made available by the TcpClient.GetStream() to read the data returned
+            after a connect.
+            </remarks>
+            <param name="client">The client.</param>
+            <param name="hostname">The hostname.</param>
+            <param name="port">The port.</param>
+            <param name="useSsl">if set to <c>true</c> [use SSL].</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.ConnectCommand.CreateRequestMessage">
+            <summary>
+            Creates the connect request message.
+            </summary>
+            <returns>A byte[] containing connect request message.</returns>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.ConnectCommand.Execute(ArachNGIN.Net.Mail.Pop3State)">
+            <summary>
+            Executes this instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.ConnectCommand.SetClientStream">
+            <summary>
+            Sets the client stream.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.ConnectCommand.CreateResponse(System.Byte[])">
+            <summary>
+            Creates the response.
+            </summary>
+            <param name="buffer">The buffer.</param>
+            <returns>
+            The <c>Pop3Response</c> containing the results of the
+            Pop3 command execution.
+            </returns>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.RetrResponse">
+            <summary>
+            This class represents a RETR response message resulting
+            from a Pop3 RETR command execution against a Pop3 Server.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.RetrResponse.#ctor(ArachNGIN.Net.Mail.Pop3Response,System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.RetrResponse"/> class.
+            </summary>
+            <param name="response">The response.</param>
+            <param name="messageLines">The message lines.</param>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.RetrResponse.MessageLines">
+            <summary>
+            Gets the message lines.
+            </summary>
+            <value>The Pop3 message lines.</value>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.Pop3ListItem">
+            <summary>
+            This class represents an item returned from the 
+            Pop3 LIST command.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3ListItem.#ctor(System.Int32,System.Int64)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.Pop3ListItem"/> class.
+            </summary>
+            <param name="messageNumber">The message number.</param>
+            <param name="octets">The octets.</param>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.Pop3ListItem.MessageId">
+            <summary>
+            Gets or sets the message number.
+            </summary>
+            <value>The message number.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.Pop3ListItem.Octets">
+            <summary>
+            Gets or sets the octets.
+            </summary>
+            <value>The octets.</value>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.Pop3Commands">
+            <summary>
+            This class contains a string representation of Pop3 commands
+            that can be executed.
+            </summary>
+        </member>
+        <member name="F:ArachNGIN.Net.Mail.Pop3Commands.User">
+            <summary>
+            The USER command followed by a space.
+            </summary>
+        </member>
+        <member name="F:ArachNGIN.Net.Mail.Pop3Commands.Crlf">
+            <summary>
+            The CRLF escape sequence.
+            </summary>
+        </member>
+        <member name="F:ArachNGIN.Net.Mail.Pop3Commands.Quit">
+            <summary>
+            The QUIT command followed by a CRLF.
+            </summary>
+        </member>
+        <member name="F:ArachNGIN.Net.Mail.Pop3Commands.Stat">
+            <summary>
+            The STAT command followed by a CRLF.
+            </summary>
+        </member>
+        <member name="F:ArachNGIN.Net.Mail.Pop3Commands.List">
+            <summary>
+            The LIST command followed by a space.
+            </summary>
+        </member>
+        <member name="F:ArachNGIN.Net.Mail.Pop3Commands.Retr">
+            <summary>
+            The RETR command followed by a space.
+            </summary>
+        </member>
+        <member name="F:ArachNGIN.Net.Mail.Pop3Commands.Noop">
+            <summary>
+            The NOOP command followed by a CRLF.
+            </summary>
+        </member>
+        <member name="F:ArachNGIN.Net.Mail.Pop3Commands.Dele">
+            <summary>
+            The DELE command followed by a space.
+            </summary>
+        </member>
+        <member name="F:ArachNGIN.Net.Mail.Pop3Commands.Rset">
+            <summary>
+            The RSET command followed by a CRLF.
+            </summary>
+        </member>
+        <member name="F:ArachNGIN.Net.Mail.Pop3Commands.Pass">
+            <summary>
+            The PASS command followed by a space.
+            </summary>
+        </member>
+        <member name="F:ArachNGIN.Net.Mail.Pop3Commands.Top">
+            <summary>
+            The TOP command followed by a space.
+            </summary>
+        </member>
+        <member name="T:ArachNGIN.Net.MIME.MimeEntity">
+            <summary>
+            This class represents a Mime entity.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeEntity.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.MIME.MimeEntity"/> class.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeEntity.#ctor(ArachNGIN.Net.MIME.MimeEntity)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.MIME.MimeEntity"/> class.
+            </summary>
+            <param name="parent">The parent.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeEntity.SetContentType(System.Net.Mime.ContentType)">
+            <summary>
+            Sets the type of the content.
+            </summary>
+            <param name="contentType">Type of the content.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeEntity.ToMailMessageEx">
+            <summary>
+            Toes the mail message ex.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeEntity.ToMailMessageEx(ArachNGIN.Net.MIME.MimeEntity)">
+            <summary>
+            Toes the mail message ex.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeEntity.BuildSinglePartMessage(ArachNGIN.Net.MIME.MimeEntity,ArachNGIN.Net.Mail.MailMessageEx)">
+            <summary>
+            Builds the single part message.
+            </summary>
+            <param name="entity">The entity.</param>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeEntity.GetEncoding">
+            <summary>
+            Gets the body encoding.
+            </summary>
+            <param name="contentType">Type of the content.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeEntity.BuildMultiPartMessage(ArachNGIN.Net.MIME.MimeEntity,ArachNGIN.Net.Mail.MailMessageEx)">
+            <summary>
+            Builds the multi part message.
+            </summary>
+            <param name="entity">The entity.</param>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeEntity.SetMessageBody(ArachNGIN.Net.Mail.MailMessageEx,ArachNGIN.Net.MIME.MimeEntity)">
+            <summary>
+            Sets the message body.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="child">The child.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeEntity.DecodeBytes(System.Byte[],System.Text.Encoding)">
+            <summary>
+            Decodes the bytes.
+            </summary>
+            <param name="buffer">The buffer.</param>
+            <param name="encoding">The encoding.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeEntity.CreateAlternateView(ArachNGIN.Net.MIME.MimeEntity)">
+            <summary>
+            Creates the alternate view.
+            </summary>
+            <param name="view">The view.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeEntity.TrimBrackets(System.String)">
+            <summary>
+            Trims the brackets.
+            </summary>
+            <param name="value">The value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeEntity.CreateAttachment(ArachNGIN.Net.MIME.MimeEntity)">
+            <summary>
+            Creates the attachment.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns></returns>
+        </member>
+        <member name="P:ArachNGIN.Net.MIME.MimeEntity.EncodedMessage">
+            <summary>
+            Gets the encoded message.
+            </summary>
+            <value>The encoded message.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.MIME.MimeEntity.Children">
+            <summary>
+            Gets the children.
+            </summary>
+            <value>The children.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.MIME.MimeEntity.ContentType">
+            <summary>
+            Gets the type of the content.
+            </summary>
+            <value>The type of the content.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.MIME.MimeEntity.MediaSubType">
+            <summary>
+            Gets the type of the media sub.
+            </summary>
+            <value>The type of the media sub.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.MIME.MimeEntity.MediaMainType">
+            <summary>
+            Gets the type of the media main.
+            </summary>
+            <value>The type of the media main.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.MIME.MimeEntity.Headers">
+            <summary>
+            Gets the headers.
+            </summary>
+            <value>The headers.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.MIME.MimeEntity.MimeVersion">
+            <summary>
+            Gets or sets the MIME version.
+            </summary>
+            <value>The MIME version.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.MIME.MimeEntity.ContentId">
+            <summary>
+            Gets or sets the content id.
+            </summary>
+            <value>The content id.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.MIME.MimeEntity.ContentDescription">
+            <summary>
+            Gets or sets the content description.
+            </summary>
+            <value>The content description.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.MIME.MimeEntity.ContentDisposition">
+            <summary>
+            Gets or sets the content disposition.
+            </summary>
+            <value>The content disposition.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.MIME.MimeEntity.TransferEncoding">
+            <summary>
+            Gets or sets the transfer encoding.
+            </summary>
+            <value>The transfer encoding.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.MIME.MimeEntity.ContentTransferEncoding">
+            <summary>
+            Gets or sets the content transfer encoding.
+            </summary>
+            <value>The content transfer encoding.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.MIME.MimeEntity.HasBoundary">
+            <summary>
+            Gets a value indicating whether this instance has boundary.
+            </summary>
+            <value>
+            	<c>true</c> if this instance has boundary; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:ArachNGIN.Net.MIME.MimeEntity.StartBoundary">
+            <summary>
+            Gets the start boundary.
+            </summary>
+            <value>The start boundary.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.MIME.MimeEntity.EndBoundary">
+            <summary>
+            Gets the end boundary.
+            </summary>
+            <value>The end boundary.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.MIME.MimeEntity.Parent">
+            <summary>
+            Gets or sets the parent.
+            </summary>
+            <value>The parent.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.MIME.MimeEntity.Content">
+            <summary>
+            Gets or sets the content.
+            </summary>
+            <value>The content.</value>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.MailMessageEx">
+            <summary>
+            This class adds a few internet mail headers not already exposed by the 
+            System.ArachNGIN.Net.MailMessage.  It also provides support to encapsulate the
+            nested mail attachments in the Children collection.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.MailMessageEx.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.MailMessageEx"/> class.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.MailMessageEx.GetHeader(System.String)">
+            <summary>
+            Gets the header.
+            </summary>
+            <param name="header">The header.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.MailMessageEx.CreateMailMessageFromEntity(ArachNGIN.Net.MIME.MimeEntity)">
+            <summary>
+            Creates the mail message from entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.MailMessageEx.CreateMailAddress(System.String)">
+            <summary>
+            Creates the mail address.
+            </summary>
+            <param name="address">The address.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.MailMessageEx.PopulateAddressList(System.String,System.Net.Mail.MailAddressCollection)">
+            <summary>
+            Populates the address list.
+            </summary>
+            <param name="addressList">The address list.</param>
+            <param name="recipients">The recipients.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.MailMessageEx.GetMailAddresses(System.String)">
+            <summary>
+            Gets the mail addresses.
+            </summary>
+            <param name="addressList">The address list.</param>
+            <returns></returns>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.MailMessageEx.MessageNumber">
+            <summary>
+            Gets or sets the message number of the MailMessage on the POP3 server.
+            </summary>
+            <value>The message number.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.MailMessageEx.Children">
+            <summary>
+            Gets the children MailMessage attachments.
+            </summary>
+            <value>The children MailMessage attachments.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.MailMessageEx.DeliveryDate">
+            <summary>
+            Gets the delivery date.
+            </summary>
+            <value>The delivery date.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.MailMessageEx.ReturnAddress">
+            <summary>
+            Gets the return address.
+            </summary>
+            <value>The return address.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.MailMessageEx.Routing">
+            <summary>
+            Gets the routing.
+            </summary>
+            <value>The routing.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.MailMessageEx.MessageId">
+            <summary>
+            Gets the message id.
+            </summary>
+            <value>The message id.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.MailMessageEx.MimeVersion">
+            <summary>
+            Gets the MIME version.
+            </summary>
+            <value>The MIME version.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.MailMessageEx.ContentId">
+            <summary>
+            Gets the content id.
+            </summary>
+            <value>The content id.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.MailMessageEx.ContentDescription">
+            <summary>
+            Gets the content description.
+            </summary>
+            <value>The content description.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.MailMessageEx.ContentDisposition">
+            <summary>
+            Gets the content disposition.
+            </summary>
+            <value>The content disposition.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.MailMessageEx.ContentType">
+            <summary>
+            Gets the type of the content.
+            </summary>
+            <value>The type of the content.</value>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.RsetCommand">
+            <summary>
+            This command represents the Pop3 RSET command.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.RsetCommand.#ctor(System.IO.Stream)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.RsetCommand"/> class.
+            </summary>
+            <param name="stream">The stream.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.RsetCommand.CreateRequestMessage">
+            <summary>
+            Creates the RSET request message.
+            </summary>
+            <returns>
+            The byte[] containing the RSET request message.
+            </returns>
+        </member>
+        <member name="T:ArachNGIN.Net.MIME.MimeReader">
+            <summary>
+            This class is responsible for parsing a string array of lines
+            containing a MIME message.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeReader.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.MIME.MimeReader"/> class.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeReader.#ctor(ArachNGIN.Net.MIME.MimeEntity,System.Collections.Generic.Queue{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.MIME.MimeReader"/> class.
+            </summary>
+            <param name="entity">The entity.</param>
+            <param name="lines">The lines.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeReader.#ctor(System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.MIME.MimeReader"/> class.
+            </summary>
+            <param name="lines">The lines.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeReader.ParseHeaders">
+            <summary>
+            Parse headers into _entity.Headers NameValueCollection.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeReader.ProcessHeaders">
+            <summary>
+            Processes mime specific headers.
+            </summary>
+            <returns>A mime entity with mime specific headers parsed.</returns>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeReader.CreateMimeEntity">
+            <summary>
+            Creates the MIME entity.
+            </summary>
+            <returns>A mime entity containing 0 or more children representing the mime message.</returns>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeReader.SetDecodedContentStream">
+            <summary>
+            Sets the decoded content stream by decoding the EncodedMessage 
+            and writing it to the entity content stream.
+            </summary>
+            <param name="entity">The entity containing the encoded message.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeReader.GetBytes(System.String)">
+            <summary>
+            Gets a byte[] of content for the provided string.
+            </summary>
+            <param name="decodedContent">Content.</param>
+            <returns>A byte[] containing content.</returns>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeReader.ParseBody">
+            <summary>
+            Parses the body.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeReader.AddChildEntity(ArachNGIN.Net.MIME.MimeEntity,System.Collections.Generic.Queue{System.String})">
+            <summary>
+            Adds the child entity.
+            </summary>
+            <param name="entity">The entity.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeReader.GetContentType(System.String)">
+            <summary>
+            Gets the type of the content.
+            </summary>
+            <param name="contentType">Type of the content.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeReader.GetMediaType(System.String)">
+            <summary>
+            Gets the type of the media.
+            </summary>
+            <param name="mediaType">Type of the media.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeReader.GetMediaMainType(System.String)">
+            <summary>
+            Gets the type of the media main.
+            </summary>
+            <param name="mediaType">Type of the media.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeReader.GetMediaSubType(System.String)">
+            <summary>
+            Gets the type of the media sub.
+            </summary>
+            <param name="mediaType">Type of the media.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ArachNGIN.Net.MIME.MimeReader.GetTransferEncoding(System.String)">
+            <summary>
+            Gets the transfer encoding.
+            </summary>
+            <param name="transferEncoding">The transfer encoding.</param>
+            <returns></returns>
+            <remarks>
+            The transfer encoding determination follows the same rules as 
+            Peter Huber's article w/ the exception of not throwing exceptions 
+            when binary is provided as a transferEncoding.  Instead it is left
+            to the calling code to check for binary.
+            </remarks>
+        </member>
+        <member name="P:ArachNGIN.Net.MIME.MimeReader.Lines">
+            <summary>
+            Gets the lines.
+            </summary>
+            <value>The lines.</value>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.Stat">
+            <summary>
+            This class represents the results from the execution 
+            of a pop3 STAT command.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Stat.#ctor(System.Int32,System.Int64)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.Stat"/> class.
+            </summary>
+            <param name="messageCount">The message count.</param>
+            <param name="octets">The octets.</param>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.Stat.MessageCount">
+            <summary>
+            Gets or sets the message count.
+            </summary>
+            <value>The message count.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.Stat.Octets">
+            <summary>
+            Gets or sets the octets.
+            </summary>
+            <value>The octets.</value>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.RetrCommand">
+            <summary>
+            This class represents the Pop3 RETR command.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.RetrCommand.#ctor(System.IO.Stream,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.RetrCommand"/> class.
+            </summary>
+            <param name="stream">The stream.</param>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.RetrCommand.CreateRequestMessage">
+            <summary>
+            Creates the RETR request message.
+            </summary>
+            <returns>
+            The byte[] containing the RETR request message.
+            </returns>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.RetrCommand.CreateResponse(System.Byte[])">
+            <summary>
+            Creates the response.
+            </summary>
+            <param name="buffer">The buffer.</param>
+            <returns>
+            The <c>Pop3Response</c> containing the results of the
+            Pop3 command execution.
+            </returns>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.PassCommand">
+            <summary>
+            This class represents the Pop3 PASS command.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.PassCommand.#ctor(System.IO.Stream,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.PassCommand"/> class.
+            </summary>
+            <param name="stream">The stream.</param>
+            <param name="password">The password.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.PassCommand.CreateRequestMessage">
+            <summary>
+            Creates the PASS request message.
+            </summary>
+            <returns>
+            The byte[] containing the PASS request message.
+            </returns>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.TopCommand.#ctor(System.IO.Stream,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.TopCommand"/> class.
+            </summary>
+            <param name="stream">The stream.</param>
+            <param name="messageNumber">The message number.</param>
+            <param name="lineCount">The line count.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.TopCommand.CreateRequestMessage">
+            <summary>
+            Abstract method intended for inheritors to
+            build out the byte[] request message for
+            the specific command.
+            </summary>
+            <returns>
+            The byte[] containing the request message.
+            </returns>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.TopCommand.CreateResponse(System.Byte[])">
+            <summary>
+            Creates the response.
+            </summary>
+            <param name="buffer">The buffer.</param>
+            <returns>
+            The <c>Pop3Response</c> containing the results of the
+            Pop3 command execution.
+            </returns>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.StatCommand">
+            <summary>
+            This class represents the Pop3 STAT command.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.StatCommand.#ctor(System.IO.Stream)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.StatCommand"/> class.
+            </summary>
+            <param name="stream">The stream.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.StatCommand.CreateRequestMessage">
+            <summary>
+            Creates the STAT request message.
+            </summary>
+            <returns>
+            The byte[] containing the STAT request message.
+            </returns>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.StatCommand.CreateResponse(System.Byte[])">
+            <summary>
+            Creates the response.
+            </summary>
+            <param name="buffer">The buffer.</param>
+            <returns>
+            The <c>Pop3Response</c> containing the results of the
+            Pop3 command execution.
+            </returns>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.StatResponse">
+            <summary>
+            This class represents the resulting Pop3 response from a STAT command
+            executed against a Pop3 server.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.StatResponse.#ctor(ArachNGIN.Net.Mail.Pop3Response,System.Int32,System.Int64)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.StatResponse"/> class.
+            </summary>
+            <param name="response">The response.</param>
+            <param name="messageCount">The message count.</param>
+            <param name="octets">The octets.</param>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.StatResponse.MessageCount">
+            <summary>
+            Gets the message count.
+            </summary>
+            <value>The message count.</value>
+        </member>
+        <member name="P:ArachNGIN.Net.Mail.StatResponse.Octets">
+            <summary>
+            Gets the octets.
+            </summary>
+            <value>The octets.</value>
+        </member>
+        <member name="T:ArachNGIN.Net.Mail.Pop3Exception">
+            <summary>
+            This class represents a Pop3 Exception.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Exception.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.Pop3Exception"/> class.
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Exception.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.Pop3Exception"/> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Exception.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.Pop3Exception"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="inner">The inner.</param>
+        </member>
+        <member name="M:ArachNGIN.Net.Mail.Pop3Exception.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ArachNGIN.Net.Mail.Pop3Exception"/> class.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"></see> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"></see> that contains contextual information about the source or destination.</param>
+            <exception cref="T:System.Runtime.Serialization.SerializationException">The class name is null or <see cref="P:System.Exception.HResult"></see> is zero (0). </exception>
+            <exception cref="T:System.ArgumentNullException">The info parameter is null. </exception>
+        </member>
+    </members>
+</doc>

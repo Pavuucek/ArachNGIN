@@ -1,0 +1,13 @@
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Components\obj\Debug\ResolveAssemblyReference.cache
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Components\obj\Debug\ArachNGIN.Components.ColorComboBox.resources
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Components\obj\Debug\ArachNGIN.Components.FormHeader.FormHeader.resources
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Components\obj\Debug\ArachNGIN.Components.ProgressTaskList.resources
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Components\obj\Debug\ArachNGIN.Components.SplashForm.resources
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Components\bin\Debug\ArachNGIN.Components.dll
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Components\bin\Debug\ArachNGIN.Components.pdb
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Components\bin\Debug\ArachNGIN.Files.dll
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Components\bin\Debug\ArachNGIN.Files.pdb
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Components\obj\Debug\ArachNGIN.Components.dll
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Components\obj\Debug\ArachNGIN.Components.pdb
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Components\obj\Debug\ResGen.read.1.tlog
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Components\obj\Debug\ResGen.write.1.tlog

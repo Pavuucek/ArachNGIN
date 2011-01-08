@@ -1,0 +1,5 @@
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Net\obj\Debug\ResolveAssemblyReference.cache
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Net\bin\Debug\ArachNGIN.Net.dll
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Net\bin\Debug\ArachNGIN.Net.pdb
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Net\obj\Debug\ArachNGIN.Net.dll
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Net\obj\Debug\ArachNGIN.Net.pdb
