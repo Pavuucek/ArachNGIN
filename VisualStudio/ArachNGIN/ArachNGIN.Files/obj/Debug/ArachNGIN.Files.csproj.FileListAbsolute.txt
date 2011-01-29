@@ -3,3 +3,4 @@ C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Files\bin\Debug\ArachNGIN.Files.dll
 C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Files\bin\Debug\ArachNGIN.Files.pdb
 C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Files\obj\Debug\ArachNGIN.Files.dll
 C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Files\obj\Debug\ArachNGIN.Files.pdb
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Files\bin\Debug\ArachNGIN.Files.XML

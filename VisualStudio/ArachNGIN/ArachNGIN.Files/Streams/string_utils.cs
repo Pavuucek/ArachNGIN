@@ -58,5 +58,23 @@ namespace ArachNGIN.Files.Strings
             if (s[s.Length - 1] != (char)0x5C) return s + (char)0x5C;
             else return s;
         }
-	}
+
+        public static byte[] UInt32ToBigEndianBytes(UInt32 x)
+        {
+            return new byte[]
+            {
+                (byte)((x >> 24) & 0xff),
+                (byte)((x >> 16) & 0xff),
+                (byte)((x >> 8) & 0xff),
+                (byte)(x & 0xff)
+            };
+        }
+        public static string UInt32ToByteString(UInt32 x)
+        {
+            byte[] tmp = UInt32ToBigEndianBytes(x);
+            string s = string.Empty;
+            foreach (byte b in tmp) s += b.ToString("x2");
+            return s;
+        }
+    }
 }
