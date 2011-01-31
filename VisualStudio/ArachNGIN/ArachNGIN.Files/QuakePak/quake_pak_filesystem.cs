@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using ArachNGIN.Files.Strings;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 
 namespace ArachNGIN.Files
@@ -15,10 +16,12 @@ namespace ArachNGIN.Files
 		/// </summary>
 		private QuakePAK q_onepak;
         private string[] l_pakfiles;
-        private StringCollection[] a_fat;
+        private StringCollection[] PakFat;
+        private StringCollection[] IndexFat;
         private string[] a_pathfiles;
         private Int64 i_pakcount = 0;
         private const string PakExtension = "pak"; // bez tecky
+        private const string PakIndexFileName = "(pak-index)";
         private string s_dir;
         private string s_temp;
 		
@@ -47,11 +50,26 @@ namespace ArachNGIN.Files
         private void ReadPAKFiles()
         {
             if (i_pakcount == 0) return;
-            a_fat = new StringCollection[i_pakcount];
+            PakFat = new StringCollection[i_pakcount];
+            IndexFat = new StringCollection[i_pakcount];
             for (int i = 0; i < i_pakcount; i++)
             {
                 QuakePAK q = new QuakePAK(s_dir + l_pakfiles[i]);
-                a_fat[i] = q.PakFileList;
+                PakFat[i] = q.PakFileList;
+                IndexFat[i] = new StringCollection();
+                if (q.PakFileExists(PakIndexFileName))
+                {
+                    Stream st = new MemoryStream();
+                    q.ExtractStream(PakIndexFileName, st);
+                    st.Position = 0;
+                    StreamReader tr = new StreamReader(st);
+                    string line = string.Empty;
+                    while((line = tr.ReadLine()) !=null)
+                    {
+                        IndexFat[i].Add(line);
+                    }
+                    st.Close();
+                }
             }
         }
 
@@ -75,24 +93,28 @@ namespace ArachNGIN.Files
                 return r;
             }
             // soubor musime najit v paku
-            for (int i = 0; i < a_fat.LongLength; i++)
+            if ((PakFat != null) && (IndexFat != null))
             {
-                if (a_fat[i].Contains(s_file))
+                for (int i = 0; i < PakFat.LongLength; i++)
                 {
-                    string s_fullpath = s_temp + s_file;
-                    Directory.CreateDirectory(Path.GetDirectoryName(s_fullpath));
-                    QuakePAK q = new QuakePAK(s_dir + l_pakfiles[i]);
-                    q.ExtractFile(s_file, s_fullpath);
-                    if (File.Exists(s_fullpath))
+                    // nejdriv se podivame do indexu
+
+                    if (PakFat[i].Contains(s_file))
                     {
-                        r = true;
-                        return r;
+                        string s_fullpath = s_temp + s_file;
+                        Directory.CreateDirectory(Path.GetDirectoryName(s_fullpath));
+                        QuakePAK q = new QuakePAK(s_dir + l_pakfiles[i]);
+                        q.ExtractFile(s_file, s_fullpath);
+                        if (File.Exists(s_fullpath))
+                        {
+                            r = true;
+                            return r;
+                        }
                     }
                 }
             }
             return r;
         }
-
-
 	}
+
 }

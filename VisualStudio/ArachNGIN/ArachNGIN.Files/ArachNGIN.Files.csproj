@@ -73,12 +73,6 @@
     <Compile Include="TempDir\temp_manager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="QuakePak\vssver.scc" />
-    <None Include="Settings\vssver.scc" />
-    <None Include="Streams\vssver.scc" />
-    <None Include="TempDir\vssver.scc" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
