@@ -161,6 +161,28 @@ namespace ArachNGIN.Files
 			ExtractStream(strFileInPak,f_output);
 			f_output.Close();
 		}
+
+        public static bool CreateNewPak(string strFileName)
+        {
+            bool result = false;
+            FileStream FS = new FileStream(strFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+            FS.Position = 0;
+            BinaryWriter BW = new BinaryWriter(FS, System.Text.Encoding.GetEncoding("Windows-1250"));
+            char[] hdr = { 'P', 'A', 'C', 'K' };
+            BW.Write(hdr);
+            Int32 p_fatstart = sizeof(char);
+            p_fatstart += sizeof(char);
+            p_fatstart += sizeof(char);
+            p_fatstart += sizeof(char);
+            p_fatstart += sizeof(Int32);
+            p_fatstart += sizeof(Int32);
+            Int32 p_filecount=0;
+            BW.Write(p_fatstart);
+            BW.Write(p_filecount);
+            BW.Close();
+            FS.Close();
+            return result;
+        }
 	}
 }
  
