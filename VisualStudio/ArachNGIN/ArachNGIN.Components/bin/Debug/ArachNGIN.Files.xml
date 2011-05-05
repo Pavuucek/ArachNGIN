@@ -1,0 +1,565 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ArachNGIN.Files</name>
+    </assembly>
+    <members>
+        <member name="T:ArachNGIN.Files.QuakePAKFilesystem">
+            <summary>
+            Summary description for quake_pak_filesystem.
+            </summary>
+        </member>
+        <member name="F:ArachNGIN.Files.QuakePAKFilesystem.q_onepak">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ArachNGIN.Files.Streams.StreamHandling">
+            <summary>
+            Třída pro práci s proudy plná statických procedur
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Files.Streams.StreamHandling.#ctor">
+            <summary>
+            Konstruktor třídy. Nic nedělá
+            </summary>
+            <returns>nic</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Streams.StreamHandling.StreamCopy(System.IO.Stream,System.IO.Stream,System.Int64)">
+            <summary>
+            Zkopíruje jeden proud do druhého
+            </summary>
+            <remarks>
+            (Aneb Pavůčci rádi Delphi a to co jim z nich chybí si prostě přeložej ;-)
+            </remarks>
+            <param name="s_source">zdrojový proud</param>
+            <param name="s_dest">cílový proud</param>
+            <param name="i_count">počet bajtů ke zkopírování. když je 0 tak se zkopíruje celý proud</param>
+            <returns>počet zkopírovaných bajtů</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Streams.StreamHandling.PCharToString(System.Char[])">
+            <summary>
+            Funkce pro převod pole znaků na string
+            </summary>
+            <param name="c_input">vsupní pole znaků</param>
+            <returns>výsledný řetězec</returns>
+        </member>
+        <member name="T:ArachNGIN.Files.Settings.INIFile">
+            <summary>
+            třída pro přístup k ini souborům
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.GetStringFromColor(System.Drawing.Color)">
+            <summary>
+            konvertne barvu na řetězec
+            </summary>
+            <param name="color">barva</param>
+            <returns>výsledný řetězec</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.GetColorFromString(System.String)">
+            <summary>
+            konvertne řetězec na barvu
+            </summary>
+            <param name="strColorName">řetězec</param>
+            <returns>výsledná barva</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.#ctor(System.String)">
+            <summary>
+            konstruktor třídy
+            </summary>
+            <param name="iniFileName">název ini souboru</param>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.ReadString(System.String,System.String)">
+            <summary>
+            načte řetězec z ini souboru
+            </summary>
+            <param name="section">název sekce</param>
+            <param name="key">název klíče</param>
+            <returns>hodnota</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.ReadString(System.String,System.String,System.String)">
+            <summary>
+            načte řetězec z ini souboru
+            </summary>
+            <param name="section">sekce</param>
+            <param name="key">klíč</param>
+            <param name="defaultValue">defaultní hodnota</param>
+            <returns>hodnota</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.ReadString(System.String,System.String,System.String,System.String)">
+            <summary>
+            načte řetězec z ini souboru poskytnutého jako parametr
+            </summary>
+            <param name="section">sekce</param>
+            <param name="key">klíč</param>
+            <param name="defaultValue">defaultní hodnota</param>
+            <param name="iniFileName">ini soubor</param>
+            <returns>hodnota</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.ReadBool(System.String,System.String)">
+            <summary>
+            načte boolean (true nebo false) hodnotu z ini souboru
+            </summary>
+            <param name="section">sekce</param>
+            <param name="key">klíč</param>
+            <returns>hodnota</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.ReadInteger(System.String,System.String)">
+            <summary>
+            načte číslo z ini souboru
+            </summary>
+            <param name="section">sekce</param>
+            <param name="key">klíč</param>
+            <returns>hodnota</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.ReadBool(System.String,System.String,System.Boolean)">
+            <summary>
+            načte boolean (true nebo false) hodnotu z ini souboru
+            </summary>
+            <param name="section">sekce</param>
+            <param name="key">klíč</param>
+            <param name="defaultValue">defaultní hodnota</param>
+            <returns>hodnota</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.ReadInteger(System.String,System.String,System.Int32)">
+            <summary>
+            načte číslo z ini souboru
+            </summary>
+            <param name="section">sekce</param>
+            <param name="key">klíč</param>
+            <param name="defaultValue">defaultní hodnota</param>
+            <returns>hodnota</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.ReadInteger(System.String,System.String,System.Int32,System.String)">
+            <summary>
+            načte číslo z ini souboru poskytnutého jako parametr
+            </summary>
+            <param name="section">sekce</param>
+            <param name="key">klíč</param>
+            <param name="defaultValue">defaultní hodnota</param>
+            <param name="iniFileName">ini soubor</param>
+            <returns>hodnota</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.ReadBool(System.String,System.String,System.Boolean,System.String)">
+            <summary>
+            načte boolean (true nebo false) hodnotu z ini souboru
+            </summary>
+            <param name="section">sekce</param>
+            <param name="key">klíč</param>
+            <param name="defaultValue">defaultní hodnota</param>
+            <param name="iniFileName">ini soubor</param>
+            <returns>hodnota</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.ReadColor(System.String,System.String,System.Drawing.Color)">
+            <summary>
+            načte barvu z ini souboru
+            </summary>
+            <param name="section">sekce</param>
+            <param name="key">klíč</param>
+            <param name="defaultValue">defaultní hodnota</param>
+            <returns>barva</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.ReadColor(System.String,System.String)">
+            <summary>
+            načte barvu z ini souboru
+            </summary>
+            <param name="section">sekce</param>
+            <param name="key">klíč</param>
+            <returns>barva</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.ReadColor(System.String,System.String,System.Drawing.Color,System.String)">
+            <summary>
+            načte barvu z ini souboru
+            </summary>
+            <param name="section">sekce</param>
+            <param name="key">klíč</param>
+            <param name="defaultValue">standartní hodnota</param>
+            <param name="iniFileName">jméno ini souboru</param>
+            <returns>barva</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.SectionNames">
+            <summary>
+            získá z ini souboru jména sekcí
+            </summary>
+            <returns>pole s názvy sekcí</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.WriteString(System.String,System.String,System.String)">
+            <summary>
+            zapíše do ini souboru řetězec
+            </summary>
+            <param name="section">sekce</param>
+            <param name="key">klíč</param>
+            <param name="value">hodnota</param>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.WriteString(System.String,System.String,System.String,System.String)">
+            <summary>
+            zapíše řetězec do ini souboru poskytnutého jako parametr
+            </summary>
+            <param name="section">sekce</param>
+            <param name="key">klíč</param>
+            <param name="value">hodnota</param>
+            <param name="iniFileName">ini soubor</param>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.WriteInteger(System.String,System.String,System.Int32)">
+            <summary>
+            zapíše do ini souboru číslo
+            </summary>
+            <param name="section">sekce</param>
+            <param name="key">klíč</param>
+            <param name="value">hodnota</param>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.WriteBool(System.String,System.String,System.Boolean)">
+            <summary>
+            zapíše bool hodnotu do ini souboru
+            </summary>
+            <param name="section">sekce</param>
+            <param name="key">klíč</param>
+            <param name="value">hodnota</param>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.WriteInteger(System.String,System.String,System.Int32,System.String)">
+            <summary>
+            zapíše do ini souboru číslo. název ini souboru poskytnut jako parametr
+            </summary>
+            <param name="section">sekce</param>
+            <param name="key">klíč</param>
+            <param name="value">hodnota</param>
+            <param name="iniFileName">ini soubor</param>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.WriteBool(System.String,System.String,System.Boolean,System.String)">
+            <summary>
+            zapíše bool hodnotu do ini souboru, název souboru jako parametr
+            </summary>
+            <param name="section">sekce</param>
+            <param name="key">klíč</param>
+            <param name="value">hodnota</param>
+            <param name="iniFileName">ini soubor</param>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.WriteColor(System.String,System.String,System.Drawing.Color,System.String)">
+            <summary>
+            zapíše barvu do ini souboru, název jako parametr
+            </summary>
+            <param name="section">sekce</param>
+            <param name="key">klíč</param>
+            <param name="value">hodnota</param>
+            <param name="iniFileName">ini soubor</param>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.ReadSectionToArray(System.String)">
+            <summary>
+            Načte celou sekci do pole řetězců
+            v případě, že se v sekci vyskytují standartní ini záznamy
+            (key=value) se načtou pouze názvy klíčů, nikoliv jejich hodnoty
+            </summary>
+            <param name="section">název sekce</param>
+            <returns>názvy klíčů sekce</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.ReadSection(System.String)">
+            <summary>
+            to samé jako ReadSectionToArray
+            </summary>
+            <param name="section">název sekce</param>
+            <returns>názvy klíčů sekce jako jeden řetězec</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.WriteColor(System.String,System.String,System.Drawing.Color)">
+            <summary>
+            zapíše barvu do teď otevřeného ini souboru
+            </summary>
+            <param name="section">sekce</param>
+            <param name="key">klíč</param>
+            <param name="value">hodnota</param>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.DeleteSection(System.String)">
+            <summary>
+            smaže z ini souboru jednu sekci
+            </summary>
+            <param name="section">název sekce</param>
+        </member>
+        <member name="M:ArachNGIN.Files.Settings.INIFile.DeleteSection(System.String,System.String)">
+            <summary>
+            smaže z ini souboru jednu sekci
+            </summary>
+            <param name="section">sekce</param>
+            <param name="iniFileName">ini soubor</param>
+        </member>
+        <member name="P:ArachNGIN.Files.Settings.INIFile.FileName">
+            <summary>
+            název ini souboru
+            </summary>
+        </member>
+        <member name="P:ArachNGIN.Files.Settings.INIFile.DataSet">
+            <summary>
+            dataset do kterého se budou ukládat načtené hodnoty
+            </summary>
+        </member>
+        <member name="T:ArachNGIN.Files.QuakePAK">
+            <summary>
+            Třída na čtení z PAK souborů Quaka
+            </summary>
+        </member>
+        <member name="F:ArachNGIN.Files.QuakePAK.PakFileList">
+            <summary>
+            Seznam souborů v PAKu
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Files.QuakePAK.#ctor(System.String)">
+            <summary>
+            Konstruktor - otevře pak soubor a načte z něj hlavičku.
+            </summary>
+            <param name="strFileName">jméno pak souboru</param>
+        </member>
+        <member name="M:ArachNGIN.Files.QuakePAK.Close">
+            <summary>
+            Neoficiální destruktor
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Files.QuakePAK.Finalize">
+            <summary>
+            Oficiální Destruktor
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Files.QuakePAK.PakFileExists(System.String)">
+            <summary>
+            Zkontroluje, jestli je soubor zadaného jména v pak souboru
+            </summary>
+            <param name="strFileInPak">jméno hledaného souboru</param>
+            <returns>je/není</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.QuakePAK.ExtractStream(System.String,System.IO.Stream)">
+            <summary>
+            Rozbalí soubor z paku do proudu
+            </summary>
+            <param name="strFileInPak">jméno souboru v paku</param>
+            <param name="s_Output">výstupní proud</param>
+        </member>
+        <member name="M:ArachNGIN.Files.QuakePAK.ExtractFile(System.String,System.String)">
+            <summary>
+            Rozbalí soubor z paku na disk
+            </summary>
+            <param name="strFileInPak">jméno souboru v paku</param>
+            <param name="strOutputFile">cesta k výstupnímu souboru</param>
+        </member>
+        <member name="T:ArachNGIN.Files.TempManager">
+            <summary>
+            Třída pro obstarávání temp adresáře a podobné věci
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Files.TempManager.#ctor">
+            <summary>
+            Konstruktor třídy
+            vytvoří adresář v tempu
+            </summary>
+            <returns>instance třídy</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.TempManager.Close">
+            <summary>
+            Smaže adresář v tempu
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Files.TempManager.Finalize">
+            <summary>
+            Destruktor třídy vyvolá fci Close(); a potlačuje výjimky
+            </summary>
+        </member>
+        <member name="P:ArachNGIN.Files.TempManager.AppDir">
+            <summary>
+            property vracející adresář aplikace
+            </summary>
+        </member>
+        <member name="P:ArachNGIN.Files.TempManager.AppTempDir">
+            <summary>
+            property vracející adresář aplikace v tempu
+            (např. c:\windows\temp\aplikace_035521152515)
+            poslední část je guid (aby se 2 instance aplikace/této třídy
+            nehádaly o 1 adresář)
+            </summary>
+        </member>
+        <member name="P:ArachNGIN.Files.TempManager.TempDir">
+            <summary>
+            property vracející tempový adresář
+            (např. c:\windows\temp)
+            </summary>
+        </member>
+        <member name="T:ArachNGIN.Files.Strings.StringUtils">
+            <summary>
+            Třída plná statických funkcí pro práci s řetězci
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Files.Strings.StringUtils.#ctor">
+            <summary>
+            Konstruktor třídy. Nic nedělá.
+            </summary>
+            <returns>nic</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Strings.StringUtils.StringSplit(System.String,System.String)">
+            <summary>
+            Funkce pro rozdělení řetězce na jednotlivá slova
+            </summary>
+            <param name="WholeString">celý řetězec</param>
+            <param name="Delimiter">oddělovač (nejspíš mezera)</param>
+            <returns></returns>
+        </member>
+        <member name="T:ArachNGIN.Files.Strings.StringCollections">
+            <summary>
+            Třída pro práci se StringCollection (aka TStrings)
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Files.Strings.StringCollections.#ctor">
+            <summary>
+            Třídy se samejma statickejma fcema konstruktory nepotřebujou :-)
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Files.Strings.StringCollections.StringCollectionToString(System.Collections.Specialized.StringCollection)">
+            <summary>
+            Převede StringCollection na jeden string
+            </summary>
+            <param name="stringCollection">Vstupní StringCollection</param>
+            <returns>Výstupní string</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.Strings.StringCollections.SaveToFile(System.String,System.Collections.Specialized.StringCollection)">
+            <summary>
+            Uloží obsah StringCollection do souboru
+            </summary>
+            <param name="s_file">název souboru</param>
+            <param name="s_collection">StringCollection</param>
+        </member>
+        <member name="M:ArachNGIN.Files.Strings.StringCollections.LoadFromFile(System.String,System.Collections.Specialized.StringCollection,System.Boolean)">
+            <summary>
+            Načte soubor (textový) do StringCollection
+            </summary>
+            <param name="s_file">název souboru</param>
+            <param name="s_collection">StringCollection do které se bude načítat</param>
+            <param name="b_append">připojit k existujícím prvkům v kolekci</param>
+        </member>
+        <member name="M:ArachNGIN.Files.Strings.StringCollections.LoadFromFile(System.String,System.Collections.Specialized.StringCollection)">
+            <summary>
+            Načte soubor (textový) do StringCollection
+            </summary>
+            <param name="s_file">název souboru</param>
+            <param name="s_collection">StringCollection do které se bude načítat</param>
+        </member>
+        <member name="T:ArachNGIN.Files.XmlSettings">
+            <summary>
+            Třída pro ukládání nastavení do xml souboru
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Files.XmlSettings.GetAppPath">
+            <summary>
+            fce na zjištění cesty k aplikaci
+            </summary>
+            <returns>cesta k aplikaci</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.XmlSettings.strAddSlash(System.String)">
+            <summary>
+            Zjistí jestli cesta končí lomítkem, když ne, tak ho přidá
+            </summary>
+            <param name="strString">cesta</param>
+            <returns>cesta s lomítkem</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.XmlSettings.#ctor">
+            <summary>
+            Konstruktor - bez jména souboru
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Files.XmlSettings.#ctor(System.String)">
+            <summary>
+            Konstruktor, se specifikováním jména souboru
+            </summary>
+            <param name="strFileName">jméno souboru</param>
+        </member>
+        <member name="M:ArachNGIN.Files.XmlSettings.LoadFromFile">
+            <summary>
+            Načtě xml nastavení ze souboru
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Files.XmlSettings.SaveToFile">
+            <summary>
+            Uloží xml nastavení do souboru
+            </summary>
+        </member>
+        <member name="M:ArachNGIN.Files.XmlSettings.GetSetting(System.String,System.String)">
+            <summary>
+            Načte nastavení zadaného jména
+            </summary>
+            <param name="m_name">jméno nastavení</param>
+            <param name="strDefault">defaultní hodnota</param>
+            <returns>hodnota nastavení, nebo defaultní hodnota</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.XmlSettings.GetSetting(System.String)">
+            <summary>
+            Načte nastavení zadaného jména
+            </summary>
+            <param name="m_name">jméno nastavení</param>
+            <returns>hodnota nastavení, nebo prázdný řetězec když není nalezeno</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.XmlSettings.SetSetting(System.String,System.String)">
+            <summary>
+            Uloží nastavení zadaného jména a hodnoty
+            </summary>
+            <param name="m_name">jméno nastavení</param>
+            <param name="m_value">hodnota nastavení</param>
+        </member>
+        <member name="M:ArachNGIN.Files.XmlSettings.SetString(System.String,System.String)">
+            <summary>
+            Uloží řetězec zadaného jména a hodnoty
+            </summary>
+            <param name="m_name">jméno nastavení</param>
+            <param name="m_value">hodnota nastavení</param>
+        </member>
+        <member name="M:ArachNGIN.Files.XmlSettings.SetInt(System.String,System.Int32)">
+            <summary>
+            Uloží číslo zadaného jména a hodnoty
+            </summary>
+            <param name="m_name">jméno nastavení</param>
+            <param name="m_value">hodnota nastavení</param>
+        </member>
+        <member name="M:ArachNGIN.Files.XmlSettings.SetBool(System.String,System.Boolean)">
+            <summary>
+            Uloží hodnotu ano/ne zadaného jména a hodnoty
+            </summary>
+            <param name="m_name">jméno nastavení</param>
+            <param name="m_value">hodnota nastavení</param>
+        </member>
+        <member name="M:ArachNGIN.Files.XmlSettings.GetString(System.String,System.String)">
+            <summary>
+            Načte řetězec z nastavení
+            </summary>
+            <param name="m_name">jméno nastavení</param>
+            <param name="strDefault">defaultní hodnota</param>
+            <returns>hodnota nebo defaultní hodnota</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.XmlSettings.GetInt(System.String,System.Int32)">
+            <summary>
+            Načte číslo z nastavení
+            </summary>
+            <param name="m_name">jméno nastavení</param>
+            <param name="intDefault">defaultní hodnota</param>
+            <returns>hodnota nebo defaultní hodnota</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.XmlSettings.GetInt(System.String)">
+            <summary>
+            Načte číslo z nastavení
+            </summary>
+            <param name="m_name">jméno nastavení</param>
+            <returns>hodnota</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.XmlSettings.GetBool(System.String,System.Boolean)">
+            <summary>
+            Načte hodnotu ano/ne z nastavení
+            </summary>
+            <param name="m_name">jméno nastavení</param>
+            <param name="boolDefault">defaultní hodnota</param>
+            <returns>hodnota nebo defaultní hodnota</returns>
+        </member>
+        <member name="M:ArachNGIN.Files.XmlSettings.GetBool(System.String)">
+            <summary>
+            Načte hodnotu ano/ne z nastavení
+            </summary>
+            <param name="m_name">jméno nastavení</param>
+            <returns>hodnota</returns>
+        </member>
+        <member name="P:ArachNGIN.Files.XmlSettings.FileName">
+            <summary>
+            Vlastnost udávající jméno souboru
+            </summary>
+        </member>
+    </members>
+</doc>

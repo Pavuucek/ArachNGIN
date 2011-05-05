@@ -66,6 +66,7 @@
     <Compile Include="QuakePak\quake_pak.cs" />
     <Compile Include="QuakePak\quake_pak_filesystem.cs" />
     <Compile Include="Settings\INIFile.cs" />
+    <Compile Include="Streams\multimask_searcher.cs" />
     <Compile Include="Streams\stream_handling.cs" />
     <Compile Include="Streams\string_collections.cs" />
     <Compile Include="Streams\string_utils.cs" />

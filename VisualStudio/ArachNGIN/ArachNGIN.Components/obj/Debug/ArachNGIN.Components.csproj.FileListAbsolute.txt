@@ -11,3 +11,4 @@ C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Components\obj\Debug\ArachNGIN.Component
 C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Components\obj\Debug\ArachNGIN.Components.pdb
 C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Components\obj\Debug\ResGen.read.1.tlog
 C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Components\obj\Debug\ResGen.write.1.tlog
+C:\Dev\VisualStudio\ArachNGIN\ArachNGIN.Components\bin\Debug\ArachNGIN.Files.xml
