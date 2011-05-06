@@ -511,6 +511,11 @@ namespace ArachNGIN.KumoScript
             }
         }
 
+        private void ExecuteBreak(Statement statement)
+        {
+            m_bInterrupted = true;
+        }
+
         private void ExecuteNextStatement()
         {
             // reset interrupt
@@ -566,6 +571,10 @@ namespace ArachNGIN.KumoScript
                 // custom command
                 case TokenType.Identifier:
                     ExecuteCustom(statement);
+                    break;
+                // added by pvk
+                case TokenType.BREAK:
+                    ExecuteBreak(statement);
                     break;
             }
 

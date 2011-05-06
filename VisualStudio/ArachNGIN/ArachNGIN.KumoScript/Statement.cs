@@ -92,6 +92,8 @@ namespace ArachNGIN.KumoScript
             s_dictTokenTypes["BLOCK"] = TokenType.BLOCK;
             s_dictTokenTypes["ENDBLOCK"] = TokenType.ENDBLOCK;
             s_dictTokenTypes["YIELD"] = TokenType.YIELD;
+            // added by pvk
+            s_dictTokenTypes["BREAK"] = TokenType.BREAK;
         }
 
         private List<Token> GetTokens(String strStatement)
@@ -575,6 +577,9 @@ namespace ArachNGIN.KumoScript
                     break;
                 case TokenType.YIELD:
                     ParseStatementYield(listTokens);
+                    break;
+                // added by pvk
+                case TokenType.BREAK:
                     break;
             }
         }

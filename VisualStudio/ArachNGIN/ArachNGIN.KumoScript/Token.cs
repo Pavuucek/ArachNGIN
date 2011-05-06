@@ -36,7 +36,9 @@ namespace ArachNGIN.KumoScript
         CALL,
         BLOCK,
         ENDBLOCK,
-        YIELD
+        YIELD,
+        // added by pvk
+        BREAK
     }
 
     #endregion
