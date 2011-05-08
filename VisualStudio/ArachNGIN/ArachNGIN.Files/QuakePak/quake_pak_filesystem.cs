@@ -54,7 +54,7 @@ namespace ArachNGIN.Files
             IndexFat = new StringCollection[i_pakcount];
             for (int i = 0; i < i_pakcount; i++)
             {
-                QuakePAK q = new QuakePAK(s_dir + l_pakfiles[i]);
+                QuakePAK q = new QuakePAK(s_dir + l_pakfiles[i], false);
                 PakFat[i] = q.PakFileList;
                 IndexFat[i] = new StringCollection();
                 if (q.PakFileExists(PakIndexFileName))
@@ -103,7 +103,7 @@ namespace ArachNGIN.Files
                     {
                         string s_fullpath = s_temp + s_file;
                         Directory.CreateDirectory(Path.GetDirectoryName(s_fullpath));
-                        QuakePAK q = new QuakePAK(s_dir + l_pakfiles[i]);
+                        QuakePAK q = new QuakePAK(s_dir + l_pakfiles[i], false);
                         q.ExtractFile(s_file, s_fullpath);
                         if (File.Exists(s_fullpath))
                         {

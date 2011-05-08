@@ -64,6 +64,44 @@ namespace ArachNGIN.Files.Streams
 			}
 			return result;
 		}
+        public static long StreamCopy(Stream s_source, Stream s_dest, long i_count,long i_startposition)
+        {
+            long result = 0;
+            int MaxBufSize = 0xF000;
+            int BufSize;
+            byte[] Buffer;
+            int N;
+            BinaryReader r_input = new BinaryReader(s_source);
+            BinaryWriter w_output = new BinaryWriter(s_dest);
+
+            if (i_count == 0)
+            {
+                s_source.Position = 0;
+                i_count = s_source.Length;
+            }
+            result = i_count;
+            if (i_count > MaxBufSize) BufSize = MaxBufSize;
+            else BufSize = (int)i_count;
+
+            try
+            {
+                // naseekujeme zapisovaci pozici
+                w_output.Seek((int)i_startposition, SeekOrigin.Begin);
+                while (i_count != 0)
+                {
+                    if (i_count > BufSize) N = BufSize;
+                    else N = (int)i_count;
+                    Buffer = r_input.ReadBytes(N);
+                    w_output.Write(Buffer);
+                    i_count = i_count - N;
+                }
+            }
+            finally
+            {
+                // nic
+            }
+            return result;
+        }
 		
 		/// <summary>
 		/// Funkce pro pøevod pole znakù na string

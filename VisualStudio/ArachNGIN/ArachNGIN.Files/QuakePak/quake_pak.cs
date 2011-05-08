@@ -12,7 +12,7 @@ namespace ArachNGIN.Files
 	{
 		private struct T_PakFAT
 		{
-			public string FileName;
+            public string FileName;
 			public int FileStart;
 			public int FileLength;
 		}
@@ -20,6 +20,9 @@ namespace ArachNGIN.Files
 		private T_PakFAT[] PakFAT;
 		private FileStream PakStream;
 		private BinaryReader PakReader;
+        private int p_filecount = 0;
+        private int p_fatstart = 0;
+        private static char[] PakID = new char[4] { 'P', 'A', 'C', 'K' };
 		
 		/// <summary>
 		/// Seznam souborù v PAKu
@@ -30,7 +33,7 @@ namespace ArachNGIN.Files
 		/// Konstruktor - otevøe pak soubor a naète z nìj hlavièku.
 		/// </summary>
 		/// <param name="strFileName">jméno pak souboru</param>
-		public QuakePAK(string strFileName)
+		public QuakePAK(string strFileName, bool bAllowWrite)
 		{
 			FileInfo info = new FileInfo(strFileName);
 			if (info.Exists == false)
@@ -38,7 +41,14 @@ namespace ArachNGIN.Files
 				throw new FileNotFoundException("Can''t open "+strFileName);
 			}
 			// soubor existuje
-			PakStream = new FileStream(strFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+            if (bAllowWrite)
+            {
+                PakStream = new FileStream(strFileName, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
+            }
+            else
+            {
+                PakStream = new FileStream(strFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+            }
 			PakReader = new BinaryReader(PakStream,System.Text.Encoding.GetEncoding("Windows-1250"));
 			//
 			if (!ReadHeader())
@@ -77,13 +87,13 @@ namespace ArachNGIN.Files
 		{
 			string p_header;
 			PakStream.Position = 0;
-			p_header = StreamHandling.PCharToString(PakReader.ReadChars(4));
-			if ((string)p_header == "PACK")
+            p_header = StreamHandling.PCharToString(PakReader.ReadChars(PakID.Length));
+			if (p_header == StreamHandling.PCharToString(PakID))
 			{
 				// hned za hlavickou je pozice zacatku fatky
-				int p_fatstart = PakReader.ReadInt32();
+				p_fatstart = PakReader.ReadInt32();
 				// a pak je pocet souboru * 64
-				int p_filecount = PakReader.ReadInt32() / 64;
+				p_filecount = PakReader.ReadInt32() / 64;
 				//
 				// presuneme se na pozici fatky a nacteme ji
 				PakStream.Position = p_fatstart;
@@ -168,20 +178,77 @@ namespace ArachNGIN.Files
             FileStream FS = new FileStream(strFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
             FS.Position = 0;
             BinaryWriter BW = new BinaryWriter(FS, System.Text.Encoding.GetEncoding("Windows-1250"));
-            char[] hdr = { 'P', 'A', 'C', 'K' };
-            BW.Write(hdr);
-            Int32 p_fatstart = sizeof(char);
-            p_fatstart += sizeof(char);
-            p_fatstart += sizeof(char);
-            p_fatstart += sizeof(char);
-            p_fatstart += sizeof(Int32);
-            p_fatstart += sizeof(Int32);
+            BW.Write(PakID);
+            Int32 p_fatstart = PakID.Length;
+            p_fatstart += sizeof(Int32); // offset
+            p_fatstart += sizeof(Int32); // length
             Int32 p_filecount=0;
             BW.Write(p_fatstart);
             BW.Write(p_filecount);
             BW.Close();
             FS.Close();
             return result;
+        }
+
+        private char[] PrepFileNameWrite(string filename)
+        {
+            char[] result = new char[56];
+            // prepsat lomitka
+            filename = filename.Replace("\\", "/");
+            // kdyz to nekdo prepisk s nazvem souboru tak ho seriznout :-)
+            if (filename.Length > 56)
+            {
+                filename.CopyTo(0, result, 0, 55);
+            }
+            else
+            {
+                filename.CopyTo(0, result, 0, filename.Length);
+            }
+            return result;
+        }
+
+        private void WriteFAT()
+        {
+            // naseekovat startovní pozici fatky
+            PakStream.Seek(p_fatstart, SeekOrigin.Begin);
+            BinaryWriter bw = new BinaryWriter(PakStream, System.Text.Encoding.GetEncoding("Windows-1250"));
+            foreach (T_PakFAT item in PakFAT)
+            {
+                // nazev souboru
+                bw.Write(PrepFileNameWrite(item.FileName));
+                bw.Write((int)item.FileStart);
+                bw.Write((int)item.FileLength);
+            }
+            // naseekovat na pocet souboru a zapsat
+            PakStream.Seek(PakID.Length + sizeof(Int32), SeekOrigin.Begin);
+            bw.Write(p_filecount * 64); // krat 64. z neznamych duvodu
+           // bw.Close();
+        }
+
+        public bool AddStream(Stream stream, string fileName)
+        {
+            // novy soubor zapisujeme na pozici fatky
+            PakStream.Seek(p_fatstart, SeekOrigin.Begin);
+            // vytvorit novou fatku a zapsat do ni novy soubor
+            T_PakFAT[] OldPakFAT = PakFAT;
+            p_filecount = OldPakFAT.Length + 1;
+            PakFAT = new T_PakFAT[p_filecount];
+            OldPakFAT.CopyTo(PakFAT, 0);
+            PakFAT[p_filecount - 1].FileName = fileName;
+            PakFAT[p_filecount - 1].FileLength = (int)stream.Length;
+            PakFAT[p_filecount - 1].FileStart = p_fatstart;
+            // zapsat soubor
+            StreamHandling.StreamCopy(stream, PakStream, stream.Length, PakStream.Position);
+            // po dokonceni zapisovani zjistit pozici streamu
+            p_fatstart = (int)PakStream.Position;
+            PakStream.Seek(PakID.Length, SeekOrigin.Begin);
+            BinaryWriter bw = new BinaryWriter(PakStream);
+            // zapsat startovni pozici fatky
+            bw.Write(p_fatstart);
+            //bw.Close();
+            // zapsat fatku
+            WriteFAT();
+            return true;
         }
 	}
 }
