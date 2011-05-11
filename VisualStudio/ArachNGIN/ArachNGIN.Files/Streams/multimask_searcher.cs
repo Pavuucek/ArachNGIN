@@ -40,7 +40,8 @@ namespace ArachNGIN.Files.Streams
             ArrayList subFiles = new ArrayList();
             foreach (FileInfo file in root.GetFiles())
             {
-                if (_extensions.Contains(file.Extension))
+                // kdyz chceme vsechno (*.*) tak pridavame vsechno :-)
+                if ((_extensions.Contains(file.Extension)) || (_extensions.Contains("*.*")))
                 {
                     subFiles.Add(file);
                 }

@@ -76,5 +76,15 @@ namespace ArachNGIN.Files.Strings
             foreach (byte b in tmp) s += b.ToString("x2");
             return s;
         }
+
+        public static string PadNumToLength(int number, int length)
+        {
+            string result = number.ToString();
+            while (result.Length < length)
+            {
+                result = "0" + result;
+            }
+            return result;
+        }
     }
 }

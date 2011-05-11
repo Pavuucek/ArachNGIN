@@ -60,7 +60,8 @@ namespace ArachNGIN.Files.Streams
 			}
 			finally
 			{
-				// nic
+                // si po sobe hezky splachneme :-)
+                w_output.Flush();
 			}
 			return result;
 		}
@@ -98,7 +99,8 @@ namespace ArachNGIN.Files.Streams
             }
             finally
             {
-                // nic
+                // si po sobe hezky splachneme :-)
+                w_output.Flush();
             }
             return result;
         }

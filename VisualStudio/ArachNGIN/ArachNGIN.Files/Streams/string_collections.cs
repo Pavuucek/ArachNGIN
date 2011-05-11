@@ -57,6 +57,24 @@ namespace ArachNGIN.Files.Strings
 			writer.Close();
 		}
 
+        /// <summary>
+        /// Uloží obsah StringCollection do proudu
+        /// </summary>
+        /// <param name="s_output">proud</param>
+        /// <param name="s_collection">obsah</param>
+        public static void SaveToStream(Stream s_output, StringCollection s_collection)
+        {
+            StreamWriter writer = new StreamWriter(s_output);
+            writer.AutoFlush = true;
+            StringEnumerator enu = s_collection.GetEnumerator();
+            while (enu.MoveNext())
+            {
+                writer.WriteLine(enu.Current);
+            }
+            writer.Flush();
+            //writer.Close(); // nezavirat!
+        }
+
         public static void SaveToFile(string s_file, ListView.ListViewItemCollection s_collection)
         {
             FileInfo fi = new FileInfo(s_file);
@@ -102,7 +120,35 @@ namespace ArachNGIN.Files.Strings
 			// naèteno	
 			reader.Close();
 		}
-		
+
+        /// <summary>
+        /// Naète proud do StringCollection
+        /// </summary>
+        /// <param name="s_input">proud</param>
+        /// <param name="s_collection">výstup</param>
+        /// <param name="b_append">pøipojit k existujícím prvkùm v kolekci</param>
+        public static void LoadFromStream(Stream s_input, StringCollection s_collection, bool b_append)
+        {
+            StreamReader reader = new StreamReader(s_input);
+            string s = "0";
+            if (!b_append) s_collection.Clear();
+            while ((s = reader.ReadLine()) != null)
+            {
+                s_collection.Add(s);
+            }
+            // reader.Close(); // nezavirat!
+        }
+
+        /// <summary>
+        /// Naète proud do StringCollection
+        /// </summary>
+        /// <param name="s_input">proud</param>
+        /// <param name="s_collection">výstup</param>
+        public static void LoadFromStream(Stream s_input, StringCollection s_collection)
+        {
+            LoadFromStream(s_input, s_collection, false);
+        }
+
 		/// <summary>
 		/// Naète soubor (textový) do StringCollection
 		/// </summary>

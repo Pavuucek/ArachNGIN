@@ -157,7 +157,7 @@ namespace ArachNGIN.Files
 			if (f_index == -1) return; // soubor v paku neni, tudiz konec.
 			s_Output.SetLength(0);
 			PakStream.Seek((long)PakFAT[f_index].FileStart, SeekOrigin.Begin);
-			Streams.StreamHandling.StreamCopy(PakStream,s_Output,(long)PakFAT[f_index].FileLength);
+            Streams.StreamHandling.StreamCopy(PakStream, s_Output, (long)PakFAT[f_index].FileLength);
 		}
 
 		/// <summary>
@@ -225,8 +225,16 @@ namespace ArachNGIN.Files
            // bw.Close();
         }
 
-        public bool AddStream(Stream stream, string fileName)
+        /// <summary>
+        /// Pøidá proud do PAKu
+        /// </summary>
+        /// <param name="stream">proud</param>
+        /// <param name="pakFileName">jméno souboru v PAKu</param>
+        /// <returns>podle úspìšnosti buï true nebo false</returns>
+        public bool AddStream(Stream stream, string pakFileName)
         {
+            // soubor uz existuje --> dal se nebavime!
+            if (PakFileExists(pakFileName)) return false;
             // novy soubor zapisujeme na pozici fatky
             PakStream.Seek(p_fatstart, SeekOrigin.Begin);
             // vytvorit novou fatku a zapsat do ni novy soubor
@@ -234,11 +242,11 @@ namespace ArachNGIN.Files
             p_filecount = OldPakFAT.Length + 1;
             PakFAT = new T_PakFAT[p_filecount];
             OldPakFAT.CopyTo(PakFAT, 0);
-            PakFAT[p_filecount - 1].FileName = fileName;
+            PakFAT[p_filecount - 1].FileName = pakFileName;
             PakFAT[p_filecount - 1].FileLength = (int)stream.Length;
             PakFAT[p_filecount - 1].FileStart = p_fatstart;
             // zapsat soubor
-            StreamHandling.StreamCopy(stream, PakStream, stream.Length, PakStream.Position);
+            StreamHandling.StreamCopy(stream, PakStream, 0, PakStream.Position);
             // po dokonceni zapisovani zjistit pozici streamu
             p_fatstart = (int)PakStream.Position;
             PakStream.Seek(PakID.Length, SeekOrigin.Begin);
@@ -249,6 +257,21 @@ namespace ArachNGIN.Files
             // zapsat fatku
             WriteFAT();
             return true;
+        }
+
+        /// <summary>
+        /// Pøidá soubor do paku
+        /// </summary>
+        /// <param name="FileName">název souboru (napø. c:\windows\win.ini)</param>
+        /// <param name="pakFileName">název souboru v paku (napø ini/win.ini)</param>
+        /// <returns>podle úspìšnosti buï true nebo false</returns>
+        public bool AddFile(string FileName, string pakFileName)
+        {
+            if (!File.Exists(FileName)) return false;
+            Stream fstream = new FileStream(FileName, FileMode.Open, FileAccess.Read);
+            bool result = AddStream(fstream, pakFileName);
+            fstream.Close();
+            return result;
         }
 	}
 }
