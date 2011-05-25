@@ -47,7 +47,7 @@ namespace ArachNGIN.Files
             }
             else
             {
-                PakStream = new FileStream(strFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+                PakStream = new FileStream(strFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             }
 			PakReader = new BinaryReader(PakStream,System.Text.Encoding.GetEncoding("Windows-1250"));
 			//
@@ -175,7 +175,7 @@ namespace ArachNGIN.Files
         public static bool CreateNewPak(string strFileName)
         {
             bool result = false;
-            FileStream FS = new FileStream(strFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+            FileStream FS = new FileStream(strFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
             FS.Position = 0;
             BinaryWriter BW = new BinaryWriter(FS, System.Text.Encoding.GetEncoding("Windows-1250"));
             BW.Write(PakID);
