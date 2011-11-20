@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ArachNGIN.Files</RootNamespace>
     <AssemblyName>ArachNGIN.Files</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -56,6 +56,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -66,6 +68,8 @@
     <Compile Include="QuakePak\quake_pak.cs" />
     <Compile Include="QuakePak\quake_pak_filesystem.cs" />
     <Compile Include="Settings\INIFile.cs" />
+    <Compile Include="Settings\JSONSettings1.cs" />
+    <Compile Include="Settings\JSONSettings2.cs" />
     <Compile Include="Streams\multimask_searcher.cs" />
     <Compile Include="Streams\stream_handling.cs" />
     <Compile Include="Streams\string_collections.cs" />
