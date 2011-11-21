@@ -14,6 +14,7 @@ namespace ArachNGIN.Files.Torrents
         {
             public long Length;
             public string Name;
+            public string Path;
             public long PieceLength;
             public byte[] Pieces;
             public string md5sum;
@@ -52,6 +53,7 @@ namespace ArachNGIN.Files.Torrents
             {
                 if (torrentFile.ReadChar().ToString() == "d")
                 {
+                    processDictionary(torrentFile, false, false);
                 }
                 else
                 {
@@ -128,6 +130,212 @@ namespace ArachNGIN.Files.Torrents
             }
         }
 
+        private string getHashInfo(BinaryReader torrentFile, int infoStart, int infoLength)
+        {
+            SHA1Managed sha1 = new SHA1Managed();
+            byte[] infoValueBytes;
+            torrentFile.BaseStream.Position = infoStart;
+            infoValueBytes = torrentFile.ReadBytes(infoLength);
+            return BitConverter.ToString(sha1.ComputeHash(infoValueBytes)).Replace("-", "").ToLower();
+        }
+
+        private void processDictionary(BinaryReader torrentFile, bool isInfo, bool isFiles)
+        {
+            int stringLength;
+            string itemName;
+            string itemValueString;
+            long itemValueInteger;
+            byte[] itemValueByte;
+
+            while (Convert.ToChar(torrentFile.PeekChar()).ToString() != "e")
+            {
+                if (char.IsDigit(Convert.ToChar(torrentFile.PeekChar())))
+                {
+                    stringLength = getStringLength(torrentFile);
+                    itemName = getItemName(torrentFile, stringLength);
+                    if (itemName == "info")
+                    {
+                        int infoPositionStart = (int)torrentFile.BaseStream.Position;
+                        if (torrentFile.ReadChar().ToString() == "d")
+                        {
+                            processDictionary(torrentFile, true, false);
+                        }
+                        else
+                        {
+                            throw new Exception("character invalid. expected 'd'");
+                        }
+                        int infoPositionEnd = (int)torrentFile.BaseStream.Position;
+                        p_InfoHash = getHashInfo(torrentFile, infoPositionStart, infoPositionEnd - infoPositionStart - 1);
+                        if (p_IsSingleFile)
+                        {
+                            InsertNewFile();
+                        }
+                    }
+                    else
+                    {
+                        if (Convert.ToChar(torrentFile.PeekChar()).ToString() == "i")
+                        {
+                            itemValueInteger = getIntegerNumber(torrentFile);
+                        }
+                        else if (Convert.ToChar(torrentFile.PeekChar()).ToString() == "l")
+                        {
+                            ProcessList(torrentFile, itemName, itemName == "path");
+                            torrentFile.ReadChar();
+                        }
+                        else if (Convert.ToChar(torrentFile.PeekChar()).ToString() == "d")
+                        {
+                            processDictionary(torrentFile, false, false);
+                            torrentFile.ReadChar();
+                        }
+                        else
+                        {
+                            stringLength = getStringLength(torrentFile);
+                            if ((itemName == "pieces") | (itemName == "ed2k") | (itemName == "ed2k"))
+                            {
+                                itemValueByte = getItemValueByte(torrentFile, stringLength);
+                            }
+                            else
+                            {
+                                itemValueString = getItemValue(torrentFile, stringLength);
+                            }
+                        }
+
+                        if (isInfo || isFiles)
+                        {
+                            if (itemName == "length")
+                            {
+                                infoFile.Length = itemValueInteger;
+                            }
+                            else if (itemName == "name")
+                            {
+                                infoFile.Name = itemValueString;
+                            }
+                            else if (itemName == "piece length")
+                            {
+                                infoFile.PieceLength = itemValueInteger;
+                            }
+                            else if (itemName == "pieces")
+                            {
+                                infoFile.PieceLength = itemValueInteger;
+                            }
+                            else if (itemName == "md5sum")
+                            {
+                                infoFile.md5sum = itemValueString;
+                            }
+                            else if (itemName == "ed2k")
+                            {
+                                infoFile.ed2k = itemValueByte;
+                            }
+                            else if (itemName == "sha1")
+                            {
+                                infoFile.sha1 = itemValueByte;
+                            }
+                            else
+                            {
+
+                            }
+
+                        }
+                        else
+                        {
+                            if (itemName == "announce")
+                            {
+                                p_Anounce = itemValueString;
+                            }
+                            else if (itemName == "comment")
+                            {
+                                p_Comment = itemValueString;
+                            }
+                            else if (itemName == "creation date")
+                            {
+                                p_CreationDate = new DateTime(1970, 1, 1).AddSeconds(itemValueInteger);
+                            }
+                            else if (itemName == "encoding")
+                            {
+                                p_Encoding = itemValueString;
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                    }
+                }
+                else if(Convert.ToChar(torrentFile.PeekChar()).ToString()=="d")
+                {
+                    torrentFile.ReadChar();
+                    processDictionary(torrentFile, isInfo, isFiles);
+                }
+                else if (Convert.ToChar(torrentFile.PeekChar()).ToString() == "e")
+                {
+                    break;
+                }
+                else
+                {
+                    throw new Exception("expected number, 'd' or 'l'");
+                }
+            }
+        }
+
+        private void InsertNewFile()
+        {
+
+        }
+
+        private void ProcessList(BinaryReader torrentFile, string itemName, bool IsPath)
+        {
+            bool IsFiles = false;
+            if (itemName == "files")
+            {
+                IsFiles = true;
+                p_IsSingleFile = false;
+            }
+            bool IsFirstTime = true;
+            while (Convert.ToChar(torrentFile.PeekChar()).ToString() != "e")
+            {
+                if (IsFirstTime && (Convert.ToChar(torrentFile.PeekChar()).ToString() == "l"))
+                {
+                    torrentFile.ReadChar();
+                }
+                if (IsPath)
+                {
+                    while (Convert.ToChar(torrentFile.PeekChar()).ToString() != "e")
+                    {
+                        int stringLength = getStringLength(torrentFile);
+                        string itemValue = getItemName(torrentFile, stringLength);
+                        infoFile.Path += "\\" + itemValue;
+                    }
+                    InsertNewFile();
+                    break;
+                }
+                else if (Convert.ToChar(torrentFile.PeekChar()).ToString() == "d")
+                {
+                    torrentFile.ReadChar();
+                    processDictionary(torrentFile, true, true);
+                    torrentFile.ReadChar();
+                }
+                else if (Convert.ToChar(torrentFile.PeekChar()).ToString() == "l")
+                {
+                    ProcessList(torrentFile, itemName, IsPath);
+                }
+                else
+                {
+                    int stringLength;
+                    string itemValue;
+                    while(if (Convert.ToChar(torrentFile.PeekChar()).ToString() != "e"))
+                    {
+                        stringLength=getStringLength(torrentFile);
+                        itemValue=getItemValue(torrentFile,stringLength);
+                    }
+                    if(itemName=="announce-list")
+                    {
+                        InsertNewAnnounce(itemValue);
+                    }
+                    break;
+                }
+                IsFirstTime=false;
+            }
+        }
 
     }
 }
