@@ -141,11 +141,11 @@ namespace ArachNGIN.Files.Torrents
 
         private void processDictionary(BinaryReader torrentFile, bool isInfo, bool isFiles)
         {
-            int stringLength;
-            string itemName;
-            string itemValueString;
-            long itemValueInteger;
-            byte[] itemValueByte;
+            int stringLength = 0;
+            string itemName = "";
+            string itemValueString = "";
+            long itemValueInteger = 0;
+            byte[] itemValueByte=new byte[0];
 
             while (Convert.ToChar(torrentFile.PeekChar()).ToString() != "e")
             {
@@ -279,7 +279,23 @@ namespace ArachNGIN.Files.Torrents
 
         private void InsertNewFile()
         {
-
+            if (p_Files == null)
+            {
+                p_Files = new stFile[0];
+            }
+            else
+            {
+                stFile[] oldArray = new stFile[p_Files.Length - 1];
+                p_Files.CopyTo(oldArray, 0);
+                p_Files = new stFile[p_Files.Length];
+                oldArray.CopyTo(p_Files, 0);
+            }
+            if (!p_IsSingleFile)
+            {
+                infoFile.Path = infoFile.Path.Substring(1);
+            }
+            p_Files[p_Files.Length - 1] = infoFile;
+            //infoFile = null;
         }
 
         private void ProcessList(BinaryReader torrentFile, string itemName, bool IsPath)
@@ -321,8 +337,8 @@ namespace ArachNGIN.Files.Torrents
                 else
                 {
                     int stringLength;
-                    string itemValue;
-                    while(if (Convert.ToChar(torrentFile.PeekChar()).ToString() != "e"))
+                    string itemValue="";
+                    while((Convert.ToChar(torrentFile.PeekChar()).ToString() != "e"))
                     {
                         stringLength=getStringLength(torrentFile);
                         itemValue=getItemValue(torrentFile,stringLength);
@@ -337,5 +353,20 @@ namespace ArachNGIN.Files.Torrents
             }
         }
 
+        private void InsertNewAnnounce(string newAnnounce)
+        {
+            if (p_AnnounceList == null)
+            {
+                p_AnnounceList = new string[0];
+            }
+            else
+            {
+                string[] oldArray = new string[p_AnnounceList.Length-1];
+                p_AnnounceList.CopyTo(oldArray, 0);
+                p_AnnounceList = new string[p_AnnounceList.Length];
+                oldArray.CopyTo(p_AnnounceList, 0);
+            }
+            p_AnnounceList[p_AnnounceList.Length - 1] = newAnnounce;
+        }
     }
 }
