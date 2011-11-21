@@ -76,6 +76,7 @@
     <Compile Include="Streams\string_utils.cs" />
     <Compile Include="Streams\xml_settings.cs" />
     <Compile Include="TempDir\temp_manager.cs" />
+    <Compile Include="Torrents\TorrentParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
