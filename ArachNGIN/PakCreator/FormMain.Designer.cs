@@ -31,14 +31,15 @@
             this.lblDir = new System.Windows.Forms.Label();
             this.lblPak = new System.Windows.Forms.Label();
             this.listOutput = new System.Windows.Forms.ListBox();
-            this.txtDir = new System.Windows.Forms.TextBox();
-            this.txtPak = new System.Windows.Forms.TextBox();
             this.btnOpenDir = new System.Windows.Forms.Button();
             this.btnSavePak = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
             this.lblOutput = new System.Windows.Forms.Label();
             this.browseDir = new System.Windows.Forms.FolderBrowserDialog();
             this.savePak = new System.Windows.Forms.SaveFileDialog();
+            this.txtDir = new System.Windows.Forms.ComboBox();
+            this.txtPak = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblDir
@@ -66,20 +67,6 @@
             this.listOutput.Name = "listOutput";
             this.listOutput.Size = new System.Drawing.Size(356, 121);
             this.listOutput.TabIndex = 5;
-            // 
-            // txtDir
-            // 
-            this.txtDir.Location = new System.Drawing.Point(12, 25);
-            this.txtDir.Name = "txtDir";
-            this.txtDir.Size = new System.Drawing.Size(319, 20);
-            this.txtDir.TabIndex = 0;
-            // 
-            // txtPak
-            // 
-            this.txtPak.Location = new System.Drawing.Point(12, 74);
-            this.txtPak.Name = "txtPak";
-            this.txtPak.Size = new System.Drawing.Size(319, 20);
-            this.txtPak.TabIndex = 2;
             // 
             // btnOpenDir
             // 
@@ -129,17 +116,48 @@
             this.savePak.DefaultExt = "pak";
             this.savePak.Filter = "Standardní PAK (*.pak)|*.pak|Všechny soubory (*.*)|*.*";
             // 
+            // txtDir
+            // 
+            this.txtDir.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::PakCreator.Properties.Settings.Default, "mruDirLast", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtDir.FormattingEnabled = true;
+            this.txtDir.Location = new System.Drawing.Point(12, 25);
+            this.txtDir.Name = "txtDir";
+            this.txtDir.Size = new System.Drawing.Size(318, 21);
+            this.txtDir.TabIndex = 8;
+            this.txtDir.Text = global::PakCreator.Properties.Settings.Default.mruDirLast;
+            // 
+            // txtPak
+            // 
+            this.txtPak.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::PakCreator.Properties.Settings.Default, "mruPakLast", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtPak.FormattingEnabled = true;
+            this.txtPak.Location = new System.Drawing.Point(12, 74);
+            this.txtPak.Name = "txtPak";
+            this.txtPak.Size = new System.Drawing.Size(318, 21);
+            this.txtPak.TabIndex = 7;
+            this.txtPak.Text = global::PakCreator.Properties.Settings.Default.mruPakLast;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(249, 250);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(380, 285);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.txtDir);
+            this.Controls.Add(this.txtPak);
             this.Controls.Add(this.lblOutput);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.btnSavePak);
             this.Controls.Add(this.btnOpenDir);
-            this.Controls.Add(this.txtPak);
-            this.Controls.Add(this.txtDir);
             this.Controls.Add(this.listOutput);
             this.Controls.Add(this.lblPak);
             this.Controls.Add(this.lblDir);
@@ -148,6 +166,7 @@
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ArachNGIN PakCreator";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -158,14 +177,15 @@
         private System.Windows.Forms.Label lblDir;
         private System.Windows.Forms.Label lblPak;
         private System.Windows.Forms.ListBox listOutput;
-        private System.Windows.Forms.TextBox txtDir;
-        private System.Windows.Forms.TextBox txtPak;
         private System.Windows.Forms.Button btnOpenDir;
         private System.Windows.Forms.Button btnSavePak;
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Label lblOutput;
         private System.Windows.Forms.FolderBrowserDialog browseDir;
         private System.Windows.Forms.SaveFileDialog savePak;
+        private System.Windows.Forms.ComboBox txtPak;
+        private System.Windows.Forms.ComboBox txtDir;
+        private System.Windows.Forms.Button button1;
     }
 }
 

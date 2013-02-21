@@ -24,6 +24,7 @@ namespace PakCreator
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            DateTime starttime = DateTime.Now;
             if ((txtPak.Text == string.Empty) || (txtDir.Text == string.Empty))
             {
                 MessageBox.Show("Musíte zadat adresář pro zabalení i název výstupního souboru!");
@@ -42,6 +43,10 @@ namespace PakCreator
             txtDir.Text=StringUtils.strAddSlash(txtDir.Text);
             string startpath = txtDir.Text;
             string pak_file = txtPak.Text;
+            // mru
+            if (!txtDir.Items.Contains(startpath)) txtDir.Items.Add(startpath);
+            if (!txtPak.Items.Contains(pak_file)) txtPak.Items.Add(pak_file);
+            //
             DisableControls(this, false);
             Log("Searching " + txtDir.Text);
             MultimaskFileSearcher srch = new MultimaskFileSearcher();
@@ -71,24 +76,32 @@ namespace PakCreator
             foreach (FileInfo fi in path_files)
             {
                 filecounter++;
-                string tf = StringUtils.PadNumToLength(filecounter, 10);
+                // guidy jsou lepsi nez jen cisla.
+                //string tf = StringUtils.PadNumToLength(filecounter, 10);
+                Guid g = Guid.NewGuid();
+                string tf = g.ToString();
                 string fn = fi.FullName;
                 //
                 fn = fn.Replace(startpath, "");
                 fn = fn.Replace("\\", "/"); // prevest normalni lomitka na unixovy
                 file_index.Add(fn + "=" + Path.GetFileName(tf));
                 Log("Adding to PAK: " + Path.GetFileName(fi.FullName));
-                NewPAK.AddFile(fi.FullName, tf);
+                NewPAK.AddFile(fi.FullName, tf, false);
             }
             Log("Writing Index file");
             Stream idx = new MemoryStream();
             StringCollections.SaveToStream(idx, file_index);
-            NewPAK.AddStream(idx, "(pak-index)");
+            NewPAK.AddStream(idx, "(pak-index)",true);
             idx.Close();
             Log("Closing PAK file");
             NewPAK.Close();
-            DisableControls(this, true);
+            DateTime endtime = DateTime.Now;
+            Log("Start: "+starttime.ToString());
+            Log("End: "+endtime.ToString());
+            TimeSpan t = endtime - starttime;
+            Log("Time: " + t.ToString());
             Log("ALL DONE !!!");
+            DisableControls(this, true);
         }
 
         private void btnOpenDir_Click(object sender, EventArgs e)
@@ -127,6 +140,24 @@ namespace PakCreator
                 else c.Enabled = enabled;
                 DisableControls(c, enabled);
             }
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // na otestovani pak filesystemu
+            QuakePAKFilesystem QFS = new QuakePAKFilesystem(Program.ATemp.AppDir, Program.ATemp.AppTempDir);
+            MessageBox.Show("created");
+            MessageBox.Show(QFS.AskFile("Project v1.6/MP4Box/TODO").ToString());
+            MessageBox.Show(QFS.AskFile("delphi-webp\\.svn\\entries").ToString());
+            MessageBox.Show(QFS.AskFile("0000000083").ToString());
+            MessageBox.Show(QFS.AskFile("arachngin.files.dll").ToString());
+
         }
     }
 }

@@ -230,8 +230,9 @@ namespace ArachNGIN.Files
 		/// </summary>
 		/// <param name="stream">proud</param>
 		/// <param name="pakFileName">jméno souboru v PAKu</param>
+        ///// <param name="writeFAT">má se zapsat fatka? Pokud to není poslední pøidaný soubor, tak urèitì JO!</param>
 		/// <returns>podle úspìšnosti buï true nebo false</returns>
-		public bool AddStream(Stream stream, string pakFileName)
+		public bool AddStream(Stream stream, string pakFileName, bool writeFAT /*=true*/)
 		{
 			// soubor uz existuje --> dal se nebavime!
 			if (PakFileExists(pakFileName)) return false;
@@ -247,15 +248,19 @@ namespace ArachNGIN.Files
 			PakFAT[p_filecount - 1].FileStart = p_fatstart;
 			// zapsat soubor
 			StreamHandling.StreamCopy(stream, PakStream, 0, PakStream.Position);
+            //StreamHandling.StreamCopyAsync(stream, PakStream);
 			// po dokonceni zapisovani zjistit pozici streamu
 			p_fatstart = (int)PakStream.Position;
-			PakStream.Seek(PakID.Length, SeekOrigin.Begin);
-			BinaryWriter bw = new BinaryWriter(PakStream);
-			// zapsat startovni pozici fatky
-			bw.Write(p_fatstart);
 			//bw.Close();
 			// zapsat fatku
-			WriteFAT();
+            if (writeFAT)
+            {
+                PakStream.Seek(PakID.Length, SeekOrigin.Begin);
+                BinaryWriter bw = new BinaryWriter(PakStream);
+                // zapsat startovni pozici fatky
+                bw.Write(p_fatstart);
+                WriteFAT();
+            }
 			return true;
 		}
 
@@ -264,15 +269,34 @@ namespace ArachNGIN.Files
 		/// </summary>
 		/// <param name="FileName">název souboru (napø. c:\windows\win.ini)</param>
 		/// <param name="pakFileName">název souboru v paku (napø ini/win.ini)</param>
+        /// <param name="writeFAT">má se zapsat fatka? Pokud to není poslední pøidaný soubor, tak urèitì JO!</param>
 		/// <returns>podle úspìšnosti buï true nebo false</returns>
-		public bool AddFile(string FileName, string pakFileName)
+		public bool AddFile(string FileName, string pakFileName, bool writeFAT = true)
 		{
 			if (!File.Exists(FileName)) return false;
-			Stream fstream = new FileStream(FileName, FileMode.Open, FileAccess.Read);
-			bool result = AddStream(fstream, pakFileName);
-			fstream.Close();
+            bool result = false;
+            try
+            {
+                Stream fstream = new FileStream(FileName, FileMode.Open, FileAccess.Read);
+                result = AddStream(fstream, pakFileName, writeFAT);
+                fstream.Close();
+            }
+            catch
+            {
+                result = false;
+            }
 			return result;
 		}
+        /// <summary>
+        /// Pøidá soubor do paku
+        /// </summary>
+        /// <param name="FileName">název souboru (napø. c:\windows\win.ini)</param>
+        /// <param name="pakFileName">název souboru v paku (napø ini/win.ini)</param>
+        /// <returns>podle úspìšnosti buï true nebo false</returns>
+        public bool AddFile(string FileName, string pakFileName)
+        {
+            return AddFile(FileName, pakFileName, true);
+        }
 	}
 }
  
