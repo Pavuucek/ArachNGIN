@@ -76,6 +76,16 @@ namespace ArachNGIN.Files.Strings
             foreach (byte b in tmp) s += b.ToString("x2");
             return s;
         }
+        
+        public static string ByteArrayToString(byte[] x)
+        {
+            string s = string.Empty;
+            if ((x != null) && (x.Length > 0))
+            {
+                foreach (byte b in x) s += b.ToString("x2");
+            }
+            return s;
+        }
 
         public static string PadNumToLength(int number, int length)
         {
