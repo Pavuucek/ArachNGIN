@@ -49,7 +49,7 @@ namespace ArachNGIN.Files.Torrents
 
         private void ProcessFile(BinaryReader torrentFile)
         {
-            while (torrentFile.ReadChar().ToString()!="e")
+            do
             {
                 if (torrentFile.ReadChar().ToString() == "d")
                 {
@@ -59,7 +59,7 @@ namespace ArachNGIN.Files.Torrents
                 {
                     throw new Exception("Torrent file invalid (character 'd' expected)");
                 }
-            }
+            } while (torrentFile.ReadChar().ToString() != "e");
         }
 
         private int getStringLength(BinaryReader torrentFile)
