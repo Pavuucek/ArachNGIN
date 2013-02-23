@@ -1,4 +1,21 @@
 ﻿/*
+ * Copyright (c) 2006-2013 Michal Kuncl <michal.kuncl@gmail.com> http://www.pavucina.info
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
+ * is furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+ * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+/*
  * Created by SharpDevelop.
  * User: Takeru
  * Date: 19.3.2006
@@ -8,7 +25,9 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace ArachNGIN.Files.Strings
 {
@@ -32,25 +51,24 @@ namespace ArachNGIN.Files.Strings
 		/// <param name="WholeString">celý řetězec</param>
 		/// <param name="Delimiter">oddělovač (nejspíš mezera)</param>
 		/// <returns></returns>
-		 public static string[] StringSplit(string WholeString, string Delimiter)
-          {
-               Regex r = new Regex("(" + Delimiter + ")");
-               string[] s = r.Split(WholeString);
+		public static string[] StringSplit(string WholeString, string Delimiter)
+        {
+            Regex r = new Regex("(" + Delimiter + ")");
+            string[] s = r.Split(WholeString);
+            int iHalf = System.Convert.ToInt16((s.GetUpperBound(0) / 2) + 1);
+            string[] res = new string[iHalf];
+            int j = 0;
+            for (int i=0; i <= s.GetUpperBound(0); i++)
+            {
+                if (s[i] != Delimiter)
+                {
+                    res[j] = s[i];
+                    j++;
+                }
+            }
+            return res;
+        }
 
-               int iHalf = System.Convert.ToInt16((s.GetUpperBound(0) / 2) + 1);
-               string[] res = new string[iHalf];
-
-               int j = 0;
-               for (int i=0; i <= s.GetUpperBound(0); i++)
-               {
-                    if (s[i] != Delimiter)
-                    {
-                         res[j] = s[i];
-                         j++;
-                    }
-               }
-               return res;
-          }
         public static string strAddSlash(string strString)
         {
             // zapamatovat si: lomítko je 0x5C!
@@ -95,6 +113,28 @@ namespace ArachNGIN.Files.Strings
                 result = "0" + result;
             }
             return result;
+        }
+
+        public static void PopulateTreeView(TreeView treeView, IEnumerable<string> paths, char pathSeparator)
+        {
+            TreeNode lastNode = null;
+            string subPathAgg;
+            foreach (string path in paths)
+            {
+                subPathAgg = string.Empty;
+                foreach (string subPath in path.Split(pathSeparator))
+                {
+                    subPathAgg += subPath + pathSeparator;
+                    TreeNode[] nodes = treeView.Nodes.Find(subPathAgg, true);
+                    if (nodes.Length == 0)
+                        if (lastNode == null)
+                            lastNode = treeView.Nodes.Add(subPathAgg, subPath);
+                        else
+                            lastNode = lastNode.Nodes.Add(subPathAgg, subPath);
+                    else
+                        lastNode = nodes[0];
+                }
+            }
         }
     }
 }

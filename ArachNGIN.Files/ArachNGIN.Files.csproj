@@ -55,6 +55,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -70,6 +71,7 @@
     <Compile Include="Settings\INIFile.cs" />
     <Compile Include="Settings\JSONSettings1.cs" />
     <Compile Include="Settings\JSONSettings2.cs" />
+    <Compile Include="Settings\PortableSettingsProvider.cs" />
     <Compile Include="Streams\multimask_searcher.cs" />
     <Compile Include="Streams\stream_handling.cs" />
     <Compile Include="Streams\string_collections.cs" />
