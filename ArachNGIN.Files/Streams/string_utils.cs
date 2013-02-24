@@ -115,7 +115,7 @@ namespace ArachNGIN.Files.Strings
             return result;
         }
 
-        public static void PopulateTreeView(TreeView treeView, IEnumerable<string> paths, char pathSeparator)
+        public static void PopulateTreeViewByFiles(TreeView treeView, IEnumerable<string> paths, char pathSeparator)
         {
             TreeNode lastNode = null;
             string subPathAgg;
