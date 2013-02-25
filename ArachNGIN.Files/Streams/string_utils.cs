@@ -29,38 +29,29 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace ArachNGIN.Files.Strings
+namespace ArachNGIN.Files.Streams
 {
 	/// <summary>
 	/// Třída plná statických funkcí pro práci s řetězci
 	/// </summary>
-	public class StringUtils
+	public static class StringUtils
 	{
-		/// <summary>
-		/// Konstruktor třídy. Nic nedělá.
-		/// </summary>
-		/// <returns>nic</returns>
-		public StringUtils()
-		{
-			// nic here :-) 
-		}
-		
-		/// <summary>
+	    /// <summary>
 		/// Funkce pro rozdělení řetězce na jednotlivá slova
 		/// </summary>
-		/// <param name="WholeString">celý řetězec</param>
-		/// <param name="Delimiter">oddělovač (nejspíš mezera)</param>
+		/// <param name="wholeString">celý řetězec</param>
+		/// <param name="delimiter">oddělovač (nejspíš mezera)</param>
 		/// <returns></returns>
-		public static string[] StringSplit(string WholeString, string Delimiter)
+		public static string[] StringSplit(string wholeString, string delimiter)
         {
-            Regex r = new Regex("(" + Delimiter + ")");
-            string[] s = r.Split(WholeString);
+            var r = new Regex("(" + delimiter + ")");
+            string[] s = r.Split(wholeString);
             int iHalf = System.Convert.ToInt16((s.GetUpperBound(0) / 2) + 1);
-            string[] res = new string[iHalf];
+            var res = new string[iHalf];
             int j = 0;
             for (int i=0; i <= s.GetUpperBound(0); i++)
             {
-                if (s[i] != Delimiter)
+                if (s[i] != delimiter)
                 {
                     res[j] = s[i];
                     j++;
@@ -69,7 +60,12 @@ namespace ArachNGIN.Files.Strings
             return res;
         }
 
-        public static string strAddSlash(string strString)
+        /// <summary>
+        /// Přidá na konec stringu lomítko, když už tam není
+        /// </summary>
+        /// <param name="strString">nejlépe cesta např. c:\\abcd</param>
+        /// <returns>cesta s lomítkem na konci např. c:\\abcd\\</returns>
+        public static string StrAddSlash(string strString)
         {
             // zapamatovat si: lomítko je 0x5C!
             string s = strString;
@@ -77,6 +73,12 @@ namespace ArachNGIN.Files.Strings
             else return s;
         }
 
+
+        /// <summary>
+        /// Převede číslo na pole bytů
+        /// </summary>
+        /// <param name="x">číslo.</param>
+        /// <returns>pole bytů</returns>
         public static byte[] UInt32ToBigEndianBytes(UInt32 x)
         {
             return new byte[]
@@ -87,6 +89,12 @@ namespace ArachNGIN.Files.Strings
                 (byte)(x & 0xff)
             };
         }
+
+        /// <summary>
+        /// Převede číslo na řetězec v hex formátu
+        /// </summary>
+        /// <param name="x">číslo</param>
+        /// <returns>řetězec v hex formátu</returns>
         public static string UInt32ToByteString(UInt32 x)
         {
             byte[] tmp = UInt32ToBigEndianBytes(x);
@@ -94,7 +102,13 @@ namespace ArachNGIN.Files.Strings
             foreach (byte b in tmp) s += b.ToString("x2");
             return s;
         }
-        
+
+
+        /// <summary>
+        /// Převede pole bytů na řetězec v hex formátu
+        /// </summary>
+        /// <param name="x">číslo</param>
+        /// <returns>řetězec v hex formátu</returns>
         public static string ByteArrayToString(byte[] x)
         {
             string s = string.Empty;
@@ -105,9 +119,16 @@ namespace ArachNGIN.Files.Strings
             return s;
         }
 
+        /// <summary>
+        /// Převede číslo na řetězec s příslušnou délkou,
+        /// případně doplní na začátek nuly.
+        /// </summary>
+        /// <param name="number">číslo</param>
+        /// <param name="length">délka požadovaného řetězce</param>
+        /// <returns>řetězec, např. 000000123</returns>
         public static string PadNumToLength(int number, int length)
         {
-            string result = number.ToString();
+            var result = number.ToString();
             while (result.Length < length)
             {
                 result = "0" + result;
@@ -115,13 +136,20 @@ namespace ArachNGIN.Files.Strings
             return result;
         }
 
+        /// <summary>
+        /// Vloží do Treeview názvy souborů strukturované podle adresářů
+        /// </summary>
+        /// <param name="treeView">komponenta TreeView.</param>
+        /// <param name="paths">pole s cestama. 
+        /// new List&lt;string&gt; {"jedna cesta", "druha cesta"}
+        /// </param>
+        /// <param name="pathSeparator">The path separator.</param>
         public static void PopulateTreeViewByFiles(TreeView treeView, IEnumerable<string> paths, char pathSeparator)
         {
             TreeNode lastNode = null;
-            string subPathAgg;
             foreach (string path in paths)
             {
-                subPathAgg = string.Empty;
+                string subPathAgg = string.Empty;
                 foreach (string subPath in path.Split(pathSeparator))
                 {
                     subPathAgg += subPath + pathSeparator;

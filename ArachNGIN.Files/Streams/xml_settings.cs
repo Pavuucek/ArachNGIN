@@ -19,13 +19,11 @@
 using System;
 using System.IO;
 using System.Xml;
-using System.Text;
 using System.Collections;
 using System.Xml.Serialization;
 using System.Reflection;
-using System.Globalization;
 
-namespace ArachNGIN.Files
+namespace ArachNGIN.Files.Streams
 {
 	/// <summary>
 	/// Tøída pro ukládání nastavení do xml souboru
@@ -33,14 +31,14 @@ namespace ArachNGIN.Files
 	[XmlRoot("xml_def")]
 	public class XmlSettings
 	{
-		[XmlAttribute("FileName")]
-			private string m_file; //= "conf.xml";
+		[XmlAttribute("fileName")]
+			private string _mFile; //= "conf.xml";
 		[XmlAttribute("AssemblyName")]
-			private string m_asm = string.Empty;
+			private string _mAsm = string.Empty;
 		[XmlAttribute("CreationDate")]
-			private DateTime m_creationdate = DateTime.Now;
+			private DateTime _mCreationdate = DateTime.Now;
 		[XmlElement("Settings")]
-			private Hashtable m_settingstable;
+			private Hashtable _mSettingstable;
 
 		#region  privátní podpùrné fce 
 		/// <summary>
@@ -49,7 +47,7 @@ namespace ArachNGIN.Files
 		/// <returns>cesta k aplikaci</returns>
 		private string GetAppPath()
 		{
-			return strAddSlash(Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName));
+			return StrAddSlash(Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName));
 		}
 
 		/// <summary>
@@ -57,7 +55,7 @@ namespace ArachNGIN.Files
 		/// </summary>
 		/// <param name="strString">cesta</param>
 		/// <returns>cesta s lomítkem</returns>
-		private string strAddSlash(string strString)
+		private string StrAddSlash(string strString)
 		{
 			// zapamatovat si: lomítko je 0x5C!
 			string s = strString;
@@ -70,22 +68,22 @@ namespace ArachNGIN.Files
 		/// </summary>
 		public XmlSettings()
 		{
-			m_settingstable = new Hashtable();
+			_mSettingstable = new Hashtable();
 			Assembly asm = Assembly.GetExecutingAssembly();
-			m_asm = asm.GetName().ToString();
+			_mAsm = asm.GetName().ToString();
 
-			int indexOf = m_asm.IndexOf(",");
-			m_asm = m_asm.Substring(0, indexOf);
-			m_file = /*Path.ChangeExtension(m_asm,".conf")*/ m_asm + ".conf";
+			int indexOf = _mAsm.IndexOf(",", StringComparison.Ordinal);
+			_mAsm = _mAsm.Substring(0, indexOf);
+			_mFile = /*Path.ChangeExtension(m_asm,".conf")*/ _mAsm + ".conf";
 
-			DirectoryInfo dir = new DirectoryInfo(".");
-			foreach (FileInfo f in dir.GetFiles(m_file)) 
+			var dir = new DirectoryInfo(".");
+			foreach (FileInfo f in dir.GetFiles(_mFile)) 
 			{
-				m_file = f.FullName;
-				m_creationdate = f.CreationTime;
+				_mFile = f.FullName;
+				_mCreationdate = f.CreationTime;
 				break;
 			}
-			m_file = GetAppPath() + m_file;
+			_mFile = GetAppPath() + _mFile;
 			LoadFromFile();
 		}
 
@@ -95,13 +93,13 @@ namespace ArachNGIN.Files
 		/// <param name="strFileName">jméno souboru</param>
 		public XmlSettings(string strFileName)
 		{
-			m_settingstable = new Hashtable();
-			Assembly asm = Assembly.GetExecutingAssembly();
-			m_asm = asm.GetName().ToString();
-			int indexOf = m_asm.IndexOf(",");
-			m_asm = m_asm.Substring(0, indexOf);
+			_mSettingstable = new Hashtable();
+			var asm = Assembly.GetExecutingAssembly();
+			_mAsm = asm.GetName().ToString();
+			int indexOf = _mAsm.IndexOf(",", System.StringComparison.Ordinal);
+			_mAsm = _mAsm.Substring(0, indexOf);
 
-			m_file = strFileName;
+			_mFile = strFileName;
 			//
 			LoadFromFile();
 		}
@@ -113,11 +111,11 @@ namespace ArachNGIN.Files
 		{
 			get
 			{
-				return m_file;
+				return _mFile;
 			}
 			set
 			{
-				m_file = value;
+				_mFile = value;
 			}
 		}
 
@@ -129,8 +127,8 @@ namespace ArachNGIN.Files
 			XmlTextReader reader = null;
 			try
 			{
-				reader = new XmlTextReader(m_file);
-				FormatXML(reader, m_file);
+				reader = new XmlTextReader(_mFile);
+				FormatXml(reader, _mFile);
 			}
 			catch (Exception e)
 			{
@@ -150,24 +148,24 @@ namespace ArachNGIN.Files
 		/// </summary>
 		public void SaveToFile()
 		{
-			FileInfo info = new FileInfo(m_file);
+			var info = new FileInfo(_mFile);
 			//if(!info.Exists) info.Create();
 			try
 			{
-				XmlTextWriter writer = new XmlTextWriter(m_file, System.Text.Encoding.UTF8);
+				var writer = new XmlTextWriter(_mFile, System.Text.Encoding.UTF8);
 				writer.WriteStartDocument();
 				//
 				writer.WriteStartElement("xml_def");
 				//
-				writer.WriteAttributeString("","AssemblyName","",m_asm);
-				writer.WriteAttributeString("","FileName","",Path.GetFileName(m_file));
-				writer.WriteAttributeString("","CreationDate","",m_creationdate.ToString());
+				writer.WriteAttributeString("","AssemblyName","",_mAsm);
+				writer.WriteAttributeString("","fileName","",Path.GetFileName(_mFile));
+				writer.WriteAttributeString("","CreationDate","",_mCreationdate.ToString());
 				//
-				foreach (string line in m_settingstable.Keys)
+				foreach (string line in _mSettingstable.Keys)
 				{
 					writer.WriteStartElement("Item");
 					writer.WriteAttributeString("","Name","",line);
-					writer.WriteAttributeString("","Value","",m_settingstable[line].ToString());
+					writer.WriteAttributeString("","Value","",_mSettingstable[line].ToString());
 					writer.WriteEndElement();
 				}
 				writer.WriteEndElement();
@@ -181,7 +179,7 @@ namespace ArachNGIN.Files
 			}
 		}
 
-		private void FormatXML(XmlReader reader, string FileName)
+		private void FormatXml(XmlReader reader, string fileName)
 		{
 			while (reader.Read())
 			{
@@ -205,7 +203,7 @@ namespace ArachNGIN.Files
 								}
 							}
 						}
-						if (sName != "") m_settingstable.Add(sName,sValue);
+						if (sName != "") _mSettingstable.Add(sName,sValue);
 					}
 				}
 
@@ -215,18 +213,18 @@ namespace ArachNGIN.Files
 		/// <summary>
 		/// Naète nastavení zadaného jména
 		/// </summary>
-		/// <param name="m_name">jméno nastavení</param>
+		/// <param name="mName">jméno nastavení</param>
 		/// <param name="strDefault">defaultní hodnota</param>
 		/// <returns>hodnota nastavení, nebo defaultní hodnota</returns>
-		public string GetSetting(string m_name, string strDefault)
+		public string GetSetting(string mName, string strDefault)
 		{
-			if (m_settingstable.ContainsKey(m_name))
+			if (_mSettingstable.ContainsKey(mName))
 			{
-				return (string)m_settingstable[m_name];
+				return (string)_mSettingstable[mName];
 			}
 			else
 			{
-				SetSetting(m_name,strDefault);
+				SetSetting(mName,strDefault);
 				return strDefault;
 			}
 
@@ -235,79 +233,79 @@ namespace ArachNGIN.Files
 		/// <summary>
 		/// Naète nastavení zadaného jména
 		/// </summary>
-		/// <param name="m_name">jméno nastavení</param>
+		/// <param name="mName">jméno nastavení</param>
 		/// <returns>hodnota nastavení, nebo prázdný øetìzec když není nalezeno</returns>
-		public string GetSetting(string m_name)
+		public string GetSetting(string mName)
 		{
-			return GetSetting(m_name,"");
+			return GetSetting(mName,"");
 		}
 		/// <summary>
 		/// Uloží nastavení zadaného jména a hodnoty
 		/// </summary>
-		/// <param name="m_name">jméno nastavení</param>
-		/// <param name="m_value">hodnota nastavení</param>
-		public void SetSetting(string m_name, string m_value)
+		/// <param name="mName">jméno nastavení</param>
+		/// <param name="mValue">hodnota nastavení</param>
+		public void SetSetting(string mName, string mValue)
 		{
-			if(m_settingstable.ContainsKey(m_name))
+			if(_mSettingstable.ContainsKey(mName))
 			{
-				m_settingstable[m_name] = m_value;
+				_mSettingstable[mName] = mValue;
 			}
 			else
 			{
-				m_settingstable.Add(m_name,m_value);
+				_mSettingstable.Add(mName,mValue);
 			}
 		}
 
 		/// <summary>
 		/// Uloží øetìzec zadaného jména a hodnoty
 		/// </summary>
-		/// <param name="m_name">jméno nastavení</param>
-		/// <param name="m_value">hodnota nastavení</param>
-		public void SetString(string m_name, string m_value)
+		/// <param name="mName">jméno nastavení</param>
+		/// <param name="mValue">hodnota nastavení</param>
+		public void SetString(string mName, string mValue)
 		{
-			SetSetting(m_name, m_value);
+			SetSetting(mName, mValue);
 		}
 
 		/// <summary>
 		/// Uloží èíslo zadaného jména a hodnoty
 		/// </summary>
-		/// <param name="m_name">jméno nastavení</param>
-		/// <param name="m_value">hodnota nastavení</param>
-		public void SetInt(string m_name, int m_value)
+		/// <param name="mName">jméno nastavení</param>
+		/// <param name="mValue">hodnota nastavení</param>
+		public void SetInt(string mName, int mValue)
 		{
-			SetSetting(m_name, m_value.ToString());
+			SetSetting(mName, mValue.ToString());
 		}
 
 		/// <summary>
 		/// Uloží hodnotu ano/ne zadaného jména a hodnoty
 		/// </summary>
-		/// <param name="m_name">jméno nastavení</param>
-		/// <param name="m_value">hodnota nastavení</param>
-		public void SetBool(string m_name, bool m_value)
+		/// <param name="mName">jméno nastavení</param>
+		/// <param name="mValue">hodnota nastavení</param>
+		public void SetBool(string mName, bool mValue)
 		{
-			SetSetting(m_name, m_value.ToString());
+			SetSetting(mName, mValue.ToString());
 		}
 
 		/// <summary>
 		/// Naète øetìzec z nastavení
 		/// </summary>
-		/// <param name="m_name">jméno nastavení</param>
+		/// <param name="mName">jméno nastavení</param>
 		/// <param name="strDefault">defaultní hodnota</param>
 		/// <returns>hodnota nebo defaultní hodnota</returns>
-		public string GetString(string m_name, string strDefault)
+		public string GetString(string mName, string strDefault)
 		{
-			return GetSetting(m_name,strDefault);
+			return GetSetting(mName,strDefault);
 		}
 
 		/// <summary>
 		/// Naète èíslo z nastavení
 		/// </summary>
-		/// <param name="m_name">jméno nastavení</param>
+		/// <param name="mName">jméno nastavení</param>
 		/// <param name="intDefault">defaultní hodnota</param>
 		/// <returns>hodnota nebo defaultní hodnota</returns>
-		public int GetInt(string m_name, int intDefault)
+		public int GetInt(string mName, int intDefault)
 		{
-			string str = GetSetting(m_name,intDefault.ToString());
+			string str = GetSetting(mName,intDefault.ToString());
 			int r = intDefault;
 			try
 			{
@@ -323,22 +321,22 @@ namespace ArachNGIN.Files
 		/// <summary>
 		/// Naète èíslo z nastavení
 		/// </summary>
-		/// <param name="m_name">jméno nastavení</param>
+		/// <param name="mName">jméno nastavení</param>
 		/// <returns>hodnota</returns>
-		public int GetInt(string m_name)
+		public int GetInt(string mName)
 		{
-			return GetInt(m_name,0);
+			return GetInt(mName,0);
 		}
 
 		/// <summary>
 		/// Naète hodnotu ano/ne z nastavení
 		/// </summary>
-		/// <param name="m_name">jméno nastavení</param>
+		/// <param name="mName">jméno nastavení</param>
 		/// <param name="boolDefault">defaultní hodnota</param>
 		/// <returns>hodnota nebo defaultní hodnota</returns>
-		public bool GetBool(string m_name, bool boolDefault)
+		public bool GetBool(string mName, bool boolDefault)
 		{
-			string str = GetSetting(m_name,boolDefault.ToString());
+			string str = GetSetting(mName,boolDefault.ToString());
 			bool r = boolDefault;
 			try
 			{
@@ -354,11 +352,11 @@ namespace ArachNGIN.Files
 		/// <summary>
 		/// Naète hodnotu ano/ne z nastavení
 		/// </summary>
-		/// <param name="m_name">jméno nastavení</param>
+		/// <param name="mName">jméno nastavení</param>
 		/// <returns>hodnota</returns>
-		public bool GetBool(string m_name)
+		public bool GetBool(string mName)
 		{
-			return GetBool(m_name,true);
+			return GetBool(mName,true);
 		}
 	}
 }

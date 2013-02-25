@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
-using ArachNGIN.Files.Strings;
+using ArachNGIN.Files.Streams;
 
 namespace ArachNGIN.Files
 {
@@ -60,12 +60,12 @@ namespace ArachNGIN.Files
 		public TempManager()
 		{
 			Guid g_guid = Guid.NewGuid();
-			s_TempDir = StringUtils.strAddSlash(Environment.GetEnvironmentVariable("TEMP"));
+			s_TempDir = StringUtils.StrAddSlash(Environment.GetEnvironmentVariable("TEMP"));
 			string str = Path.GetFileName(Application.ExecutablePath).ToLower();
 			str = str.Replace(@".",@"_");
 			str = str + @"_" + g_guid.ToString();
-            s_AppTempDir = StringUtils.strAddSlash(s_TempDir + str.ToLower());
-            s_AppDir = StringUtils.strAddSlash(Path.GetDirectoryName(Application.ExecutablePath));
+            s_AppTempDir = StringUtils.StrAddSlash(s_TempDir + str.ToLower());
+            s_AppDir = StringUtils.StrAddSlash(Path.GetDirectoryName(Application.ExecutablePath));
 			Directory.CreateDirectory(s_AppTempDir);
 		}
 
