@@ -28,11 +28,6 @@ using System.Threading;
 namespace ArachNGIN.Components.SplashForm
 {
     /// <summary>
-    /// delegát události zavøení okna
-    /// </summary>
-	public delegate void DelegateCloseSplash();
-
-    /// <summary>
     /// tøída "splash" okna
     /// </summary>
 	public class SplashForm : Form

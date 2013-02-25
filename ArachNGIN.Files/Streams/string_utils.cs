@@ -31,25 +31,25 @@ using System.Windows.Forms;
 
 namespace ArachNGIN.Files.Streams
 {
-	/// <summary>
-	/// Třída plná statických funkcí pro práci s řetězci
-	/// </summary>
-	public static class StringUtils
-	{
-	    /// <summary>
-		/// Funkce pro rozdělení řetězce na jednotlivá slova
-		/// </summary>
-		/// <param name="wholeString">celý řetězec</param>
-		/// <param name="delimiter">oddělovač (nejspíš mezera)</param>
-		/// <returns></returns>
-		public static string[] StringSplit(string wholeString, string delimiter)
+    /// <summary>
+    /// Třída plná statických funkcí pro práci s řetězci
+    /// </summary>
+    public static class StringUtils
+    {
+        /// <summary>
+        /// Funkce pro rozdělení řetězce na jednotlivá slova
+        /// </summary>
+        /// <param name="wholeString">celý řetězec</param>
+        /// <param name="delimiter">oddělovač (nejspíš mezera)</param>
+        /// <returns></returns>
+        public static string[] StringSplit(string wholeString, string delimiter)
         {
             var r = new Regex("(" + delimiter + ")");
             string[] s = r.Split(wholeString);
-            int iHalf = System.Convert.ToInt16((s.GetUpperBound(0) / 2) + 1);
+            int iHalf = Convert.ToInt16((s.GetUpperBound(0)/2) + 1);
             var res = new string[iHalf];
             int j = 0;
-            for (int i=0; i <= s.GetUpperBound(0); i++)
+            for (int i = 0; i <= s.GetUpperBound(0); i++)
             {
                 if (s[i] != delimiter)
                 {
@@ -69,7 +69,7 @@ namespace ArachNGIN.Files.Streams
         {
             // zapamatovat si: lomítko je 0x5C!
             string s = strString;
-            if (s[s.Length - 1] != (char)0x5C) return s + (char)0x5C;
+            if (s[s.Length - 1] != (char) 0x5C) return s + (char) 0x5C;
             else return s;
         }
 
@@ -81,13 +81,13 @@ namespace ArachNGIN.Files.Streams
         /// <returns>pole bytů</returns>
         public static byte[] UInt32ToBigEndianBytes(UInt32 x)
         {
-            return new byte[]
-            {
-                (byte)((x >> 24) & 0xff),
-                (byte)((x >> 16) & 0xff),
-                (byte)((x >> 8) & 0xff),
-                (byte)(x & 0xff)
-            };
+            return new[]
+                       {
+                           (byte) ((x >> 24) & 0xff),
+                           (byte) ((x >> 16) & 0xff),
+                           (byte) ((x >> 8) & 0xff),
+                           (byte) (x & 0xff)
+                       };
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace ArachNGIN.Files.Streams
         /// <returns>řetězec, např. 000000123</returns>
         public static string PadNumToLength(int number, int length)
         {
-            var result = number.ToString();
+            string result = number.ToString();
             while (result.Length < length)
             {
                 result = "0" + result;

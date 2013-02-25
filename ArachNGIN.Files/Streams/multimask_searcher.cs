@@ -1,43 +1,58 @@
-﻿using System;
+﻿using System.Collections;
 using System.IO;
-using System.Collections;
-using System.Collections.Specialized;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ArachNGIN.Files.Streams
 {
+    /// <summary>
+    /// Multimaskový prohledávač souborů
+    /// </summary>
     public class MultimaskFileSearcher
     {
-        ArrayList _extensions;
-        bool _recursive;
-        public ArrayList SearchExtensions
-        {
-            get
-            {
-                return _extensions;
-            }
-        }
-        public bool Recursive
-        {
-            get
-            {
-                return _recursive;
-            }
-            set
-            {
-                _recursive = value;
-            }
-        }
+        private readonly ArrayList _extensions;
+        private bool _recursive;
+
+        /// <summary>
+        /// Konstruktor třídy <see cref="MultimaskFileSearcher"/>.
+        /// </summary>
         public MultimaskFileSearcher()
         {
             _extensions = ArrayList.Synchronized(new ArrayList());
             _recursive = true;
         }
+
+        /// <summary>
+        /// Seznam přípon k vyhledání
+        /// </summary>
+        /// <value>
+        /// Seznam přípon
+        /// </value>
+        public ArrayList SearchExtensions
+        {
+            get { return _extensions; }
+        }
+
+
+        /// <summary>
+        /// Má být vyhledávání rekurzivní (tj. včetně podadresářů) viz <see cref="MultimaskFileSearcher"/>
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> když je rekurzivní, jinak <c>false</c>.
+        /// </value>
+        public bool Recursive
+        {
+            get { return _recursive; }
+            set { _recursive = value; }
+        }
+
+        /// <summary>
+        /// Prohledá uvedenou cestu
+        /// </summary>
+        /// <param name="path">cesta</param>
+        /// <returns>seznam souborů s příslušnýma příponama</returns>
         public FileInfo[] Search(string path)
         {
-            DirectoryInfo root = new DirectoryInfo(path);
-            ArrayList subFiles = new ArrayList();
+            var root = new DirectoryInfo(path);
+            var subFiles = new ArrayList();
             foreach (FileInfo file in root.GetFiles())
             {
                 // kdyz chceme vsechno (*.*) tak pridavame vsechno :-)
@@ -53,7 +68,7 @@ namespace ArachNGIN.Files.Streams
                     subFiles.AddRange(Search(directory.FullName));
                 }
             }
-            return (FileInfo[])subFiles.ToArray(typeof(FileInfo));
+            return (FileInfo[]) subFiles.ToArray(typeof (FileInfo));
         }
     }
 }

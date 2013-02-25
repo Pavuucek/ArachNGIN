@@ -21,104 +21,102 @@ using System.IO;
 
 namespace ArachNGIN.Files.Streams
 {
-	/// <summary>
-	/// Tøída pro práci s proudy plná statických procedur
-	/// </summary>
-	public class StreamHandling
-	{
-		/// <summary>
-		/// Konstruktor tøídy. Nic nedìlá
-		/// </summary>
-		/// <returns>nic</returns>
-		public StreamHandling()
-		{
-		}
-
-		/// <summary>
-		/// Zkopíruje jeden proud do druhého
-		/// </summary>
-		/// <remarks>
-		/// (Aneb Pavùèci rádi Delphi a to co jim z nich chybí si prostì pøeložej ;-)
-		/// </remarks>
-		/// <param name="s_source">zdrojový proud</param>
-		/// <param name="s_dest">cílový proud</param>
-		/// <param name="i_count">poèet bajtù ke zkopírování. když je 0 tak se zkopíruje celý proud</param>
-		/// <returns>poèet zkopírovaných bajtù</returns>
-		public static long StreamCopy(Stream s_source, Stream s_dest, long i_count)
-		{
-			long result = 0;
-			int MaxBufSize = 0xF000;
-			int BufSize;
-			byte[] Buffer;
-			int N;
-			BinaryReader r_input = new BinaryReader(s_source);
-			BinaryWriter w_output = new BinaryWriter(s_dest);
-
-			if (i_count == 0)
-			{
-				s_source.Position = 0;
-				i_count = s_source.Length;
-			}
-			result = i_count;
-			if (i_count > MaxBufSize) BufSize = MaxBufSize;
-			else BufSize = (int)i_count;
-
-			try
-			{
-				// serizneme vystup
-				s_dest.SetLength(0);
-				while(i_count != 0)
-				{
-					if(i_count > BufSize) N = BufSize;
-					else N = (int)i_count;
-					Buffer = r_input.ReadBytes(N);
-					w_output.Write(Buffer);
-					i_count = i_count - N;
-				}
-			}
-			finally
-			{
-                // si po sobe hezky splachneme :-)
-                w_output.Flush();
-			}
-			return result;
-		}
-        public static long StreamCopy(Stream s_source, Stream s_dest, long i_count,long i_startposition)
+    /// <summary>
+    /// Tøída pro práci s proudy plná statických procedur
+    /// </summary>
+    public class StreamHandling
+    {
+        /// <summary>
+        /// Zkopíruje jeden proud do druhého
+        /// </summary>
+        /// <remarks>
+        /// (Aneb Pavùèci rádi Delphi a to co jim z nich chybí si prostì pøeložej ;-)
+        /// </remarks>
+        /// <param name="sSource">zdrojový proud</param>
+        /// <param name="sDest">cílový proud</param>
+        /// <param name="iCount">poèet bajtù ke zkopírování. když je 0 tak se zkopíruje celý proud</param>
+        /// <returns>poèet zkopírovaných bajtù</returns>
+        public static long StreamCopy(Stream sSource, Stream sDest, long iCount)
         {
-            long result = 0;
-            int MaxBufSize = 0xF000;
-            int BufSize;
-            byte[] Buffer;
-            int N;
-            BinaryReader r_input = new BinaryReader(s_source);
-            BinaryWriter w_output = new BinaryWriter(s_dest);
-            
-            if (i_count == 0)
+            long result;
+            const int maxBufSize = 0xF000;
+            int bufSize;
+            var rInput = new BinaryReader(sSource);
+            var wOutput = new BinaryWriter(sDest);
+
+            if (iCount == 0)
             {
-                s_source.Position = 0;
-                i_count = s_source.Length;
+                sSource.Position = 0;
+                iCount = sSource.Length;
             }
-            result = i_count;
-            if (i_count > MaxBufSize) BufSize = MaxBufSize;
-            else BufSize = (int)i_count;
+            result = iCount;
+            if (iCount > maxBufSize) bufSize = maxBufSize;
+            else bufSize = (int) iCount;
 
             try
             {
-                // naseekujeme zapisovaci pozici
-                w_output.Seek((int)i_startposition, SeekOrigin.Begin);
-                while (i_count != 0)
+                // serizneme vystup
+                sDest.SetLength(0);
+                while (iCount != 0)
                 {
-                    if (i_count > BufSize) N = BufSize;
-                    else N = (int)i_count;
-                    Buffer = r_input.ReadBytes(N);
-                    w_output.Write(Buffer);
-                    i_count = i_count - N;
+                    int n;
+                    if (iCount > bufSize) n = bufSize;
+                    else n = (int) iCount;
+                    byte[] buffer = rInput.ReadBytes(n);
+                    wOutput.Write(buffer);
+                    iCount = iCount - n;
                 }
             }
             finally
             {
                 // si po sobe hezky splachneme :-)
-                w_output.Flush();
+                wOutput.Flush();
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Zkopíruje jeden stream do druhého.
+        /// </summary>
+        /// <param name="sSource">zdrojový stream</param>
+        /// <param name="sDest">cílový stream</param>
+        /// <param name="iCount">poèet bajtù ke zkopírování</param>
+        /// <param name="iStartposition">startovní pozice</param>
+        /// <returns>poèet zkopírovaných bajtù</returns>
+        public static long StreamCopy(Stream sSource, Stream sDest, long iCount, long iStartposition)
+        {
+            const int maxBufSize = 0xF000;
+            int bufSize;
+            var rInput = new BinaryReader(sSource);
+            var wOutput = new BinaryWriter(sDest);
+
+            if (iCount == 0)
+            {
+                sSource.Position = 0;
+                iCount = sSource.Length;
+            }
+            long result = iCount;
+            if (iCount > maxBufSize) bufSize = maxBufSize;
+            else bufSize = (int) iCount;
+
+            try
+            {
+                // naseekujeme zapisovaci pozici
+                wOutput.Seek((int) iStartposition, SeekOrigin.Begin);
+                while (iCount != 0)
+                {
+                    int n;
+                    if (iCount > bufSize) n = bufSize;
+                    else n = (int) iCount;
+                    byte[] buffer = rInput.ReadBytes(n);
+                    wOutput.Write(buffer);
+                    iCount = iCount - n;
+                }
+            }
+            finally
+            {
+                // si po sobe hezky splachneme :-)
+                wOutput.Flush();
             }
             return result;
         }
@@ -140,11 +138,11 @@ namespace ArachNGIN.Files.Streams
             // as target-write.  A simpler implementation would be to use just
             // Write() instead of BeginWrite(), at the cost of speed.
 
-            byte[] readbuffer = new byte[4096];
-            byte[] writebuffer = new byte[4096];
+            var readbuffer = new byte[4096];
+            var writebuffer = new byte[4096];
             IAsyncResult asyncResult = null;
 
-            for (; ; )
+            for (;;)
             {
                 // Read data into the readbuffer.  The previous call to BeginWrite, if any,
                 //  is executing in the background..
@@ -175,23 +173,22 @@ namespace ArachNGIN.Files.Streams
                 asyncResult = target.BeginWrite(writebuffer, 0, read, null, null);
             }
         }
-		
-		/// <summary>
-		/// Funkce pro pøevod pole znakù na string
-		/// </summary>
-		/// <param name="c_input">vsupní pole znakù</param>
-		/// <returns>výsledný øetìzec</returns>
-		public static string PCharToString(char[] c_input)
-		{
-			// TODO: ODDELIT DO ArachNGIN.Strings! (az bude)
-			string result = "";
-			foreach(char c in c_input)
-			{
-				if (c == 0x0) break; // pcharovej konec retezce;
-				result = result+c;
-			}
-			return result;
-		}
-	}
 
+        /// <summary>
+        /// Funkce pro pøevod pole znakù na string
+        /// </summary>
+        /// <param name="cInput">vsupní pole znakù</param>
+        /// <returns>výsledný øetìzec</returns>
+        public static string PCharToString(char[] cInput)
+        {
+            // TODO: ODDELIT DO ArachNGIN.Strings! (az bude)
+            string result = "";
+            foreach (char c in cInput)
+            {
+                if (c == 0x0) break; // pcharovej konec retezce;
+                result = result + c;
+            }
+            return result;
+        }
+    }
 }

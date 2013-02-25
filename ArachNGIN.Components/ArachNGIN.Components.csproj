@@ -63,13 +63,21 @@
     <Compile Include="ColorComboBox\ColorComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="FormHeader\ColorSlideFormHeader.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="FormHeader\FormHeader.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FormHeader\ImageFormHeader.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ProgressTaskList\ProgressTaskList.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ProgressTaskList\StringCollection2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SplashForm\DelegateCloseSplash.cs" />
     <Compile Include="SplashForm\SplashForm.cs">
       <SubType>Form</SubType>
     </Compile>

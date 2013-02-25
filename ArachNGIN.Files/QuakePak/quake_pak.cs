@@ -32,7 +32,6 @@ namespace ArachNGIN.Files
         private static readonly char[] PakId = new char[4] {'P', 'A', 'C', 'K'};
         private readonly BinaryReader _pakReader;
         private readonly FileStream _pakStream;
-        private PakFat[] _pakFat;
 
         /// <summary>
         /// Seznam souborù v PAKu
@@ -41,6 +40,7 @@ namespace ArachNGIN.Files
 
         private int _pFatstart;
         private int _pFilecount;
+        private PakFat[] _pakFat;
 
         /// <summary>
         /// Konstruktor - otevøe pak soubor a naète z nìj hlavièku.
@@ -75,15 +75,7 @@ namespace ArachNGIN.Files
             }
         }
 
-        /// <summary>
-        /// Neoficiální destruktor
-        /// </summary>
-        public void Close()
-        {
-            _pakReader.Close();
-            _pakStream.Close();
-            _pakStream.Dispose();
-        }
+        #region IDisposable Members
 
         /// <summary>
         /// Oficiální Destruktor
@@ -98,6 +90,18 @@ namespace ArachNGIN.Files
             {
                 //
             }
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Neoficiální destruktor
+        /// </summary>
+        public void Close()
+        {
+            _pakReader.Close();
+            _pakStream.Close();
+            _pakStream.Dispose();
         }
 
         private bool ReadHeader()
@@ -184,7 +188,7 @@ namespace ArachNGIN.Files
         public void ExtractFile(string strFileInPak, string strOutputFile)
         {
             Stream fOutput = new FileStream(strOutputFile, FileMode.OpenOrCreate, FileAccess.ReadWrite,
-                                             FileShare.ReadWrite);
+                                            FileShare.ReadWrite);
             ExtractStream(strFileInPak, fOutput);
             fOutput.Close();
         }
@@ -196,7 +200,6 @@ namespace ArachNGIN.Files
         /// <returns>jestli se zadaøí tak true, jinak false</returns>
         public static bool CreateNewPak(string strFileName)
         {
-
             // TODO: taky by to mohlo vracet true podle úspìšnosti :-)
             bool result = false;
             var FS = new FileStream(strFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);

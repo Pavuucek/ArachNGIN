@@ -15,65 +15,63 @@
  * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 
 namespace ArachNGIN.Files.Settings
 {
+    /// <summary>
+    /// Třída na ukládání Properties.Settings do souboru v adresáři aplikace
+    /// </summary>
     public sealed class PortableSettingsProvider : SettingsProvider, IApplicationSettingsProvider
     {
-        private const string _rootNodeName = "settings";
-        private const string _localSettingsNodeName = "localSettings";
-        private const string _globalSettingsNodeName = "globalSettings";
-        private const string _className = "PortableSettingsProvider";
+        private const string RootNodeName = "settings";
+        private const string LocalSettingsNodeName = "localSettings";
+        private const string GlobalSettingsNodeName = "globalSettings";
+        private const string ClassName = "PortableSettingsProvider";
         private XmlDocument _xmlDocument;
-        private string _filePath
+
+        private string FilePath
         {
             get
             {
-                return Path.Combine(Path.GetDirectoryName(Application.ExecutablePath),
-                    string.Format("{0}.settings", ApplicationName));
+                return Path.Combine(path1: Path.GetDirectoryName(Application.ExecutablePath),
+                                    path2: string.Format("{0}.settings", ApplicationName));
             }
         }
-        private XmlNode _localSettingsNode
+
+        private XmlNode LocalSettingsNode
         {
             get
             {
-                XmlNode settingsNode = GetSettingsNode(_localSettingsNodeName);
+                XmlNode settingsNode = GetSettingsNode(LocalSettingsNodeName);
                 XmlNode machineNode = settingsNode.SelectSingleNode(Environment.MachineName.ToLowerInvariant());
                 if (machineNode == null)
                 {
-                    machineNode = _rootDocument.CreateElement(Environment.MachineName.ToLowerInvariant());
+                    machineNode = RootDocument.CreateElement(Environment.MachineName.ToLowerInvariant());
                     settingsNode.AppendChild(machineNode);
                 }
                 return machineNode;
             }
         }
 
-        private XmlNode _globalSettingsNode
+        private XmlNode GlobalSettingsNode
         {
-            get
-            {
-                return GetSettingsNode(_globalSettingsNodeName);
-            }
-        }
-        private XmlNode _rootNode
-        {
-            get
-            {
-                return _rootDocument.SelectSingleNode(_rootNodeName);
-            }
+            get { return GetSettingsNode(GlobalSettingsNodeName); }
         }
 
-        private XmlDocument _rootDocument
+        private XmlNode RootNode
+        {
+            get { return RootDocument.SelectSingleNode(RootNodeName); }
+        }
+
+        private XmlDocument RootDocument
         {
             get
             {
@@ -82,12 +80,12 @@ namespace ArachNGIN.Files.Settings
                     try
                     {
                         _xmlDocument = new XmlDocument();
-                        _xmlDocument.Load(_filePath);
+                        _xmlDocument.Load(FilePath);
                     }
                     catch (Exception)
                     {
                     }
-                    if (_xmlDocument.SelectSingleNode(_rootNodeName) != null)
+                    if (_xmlDocument != null && _xmlDocument.SelectSingleNode(RootNodeName) != null)
                         return _xmlDocument;
                     _xmlDocument = GetBlankXmlDocument();
                 }
@@ -97,22 +95,35 @@ namespace ArachNGIN.Files.Settings
 
         public override string ApplicationName
         {
-            get
-            {
-                return Path.GetFileNameWithoutExtension(Application.ExecutablePath);
-            }
-            set
-            {
-            }
+            get { return Path.GetFileNameWithoutExtension(Application.ExecutablePath); }
+            set { }
         }
 
         public override string Name
         {
-            get
-            {
-                return _className;
-            }
+            get { return ClassName; }
         }
+
+        #region IApplicationSettingsProvider Members
+
+        public void Reset(SettingsContext context)
+        {
+            LocalSettingsNode.RemoveAll();
+            GlobalSettingsNode.RemoveAll();
+            _xmlDocument.Save(FilePath);
+        }
+
+        public SettingsPropertyValue GetPreviousVersion(SettingsContext context, SettingsProperty property)
+        {
+            // do nothing
+            return new SettingsPropertyValue(property);
+        }
+
+        public void Upgrade(SettingsContext context, SettingsPropertyCollection properties)
+        {
+        }
+
+        #endregion
 
         public override void Initialize(string name, NameValueCollection config)
         {
@@ -125,7 +136,7 @@ namespace ArachNGIN.Files.Settings
                 SetValue(propertyValue);
             try
             {
-                _rootDocument.Save(_filePath);
+                RootDocument.Save(FilePath);
             }
             catch (Exception)
             {
@@ -138,15 +149,16 @@ namespace ArachNGIN.Files.Settings
             }
         }
 
-        public override SettingsPropertyValueCollection GetPropertyValues(SettingsContext context, SettingsPropertyCollection collection)
+        public override SettingsPropertyValueCollection GetPropertyValues(SettingsContext context,
+                                                                          SettingsPropertyCollection collection)
         {
-            SettingsPropertyValueCollection values = new SettingsPropertyValueCollection();
+            var values = new SettingsPropertyValueCollection();
             foreach (SettingsProperty property in collection)
             {
                 values.Add(new SettingsPropertyValue(property)
-                {
-                    SerializedValue = GetValue(property)
-                });
+                               {
+                                   SerializedValue = GetValue(property)
+                               });
             }
             return values;
         }
@@ -154,17 +166,17 @@ namespace ArachNGIN.Files.Settings
         private void SetValue(SettingsPropertyValue propertyValue)
         {
             XmlNode targetNode = IsGlobal(propertyValue.Property)
-                ? _globalSettingsNode
-                : _localSettingsNode;
+                                     ? GlobalSettingsNode
+                                     : LocalSettingsNode;
             XmlNode settingNode = targetNode.SelectSingleNode(string.Format("setting[@name='{0}']", propertyValue.Name));
             if (settingNode != null)
                 settingNode.InnerText = propertyValue.SerializedValue.ToString();
             else
             {
-                settingNode = _rootDocument.CreateElement("setting");
-                XmlAttribute nameAttribute = _rootDocument.CreateAttribute("name");
+                settingNode = RootDocument.CreateElement("setting");
+                XmlAttribute nameAttribute = RootDocument.CreateAttribute("name");
                 nameAttribute.Value = propertyValue.Name;
-                settingNode.Attributes.Append(nameAttribute);
+                if (settingNode.Attributes != null) settingNode.Attributes.Append(nameAttribute);
                 settingNode.InnerText = propertyValue.SerializedValue.ToString();
                 targetNode.AppendChild(settingNode);
             }
@@ -172,7 +184,7 @@ namespace ArachNGIN.Files.Settings
 
         private string GetValue(SettingsProperty property)
         {
-            XmlNode targetNode = IsGlobal(property) ? _globalSettingsNode : _localSettingsNode;
+            XmlNode targetNode = IsGlobal(property) ? GlobalSettingsNode : LocalSettingsNode;
             XmlNode settingNode = targetNode.SelectSingleNode(string.Format("setting[@name='{0}']", property.Name));
             if (settingNode == null)
                 return property.DefaultValue != null ? property.DefaultValue.ToString() : string.Empty;
@@ -183,7 +195,7 @@ namespace ArachNGIN.Files.Settings
         {
             foreach (DictionaryEntry attribute in property.Attributes)
             {
-                if ((Attribute)attribute.Value is SettingsManageabilityAttribute)
+                if ((Attribute) attribute.Value is SettingsManageabilityAttribute)
                     return true;
             }
             return false;
@@ -191,37 +203,25 @@ namespace ArachNGIN.Files.Settings
 
         private XmlNode GetSettingsNode(string name)
         {
-            XmlNode settingsNode = _rootNode.SelectSingleNode(name);
+            XmlNode settingsNode = RootNode.SelectSingleNode(name);
             if (settingsNode == null)
             {
-                settingsNode = _rootDocument.CreateElement(name);
-                _rootNode.AppendChild(settingsNode);
+                settingsNode = RootDocument.CreateElement(name);
+                RootNode.AppendChild(settingsNode);
             }
             return settingsNode;
         }
 
+        /// <summary>
+        /// Gets the blank XML document.
+        /// </summary>
+        /// <returns></returns>
         public XmlDocument GetBlankXmlDocument()
         {
-            XmlDocument blankXmlDocument = new XmlDocument();
+            var blankXmlDocument = new XmlDocument();
             blankXmlDocument.AppendChild(blankXmlDocument.CreateXmlDeclaration("1.0", "utf-8", string.Empty));
-            blankXmlDocument.AppendChild(blankXmlDocument.CreateElement(_rootNodeName));
+            blankXmlDocument.AppendChild(blankXmlDocument.CreateElement(RootNodeName));
             return blankXmlDocument;
-        }
-
-        public void Reset(SettingsContext context)
-        {
-            _localSettingsNode.RemoveAll();
-            _globalSettingsNode.RemoveAll();
-            _xmlDocument.Save(_filePath);
-        }
-
-        public SettingsPropertyValue GetPreviousVersion(SettingsContext context, SettingsProperty property)
-        {
-            // do nothing
-            return new SettingsPropertyValue(property);
-        }
-        public void Upgrade(SettingsContext context, SettingsPropertyCollection properties)
-        {
         }
     }
 }

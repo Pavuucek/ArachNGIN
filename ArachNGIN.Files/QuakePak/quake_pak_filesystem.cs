@@ -17,27 +17,26 @@
  */
 
 using System;
+using System.Collections.Specialized;
 using System.IO;
 using ArachNGIN.Files.Streams;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 
 namespace ArachNGIN.Files
 {
     /// <summary>
     /// Souborový systém Quake pakù
     /// </summary>
-	public class QuakePakFilesystem : IDisposable
-	{
-        private string[] _lPakFiles;
-        private StringCollection[] _pakFat;
-        private StringCollection[] _indexFat;
-        private string[] a_pathfiles;
-        private Int64 _iPakCount = 0;
+    public class QuakePakFilesystem : IDisposable
+    {
         private const string PakExtension = "pak"; // bez tecky
         private const string PakIndexFileName = "(pak-index)";
-        private string _sDir;
-        private string _sTemp;
+        private readonly string[] _aPathfiles;
+        private readonly Int64 _iPakCount;
+        private readonly string[] _lPakFiles;
+        private readonly string _sDir;
+        private readonly string _sTemp;
+        private StringCollection[] _indexFat;
+        private StringCollection[] _pakFat;
 
 
         /// <summary>
@@ -45,8 +44,8 @@ namespace ArachNGIN.Files
         /// </summary>
         /// <param name="appDir">Startovní adresáø ze kterého se budou naèítat pak soubory, nejlépe ten s aplikací</param>
         /// <param name="tempDir">Adresáø aplikace v tempu</param>
-		public QuakePakFilesystem(string appDir, string tempDir)
-		{
+        public QuakePakFilesystem(string appDir, string tempDir)
+        {
             _sDir = StringUtils.StrAddSlash(appDir);
             _sTemp = StringUtils.StrAddSlash(tempDir);
             var di = new DirectoryInfo(_sDir);
@@ -57,14 +56,26 @@ namespace ArachNGIN.Files
             {
                 _lPakFiles[i] = fi[i].Name;
             }
-            var fi2 = di.GetFiles("*.*",SearchOption.AllDirectories);
-            a_pathfiles = new string[fi2.LongLength];
+            FileInfo[] fi2 = di.GetFiles("*.*", SearchOption.AllDirectories);
+            _aPathfiles = new string[fi2.LongLength];
             for (int i = 0; i < fi2.LongLength; i++)
             {
-                a_pathfiles[i] = fi2[i].FullName.Replace(_sDir, "");
+                _aPathfiles[i] = fi2[i].FullName.Replace(_sDir, "");
             }
             ReadPakFiles();
         }
+
+        #region IDisposable Members
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            // nothing :-)
+        }
+
+        #endregion
 
         private void ReadPakFiles()
         {
@@ -83,7 +94,7 @@ namespace ArachNGIN.Files
                     st.Position = 0;
                     var tr = new StreamReader(st);
                     string line;
-                    while((line = tr.ReadLine()) !=null)
+                    while ((line = tr.ReadLine()) != null)
                     {
                         _indexFat[i].Add(line);
                     }
@@ -127,7 +138,7 @@ namespace ArachNGIN.Files
             bool r = false;
             string sIndexfile = string.Empty;
             sFile = ReplaceSlashesOut(sFile); // jen pro jistotu
-            if(File.Exists(_sTemp+sFile))
+            if (File.Exists(_sTemp + sFile))
             {
                 // fajl uz je v tempu, tak ho tam nechame
                 // obsah nas nezaujma
@@ -138,7 +149,7 @@ namespace ArachNGIN.Files
             if (File.Exists(_sDir + sFile))
             {
                 string sFullpath = _sTemp + sFile;
-                Directory.CreateDirectory(path: Path.GetDirectoryName(sFullpath));
+                Directory.CreateDirectory(Path.GetDirectoryName(sFullpath));
                 File.Copy(_sDir + sFile, sFullpath, true);
                 r = true;
                 return r;
@@ -155,14 +166,14 @@ namespace ArachNGIN.Files
                     // prohledame fat index
                     foreach (string sLine in _indexFat[i])
                     {
-                        if (sLine.ToLower().Contains(sFile.ToLower()+"="))
+                        if (sLine.ToLower().Contains(sFile.ToLower() + "="))
                         {
                             sIndexline = sLine;
                         }
                     }
                     //s_file=s_indexline.Substring(s_indexline.IndexOf("=")+1);
                     // rozdelit radku indexu na fajl jmeno souboru v paku a skutecne jmeno
-                    string[] aIndexline = sIndexline.Split(new char[] { '=' });
+                    string[] aIndexline = sIndexline.Split(new[] {'='});
                     if (aIndexline.Length > 1)
                     {
                         sIndexfile = aIndexline[0];
@@ -177,10 +188,10 @@ namespace ArachNGIN.Files
                     {
                         string sFullpath = _sTemp;
                         if (sIndexfile != string.Empty) sFullpath += sIndexfile;
-                        else sFullpath+=sFile;
+                        else sFullpath += sFile;
                         // prevest lomitka :-)
                         sFullpath = ReplaceSlashesOut(sFullpath);
-                        Directory.CreateDirectory(path: Path.GetDirectoryName(sFullpath));
+                        Directory.CreateDirectory(Path.GetDirectoryName(sFullpath));
                         var q = new QuakePak(_sDir + _lPakFiles[i], false);
                         q.ExtractFile(sFile, sFullpath);
                         if (File.Exists(sFullpath))
@@ -192,15 +203,5 @@ namespace ArachNGIN.Files
             }
             return r;
         }
-
-
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-	    public void Dispose()
-	    {
-	        // nothing :-)
-	    }
-	}
-
+    }
 }

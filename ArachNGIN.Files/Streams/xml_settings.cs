@@ -17,346 +17,337 @@
  */
 
 using System;
-using System.IO;
-using System.Xml;
 using System.Collections;
-using System.Xml.Serialization;
+using System.IO;
 using System.Reflection;
+using System.Text;
+using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace ArachNGIN.Files.Streams
 {
-	/// <summary>
-	/// Tøída pro ukládání nastavení do xml souboru
-	/// </summary>
-	[XmlRoot("xml_def")]
-	public class XmlSettings
-	{
-		[XmlAttribute("fileName")]
-			private string _mFile; //= "conf.xml";
-		[XmlAttribute("AssemblyName")]
-			private string _mAsm = string.Empty;
-		[XmlAttribute("CreationDate")]
-			private DateTime _mCreationdate = DateTime.Now;
-		[XmlElement("Settings")]
-			private Hashtable _mSettingstable;
+    /// <summary>
+    /// Tøída pro ukládání nastavení do xml souboru
+    /// </summary>
+    [XmlRoot("xml_def")]
+    public class XmlSettings
+    {
+        [XmlAttribute("AssemblyName")] private string _mAsm = string.Empty;
+        [XmlAttribute("CreationDate")] private DateTime _mCreationdate = DateTime.Now;
+        [XmlAttribute("fileName")] private string _mFile; //= "conf.xml";
+        [XmlElement("Settings")] private Hashtable _mSettingstable;
 
-		#region  privátní podpùrné fce 
-		/// <summary>
-		/// fce na zjištìní cesty k aplikaci
-		/// </summary>
-		/// <returns>cesta k aplikaci</returns>
-		private string GetAppPath()
-		{
-			return StrAddSlash(Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName));
-		}
+        #region  privátní podpùrné fce 
 
-		/// <summary>
-		/// Zjistí jestli cesta konèí lomítkem, když ne, tak ho pøidá
-		/// </summary>
-		/// <param name="strString">cesta</param>
-		/// <returns>cesta s lomítkem</returns>
-		private string StrAddSlash(string strString)
-		{
-			// zapamatovat si: lomítko je 0x5C!
-			string s = strString;
-			if(s[s.Length-1] != (char)0x5C) return s+(char)0x5C;
-			else return s;
-		}
-		#endregion
-		/// <summary>
-		/// Konstruktor - bez jména souboru
-		/// </summary>
-		public XmlSettings()
-		{
-			_mSettingstable = new Hashtable();
-			Assembly asm = Assembly.GetExecutingAssembly();
-			_mAsm = asm.GetName().ToString();
+        /// <summary>
+        /// fce na zjištìní cesty k aplikaci
+        /// </summary>
+        /// <returns>cesta k aplikaci</returns>
+        private string GetAppPath()
+        {
+            return StrAddSlash(Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName));
+        }
 
-			int indexOf = _mAsm.IndexOf(",", StringComparison.Ordinal);
-			_mAsm = _mAsm.Substring(0, indexOf);
-			_mFile = /*Path.ChangeExtension(m_asm,".conf")*/ _mAsm + ".conf";
+        /// <summary>
+        /// Zjistí jestli cesta konèí lomítkem, když ne, tak ho pøidá
+        /// </summary>
+        /// <param name="strString">cesta</param>
+        /// <returns>cesta s lomítkem</returns>
+        private string StrAddSlash(string strString)
+        {
+            // zapamatovat si: lomítko je 0x5C!
+            string s = strString;
+            if (s[s.Length - 1] != (char) 0x5C) return s + (char) 0x5C;
+            return s;
+        }
 
-			var dir = new DirectoryInfo(".");
-			foreach (FileInfo f in dir.GetFiles(_mFile)) 
-			{
-				_mFile = f.FullName;
-				_mCreationdate = f.CreationTime;
-				break;
-			}
-			_mFile = GetAppPath() + _mFile;
-			LoadFromFile();
-		}
+        #endregion
 
-		/// <summary>
-		/// Konstruktor, se specifikováním jména souboru
-		/// </summary>
-		/// <param name="strFileName">jméno souboru</param>
-		public XmlSettings(string strFileName)
-		{
-			_mSettingstable = new Hashtable();
-			var asm = Assembly.GetExecutingAssembly();
-			_mAsm = asm.GetName().ToString();
-			int indexOf = _mAsm.IndexOf(",", System.StringComparison.Ordinal);
-			_mAsm = _mAsm.Substring(0, indexOf);
+        /// <summary>
+        /// Konstruktor - bez jména souboru
+        /// </summary>
+        public XmlSettings()
+        {
+            _mSettingstable = new Hashtable();
+            Assembly asm = Assembly.GetExecutingAssembly();
+            _mAsm = asm.GetName().ToString();
 
-			_mFile = strFileName;
-			//
-			LoadFromFile();
-		}
+            int indexOf = _mAsm.IndexOf(",", StringComparison.Ordinal);
+            _mAsm = _mAsm.Substring(0, indexOf);
+            _mFile = /*Path.ChangeExtension(m_asm,".conf")*/ _mAsm + ".conf";
 
-		/// <summary>
-		/// Vlastnost udávající jméno souboru
-		/// </summary>
-		public string FileName
-		{
-			get
-			{
-				return _mFile;
-			}
-			set
-			{
-				_mFile = value;
-			}
-		}
+            var dir = new DirectoryInfo(".");
+            foreach (FileInfo f in dir.GetFiles(_mFile))
+            {
+                _mFile = f.FullName;
+                _mCreationdate = f.CreationTime;
+                break;
+            }
+            _mFile = GetAppPath() + _mFile;
+            LoadFromFile();
+        }
 
-		/// <summary>
-		/// Naètì xml nastavení ze souboru
-		/// </summary>
-		public void LoadFromFile()
-		{
-			XmlTextReader reader = null;
-			try
-			{
-				reader = new XmlTextReader(_mFile);
-				FormatXml(reader, _mFile);
-			}
-			catch (Exception e)
-			{
-				string str = e.Message;
-			}
-			finally
-			{
-				if (reader != null)
-				{
-					reader.Close();
-				}
-			}
-		}
+        /// <summary>
+        /// Konstruktor, se specifikováním jména souboru
+        /// </summary>
+        /// <param name="strFileName">jméno souboru</param>
+        public XmlSettings(string strFileName)
+        {
+            _mSettingstable = new Hashtable();
+            Assembly asm = Assembly.GetExecutingAssembly();
+            _mAsm = asm.GetName().ToString();
+            int indexOf = _mAsm.IndexOf(",", StringComparison.Ordinal);
+            _mAsm = _mAsm.Substring(0, indexOf);
 
-		/// <summary>
-		/// Uloží xml nastavení do souboru
-		/// </summary>
-		public void SaveToFile()
-		{
-			var info = new FileInfo(_mFile);
-			//if(!info.Exists) info.Create();
-			try
-			{
-				var writer = new XmlTextWriter(_mFile, System.Text.Encoding.UTF8);
-				writer.WriteStartDocument();
-				//
-				writer.WriteStartElement("xml_def");
-				//
-				writer.WriteAttributeString("","AssemblyName","",_mAsm);
-				writer.WriteAttributeString("","fileName","",Path.GetFileName(_mFile));
-				writer.WriteAttributeString("","CreationDate","",_mCreationdate.ToString());
-				//
-				foreach (string line in _mSettingstable.Keys)
-				{
-					writer.WriteStartElement("Item");
-					writer.WriteAttributeString("","Name","",line);
-					writer.WriteAttributeString("","Value","",_mSettingstable[line].ToString());
-					writer.WriteEndElement();
-				}
-				writer.WriteEndElement();
-				writer.WriteEndDocument();
-				writer.Flush();
-				writer.Close();
-			}
-			catch (Exception e)
-			{
-				System.Windows.Forms.MessageBox.Show(e.Message.ToString());
-			}
-		}
+            _mFile = strFileName;
+            //
+            LoadFromFile();
+        }
 
-		private void FormatXml(XmlReader reader, string fileName)
-		{
-			while (reader.Read())
-			{
-				if(reader.NodeType == XmlNodeType.Element)
-				{
-					string sName = "";
-					string sValue = "";
-					if(reader.Name == "Item")
-					{
-						if (reader.HasAttributes)
-						{
-							while (reader.MoveToNextAttribute())
-							{
-								if (reader.Name == "Name")
-								{
-									sName = reader.Value;
-								}
-								else if (reader.Name == "Value")
-								{
-									sValue = reader.Value;
-								}
-							}
-						}
-						if (sName != "") _mSettingstable.Add(sName,sValue);
-					}
-				}
+        /// <summary>
+        /// Vlastnost udávající jméno souboru
+        /// </summary>
+        public string FileName
+        {
+            get { return _mFile; }
+            set { _mFile = value; }
+        }
 
-			}
-		}
+        /// <summary>
+        /// Naètì xml nastavení ze souboru
+        /// </summary>
+        public void LoadFromFile()
+        {
+            XmlTextReader reader = null;
+            try
+            {
+                reader = new XmlTextReader(_mFile);
+                FormatXml(reader, _mFile);
+            }
+            catch (Exception e)
+            {
+                string str = e.Message;
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+            }
+        }
 
-		/// <summary>
-		/// Naète nastavení zadaného jména
-		/// </summary>
-		/// <param name="mName">jméno nastavení</param>
-		/// <param name="strDefault">defaultní hodnota</param>
-		/// <returns>hodnota nastavení, nebo defaultní hodnota</returns>
-		public string GetSetting(string mName, string strDefault)
-		{
-			if (_mSettingstable.ContainsKey(mName))
-			{
-				return (string)_mSettingstable[mName];
-			}
-			else
-			{
-				SetSetting(mName,strDefault);
-				return strDefault;
-			}
+        /// <summary>
+        /// Uloží xml nastavení do souboru
+        /// </summary>
+        public void SaveToFile()
+        {
+            var info = new FileInfo(_mFile);
+            //if(!info.Exists) info.Create();
+            try
+            {
+                var writer = new XmlTextWriter(_mFile, Encoding.UTF8);
+                writer.WriteStartDocument();
+                //
+                writer.WriteStartElement("xml_def");
+                //
+                writer.WriteAttributeString("", "AssemblyName", "", _mAsm);
+                writer.WriteAttributeString("", "fileName", "", Path.GetFileName(_mFile));
+                writer.WriteAttributeString("", "CreationDate", "", _mCreationdate.ToString());
+                //
+                foreach (string line in _mSettingstable.Keys)
+                {
+                    writer.WriteStartElement("Item");
+                    writer.WriteAttributeString("", "Name", "", line);
+                    writer.WriteAttributeString("", "Value", "", _mSettingstable[line].ToString());
+                    writer.WriteEndElement();
+                }
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+                writer.Flush();
+                writer.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
 
-		}
+        private void FormatXml(XmlReader reader, string fileName)
+        {
+            while (reader.Read())
+            {
+                if (reader.NodeType == XmlNodeType.Element)
+                {
+                    string sName = "";
+                    string sValue = "";
+                    if (reader.Name == "Item")
+                    {
+                        if (reader.HasAttributes)
+                        {
+                            while (reader.MoveToNextAttribute())
+                            {
+                                if (reader.Name == "Name")
+                                {
+                                    sName = reader.Value;
+                                }
+                                else if (reader.Name == "Value")
+                                {
+                                    sValue = reader.Value;
+                                }
+                            }
+                        }
+                        if (sName != "") _mSettingstable.Add(sName, sValue);
+                    }
+                }
+            }
+        }
 
-		/// <summary>
-		/// Naète nastavení zadaného jména
-		/// </summary>
-		/// <param name="mName">jméno nastavení</param>
-		/// <returns>hodnota nastavení, nebo prázdný øetìzec když není nalezeno</returns>
-		public string GetSetting(string mName)
-		{
-			return GetSetting(mName,"");
-		}
-		/// <summary>
-		/// Uloží nastavení zadaného jména a hodnoty
-		/// </summary>
-		/// <param name="mName">jméno nastavení</param>
-		/// <param name="mValue">hodnota nastavení</param>
-		public void SetSetting(string mName, string mValue)
-		{
-			if(_mSettingstable.ContainsKey(mName))
-			{
-				_mSettingstable[mName] = mValue;
-			}
-			else
-			{
-				_mSettingstable.Add(mName,mValue);
-			}
-		}
+        /// <summary>
+        /// Naète nastavení zadaného jména
+        /// </summary>
+        /// <param name="mName">jméno nastavení</param>
+        /// <param name="strDefault">defaultní hodnota</param>
+        /// <returns>hodnota nastavení, nebo defaultní hodnota</returns>
+        public string GetSetting(string mName, string strDefault)
+        {
+            if (_mSettingstable.ContainsKey(mName))
+            {
+                return (string) _mSettingstable[mName];
+            }
+            SetSetting(mName, strDefault);
+            return strDefault;
+        }
 
-		/// <summary>
-		/// Uloží øetìzec zadaného jména a hodnoty
-		/// </summary>
-		/// <param name="mName">jméno nastavení</param>
-		/// <param name="mValue">hodnota nastavení</param>
-		public void SetString(string mName, string mValue)
-		{
-			SetSetting(mName, mValue);
-		}
+        /// <summary>
+        /// Naète nastavení zadaného jména
+        /// </summary>
+        /// <param name="mName">jméno nastavení</param>
+        /// <returns>hodnota nastavení, nebo prázdný øetìzec když není nalezeno</returns>
+        public string GetSetting(string mName)
+        {
+            return GetSetting(mName, "");
+        }
 
-		/// <summary>
-		/// Uloží èíslo zadaného jména a hodnoty
-		/// </summary>
-		/// <param name="mName">jméno nastavení</param>
-		/// <param name="mValue">hodnota nastavení</param>
-		public void SetInt(string mName, int mValue)
-		{
-			SetSetting(mName, mValue.ToString());
-		}
+        /// <summary>
+        /// Uloží nastavení zadaného jména a hodnoty
+        /// </summary>
+        /// <param name="mName">jméno nastavení</param>
+        /// <param name="mValue">hodnota nastavení</param>
+        public void SetSetting(string mName, string mValue)
+        {
+            if (_mSettingstable.ContainsKey(mName))
+            {
+                _mSettingstable[mName] = mValue;
+            }
+            else
+            {
+                _mSettingstable.Add(mName, mValue);
+            }
+        }
 
-		/// <summary>
-		/// Uloží hodnotu ano/ne zadaného jména a hodnoty
-		/// </summary>
-		/// <param name="mName">jméno nastavení</param>
-		/// <param name="mValue">hodnota nastavení</param>
-		public void SetBool(string mName, bool mValue)
-		{
-			SetSetting(mName, mValue.ToString());
-		}
+        /// <summary>
+        /// Uloží øetìzec zadaného jména a hodnoty
+        /// </summary>
+        /// <param name="mName">jméno nastavení</param>
+        /// <param name="mValue">hodnota nastavení</param>
+        public void SetString(string mName, string mValue)
+        {
+            SetSetting(mName, mValue);
+        }
 
-		/// <summary>
-		/// Naète øetìzec z nastavení
-		/// </summary>
-		/// <param name="mName">jméno nastavení</param>
-		/// <param name="strDefault">defaultní hodnota</param>
-		/// <returns>hodnota nebo defaultní hodnota</returns>
-		public string GetString(string mName, string strDefault)
-		{
-			return GetSetting(mName,strDefault);
-		}
+        /// <summary>
+        /// Uloží èíslo zadaného jména a hodnoty
+        /// </summary>
+        /// <param name="mName">jméno nastavení</param>
+        /// <param name="mValue">hodnota nastavení</param>
+        public void SetInt(string mName, int mValue)
+        {
+            SetSetting(mName, mValue.ToString());
+        }
 
-		/// <summary>
-		/// Naète èíslo z nastavení
-		/// </summary>
-		/// <param name="mName">jméno nastavení</param>
-		/// <param name="intDefault">defaultní hodnota</param>
-		/// <returns>hodnota nebo defaultní hodnota</returns>
-		public int GetInt(string mName, int intDefault)
-		{
-			string str = GetSetting(mName,intDefault.ToString());
-			int r = intDefault;
-			try
-			{
-				r = Convert.ToInt32(str);
-			}
-			catch
-			{
-				r = intDefault;
-			}
-			return r;
-		}
+        /// <summary>
+        /// Uloží hodnotu ano/ne zadaného jména a hodnoty
+        /// </summary>
+        /// <param name="mName">jméno nastavení</param>
+        /// <param name="mValue">hodnota nastavení</param>
+        public void SetBool(string mName, bool mValue)
+        {
+            SetSetting(mName, mValue.ToString());
+        }
 
-		/// <summary>
-		/// Naète èíslo z nastavení
-		/// </summary>
-		/// <param name="mName">jméno nastavení</param>
-		/// <returns>hodnota</returns>
-		public int GetInt(string mName)
-		{
-			return GetInt(mName,0);
-		}
+        /// <summary>
+        /// Naète øetìzec z nastavení
+        /// </summary>
+        /// <param name="mName">jméno nastavení</param>
+        /// <param name="strDefault">defaultní hodnota</param>
+        /// <returns>hodnota nebo defaultní hodnota</returns>
+        public string GetString(string mName, string strDefault)
+        {
+            return GetSetting(mName, strDefault);
+        }
 
-		/// <summary>
-		/// Naète hodnotu ano/ne z nastavení
-		/// </summary>
-		/// <param name="mName">jméno nastavení</param>
-		/// <param name="boolDefault">defaultní hodnota</param>
-		/// <returns>hodnota nebo defaultní hodnota</returns>
-		public bool GetBool(string mName, bool boolDefault)
-		{
-			string str = GetSetting(mName,boolDefault.ToString());
-			bool r = boolDefault;
-			try
-			{
-				r = Convert.ToBoolean(str);
-			}
-			catch
-			{
-				r = boolDefault;
-			}
-			return r;
-		}
+        /// <summary>
+        /// Naète èíslo z nastavení
+        /// </summary>
+        /// <param name="mName">jméno nastavení</param>
+        /// <param name="intDefault">defaultní hodnota</param>
+        /// <returns>hodnota nebo defaultní hodnota</returns>
+        public int GetInt(string mName, int intDefault)
+        {
+            string str = GetSetting(mName, intDefault.ToString());
+            int r = intDefault;
+            try
+            {
+                r = Convert.ToInt32(str);
+            }
+            catch
+            {
+                r = intDefault;
+            }
+            return r;
+        }
 
-		/// <summary>
-		/// Naète hodnotu ano/ne z nastavení
-		/// </summary>
-		/// <param name="mName">jméno nastavení</param>
-		/// <returns>hodnota</returns>
-		public bool GetBool(string mName)
-		{
-			return GetBool(mName,true);
-		}
-	}
+        /// <summary>
+        /// Naète èíslo z nastavení
+        /// </summary>
+        /// <param name="mName">jméno nastavení</param>
+        /// <returns>hodnota</returns>
+        public int GetInt(string mName)
+        {
+            return GetInt(mName, 0);
+        }
+
+        /// <summary>
+        /// Naète hodnotu ano/ne z nastavení
+        /// </summary>
+        /// <param name="mName">jméno nastavení</param>
+        /// <param name="boolDefault">defaultní hodnota</param>
+        /// <returns>hodnota nebo defaultní hodnota</returns>
+        public bool GetBool(string mName, bool boolDefault)
+        {
+            string str = GetSetting(mName, boolDefault.ToString());
+            bool r;
+            try
+            {
+                r = Convert.ToBoolean(str);
+            }
+            catch
+            {
+                r = boolDefault;
+            }
+            return r;
+        }
+
+        /// <summary>
+        /// Naète hodnotu ano/ne z nastavení
+        /// </summary>
+        /// <param name="mName">jméno nastavení</param>
+        /// <returns>hodnota</returns>
+        public bool GetBool(string mName)
+        {
+            return GetBool(mName, true);
+        }
+    }
 }

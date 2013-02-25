@@ -17,19 +17,19 @@
  */
 
 using System;
+using System.Collections.Specialized;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using System.Collections.Specialized;
 
 namespace ArachNGIN.Files.Streams
 {
-	/// <summary>
-	/// Tøída pro práci se StringCollection (aka TStrings)
-	/// </summary>
-	public static class StringCollections
-	{
-	    /// <summary>
+    /// <summary>
+    /// Tøída pro práci se StringCollection (aka TStrings)
+    /// </summary>
+    public static class StringCollections
+    {
+        /// <summary>
         /// Pøevede StringCollection na jeden string
         /// </summary>
         /// <param name="stringCollection">Vstupní StringCollection</param>
@@ -42,39 +42,38 @@ namespace ArachNGIN.Files.Streams
                 foreach (string inputString in stringCollection)
                     outputString += inputString + "\r\n";
                 outputString = outputString.Substring(0, outputString.Length - 1);
-
             }
             return outputString;
         }
 
-		
-		/// <summary>
-		/// Uloží obsah StringCollection do souboru
-		/// </summary>
-		/// <param name="sFile">název souboru</param>
-		/// <param name="sCollection">StringCollection</param>
-		public static void SaveToFile(string sFile, StringCollection sCollection)
-		{
-			var fi = new FileInfo(sFile);
-		    TextWriter writer = fi.CreateText();
-			StringEnumerator enu = sCollection.GetEnumerator();
-			while(enu.MoveNext())
-			{
-				writer.WriteLine(enu.Current);
-			}
-			writer.Close();
-		}
+
+        /// <summary>
+        /// Uloží obsah StringCollection do souboru
+        /// </summary>
+        /// <param name="sFile">název souboru</param>
+        /// <param name="sCollection">StringCollection</param>
+        public static void SaveToFile(string sFile, StringCollection sCollection)
+        {
+            var fi = new FileInfo(sFile);
+            TextWriter writer = fi.CreateText();
+            StringEnumerator enu = sCollection.GetEnumerator();
+            while (enu.MoveNext())
+            {
+                writer.WriteLine(enu.Current);
+            }
+            writer.Close();
+        }
 
         /// <summary>
         /// Uloží obsah StringCollection do proudu
         /// </summary>
-        /// <param name="s_output">proud</param>
-        /// <param name="s_collection">obsah</param>
-        public static void SaveToStream(Stream s_output, StringCollection s_collection)
+        /// <param name="sOutput">proud</param>
+        /// <param name="sCollection">obsah</param>
+        public static void SaveToStream(Stream sOutput, StringCollection sCollection)
         {
-            var writer = new StreamWriter(s_output);
+            var writer = new StreamWriter(sOutput);
             writer.AutoFlush = true;
-            var enu = s_collection.GetEnumerator();
+            StringEnumerator enu = sCollection.GetEnumerator();
             while (enu.MoveNext())
             {
                 writer.WriteLine(enu.Current);
@@ -97,7 +96,7 @@ namespace ArachNGIN.Files.Streams
                 string s = "";
                 for (int i = 0; i < item.SubItems.Count; i++)
                 {
-                    s = s + item.SubItems[i].ToString();
+                    s = s + item.SubItems[i];
                     if (i < item.SubItems.Count - 1) s = s + " -> ";
                     s = s.Replace("ListViewSubItem:", "");
                     s = s.Replace("}", "");
@@ -110,27 +109,27 @@ namespace ArachNGIN.Files.Streams
             writer.Close();
         }
 
-		/// <summary>
-		/// Naète soubor (textový) do StringCollection
-		/// </summary>
-		/// <param name="sFile">název souboru</param>
-		/// <param name="sCollection">StringCollection do které se bude naèítat</param>
-		/// <param name="bAppend">pøipojit k existujícím prvkùm v kolekci</param>
-		public static void LoadFromFile(string sFile, StringCollection sCollection, bool bAppend)
-		{
-			var souborInfo = new FileInfo(sFile);
-		    string s = "0";
-			if(!souborInfo.Exists) return;
-			// naèíty naèíty :-)
-			TextReader reader = souborInfo.OpenText();
-			if(!bAppend) sCollection.Clear();
-			while((s = reader.ReadLine()) != null)
-			{
-				sCollection.Add(s);
-			}
-			// naèteno	
-			reader.Close();
-		}
+        /// <summary>
+        /// Naète soubor (textový) do StringCollection
+        /// </summary>
+        /// <param name="sFile">název souboru</param>
+        /// <param name="sCollection">StringCollection do které se bude naèítat</param>
+        /// <param name="bAppend">pøipojit k existujícím prvkùm v kolekci</param>
+        public static void LoadFromFile(string sFile, StringCollection sCollection, bool bAppend)
+        {
+            var souborInfo = new FileInfo(sFile);
+            string s;
+            if (!souborInfo.Exists) return;
+            // naèíty naèíty :-)
+            TextReader reader = souborInfo.OpenText();
+            if (!bAppend) sCollection.Clear();
+            while ((s = reader.ReadLine()) != null)
+            {
+                sCollection.Add(s);
+            }
+            // naèteno	
+            reader.Close();
+        }
 
         /// <summary>
         /// Naète proud do StringCollection
@@ -141,7 +140,7 @@ namespace ArachNGIN.Files.Streams
         public static void LoadFromStream(Stream sInput, StringCollection sCollection, bool bAppend)
         {
             var reader = new StreamReader(sInput);
-            string s = "0";
+            string s;
             if (!bAppend) sCollection.Clear();
             while ((s = reader.ReadLine()) != null)
             {
@@ -160,15 +159,15 @@ namespace ArachNGIN.Files.Streams
             LoadFromStream(sInput, sCollection, false);
         }
 
-		/// <summary>
-		/// Naète soubor (textový) do StringCollection
-		/// </summary>
-		/// <param name="sFile">název souboru</param>
-		/// <param name="sCollection">StringCollection do které se bude naèítat</param>
-		public static void LoadFromFile(string sFile, StringCollection sCollection)
-		{
-		    LoadFromFile(sFile, sCollection, false);
-		}
+        /// <summary>
+        /// Naète soubor (textový) do StringCollection
+        /// </summary>
+        /// <param name="sFile">název souboru</param>
+        /// <param name="sCollection">StringCollection do které se bude naèítat</param>
+        public static void LoadFromFile(string sFile, StringCollection sCollection)
+        {
+            LoadFromFile(sFile, sCollection, false);
+        }
 
         /// <summary>
         /// Uloží ListView do souboru.
@@ -190,7 +189,6 @@ namespace ArachNGIN.Files.Streams
             tw.WriteLine(listViewContent.ToString());
 
             tw.Close();
-
         }
-	}
+    }
 }
