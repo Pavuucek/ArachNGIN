@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using ArachNGIN.Files;
 using ArachNGIN.Files.Streams;
-using ArachNGIN.Files.Strings;
+using ArachNGIN.Files.Streams;
 using System.Security.Permissions;
 
 namespace PakCreator
