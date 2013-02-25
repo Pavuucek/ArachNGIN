@@ -6,7 +6,7 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-namespace ArachNGIN.Components
+namespace ArachNGIN.Components.Console.Console
 {
 	internal partial class DebugConsoleForm : System.Windows.Forms.Form
 	{
@@ -117,7 +117,7 @@ namespace ArachNGIN.Components
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.BtnSaveClick);
             // 
             // DebugConsoleForm
             // 
@@ -129,7 +129,7 @@ namespace ArachNGIN.Components
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "DebugConsoleForm";
             this.Text = "DebugConsoleForm";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DebugConsoleForm_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DebugConsoleFormFormClosing);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

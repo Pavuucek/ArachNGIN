@@ -14,12 +14,12 @@ namespace ArachNGIN.Components.FormHeader
 		/***************************************************************
 			static properties
 		***************************************************************/
-		public static readonly FontStyle DefaultMessageFontStyle = FontStyle.Regular;
-		public static readonly FontStyle DefaultTitleFontStyle = FontStyle.Bold;
-		public static readonly int DefaultBoundrySize = 15;
+	    public const FontStyle DefaultMessageFontStyle = FontStyle.Regular;
+	    public const FontStyle DefaultTitleFontStyle = FontStyle.Bold;
+	    public const int DefaultBoundrySize = 15;
 
 
-		private String _strTitle = String.Empty;
+	    private String _strTitle = String.Empty;
 		private String _strMessage = String.Empty;
 		private Font _messageFont;
 		private Font _titleFont;

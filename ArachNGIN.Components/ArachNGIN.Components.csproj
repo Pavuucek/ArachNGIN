@@ -89,9 +89,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SplashForm\vssver.scc" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\ArachNGIN.Files\ArachNGIN.Files.csproj">
       <Project>{21FE4EC9-B716-43BA-9124-08439AC740AB}</Project>
       <Name>ArachNGIN.Files</Name>

@@ -1,15 +1,31 @@
-#region Using Directives
+/*
+ * Copyright (c) 2006-2013 Michal Kuncl <michal.kuncl@gmail.com> http://www.pavucina.info
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
+ * is furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+ * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+#region Usingy
+
 using System;
 using System.Drawing;
-using System.Collections;
-using System.ComponentModel;
 using System.Windows.Forms;
-using System.Data;
 using System.Diagnostics;
 using System.Threading;
+
 #endregion
 
-namespace ArachNGIN.Components
+namespace ArachNGIN.Components.SplashForm
 {
     /// <summary>
     /// delegát události zavøení okna
@@ -29,39 +45,39 @@ namespace ArachNGIN.Components
         /// <param name="col">barva prùsvitnosti</param>
 		public SplashForm(String imageFile, Color col)
 		{
-			Debug.Assert(imageFile != null && imageFile.Length > 0, 
+			Debug.Assert(!string.IsNullOrEmpty(imageFile), 
 				"A valid file path has to be given");
 			// ====================================================================================
 			// Setup the form
 			// ==================================================================================== 
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-			this.ShowInTaskbar = false;
-			this.TopMost = true;
+			FormBorderStyle = FormBorderStyle.None;
+			ShowInTaskbar = false;
+			TopMost = true;
 
 			// make form transparent
-			this.TransparencyKey = this.BackColor;
+			TransparencyKey = BackColor;
 
 			// tie up the events
-			this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SplashForm_KeyUp);
-			this.Paint += new System.Windows.Forms.PaintEventHandler(this.SplashForm_Paint);
-			this.MouseDown += new MouseEventHandler(SplashForm_MouseClick);
+			KeyUp += new KeyEventHandler(this.SplashFormKeyUp);
+			Paint += new PaintEventHandler(this.SplashFormPaint);
+			MouseDown += new MouseEventHandler(SplashFormMouseClick);
 
 			// load and make the bitmap transparent
-			m_bmp = new Bitmap(imageFile);
+			_mBmp = new Bitmap(imageFile);
 
-			if(m_bmp == null)
+			if(_mBmp == null)
 				throw new Exception("Failed to load the bitmap file " + imageFile);
-			m_bmp.MakeTransparent(col);
+			_mBmp.MakeTransparent(col);
 
 			// resize the form to the size of the iamge
-			this.Width = m_bmp.Width;
-			this.Height = m_bmp.Height;
+			Width = _mBmp.Width;
+			Height = _mBmp.Height;
 
 			// center the form
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			StartPosition = FormStartPosition.CenterScreen;
 
 			// thread handling
-			m_delegateClose = new DelegateCloseSplash(InternalCloseSplash);
+			_mDelegateClose = new DelegateCloseSplash(InternalCloseSplash);
 		}
 		#endregion // Constructor
 
@@ -74,8 +90,8 @@ namespace ArachNGIN.Components
         /// <param name="col">barva prùsvitnosti</param>
 		public static void ShowModal(String imageFile, Color col)
 		{
-			m_imageFile = imageFile;
-			m_transColor = col;
+			_mImageFile = imageFile;
+			_mTransColor = col;
 			MySplashThreadFunc();
 		}
 		// Call this method with the image file path and the color 
@@ -87,11 +103,11 @@ namespace ArachNGIN.Components
         /// <param name="col">barva prùsvitnosti</param>
 		public static void StartSplash(String imageFile, Color col)
 		{
-			m_imageFile = imageFile;
-			m_transColor = col;
+			_mImageFile = imageFile;
+			_mTransColor = col;
 			// Create and Start the splash thread
-			Thread InstanceCaller = new Thread(new ThreadStart(MySplashThreadFunc));
-			InstanceCaller.Start();
+			var instanceCaller = new Thread(new ThreadStart(MySplashThreadFunc));
+			instanceCaller.Start();
 		}
 
 		// Call this at the end of your apps initialization to close the splash screen
@@ -100,8 +116,8 @@ namespace ArachNGIN.Components
         /// </summary>
 		public static void CloseSplash()
 		{
-			if(m_instance != null)
-				m_instance.Invoke(m_instance.m_delegateClose);
+			if(_mInstance != null)
+				_mInstance.Invoke(_mInstance._mDelegateClose);
 
 		}
 		#endregion // Public methods
@@ -113,9 +129,9 @@ namespace ArachNGIN.Components
         /// <param name="disposing"></param>
 		protected override void Dispose( bool disposing )
 		{
-			m_bmp.Dispose();
+			_mBmp.Dispose();
 			base.Dispose( disposing );
-			m_instance = null;
+			_mInstance = null;
 		}
 		#endregion // Dispose
 
@@ -123,43 +139,43 @@ namespace ArachNGIN.Components
 		// ultimately this is called for closing the splash window
 		void InternalCloseSplash()
 		{
-			this.Close();
-			this.Dispose();
+			Close();
+			Dispose();
 		}
 		// this is called by the new thread to show the splash screen
 		private static void MySplashThreadFunc()
 		{
-			m_instance = new SplashForm(m_imageFile, m_transColor);
-			m_instance.TopMost = false;
-			m_instance.ShowDialog();
+			_mInstance = new SplashForm(_mImageFile, _mTransColor);
+			_mInstance.TopMost = false;
+			_mInstance.ShowDialog();
 		}
 		#endregion // Multithreading code
 
 		#region Event Handlers
 
-		void SplashForm_MouseClick(object sender, MouseEventArgs e)
+		void SplashFormMouseClick(object sender, MouseEventArgs e)
 		{
-			this.InternalCloseSplash();
+			InternalCloseSplash();
 		}
 
-		private void SplashForm_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+		private void SplashFormPaint(object sender, PaintEventArgs e)
 		{
-			e.Graphics.DrawImage(m_bmp, 0,0);
+			e.Graphics.DrawImage(_mBmp, 0,0);
 		}
 
-		private void SplashForm_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
+		private void SplashFormKeyUp(object sender, KeyEventArgs e)
 		{
 			if(e.KeyCode == Keys.Escape)
-				this.InternalCloseSplash();
+				InternalCloseSplash();
 		}
 		#endregion // Event Handlers
 
 		#region Private variables
-		private static SplashForm m_instance;
-		private static String m_imageFile;
-		private static Color m_transColor;
-		private Bitmap m_bmp;
-		private DelegateCloseSplash m_delegateClose;
+		private static SplashForm _mInstance;
+		private static String _mImageFile;
+		private static Color _mTransColor;
+		private readonly Bitmap _mBmp;
+		private readonly DelegateCloseSplash _mDelegateClose;
 		#endregion
 	}
 }

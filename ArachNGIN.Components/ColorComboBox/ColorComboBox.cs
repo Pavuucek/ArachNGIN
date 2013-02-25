@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
-using System.ComponentModel.Design;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace ArachNGIN.Components
+namespace ArachNGIN.Components.ColorComboBox
 {
 	/// <summary>
 	/// ComboBox s výbìrem barev
@@ -37,144 +34,144 @@ namespace ArachNGIN.Components
 		/// </summary>
 		public void InitItems()
 		{
-			this.Items.Add( GetStringFromColor( Color.AliceBlue ) );
-			this.Items.Add( GetStringFromColor( Color.AntiqueWhite ) );
-			this.Items.Add( GetStringFromColor( Color.Aqua ) );
-			this.Items.Add( GetStringFromColor( Color.Aquamarine ) );
-			this.Items.Add( GetStringFromColor( Color.Azure ) );
-			this.Items.Add( GetStringFromColor( Color.Black ) );
-			this.Items.Add( GetStringFromColor( Color.BlanchedAlmond ) );
-			this.Items.Add( GetStringFromColor( Color.Blue ) );
-			this.Items.Add( GetStringFromColor( Color.BlueViolet ) );
-			this.Items.Add( GetStringFromColor( Color.Brown ) );
-			this.Items.Add( GetStringFromColor( Color.BurlyWood ) );
-			this.Items.Add( GetStringFromColor( Color.CadetBlue ) );
-			this.Items.Add( GetStringFromColor( Color.Chartreuse ) );
-			this.Items.Add( GetStringFromColor( Color.Chocolate ) );
-			this.Items.Add( GetStringFromColor( Color.Coral ) );
-			this.Items.Add( GetStringFromColor( Color.CornflowerBlue ) );
-			this.Items.Add( GetStringFromColor( Color.Cornsilk ) );
-			this.Items.Add( GetStringFromColor( Color.Crimson ) );
-			this.Items.Add( GetStringFromColor( Color.Cyan ) );
-			this.Items.Add( GetStringFromColor( Color.DarkBlue ) );
-			this.Items.Add( GetStringFromColor( Color.DarkCyan ) );
-			this.Items.Add( GetStringFromColor( Color.DarkGoldenrod ) );
-			this.Items.Add( GetStringFromColor( Color.DarkGray ) );
-			this.Items.Add( GetStringFromColor( Color.DarkGreen ) );
-			this.Items.Add( GetStringFromColor( Color.DarkKhaki ) );
-			this.Items.Add( GetStringFromColor( Color.DarkMagenta ) );
-			this.Items.Add( GetStringFromColor( Color.DarkOliveGreen ) );
-			this.Items.Add( GetStringFromColor( Color.DarkOrange ) );
-			this.Items.Add( GetStringFromColor( Color.DarkOrchid ) );
-			this.Items.Add( GetStringFromColor( Color.DarkRed ) ); 
-			this.Items.Add( GetStringFromColor( Color.DarkSalmon ) );
-			this.Items.Add( GetStringFromColor( Color.DarkSeaGreen ) );
-			this.Items.Add( GetStringFromColor( Color.DarkSlateBlue ) );
-			this.Items.Add( GetStringFromColor( Color.DarkSlateGray ) );
-			this.Items.Add( GetStringFromColor( Color.DarkTurquoise ) );
-			this.Items.Add( GetStringFromColor( Color.DarkViolet ) );
-			this.Items.Add( GetStringFromColor( Color.DeepSkyBlue ) );
-			this.Items.Add( GetStringFromColor( Color.DimGray ) );
-			this.Items.Add( GetStringFromColor( Color.DodgerBlue ) ); 
-			this.Items.Add( GetStringFromColor( Color.Firebrick ) );
-			this.Items.Add( GetStringFromColor( Color.FloralWhite ) );
-			this.Items.Add( GetStringFromColor( Color.ForestGreen ) );
-			this.Items.Add( GetStringFromColor( Color.Fuchsia ) );
-			this.Items.Add( GetStringFromColor( Color.Gainsboro ) );
-			this.Items.Add( GetStringFromColor( Color.GhostWhite ) );
-			this.Items.Add( GetStringFromColor( Color.Gold ) );
-			this.Items.Add( GetStringFromColor( Color.Goldenrod ) );
-			this.Items.Add( GetStringFromColor( Color.Gray ) );
-			this.Items.Add( GetStringFromColor( Color.Green ) );
-			this.Items.Add( GetStringFromColor( Color.GreenYellow ) );
-			this.Items.Add( GetStringFromColor( Color.Honeydew ) );
-			this.Items.Add( GetStringFromColor( Color.HotPink ) );
-			this.Items.Add( GetStringFromColor( Color.IndianRed ) );
-			this.Items.Add( GetStringFromColor( Color.Indigo ) );
-			this.Items.Add( GetStringFromColor( Color.Ivory ) );
-			this.Items.Add( GetStringFromColor( Color.Khaki ) );
-			this.Items.Add( GetStringFromColor( Color.Lavender ) );
-			this.Items.Add( GetStringFromColor( Color.LavenderBlush ) );
-			this.Items.Add( GetStringFromColor( Color.LawnGreen ) );
-			this.Items.Add( GetStringFromColor( Color.LemonChiffon ) );
-			this.Items.Add( GetStringFromColor( Color.LightBlue ) );
-			this.Items.Add( GetStringFromColor( Color.LightCoral ) );
-			this.Items.Add( GetStringFromColor( Color.LightCyan ) );
-			this.Items.Add( GetStringFromColor( Color.LightGoldenrodYellow ) );
-			this.Items.Add( GetStringFromColor( Color.LightGray ) );
-			this.Items.Add( GetStringFromColor( Color.LightGreen ) );
-			this.Items.Add( GetStringFromColor( Color.LightPink ) );
-			this.Items.Add( GetStringFromColor( Color.LightSalmon ) );
-			this.Items.Add( GetStringFromColor( Color.LightSeaGreen ) );
-			this.Items.Add( GetStringFromColor( Color.LightSkyBlue ) );
-			this.Items.Add( GetStringFromColor( Color.LightSlateGray ) );
-			this.Items.Add( GetStringFromColor( Color.LightSteelBlue ) );
-			this.Items.Add( GetStringFromColor( Color.LightYellow ) );
-			this.Items.Add( GetStringFromColor( Color.Lime ) );
-			this.Items.Add( GetStringFromColor( Color.LimeGreen ) );
-			this.Items.Add( GetStringFromColor( Color.Linen ) );
-			this.Items.Add( GetStringFromColor( Color.Magenta ) );
-			this.Items.Add( GetStringFromColor( Color.Maroon ) );
-			this.Items.Add( GetStringFromColor( Color.MediumAquamarine ) );
-			this.Items.Add( GetStringFromColor( Color.MediumBlue ) );
-			this.Items.Add( GetStringFromColor( Color.MediumOrchid ) );
-			this.Items.Add( GetStringFromColor( Color.MediumPurple ) );
-			this.Items.Add( GetStringFromColor( Color.MediumSeaGreen ) );
-			this.Items.Add( GetStringFromColor( Color.MediumSlateBlue ) );
-			this.Items.Add( GetStringFromColor( Color.MediumSpringGreen ) );
-			this.Items.Add( GetStringFromColor( Color.MediumTurquoise ) );
-			this.Items.Add( GetStringFromColor( Color.MediumVioletRed ) );
-			this.Items.Add( GetStringFromColor( Color.MidnightBlue ) );
-			this.Items.Add( GetStringFromColor( Color.MintCream ) );
-			this.Items.Add( GetStringFromColor( Color.MistyRose ) );
-			this.Items.Add( GetStringFromColor( Color.Moccasin ) );
-			this.Items.Add( GetStringFromColor( Color.NavajoWhite ) );
-			this.Items.Add( GetStringFromColor( Color.Navy ) );
-			this.Items.Add( GetStringFromColor( Color.OldLace ) );
-			this.Items.Add( GetStringFromColor( Color.Olive ) );
-			this.Items.Add( GetStringFromColor( Color.OliveDrab ) );
-			this.Items.Add( GetStringFromColor( Color.Orange ) );
-			this.Items.Add( GetStringFromColor( Color.OrangeRed ) );
-			this.Items.Add( GetStringFromColor( Color.Orchid ) );
-			this.Items.Add( GetStringFromColor( Color.PaleGoldenrod ) );
-			this.Items.Add( GetStringFromColor( Color.PaleGreen ) );
-			this.Items.Add( GetStringFromColor( Color.PaleTurquoise ) );
-			this.Items.Add( GetStringFromColor( Color.PaleVioletRed ) );
-			this.Items.Add( GetStringFromColor( Color.PapayaWhip ) );
-			this.Items.Add( GetStringFromColor( Color.PeachPuff ) );
-			this.Items.Add( GetStringFromColor( Color.Peru ) );
-			this.Items.Add( GetStringFromColor( Color.Pink ) );
-			this.Items.Add( GetStringFromColor( Color.Plum ) );
-			this.Items.Add( GetStringFromColor( Color.PowderBlue ) );
-			this.Items.Add( GetStringFromColor( Color.Purple ) );
-			this.Items.Add( GetStringFromColor( Color.Red ) );
-			this.Items.Add( GetStringFromColor( Color.RosyBrown ) );
-			this.Items.Add( GetStringFromColor( Color.RoyalBlue ) );
-			this.Items.Add( GetStringFromColor( Color.SaddleBrown ) );
-			this.Items.Add( GetStringFromColor( Color.Salmon ) );
-			this.Items.Add( GetStringFromColor( Color.SandyBrown ) );
-			this.Items.Add( GetStringFromColor( Color.SeaGreen ) );
-			this.Items.Add( GetStringFromColor( Color.SeaShell ) );
-			this.Items.Add( GetStringFromColor( Color.Sienna ) );
-			this.Items.Add( GetStringFromColor( Color.Silver ) );
-			this.Items.Add( GetStringFromColor( Color.SkyBlue ) );
-			this.Items.Add( GetStringFromColor( Color.SlateBlue ) );
-			this.Items.Add( GetStringFromColor( Color.SlateGray ) );
-			this.Items.Add( GetStringFromColor( Color.Snow ) );
-			this.Items.Add( GetStringFromColor( Color.SpringGreen ) );
-			this.Items.Add( GetStringFromColor( Color.SteelBlue ) );
-			this.Items.Add( GetStringFromColor( Color.Tan ) );
-			this.Items.Add( GetStringFromColor( Color.Teal ) );
-			this.Items.Add( GetStringFromColor( Color.Thistle ) );
-			this.Items.Add( GetStringFromColor( Color.Tomato ) );
-			this.Items.Add( GetStringFromColor( Color.Transparent ) );
-			this.Items.Add( GetStringFromColor( Color.Turquoise ) );
-			this.Items.Add( GetStringFromColor( Color.Violet ) );
-			this.Items.Add( GetStringFromColor( Color.Wheat ) );
-			this.Items.Add( GetStringFromColor( Color.White ) );
-			this.Items.Add( GetStringFromColor( Color.WhiteSmoke ) );
-			this.Items.Add( GetStringFromColor( Color.Yellow ) );
-			this.Items.Add( GetStringFromColor( Color.YellowGreen ) );
+			Items.Add( GetStringFromColor( Color.AliceBlue ) );
+			Items.Add( GetStringFromColor( Color.AntiqueWhite ) );
+			Items.Add( GetStringFromColor( Color.Aqua ) );
+			Items.Add( GetStringFromColor( Color.Aquamarine ) );
+			Items.Add( GetStringFromColor( Color.Azure ) );
+			Items.Add( GetStringFromColor( Color.Black ) );
+			Items.Add( GetStringFromColor( Color.BlanchedAlmond ) );
+			Items.Add( GetStringFromColor( Color.Blue ) );
+			Items.Add( GetStringFromColor( Color.BlueViolet ) );
+			Items.Add( GetStringFromColor( Color.Brown ) );
+			Items.Add( GetStringFromColor( Color.BurlyWood ) );
+			Items.Add( GetStringFromColor( Color.CadetBlue ) );
+			Items.Add( GetStringFromColor( Color.Chartreuse ) );
+			Items.Add( GetStringFromColor( Color.Chocolate ) );
+			Items.Add( GetStringFromColor( Color.Coral ) );
+			Items.Add( GetStringFromColor( Color.CornflowerBlue ) );
+			Items.Add( GetStringFromColor( Color.Cornsilk ) );
+			Items.Add( GetStringFromColor( Color.Crimson ) );
+			Items.Add( GetStringFromColor( Color.Cyan ) );
+			Items.Add( GetStringFromColor( Color.DarkBlue ) );
+			Items.Add( GetStringFromColor( Color.DarkCyan ) );
+			Items.Add( GetStringFromColor( Color.DarkGoldenrod ) );
+			Items.Add( GetStringFromColor( Color.DarkGray ) );
+			Items.Add( GetStringFromColor( Color.DarkGreen ) );
+			Items.Add( GetStringFromColor( Color.DarkKhaki ) );
+			Items.Add( GetStringFromColor( Color.DarkMagenta ) );
+			Items.Add( GetStringFromColor( Color.DarkOliveGreen ) );
+			Items.Add( GetStringFromColor( Color.DarkOrange ) );
+			Items.Add( GetStringFromColor( Color.DarkOrchid ) );
+			Items.Add( GetStringFromColor( Color.DarkRed ) ); 
+			Items.Add( GetStringFromColor( Color.DarkSalmon ) );
+			Items.Add( GetStringFromColor( Color.DarkSeaGreen ) );
+			Items.Add( GetStringFromColor( Color.DarkSlateBlue ) );
+			Items.Add( GetStringFromColor( Color.DarkSlateGray ) );
+			Items.Add( GetStringFromColor( Color.DarkTurquoise ) );
+			Items.Add( GetStringFromColor( Color.DarkViolet ) );
+			Items.Add( GetStringFromColor( Color.DeepSkyBlue ) );
+			Items.Add( GetStringFromColor( Color.DimGray ) );
+			Items.Add( GetStringFromColor( Color.DodgerBlue ) ); 
+			Items.Add( GetStringFromColor( Color.Firebrick ) );
+			Items.Add( GetStringFromColor( Color.FloralWhite ) );
+			Items.Add( GetStringFromColor( Color.ForestGreen ) );
+			Items.Add( GetStringFromColor( Color.Fuchsia ) );
+			Items.Add( GetStringFromColor( Color.Gainsboro ) );
+			Items.Add( GetStringFromColor( Color.GhostWhite ) );
+			Items.Add( GetStringFromColor( Color.Gold ) );
+			Items.Add( GetStringFromColor( Color.Goldenrod ) );
+			Items.Add( GetStringFromColor( Color.Gray ) );
+			Items.Add( GetStringFromColor( Color.Green ) );
+			Items.Add( GetStringFromColor( Color.GreenYellow ) );
+			Items.Add( GetStringFromColor( Color.Honeydew ) );
+			Items.Add( GetStringFromColor( Color.HotPink ) );
+			Items.Add( GetStringFromColor( Color.IndianRed ) );
+			Items.Add( GetStringFromColor( Color.Indigo ) );
+			Items.Add( GetStringFromColor( Color.Ivory ) );
+			Items.Add( GetStringFromColor( Color.Khaki ) );
+			Items.Add( GetStringFromColor( Color.Lavender ) );
+			Items.Add( GetStringFromColor( Color.LavenderBlush ) );
+			Items.Add( GetStringFromColor( Color.LawnGreen ) );
+			Items.Add( GetStringFromColor( Color.LemonChiffon ) );
+			Items.Add( GetStringFromColor( Color.LightBlue ) );
+			Items.Add( GetStringFromColor( Color.LightCoral ) );
+			Items.Add( GetStringFromColor( Color.LightCyan ) );
+			Items.Add( GetStringFromColor( Color.LightGoldenrodYellow ) );
+			Items.Add( GetStringFromColor( Color.LightGray ) );
+			Items.Add( GetStringFromColor( Color.LightGreen ) );
+			Items.Add( GetStringFromColor( Color.LightPink ) );
+			Items.Add( GetStringFromColor( Color.LightSalmon ) );
+			Items.Add( GetStringFromColor( Color.LightSeaGreen ) );
+			Items.Add( GetStringFromColor( Color.LightSkyBlue ) );
+			Items.Add( GetStringFromColor( Color.LightSlateGray ) );
+			Items.Add( GetStringFromColor( Color.LightSteelBlue ) );
+			Items.Add( GetStringFromColor( Color.LightYellow ) );
+			Items.Add( GetStringFromColor( Color.Lime ) );
+			Items.Add( GetStringFromColor( Color.LimeGreen ) );
+			Items.Add( GetStringFromColor( Color.Linen ) );
+			Items.Add( GetStringFromColor( Color.Magenta ) );
+			Items.Add( GetStringFromColor( Color.Maroon ) );
+			Items.Add( GetStringFromColor( Color.MediumAquamarine ) );
+			Items.Add( GetStringFromColor( Color.MediumBlue ) );
+			Items.Add( GetStringFromColor( Color.MediumOrchid ) );
+			Items.Add( GetStringFromColor( Color.MediumPurple ) );
+			Items.Add( GetStringFromColor( Color.MediumSeaGreen ) );
+			Items.Add( GetStringFromColor( Color.MediumSlateBlue ) );
+			Items.Add( GetStringFromColor( Color.MediumSpringGreen ) );
+			Items.Add( GetStringFromColor( Color.MediumTurquoise ) );
+			Items.Add( GetStringFromColor( Color.MediumVioletRed ) );
+			Items.Add( GetStringFromColor( Color.MidnightBlue ) );
+			Items.Add( GetStringFromColor( Color.MintCream ) );
+			Items.Add( GetStringFromColor( Color.MistyRose ) );
+			Items.Add( GetStringFromColor( Color.Moccasin ) );
+			Items.Add( GetStringFromColor( Color.NavajoWhite ) );
+			Items.Add( GetStringFromColor( Color.Navy ) );
+			Items.Add( GetStringFromColor( Color.OldLace ) );
+			Items.Add( GetStringFromColor( Color.Olive ) );
+			Items.Add( GetStringFromColor( Color.OliveDrab ) );
+			Items.Add( GetStringFromColor( Color.Orange ) );
+			Items.Add( GetStringFromColor( Color.OrangeRed ) );
+			Items.Add( GetStringFromColor( Color.Orchid ) );
+			Items.Add( GetStringFromColor( Color.PaleGoldenrod ) );
+			Items.Add( GetStringFromColor( Color.PaleGreen ) );
+			Items.Add( GetStringFromColor( Color.PaleTurquoise ) );
+			Items.Add( GetStringFromColor( Color.PaleVioletRed ) );
+			Items.Add( GetStringFromColor( Color.PapayaWhip ) );
+			Items.Add( GetStringFromColor( Color.PeachPuff ) );
+			Items.Add( GetStringFromColor( Color.Peru ) );
+			Items.Add( GetStringFromColor( Color.Pink ) );
+			Items.Add( GetStringFromColor( Color.Plum ) );
+			Items.Add( GetStringFromColor( Color.PowderBlue ) );
+			Items.Add( GetStringFromColor( Color.Purple ) );
+			Items.Add( GetStringFromColor( Color.Red ) );
+			Items.Add( GetStringFromColor( Color.RosyBrown ) );
+			Items.Add( GetStringFromColor( Color.RoyalBlue ) );
+			Items.Add( GetStringFromColor( Color.SaddleBrown ) );
+			Items.Add( GetStringFromColor( Color.Salmon ) );
+			Items.Add( GetStringFromColor( Color.SandyBrown ) );
+			Items.Add( GetStringFromColor( Color.SeaGreen ) );
+			Items.Add( GetStringFromColor( Color.SeaShell ) );
+			Items.Add( GetStringFromColor( Color.Sienna ) );
+			Items.Add( GetStringFromColor( Color.Silver ) );
+			Items.Add( GetStringFromColor( Color.SkyBlue ) );
+			Items.Add( GetStringFromColor( Color.SlateBlue ) );
+			Items.Add( GetStringFromColor( Color.SlateGray ) );
+			Items.Add( GetStringFromColor( Color.Snow ) );
+			Items.Add( GetStringFromColor( Color.SpringGreen ) );
+			Items.Add( GetStringFromColor( Color.SteelBlue ) );
+			Items.Add( GetStringFromColor( Color.Tan ) );
+			Items.Add( GetStringFromColor( Color.Teal ) );
+			Items.Add( GetStringFromColor( Color.Thistle ) );
+			Items.Add( GetStringFromColor( Color.Tomato ) );
+			Items.Add( GetStringFromColor( Color.Transparent ) );
+			Items.Add( GetStringFromColor( Color.Turquoise ) );
+			Items.Add( GetStringFromColor( Color.Violet ) );
+			Items.Add( GetStringFromColor( Color.Wheat ) );
+			Items.Add( GetStringFromColor( Color.White ) );
+			Items.Add( GetStringFromColor( Color.WhiteSmoke ) );
+			Items.Add( GetStringFromColor( Color.Yellow ) );
+			Items.Add( GetStringFromColor( Color.YellowGreen ) );
 		}
 		
 		/// <summary>
@@ -190,12 +187,12 @@ namespace ArachNGIN.Components
 			blackBrush = new SolidBrush( Color.Black );
 			whiteBrush = new SolidBrush( Color.White );
 			
-			this.DrawMode = DrawMode.OwnerDrawFixed;
-			this.Items.Clear();
+			DrawMode = DrawMode.OwnerDrawFixed;
+			Items.Clear();
 
-			this.DrawItem += new DrawItemEventHandler( OnDrawItem );
-			this.SelectedIndexChanged += new System.EventHandler( OnSelectedIndexChanged );
-			this.DropDown += new System.EventHandler( OnDropDown );						
+			DrawItem += new DrawItemEventHandler( OnDrawItem );
+			SelectedIndexChanged += new System.EventHandler( OnSelectedIndexChanged );
+			DropDown += new System.EventHandler( OnDropDown );						
 
 			bHideText = true;
 		}
@@ -210,11 +207,11 @@ namespace ArachNGIN.Components
 			bHideText = hideText;
 		}
 
-		private void OnDrawItem(object sender, System.Windows.Forms.DrawItemEventArgs e)
+		private void OnDrawItem(object sender, DrawItemEventArgs e)
 		{
-			Graphics grfx = e.Graphics;
-			Color brushColor = GetColorFromString( ( string )this.Items[ e.Index ] );
-			SolidBrush brush = new SolidBrush( brushColor );
+			var grfx = e.Graphics;
+			var brushColor = GetColorFromString( ( string )Items[ e.Index ] );
+			var brush = new SolidBrush( brushColor );
 
 			grfx.FillRectangle( brush, e.Bounds );
 
@@ -225,31 +222,31 @@ namespace ArachNGIN.Components
 					|| brushColor == Color.MediumBlue || brushColor == Color.Maroon 
 					|| brushColor == Color.Navy || brushColor == Color.Purple )
 				{
-					grfx.DrawString( ( string )this.Items[ e.Index ], e.Font, whiteBrush, e.Bounds );
+					grfx.DrawString( ( string )Items[ e.Index ], e.Font, whiteBrush, e.Bounds );
 				}
 				else
 				{
-					grfx.DrawString( ( string )this.Items[ e.Index ], e.Font, blackBrush, e.Bounds );
+					grfx.DrawString( ( string )Items[ e.Index ], e.Font, blackBrush, e.Bounds );
 				}
 
-				this.SelectionStart = 0;
-				this.SelectionLength = 0;
+				SelectionStart = 0;
+				SelectionLength = 0;
 			}
 			else 
 			{
-				grfx.DrawString( ( string )this.Items[ e.Index ], e.Font, new SolidBrush( GetColorFromString( ( string )this.Items[ e.Index ] ) ), e.Bounds );
+				grfx.DrawString( ( string )Items[ e.Index ], e.Font, new SolidBrush( GetColorFromString( ( string )Items[ e.Index ] ) ), e.Bounds );
 			}
 		}
 
 		private void OnSelectedIndexChanged(object sender, System.EventArgs e)
 		{
-			this.BackColor = GetColorFromString( ( string )this.SelectedItem );
+			BackColor = GetColorFromString( ( string )SelectedItem );
 
-			if( bHideText == true )
+			if( bHideText )
 			{
-				this.ForeColor = this.BackColor;
-				this.SelectionStart = 0;
-				this.SelectionLength = 0;
+				ForeColor = BackColor;
+				SelectionStart = 0;
+				SelectionLength = 0;
 			}
 
 		}
@@ -262,14 +259,14 @@ namespace ArachNGIN.Components
 		/// 
 		private void OnDropDown(object sender, System.EventArgs e)
 		{
-			this.BackColor = GetColorFromString( ( string )this.SelectedItem );
+			BackColor = GetColorFromString( ( string )SelectedItem );
 
-			if( bHideText == true )
+			if( bHideText )
 			{
-				this.ForeColor = this.BackColor;
-				this.SelectionStart = 0;
-				this.SelectionLength = 0;
-			}
+			    ForeColor = BackColor;
+			    SelectionStart = 0;
+			    SelectionLength = 0;
+            }
 		}	
 		
 		/// <summary>
