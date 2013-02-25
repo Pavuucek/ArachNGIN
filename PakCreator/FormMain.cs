@@ -40,7 +40,7 @@ namespace PakCreator
                 MessageBox.Show("Zadaný název PAK souboru není platný!");
                 return;
             }
-            txtDir.Text=StringUtils.strAddSlash(txtDir.Text);
+            txtDir.Text=StringUtils.StrAddSlash(txtDir.Text);
             string startpath = txtDir.Text;
             string pak_file = txtPak.Text;
             // mru
@@ -69,8 +69,8 @@ namespace PakCreator
             file_index.Add("FileCount="+path_files.Length.ToString());
             file_index.Add("");
             //
-            QuakePAK.CreateNewPak(pak_file);
-            QuakePAK NewPAK = new QuakePAK(pak_file, true);
+            QuakePak.CreateNewPak(pak_file);
+            QuakePak NewPAK = new QuakePak(pak_file, true);
             Log("Created a new PAK: " + pak_file);
             //
             foreach (FileInfo fi in path_files)
@@ -108,7 +108,7 @@ namespace PakCreator
         {
             if (browseDir.ShowDialog() == DialogResult.OK)
             {
-                txtDir.Text = StringUtils.strAddSlash(browseDir.SelectedPath);
+                txtDir.Text = StringUtils.StrAddSlash(browseDir.SelectedPath);
             }
         }
 
@@ -151,7 +151,7 @@ namespace PakCreator
         private void button1_Click(object sender, EventArgs e)
         {
             // na otestovani pak filesystemu
-            QuakePAKFilesystem QFS = new QuakePAKFilesystem(Program.ATemp.AppDir, Program.ATemp.AppTempDir);
+            var QFS = new QuakePakFilesystem(Program.ATemp.AppDir, Program.ATemp.AppTempDir);
             MessageBox.Show("created");
             MessageBox.Show(QFS.AskFile("Project v1.6/MP4Box/TODO").ToString());
             MessageBox.Show(QFS.AskFile("delphi-webp\\.svn\\entries").ToString());
