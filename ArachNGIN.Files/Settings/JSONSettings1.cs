@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.IO;
 using System.Web.Script.Serialization;
-using System.IO;
-using System.IO.IsolatedStorage;
 
 namespace ArachNGIN.Files.Settings
 {
-
     /* example:
      * 
      * class Program
@@ -32,21 +27,42 @@ namespace ArachNGIN.Files.Settings
      * }
      */
 
-    public class JSONSettings1<T> where T : new()
+    /// <summary>
+    /// Třída na uložení nastavení do JSONů
+    /// </summary>
+    /// <typeparam name="T">t</typeparam>
+    public class JsonSettings1<T> where T : new()
     {
-        private const string DEFAULT_FILENAME = "settings.jsn";
+        private const string DefaultFilename = "settings.jsn";
 
-        public void Save(string fileName = DEFAULT_FILENAME)
+
+        /// <summary>
+        /// Saves the specified file name.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        public void Save(string fileName = DefaultFilename)
         {
             File.WriteAllText(fileName, (new JavaScriptSerializer()).Serialize(this));
         }
-        public static void Save(T pSettings, string fileName = DEFAULT_FILENAME)
+
+        /// <summary>
+        /// Saves the specified p settings.
+        /// </summary>
+        /// <param name="pSettings">The p settings.</param>
+        /// <param name="fileName">Name of the file.</param>
+        public static void Save(T pSettings, string fileName = DefaultFilename)
         {
             File.WriteAllText(fileName, (new JavaScriptSerializer()).Serialize(pSettings));
         }
-        public static T Load(string fileName = DEFAULT_FILENAME)
+
+        /// <summary>
+        /// Loads the specified file name.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns></returns>
+        public static T Load(string fileName = DefaultFilename)
         {
-            T t = new T();
+            var t = new T();
             if (File.Exists(fileName))
                 t = (new JavaScriptSerializer()).Deserialize<T>(File.ReadAllText(fileName));
             return t;

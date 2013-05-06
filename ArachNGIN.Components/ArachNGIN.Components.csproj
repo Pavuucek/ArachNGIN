@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ArachNGIN.Components</RootNamespace>
     <AssemblyName>ArachNGIN.Components</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -63,13 +63,21 @@
     <Compile Include="ColorComboBox\ColorComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="FormHeader\ColorSlideFormHeader.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="FormHeader\FormHeader.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FormHeader\ImageFormHeader.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ProgressTaskList\ProgressTaskList.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ProgressTaskList\StringCollection2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SplashForm\DelegateCloseSplash.cs" />
     <Compile Include="SplashForm\SplashForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,9 +95,6 @@
     <EmbeddedResource Include="SplashForm\SplashForm.resx">
       <DependentUpon>SplashForm.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="SplashForm\vssver.scc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ArachNGIN.Files\ArachNGIN.Files.csproj">

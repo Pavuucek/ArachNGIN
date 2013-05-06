@@ -1,16 +1,12 @@
-using Microsoft.VisualBasic;
-using Microsoft.VisualBasic.Compatibility;
-using System;
-using System.Collections;
-using System.Data;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
- // ERROR: Not supported in C#: OptionDeclaration
+using Microsoft.VisualBasic;
+
+// ERROR: Not supported in C#: OptionDeclaration
+
 namespace ArachNGIN.Files.MPQ
 {
-	static class SFmpqapi
-	{
-
+    internal static class SFmpqapi
+    {
 //  ShadowFlare MPQ API Library. (c) ShadowFlare Software 2002
 
 //  All functions below are actual functions that are part of this
@@ -129,235 +125,250 @@ namespace ArachNGIN.Files.MPQ
 
 //  Any comments or suggestions are accepted at blakflare@hotmail.com (ShadowFlare)
 
-		public struct SFMPQVERSION
-		{
-			public short Major;
-			public short Minor;
-			public short Revision;
-			public short Subrevision;
-		}
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern void SFMpqDestroy();
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern string SFMpqGetVersionString();
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern int SFMpqGetVersionString2(string lpBuffer, int dwBufferLength);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern SFMPQVERSION SFMpqGetVersion();
-
-		// This no longer needs to be called.  It is only provided for compatibility with older versions
+        // This no longer needs to be called.  It is only provided for compatibility with older versions
 
 // SFMpqGetVersionString2's return value is the required length of the buffer plus
 // the terminating null, so use SFMpqGetVersionString2(ByVal 0&, 0) to get the length.
 
 // General error codes
-		public const uint MPQ_ERROR_MPQ_INVALID = 0x85200065;
-		public const uint MPQ_ERROR_FILE_NOT_FOUND = 0x85200066;
-			//Physical write file to MPQ failed. Not sure of exact meaning
-		public const uint MPQ_ERROR_DISK_FULL = 0x85200068;
-		public const uint MPQ_ERROR_HASH_TABLE_FULL = 0x85200069;
-		public const uint MPQ_ERROR_ALREADY_EXISTS = 0x8520006a;
-			//When MOAU_READ_ONLY is used without MOAU_OPEN_EXISTING
-		public const uint MPQ_ERROR_BAD_OPEN_MODE = 0x8520006c;
+        public const uint MpqErrorMpqInvalid = 0x85200065;
+        public const uint MpqErrorFileNotFound = 0x85200066;
+        //Physical write file to MPQ failed. Not sure of exact meaning
+        public const uint MpqErrorDiskFull = 0x85200068;
+        public const uint MpqErrorHashTableFull = 0x85200069;
+        public const uint MpqErrorAlreadyExists = 0x8520006a;
+        //When MOAU_READ_ONLY is used without MOAU_OPEN_EXISTING
+        public const uint MpqErrorBadOpenMode = 0x8520006c;
 
-		public const uint MPQ_ERROR_COMPACT_ERROR = 0x85300001;
+        public const uint MpqErrorCompactError = 0x85300001;
 
 // MpqOpenArchiveForUpdate flags
-		public const int MOAU_CREATE_NEW = 0x0;
-			//Was wrongly named MOAU_CREATE_NEW
-		public const int MOAU_CREATE_ALWAYS = 0x8;
-		public const int MOAU_OPEN_EXISTING = 0x4;
-		public const int MOAU_OPEN_ALWAYS = 0x20;
-			//Must be used with MOAU_OPEN_EXISTING
-		public const int MOAU_READ_ONLY = 0x10;
-		public const int MOAU_MAINTAIN_LISTFILE = 0x1;
+        public const int MoauCreateNew = 0x0;
+        //Was wrongly named MOAU_CREATE_NEW
+        public const int MoauCreateAlways = 0x8;
+        public const int MoauOpenExisting = 0x4;
+        public const int MoauOpenAlways = 0x20;
+        //Must be used with MOAU_OPEN_EXISTING
+        public const int MoauReadOnly = 0x10;
+        public const int MoauMaintainListfile = 0x1;
 
 // MpqAddFileToArchive flags
-			//Will be added if not present
-		public const uint MAFA_EXISTS = 0x80000000;
-		public const int MAFA_UNKNOWN40000000 = 0x40000000;
-		public const int MAFA_MODCRYPTKEY = 0x20000;
-		public const int MAFA_ENCRYPT = 0x10000;
-		public const int MAFA_COMPRESS = 0x200;
-		public const int MAFA_COMPRESS2 = 0x100;
-		public const int MAFA_REPLACE_EXISTING = 0x1;
+        //Will be added if not present
+        public const uint MafaExists = 0x80000000;
+        public const int MafaUnknown40000000 = 0x40000000;
+        public const int MafaModcryptkey = 0x20000;
+        public const int MafaEncrypt = 0x10000;
+        public const int MafaCompress = 0x200;
+        public const int MafaCompress2 = 0x100;
+        public const int MafaReplaceExisting = 0x1;
 
 // MpqAddFileToArchiveEx compression flags
-			//Standard PKWare DCL compression
-		public const int MAFA_COMPRESS_STANDARD = 0x8;
-			//ZLib's deflate compression
-		public const int MAFA_COMPRESS_DEFLATE = 0x2;
-			//Standard wave compression
-		public const int MAFA_COMPRESS_WAVE = 0x81;
-			//Unused wave compression
-		public const int MAFA_COMPRESS_WAVE2 = 0x41;
+        //Standard PKWare DCL compression
+        public const int MafaCompressStandard = 0x8;
+        //ZLib's deflate compression
+        public const int MafaCompressDeflate = 0x2;
+        //Standard wave compression
+        public const int MafaCompressWave = 0x81;
+        //Unused wave compression
+        public const int MafaCompressWave2 = 0x41;
 
 // Flags for individual compression types used for wave compression
-			//Main compressor for standard wave compression
-		public const int MAFA_COMPRESS_WAVECOMP1 = 0x80;
-			//Main compressor for unused wave compression
-		public const int MAFA_COMPRESS_WAVECOMP2 = 0x40;
-			//Secondary compressor for wave compression
-		public const int MAFA_COMPRESS_WAVECOMP3 = 0x1;
+        //Main compressor for standard wave compression
+        public const int MafaCompressWavecomp1 = 0x80;
+        //Main compressor for unused wave compression
+        public const int MafaCompressWavecomp2 = 0x40;
+        //Secondary compressor for wave compression
+        public const int MafaCompressWavecomp3 = 0x1;
 
 // ZLib deflate compression level constants (used with MpqAddFileToArchiveEx and MpqAddFileFromBufferEx)
-		public const int Z_NO_COMPRESSION = 0;
-		public const int Z_BEST_SPEED = 1;
-		public const int Z_BEST_COMPRESSION = 9;
-		public const int Z_DEFAULT_COMPRESSION = (-1);
+        public const int ZNoCompression = 0;
+        public const int ZBestSpeed = 1;
+        public const int ZBestCompression = 9;
+        public const int ZDefaultCompression = (-1);
 
 // MpqAddWAVToArchive quality flags
-		public const int MAWA_QUALITY_HIGH = 1;
-		public const int MAWA_QUALITY_MEDIUM = 0;
-		public const int MAWA_QUALITY_LOW = 2;
+        public const int MawaQualityHigh = 1;
+        public const int MawaQualityMedium = 0;
+        public const int MawaQualityLow = 2;
 
 // SFileGetFileInfo flags
-			//Block size in MPQ
-		public const int SFILE_INFO_BLOCK_SIZE = 0x1;
-			//Hash table size in MPQ
-		public const int SFILE_INFO_HASH_TABLE_SIZE = 0x2;
-			//Number of files in MPQ
-		public const int SFILE_INFO_NUM_FILES = 0x3;
-			//Is Long a file or an MPQ?
-		public const int SFILE_INFO_TYPE = 0x4;
-			//Size of MPQ or uncompressed file
-		public const int SFILE_INFO_SIZE = 0x5;
-			//Size of compressed file
-		public const int SFILE_INFO_COMPRESSED_SIZE = 0x6;
-			//File flags (compressed, etc.), file attributes if a file not in an archive
-		public const int SFILE_INFO_FLAGS = 0x7;
-			//Handle of MPQ that file is in
-		public const int SFILE_INFO_PARENT = 0x8;
-			//Position of file pointer in files
-		public const int SFILE_INFO_POSITION = 0x9;
-			//Locale ID of file in MPQ
-		public const int SFILE_INFO_LOCALEID = 0xa;
-			//Priority of open MPQ
-		public const int SFILE_INFO_PRIORITY = 0xb;
-			//Hash index of file in MPQ
-		public const int SFILE_INFO_HASH_INDEX = 0xc;
+        //Block size in MPQ
+        public const int SfileInfoBlockSize = 0x1;
+        //Hash table size in MPQ
+        public const int SfileInfoHashTableSize = 0x2;
+        //Number of files in MPQ
+        public const int SfileInfoNumFiles = 0x3;
+        //Is Long a file or an MPQ?
+        public const int SfileInfoType = 0x4;
+        //Size of MPQ or uncompressed file
+        public const int SfileInfoSize = 0x5;
+        //Size of compressed file
+        public const int SfileInfoCompressedSize = 0x6;
+        //File flags (compressed, etc.), file attributes if a file not in an archive
+        public const int SfileInfoFlags = 0x7;
+        //Handle of MPQ that file is in
+        public const int SfileInfoParent = 0x8;
+        //Position of file pointer in files
+        public const int SfileInfoPosition = 0x9;
+        //Locale ID of file in MPQ
+        public const int SfileInfoLocaleid = 0xa;
+        //Priority of open MPQ
+        public const int SfileInfoPriority = 0xb;
+        //Hash index of file in MPQ
+        public const int SfileInfoHashIndex = 0xc;
 
 // SFileListFiles flags
-			// Specifies that lpFilelists is a file list from memory, rather than being a list of file lists
-		public const int SFILE_LIST_MEMORY_LIST = 0x1;
-			// Only list files that the function finds a name for
-		public const int SFILE_LIST_ONLY_KNOWN = 0x2;
-			// Only list files that the function does not find a name for
-		public const int SFILE_LIST_ONLY_UNKNOWN = 0x4;
+        // Specifies that lpFilelists is a file list from memory, rather than being a list of file lists
+        public const int SfileListMemoryList = 0x1;
+        // Only list files that the function finds a name for
+        public const int SfileListOnlyKnown = 0x2;
+        // Only list files that the function does not find a name for
+        public const int SfileListOnlyUnknown = 0x4;
 
-		public const int SFILE_TYPE_MPQ = 0x1;
-		public const int SFILE_TYPE_FILE = 0x2;
+        public const int SfileTypeMpq = 0x1;
+        public const int SfileTypeFile = 0x2;
 
-		public const int INVALID_HANDLE_VALUE = -1;
+        public const int InvalidHandleValue = -1;
 
-		public const int FILE_BEGIN = 0;
-		public const int FILE_CURRENT = 1;
-		public const int FILE_END = 2;
+        public const int FileBegin = 0;
+        public const int FileCurrent = 1;
+        public const int FileEnd = 2;
 
-			//Open archive without regard to the drive type it resides on
-		public const int SFILE_OPEN_HARD_DISK_FILE = 0x0;
-			//Open the archive only if it is on a CD-ROM
-		public const int SFILE_OPEN_CD_ROM_FILE = 0x1;
-			//Open file with write access
-		public const int SFILE_OPEN_ALLOW_WRITE = 0x8000;
+        //Open archive without regard to the drive type it resides on
+        public const int SfileOpenHardDiskFile = 0x0;
+        //Open the archive only if it is on a CD-ROM
+        public const int SfileOpenCdRomFile = 0x1;
+        //Open file with write access
+        public const int SfileOpenAllowWrite = 0x8000;
 
-			//Used with SFileOpenFileEx; only the archive with the handle specified will be searched for the file
-		public const int SFILE_SEARCH_CURRENT_ONLY = 0x0;
-			//SFileOpenFileEx will look through all open archives for the file
-		public const int SFILE_SEARCH_ALL_OPEN = 0x1;
+        //Used with SFileOpenFileEx; only the archive with the handle specified will be searched for the file
+        public const int SfileSearchCurrentOnly = 0x0;
+        //SFileOpenFileEx will look through all open archives for the file
+        public const int SfileSearchAllOpen = 0x1;
 
-		public struct FILELISTENTRY
-		{
-				// Nonzero if this entry is used
-			public int dwFileExists;
-				// Locale ID of file
-			public int lcLocale;
-				// Compressed size of file
-			public int dwCompressedSize;
-				// Uncompressed size of file
-			public int dwFullSize;
-				// Flags for file
-			public int dwFlags;
-			[VBFixedArray(259)]
-			public byte[] szFileName;
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern void SFMpqDestroy();
 
-			//UPGRADE_TODO: "Initialize" must be called to initialize instances of this structure. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B4BFF9E0-8631-45CF-910E-62AB3970F27B"'
-			public void Initialize()
-			{
-				szFileName = new byte[260];
-			}
-		}
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool SFileOpenArchive(string lpFileName, int dwPriority, int dwFlags, ref int hMPQ);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool SFileCloseArchive(int hMPQ);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool SFileGetArchiveName(int hMPQ, string lpBuffer, int dwBufferLength);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool SFileOpenFile(string lpFileName, ref int hFile);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool SFileOpenFileEx(int hMPQ, string lpFileName, int dwSearchScope, ref int hFile);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool SFileCloseFile(int hFile);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern int SFileGetFileSize(int hFile, ref int lpFileSizeHigh);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool SFileGetFileArchive(int hFile, ref int hMPQ);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool SFileGetFileName(int hMPQ, string lpBuffer, int dwBufferLength);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern int SFileSetFilePointer(int hFile, int lDistanceToMove, ref int lplDistanceToMoveHigh, int dwMoveMethod);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool SFileReadFile(int hFile, ref object lpBuffer, int nNumberOfBytesToRead, ref int lpNumberOfBytesRead, ref object lpOverlapped);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern int SFileSetLocale(int nNewLocale);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool SFileGetBasePath(string lpBuffer, int dwBufferLength);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool SFileSetBasePath(string lpNewBasePath);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern int SFileGetFileInfo(int hFile, int dwInfoType);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool SFileSetArchivePriority(int hMPQ, int dwPriority);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern int SFileFindMpqHeader(int hFile);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool SFileListFiles(int hMPQ, string lpFileLists, ref FILELISTENTRY lpListBuffer, int dwFlags);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern int MpqOpenArchiveForUpdate(string lpFileName, int dwFlags, int dwMaximumFilesInArchive);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern int MpqCloseUpdatedArchive(int hMPQ, int dwUnknown2);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool MpqAddFileToArchive(int hMPQ, string lpSourceFileName, string lpDestFileName, int dwFlags);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool MpqAddWaveToArchive(int hMPQ, string lpSourceFileName, string lpDestFileName, int dwFlags, int dwQuality);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool MpqRenameFile(int hMPQ, string lpcOldFileName, string lpcNewFileName);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool MpqDeleteFile(int hMPQ, string lpFileName);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool MpqCompactArchive(int hMPQ);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool MpqAddFileToArchiveEx(int hMPQ, string lpSourceFileName, string lpDestFileName, int dwFlags, int dwCompressionType, int dwCompressLevel);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool MpqAddFileFromBufferEx(int hMPQ, ref object lpBuffer, int dwLength, string lpFileName, int dwFlags, int dwCompressionType, int dwCompressLevel);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool MpqAddFileFromBuffer(int hMPQ, ref object lpBuffer, int dwLength, string lpFileName, int dwFlags);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool MpqAddWaveFromBuffer(int hMPQ, ref object lpBuffer, int dwLength, string lpFileName, int dwFlags, int dwQuality);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool MpqSetFileLocale(int hMPQ, string lpFileName, int nOldLocale, int nNewLocale);
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern bool SFileDestroy();
-		[DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-		public static extern void StormDestroy();
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern string SFMpqGetVersionString();
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern int SFMpqGetVersionString2(string lpBuffer, int dwBufferLength);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern SfMpqVersion SFMpqGetVersion();
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool SFileOpenArchive(string lpFileName, int dwPriority, int dwFlags, ref int hMpq);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool SFileCloseArchive(int hMpq);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool SFileGetArchiveName(int hMpq, string lpBuffer, int dwBufferLength);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool SFileOpenFile(string lpFileName, ref int hFile);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool SFileOpenFileEx(int hMpq, string lpFileName, int dwSearchScope, ref int hFile);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool SFileCloseFile(int hFile);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern int SFileGetFileSize(int hFile, ref int lpFileSizeHigh);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool SFileGetFileArchive(int hFile, ref int hMpq);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool SFileGetFileName(int hMpq, string lpBuffer, int dwBufferLength);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern int SFileSetFilePointer(int hFile, int lDistanceToMove, ref int lplDistanceToMoveHigh,
+                                                     int dwMoveMethod);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool SFileReadFile(int hFile, ref object lpBuffer, int nNumberOfBytesToRead,
+                                                ref int lpNumberOfBytesRead, ref object lpOverlapped);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern int SFileSetLocale(int nNewLocale);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool SFileGetBasePath(string lpBuffer, int dwBufferLength);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool SFileSetBasePath(string lpNewBasePath);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern int SFileGetFileInfo(int hFile, int dwInfoType);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool SFileSetArchivePriority(int hMpq, int dwPriority);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern int SFileFindMpqHeader(int hFile);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool SFileListFiles(int hMpq, string lpFileLists, ref FileListEntry lpListBuffer,
+                                                 int dwFlags);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern int MpqOpenArchiveForUpdate(string lpFileName, int dwFlags, int dwMaximumFilesInArchive);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern int MpqCloseUpdatedArchive(int hMpq, int dwUnknown2);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool MpqAddFileToArchive(int hMpq, string lpSourceFileName, string lpDestFileName,
+                                                      int dwFlags);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool MpqAddWaveToArchive(int hMpq, string lpSourceFileName, string lpDestFileName,
+                                                      int dwFlags, int dwQuality);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool MpqRenameFile(int hMpq, string lpcOldFileName, string lpcNewFileName);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool MpqDeleteFile(int hMpq, string lpFileName);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool MpqCompactArchive(int hMpq);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool MpqAddFileToArchiveEx(int hMpq, string lpSourceFileName, string lpDestFileName,
+                                                        int dwFlags, int dwCompressionType, int dwCompressLevel);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool MpqAddFileFromBufferEx(int hMpq, ref object lpBuffer, int dwLength, string lpFileName,
+                                                         int dwFlags, int dwCompressionType, int dwCompressLevel);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool MpqAddFileFromBuffer(int hMpq, ref object lpBuffer, int dwLength, string lpFileName,
+                                                       int dwFlags);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool MpqAddWaveFromBuffer(int hMpq, ref object lpBuffer, int dwLength, string lpFileName,
+                                                       int dwFlags, int dwQuality);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool MpqSetFileLocale(int hMpq, string lpFileName, int nOldLocale, int nNewLocale);
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern bool SFileDestroy();
+
+        [DllImport("ArachNGIN.Files.MPQ.ocx", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern void StormDestroy();
 
 // Storm functions implemented by this library
 //UPGRADE_ISSUE: Declaring a parameter 'As Any' is not supported. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"'
 //UPGRADE_ISSUE: Declaring a parameter 'As Any' is not supported. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"'
 
 // Extra storm-related functions
-//UPGRADE_WARNING: Structure FILELISTENTRY may require marshalling attributes to be passed as an argument in this Declare statement. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"'
+//UPGRADE_WARNING: Structure FileListEntry may require marshalling attributes to be passed as an argument in this Declare statement. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"'
 
 // Archive editing functions implemented by this library
 
@@ -371,48 +382,96 @@ namespace ArachNGIN.Files.MPQ
 
 // Returns 0 if the dll version is equal to the version your program was compiled
 // with, 1 if the dll is newer, -1 if the dll is older.
-		public static int SFMpqCompareVersion()
-		{
-			int functionReturnValue = 0;
-			SFMPQVERSION ExeVersion = default(SFMPQVERSION);
-			SFMPQVERSION DllVersion = default(SFMPQVERSION);
-			var _with1 = ExeVersion;
-			_with1.Major = 1;
-			_with1.Minor = 0;
-			_with1.Revision = 7;
-			_with1.Subrevision = 4;
-			//UPGRADE_WARNING: Couldn't resolve default property of object DllVersion. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-			DllVersion = SFMpqGetVersion();
-			if (DllVersion.Major > ExeVersion.Major) {
-				functionReturnValue = 1;
-				return functionReturnValue;
-			} else if (DllVersion.Major < ExeVersion.Major) {
-				functionReturnValue = -1;
-				return functionReturnValue;
-			}
-			if (DllVersion.Minor > ExeVersion.Minor) {
-				functionReturnValue = 1;
-				return functionReturnValue;
-			} else if (DllVersion.Minor < ExeVersion.Minor) {
-				functionReturnValue = -1;
-				return functionReturnValue;
-			}
-			if (DllVersion.Revision > ExeVersion.Revision) {
-				functionReturnValue = 1;
-				return functionReturnValue;
-			} else if (DllVersion.Revision < ExeVersion.Revision) {
-				functionReturnValue = -1;
-				return functionReturnValue;
-			}
-			if (DllVersion.Subrevision > ExeVersion.Subrevision) {
-				functionReturnValue = 1;
-				return functionReturnValue;
-			} else if (DllVersion.Subrevision < ExeVersion.Subrevision) {
-				functionReturnValue = -1;
-				return functionReturnValue;
-			}
-			functionReturnValue = 0;
-			return functionReturnValue;
-		}
-	}
+        public static int SfMpqCompareVersion()
+        {
+            int functionReturnValue = 0;
+            var exeVersion = default(SfMpqVersion);
+            var DllVersion = default(SfMpqVersion);
+            var _with1 = exeVersion;
+            _with1.Major = 1;
+            _with1.Minor = 0;
+            _with1.Revision = 7;
+            _with1.Subrevision = 4;
+            //UPGRADE_WARNING: Couldn't resolve default property of object DllVersion. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
+            DllVersion = SFMpqGetVersion();
+            if (DllVersion.Major > exeVersion.Major)
+            {
+                functionReturnValue = 1;
+                return functionReturnValue;
+            }
+            else if (DllVersion.Major < exeVersion.Major)
+            {
+                functionReturnValue = -1;
+                return functionReturnValue;
+            }
+            if (DllVersion.Minor > exeVersion.Minor)
+            {
+                functionReturnValue = 1;
+                return functionReturnValue;
+            }
+            else if (DllVersion.Minor < exeVersion.Minor)
+            {
+                functionReturnValue = -1;
+                return functionReturnValue;
+            }
+            if (DllVersion.Revision > exeVersion.Revision)
+            {
+                functionReturnValue = 1;
+                return functionReturnValue;
+            }
+            else if (DllVersion.Revision < exeVersion.Revision)
+            {
+                functionReturnValue = -1;
+                return functionReturnValue;
+            }
+            if (DllVersion.Subrevision > exeVersion.Subrevision)
+            {
+                functionReturnValue = 1;
+                return functionReturnValue;
+            }
+            else if (DllVersion.Subrevision < exeVersion.Subrevision)
+            {
+                functionReturnValue = -1;
+                return functionReturnValue;
+            }
+            functionReturnValue = 0;
+            return functionReturnValue;
+        }
+
+        #region Nested type: FileListEntry
+
+        public struct FileListEntry
+        {
+            // Nonzero if this entry is used
+            // Compressed size of file
+            public int DwCompressedSize;
+            public int DwFileExists;
+            // Uncompressed size of file
+            // Flags for file
+            public int DwFlags;
+            public int DwFullSize;
+            public int LcLocale;
+            [VBFixedArray(259)] public byte[] SzFileName;
+
+            //UPGRADE_TODO: "Initialize" must be called to initialize instances of this structure. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B4BFF9E0-8631-45CF-910E-62AB3970F27B"'
+            public void Initialize()
+            {
+                SzFileName = new byte[260];
+            }
+        }
+
+        #endregion
+
+        #region Nested type: SfMpqVersion
+
+        public struct SfMpqVersion
+        {
+            public short Major;
+            public short Minor;
+            public short Revision;
+            public short Subrevision;
+        }
+
+        #endregion
+    }
 }
