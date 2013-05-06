@@ -1,10 +1,30 @@
+/*
+ * Copyright (c) 2006-2013 Michal Kuncl <michal.kuncl@gmail.com> http://www.pavucina.info
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
+ * is furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+ * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using ArachNGIN.Components.Console.Forms;
+using ArachNGIN.Components.Console.Misc;
 using ArachNGIN.Files.Streams;
 
-namespace ArachNGIN.Components.Console.Console
+namespace ArachNGIN.Components.Console
 {
     /// <summary>
     /// Tøída debugovací/pøíkazové konzole
@@ -19,9 +39,9 @@ namespace ArachNGIN.Components.Console.Console
         {
             _consoleForm = new DebugConsoleForm();
             // pøipíchneme na txtCommand event pro zpracování zmáèknutí klávesy
-            _consoleForm.txtCommand.KeyPress += new KeyPressEventHandler(this.TxtCommandKeyPress);
+            _consoleForm.txtCommand.KeyPress += TxtCommandKeyPress;
             // pøipíchneme ještì event interních pøíkazù
-            OnCommandEntered += new CommandEnteredEvent(InternalCommands);
+            OnCommandEntered += InternalCommands;
         }
 
         /// <summary>
@@ -30,9 +50,9 @@ namespace ArachNGIN.Components.Console.Console
         public ConsoleAutoSave AutoSave = ConsoleAutoSave.ManualOnly;
 
         private bool _echoCommands = true;
-        private bool _processInternalCommands = false;
-        private DebugConsoleForm _consoleForm;
-        private string logName = StringUtils.StrAddSlash(Path.GetDirectoryName(Application.ExecutablePath)) + DateTime.Now.ToString().Replace(":","-") + ".log";
+        private bool _processInternalCommands = true;
+        private readonly DebugConsoleForm _consoleForm;
+        private readonly string _logName = StringUtils.StrAddSlash(Path.GetDirectoryName(Application.ExecutablePath)) + DateTime.Now.ToString().Replace(":","-") + ".log";
 
         #region Veøejné vlastnosti
 		
@@ -88,8 +108,6 @@ namespace ArachNGIN.Components.Console.Console
                         break;
                     case ConsoleLocation.ScreenCenter:
                         _consoleForm.StartPosition = FormStartPosition.CenterScreen;
-                        break;
-                    default:
                         break;
                 }
             }
@@ -199,7 +217,7 @@ namespace ArachNGIN.Components.Console.Console
         /// <param name="message">název události</param>
         public void Write(DateTime t, string message)
         {
-            ListViewItem item = new ListViewItem(t.ToLongTimeString());
+            var item = new ListViewItem(t.ToLongTimeString());
             item.SubItems.Add(message);
             _consoleForm.lstLog.Items.Add(item);
             _consoleForm.lstLog.EnsureVisible(_consoleForm.lstLog.Items.Count-1);
@@ -226,7 +244,7 @@ namespace ArachNGIN.Components.Console.Console
         /// </summary>
         public void SaveLog()
         {
-            StringCollections.SaveToFile(logName,_consoleForm.lstLog.Items);
+            StringCollections.SaveToFile(_logName,_consoleForm.lstLog.Items);
         }
 
         /// <summary>

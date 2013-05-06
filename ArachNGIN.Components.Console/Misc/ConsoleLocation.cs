@@ -1,4 +1,4 @@
-namespace ArachNGIN.Components.Console.Console
+namespace ArachNGIN.Components.Console.Misc
 {
     /// <summary>
     /// Výèet použitý pro umístìní konzole na obrazovku

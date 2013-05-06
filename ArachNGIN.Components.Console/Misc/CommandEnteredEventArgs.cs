@@ -1,6 +1,6 @@
 using System;
 
-namespace ArachNGIN.Components.Console.Console
+namespace ArachNGIN.Components.Console.Misc
 {
     /// <summary>
     /// Tøída parametrù události OnCommandEntered
@@ -16,12 +16,12 @@ namespace ArachNGIN.Components.Console.Console
         /// <returns></returns>
         public CommandEnteredEventArgs(string cmd, string[] parArray, string parString )
         {
-            parametry = parArray;
-            prikaz = cmd;
-            parametry_str = parString;
+            _parametry = parArray;
+            _prikaz = cmd;
+            _parametryStr = parString;
         }
-		
-        string prikaz;
+
+        readonly string _prikaz;
         /// <summary>
         /// Pøíkaz konzole
         /// </summary>
@@ -29,11 +29,11 @@ namespace ArachNGIN.Components.Console.Console
         {
             get
             {
-                return prikaz;
+                return _prikaz;
             }
         }
-		
-        string[] parametry;
+
+        readonly string[] _parametry;
         /// <summary>
         /// Parametry pøíkazu jako pole
         /// </summary>
@@ -41,11 +41,11 @@ namespace ArachNGIN.Components.Console.Console
         {
             get
             {
-                return parametry;
+                return _parametry;
             }
         }
-		
-        string parametry_str;
+
+        readonly string _parametryStr;
         /// <summary>
         /// Parametry pøíkazu jako øetìzec
         /// </summary>
@@ -53,7 +53,7 @@ namespace ArachNGIN.Components.Console.Console
         {
             get
             {
-                return parametry_str;
+                return _parametryStr;
             }
         }
     }
