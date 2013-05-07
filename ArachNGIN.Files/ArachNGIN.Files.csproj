@@ -67,6 +67,8 @@
     <Compile Include="CRC\AnimeCRC.cs" />
     <Compile Include="Graphics\ByteArrayConverters.cs" />
     <Compile Include="Graphics\ImageResizer.cs" />
+    <Compile Include="Mime\GetMimeTypeFromContent.cs" />
+    <Compile Include="Mime\GetMimeTypeFromExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuakePak\quake_pak.cs" />
     <Compile Include="QuakePak\quake_pak_filesystem.cs" />
