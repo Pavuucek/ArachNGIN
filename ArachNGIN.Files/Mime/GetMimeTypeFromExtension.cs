@@ -2470,9 +2470,10 @@ namespace ArachNGIN.Files.Mime
         /// <returns></returns>
         public static string GetMimeType(string fileName)
         {
-            if (MimeTypesDictionary.ContainsKey(Path.GetExtension(fileName).Remove(0, 1)))
+            var extension = Path.GetExtension(fileName);
+            if (!string.IsNullOrEmpty(extension) && MimeTypesDictionary.ContainsKey(extension.Remove(0, 1)))
             {
-                return MimeTypesDictionary[Path.GetExtension(fileName).Remove(0, 1)];
+                return MimeTypesDictionary[extension.Remove(0, 1)];
             }
             //return "unknown/unknown";
             return "application/octet-stream";
