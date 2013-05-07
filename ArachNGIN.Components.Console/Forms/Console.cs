@@ -24,7 +24,6 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 
-using System;
 using System.Windows.Forms;
 
 namespace ArachNGIN.Components.Console.Forms
@@ -42,15 +41,17 @@ namespace ArachNGIN.Components.Console.Forms
 			InitializeComponent();
         }
 
-        private void BtnSaveClick(object sender, EventArgs e)
-        {
-
-        }
-
         private void DebugConsoleFormFormClosing(object sender, FormClosingEventArgs e)
         {
             Hide();
             e.Cancel = true;
+        }
+
+        private void LstLogSeparateSizeChanged(object sender, System.EventArgs e)
+        {
+            lstLogPlain.Size = lstLogSeparate.Size;
+            lstLogPlain.Location = lstLogSeparate.Location;
+            lstLogPlain.Dock = lstLogSeparate.Dock;
         }
 	}
 }

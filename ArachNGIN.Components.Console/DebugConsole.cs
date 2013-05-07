@@ -18,6 +18,7 @@
 
 using System;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using ArachNGIN.Components.Console.Forms;
@@ -38,6 +39,9 @@ namespace ArachNGIN.Components.Console
         public DebugConsole()
         {
             _consoleForm = new DebugConsoleForm();
+            _consoleForm.lstLogPlain.Size = _consoleForm.lstLogSeparate.Size;
+            _consoleForm.lstLogPlain.Location = _consoleForm.lstLogSeparate.Location;
+            _consoleForm.lstLogPlain.Dock = _consoleForm.lstLogSeparate.Dock;
             // pøipíchneme na txtCommand event pro zpracování zmáèknutí klávesy
             _consoleForm.txtCommand.KeyPress += TxtCommandKeyPress;
             // pøipíchneme ještì event interních pøíkazù
@@ -52,7 +56,8 @@ namespace ArachNGIN.Components.Console
         private bool _echoCommands = true;
         private bool _processInternalCommands = true;
         private readonly DebugConsoleForm _consoleForm;
-        private readonly string _logName = StringUtils.StrAddSlash(Path.GetDirectoryName(Application.ExecutablePath)) + DateTime.Now.ToString().Replace(":","-") + ".log";
+        private bool _usePlainView = true;
+        private readonly string _logName = StringUtils.StrAddSlash(Path.GetDirectoryName(Application.ExecutablePath)) + DateTime.Now.ToString(CultureInfo.InvariantCulture).Replace(@"/","-").Replace(":","-") + ".log";
 
         #region Veøejné vlastnosti
 		
@@ -80,6 +85,20 @@ namespace ArachNGIN.Components.Console
             }
         }
 		
+        /// <summary>
+        /// Použít holý výstup nebo rozdìlený na datum a zprávu?
+        /// </summary>
+        public bool UsePlainView
+        {
+            get { return _usePlainView; }
+            set
+            {
+                _usePlainView = value;
+                _consoleForm.lstLogPlain.Visible = value;
+                _consoleForm.lstLogSeparate.Visible = !value;
+            }
+        }
+
         /// <summary>
         /// Property umístìní konzole (pouze zápis)
         /// </summary>
@@ -219,8 +238,10 @@ namespace ArachNGIN.Components.Console
         {
             var item = new ListViewItem(t.ToLongTimeString());
             item.SubItems.Add(message);
-            _consoleForm.lstLog.Items.Add(item);
-            _consoleForm.lstLog.EnsureVisible(_consoleForm.lstLog.Items.Count-1);
+            _consoleForm.lstLogSeparate.Items.Add(item);
+            _consoleForm.lstLogPlain.Items.Add(t.ToLongTimeString() + " --> " + message);
+            _consoleForm.lstLogSeparate.EnsureVisible(_consoleForm.lstLogSeparate.Items.Count-1);
+            _consoleForm.lstLogPlain.SelectedIndex = _consoleForm.lstLogPlain.Items.Count - 1;
             if (AutoSave == ConsoleAutoSave.OnLineAdd)
             {
                 SaveLog();
@@ -244,7 +265,7 @@ namespace ArachNGIN.Components.Console
         /// </summary>
         public void SaveLog()
         {
-            StringCollections.SaveToFile(_logName,_consoleForm.lstLog.Items);
+            StringCollections.SaveToFile(_logName,_consoleForm.lstLogSeparate.Items);
         }
 
         /// <summary>
@@ -256,8 +277,10 @@ namespace ArachNGIN.Components.Console
         {
             var item = new ListViewItem("");
             item.SubItems.Add(message);
-            _consoleForm.lstLog.Items.Add(item);
-            _consoleForm.lstLog.EnsureVisible(_consoleForm.lstLog.Items.Count-1);
+            _consoleForm.lstLogSeparate.Items.Add(item);
+            _consoleForm.lstLogPlain.Items.Add(message);
+            _consoleForm.lstLogSeparate.EnsureVisible(_consoleForm.lstLogSeparate.Items.Count-1);
+            _consoleForm.lstLogPlain.SelectedIndex = _consoleForm.lstLogPlain.Items.Count - 1;
             if (AutoSave == ConsoleAutoSave.OnLineAdd)
             {
                 SaveLog();
@@ -293,7 +316,7 @@ namespace ArachNGIN.Components.Console
             }
 				
             // zapiseme do outputu
-            if(_echoCommands) Write("Command: "+command);
+            if (_echoCommands) Write("Command: " + command);
 												
             // vyvolame event
             if(OnCommandEntered != null)
@@ -332,11 +355,25 @@ namespace ArachNGIN.Components.Console
                 switch(e.Command.ToLower())
                 {
                     case "cls":
-                        _consoleForm.lstLog.Items.Clear();
+                        _consoleForm.lstLogSeparate.Items.Clear();
+                        _consoleForm.lstLogPlain.Items.Clear();
+                        break;
+                    case "echot":
+                        Write(DateTime.Now, e.ParamString);
+                        break;
+                    case "echo":
+                        WriteNoTime(e.ParamString);
                         break;
                     case "savelog":
-                        //_consoleForm.lstLog.Items.
-                        StringCollections.SaveToFile(@"c:\aa.txt", _consoleForm.lstLog);
+                        if (string.IsNullOrEmpty(e.ParamString)) break;
+                        try
+                        {
+                            StringCollections.SaveToFile(e.ParamString, _consoleForm.lstLogSeparate.Items);
+                        }
+                        catch (Exception)
+                        {
+                            Write("Unable to save to file! " + e.ParamString);
+                        }
                         break;
                 }
             }

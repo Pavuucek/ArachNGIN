@@ -45,30 +45,32 @@ namespace ArachNGIN.Components.Console.Forms
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.lstLog = new System.Windows.Forms.ListView();
-            this.colTime = new System.Windows.Forms.ColumnHeader();
-            this.colMessage = new System.Windows.Forms.ColumnHeader();
+            this.lstLogSeparate = new System.Windows.Forms.ListView();
+            this.colTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colMessage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1 = new System.Windows.Forms.Panel();
             this.chkAutoSave = new System.Windows.Forms.CheckBox();
             this.txtCommand = new System.Windows.Forms.TextBox();
             this.lblCMD = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
+            this.lstLogPlain = new System.Windows.Forms.ListBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // lstLog
+            // lstLogSeparate
             // 
-            this.lstLog.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lstLogSeparate.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colTime,
             this.colMessage});
-            this.lstLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstLog.Location = new System.Drawing.Point(0, 0);
-            this.lstLog.MultiSelect = false;
-            this.lstLog.Name = "lstLog";
-            this.lstLog.Size = new System.Drawing.Size(392, 221);
-            this.lstLog.TabIndex = 0;
-            this.lstLog.UseCompatibleStateImageBehavior = false;
-            this.lstLog.View = System.Windows.Forms.View.Details;
+            this.lstLogSeparate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstLogSeparate.Location = new System.Drawing.Point(0, 0);
+            this.lstLogSeparate.MultiSelect = false;
+            this.lstLogSeparate.Name = "lstLogSeparate";
+            this.lstLogSeparate.Size = new System.Drawing.Size(392, 221);
+            this.lstLogSeparate.TabIndex = 0;
+            this.lstLogSeparate.UseCompatibleStateImageBehavior = false;
+            this.lstLogSeparate.View = System.Windows.Forms.View.Details;
+            this.lstLogSeparate.SizeChanged += new System.EventHandler(this.LstLogSeparateSizeChanged);
             // 
             // colTime
             // 
@@ -126,14 +128,22 @@ namespace ArachNGIN.Components.Console.Forms
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.BtnSaveClick);
+            // 
+            // lstLogPlain
+            // 
+            this.lstLogPlain.FormattingEnabled = true;
+            this.lstLogPlain.Location = new System.Drawing.Point(109, 59);
+            this.lstLogPlain.Name = "lstLogPlain";
+            this.lstLogPlain.Size = new System.Drawing.Size(120, 95);
+            this.lstLogPlain.TabIndex = 2;
             // 
             // DebugConsoleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(392, 265);
-            this.Controls.Add(this.lstLog);
+            this.Controls.Add(this.lstLogPlain);
+            this.Controls.Add(this.lstLogSeparate);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "DebugConsoleForm";
@@ -144,13 +154,14 @@ namespace ArachNGIN.Components.Console.Forms
             this.ResumeLayout(false);
 
 		}
-		internal System.Windows.Forms.ListView lstLog;
+		internal System.Windows.Forms.ListView lstLogSeparate;
 		private System.Windows.Forms.Button btnSave;
 		private System.Windows.Forms.Label lblCMD;
 		internal System.Windows.Forms.TextBox txtCommand;
 		private System.Windows.Forms.CheckBox chkAutoSave;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.ColumnHeader colMessage;
-		private System.Windows.Forms.ColumnHeader colTime;
+        private System.Windows.Forms.ColumnHeader colTime;
+        internal System.Windows.Forms.ListBox lstLogPlain;
 	}
 }
