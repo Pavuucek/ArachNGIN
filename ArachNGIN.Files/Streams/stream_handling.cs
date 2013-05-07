@@ -38,7 +38,6 @@ namespace ArachNGIN.Files.Streams
         /// <returns>poèet zkopírovaných bajtù</returns>
         public static long StreamCopy(Stream sSource, Stream sDest, long iCount)
         {
-            long result;
             const int maxBufSize = 0xF000;
             int bufSize;
             var rInput = new BinaryReader(sSource);
@@ -49,7 +48,7 @@ namespace ArachNGIN.Files.Streams
                 sSource.Position = 0;
                 iCount = sSource.Length;
             }
-            result = iCount;
+            long result = iCount;
             if (iCount > maxBufSize) bufSize = maxBufSize;
             else bufSize = (int) iCount;
 

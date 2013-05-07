@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -154,7 +155,7 @@ namespace ArachNGIN.Files.Streams
                 //
                 writer.WriteAttributeString("", "AssemblyName", "", _mAsm);
                 writer.WriteAttributeString("", "fileName", "", Path.GetFileName(_mFile));
-                writer.WriteAttributeString("", "CreationDate", "", _mCreationdate.ToString());
+                writer.WriteAttributeString("", "CreationDate", "", _mCreationdate.ToString(CultureInfo.InvariantCulture));
                 //
                 foreach (string line in _mSettingstable.Keys)
                 {
@@ -264,7 +265,7 @@ namespace ArachNGIN.Files.Streams
         /// <param name="mValue">hodnota nastavení</param>
         public void SetInt(string mName, int mValue)
         {
-            SetSetting(mName, mValue.ToString());
+            SetSetting(mName, mValue.ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>
@@ -296,8 +297,8 @@ namespace ArachNGIN.Files.Streams
         /// <returns>hodnota nebo defaultní hodnota</returns>
         public int GetInt(string mName, int intDefault)
         {
-            string str = GetSetting(mName, intDefault.ToString());
-            int r = intDefault;
+            string str = GetSetting(mName, intDefault.ToString(CultureInfo.InvariantCulture));
+            int r;
             try
             {
                 r = Convert.ToInt32(str);

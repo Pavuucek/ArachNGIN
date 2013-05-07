@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -70,7 +71,7 @@ namespace ArachNGIN.Files.Streams
             // zapamatovat si: lomítko je 0x5C!
             string s = strString;
             if (s[s.Length - 1] != (char) 0x5C) return s + (char) 0x5C;
-            else return s;
+            return s;
         }
 
 
@@ -128,7 +129,7 @@ namespace ArachNGIN.Files.Streams
         /// <returns>řetězec, např. 000000123</returns>
         public static string PadNumToLength(int number, int length)
         {
-            string result = number.ToString();
+            var result = number.ToString(CultureInfo.InvariantCulture);
             while (result.Length < length)
             {
                 result = "0" + result;
