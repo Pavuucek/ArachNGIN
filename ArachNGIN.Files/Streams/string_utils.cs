@@ -69,13 +69,47 @@ namespace ArachNGIN.Files.Streams
         public static string StrAddSlash(string strString)
         {
             // zapamatovat si: lomítko je 0x5C!
-            string s = strString;
+            var s = strString;
             if (s[s.Length - 1] != (char) 0x5C) return s + (char) 0x5C;
             return s;
         }
 
+        /// <summary>
+        /// Zkontroluje jestli řetězec začíná lomítkem a případně ho odřízne
+        /// </summary>
+        /// <param name="strString">řetězec</param>
+        /// <returns>řetězec bez lomítka na začátku</returns>
+        public static string NoStartingSlash(string strString)
+        {
+            if(string.IsNullOrEmpty(strString)) return string.Empty;
+            if (strString[0] == '\\') return strString.Substring(1);
+            return strString;
+        }
 
         /// <summary>
+        /// Zkontroluje jestli řetězec končí lomítkem a případně ho odřízne
+        /// </summary>
+        /// <param name="strString">řetězec</param>
+        /// <returns>řetězec bez lomítka na konci</returns>
+        public static string NoEndingSlash(string strString)
+        {
+            if(string.IsNullOrEmpty(strString)) return string.Empty;
+            var r = strString;
+            if (strString[strString.Length - 1] == '\\') r = strString.Substring(0, strString.Length - 1);
+            return r;
+        }
+
+        /// <summary>
+        /// Odřízne lomítka na obou koncích řetězce
+        /// </summary>
+        /// <param name="strString">retězec</param>
+        /// <returns>řetězec bez lomítek</returns>
+        public static string NoSlashesOnEnds(string strString)
+        {
+            return NoEndingSlash(NoStartingSlash(strString));
+        }
+
+    /// <summary>
         /// Převede číslo na pole bytů
         /// </summary>
         /// <param name="x">číslo.</param>
@@ -150,20 +184,26 @@ namespace ArachNGIN.Files.Streams
             TreeNode lastNode = null;
             foreach (string path in paths)
             {
-                string subPathAgg = string.Empty;
-                foreach (string subPath in path.Split(pathSeparator))
-                {
-                    subPathAgg += subPath + pathSeparator;
-                    TreeNode[] nodes = treeView.Nodes.Find(subPathAgg, true);
-                    if (nodes.Length == 0)
-                        if (lastNode == null)
-                            lastNode = treeView.Nodes.Add(subPathAgg, subPath);
-                        else
-                            lastNode = lastNode.Nodes.Add(subPathAgg, subPath);
-                    else
-                        lastNode = nodes[0];
-                }
+                lastNode = LastNode(treeView, pathSeparator, path, null);
             }
+        }
+
+        private static TreeNode LastNode(TreeView treeView, char pathSeparator, string path, TreeNode lastNode)
+        {
+            string subPathAgg = string.Empty;
+            foreach (string subPath in path.Split(pathSeparator))
+            {
+                subPathAgg += subPath + pathSeparator;
+                TreeNode[] nodes = treeView.Nodes.Find(subPathAgg, true);
+                if (nodes.Length == 0)
+                    if (lastNode == null)
+                        lastNode = treeView.Nodes.Add(subPathAgg, subPath);
+                    else
+                        lastNode = lastNode.Nodes.Add(subPathAgg, subPath);
+                else
+                    lastNode = nodes[0];
+            }
+            return lastNode;
         }
     }
 }
