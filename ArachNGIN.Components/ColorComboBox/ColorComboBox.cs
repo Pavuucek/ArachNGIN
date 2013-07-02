@@ -9,9 +9,9 @@ namespace ArachNGIN.Components.ColorComboBox
     /// </summary>
     public class ColorComboBox : ComboBox
     {
-        private readonly bool bHideText;
-        private readonly SolidBrush blackBrush;
-        private readonly SolidBrush whiteBrush;
+        private readonly bool _bHideText;
+        private readonly SolidBrush _blackBrush;
+        private readonly SolidBrush _whiteBrush;
 
         /// <summary>
         /// Konstruktor tøídy
@@ -19,12 +19,8 @@ namespace ArachNGIN.Components.ColorComboBox
         /// <returns>ColorComboBox</returns>
         public ColorComboBox()
         {
-            //
-            // TODO: Add constructor logic here
-            //
-
-            blackBrush = new SolidBrush(Color.Black);
-            whiteBrush = new SolidBrush(Color.White);
+            _blackBrush = new SolidBrush(Color.Black);
+            _whiteBrush = new SolidBrush(Color.White);
 
             DrawMode = DrawMode.OwnerDrawFixed;
             Items.Clear();
@@ -33,7 +29,7 @@ namespace ArachNGIN.Components.ColorComboBox
             SelectedIndexChanged += OnSelectedIndexChanged;
             DropDown += OnDropDown;
 
-            bHideText = true;
+            _bHideText = true;
         }
 
         /// <summary>
@@ -43,7 +39,7 @@ namespace ArachNGIN.Components.ColorComboBox
         /// <returns>ColorComboBox</returns>
         public ColorComboBox(bool hideText) : this()
         {
-            bHideText = hideText;
+            _bHideText = hideText;
         }
 
         /// <summary>
@@ -210,18 +206,18 @@ namespace ArachNGIN.Components.ColorComboBox
 
             grfx.FillRectangle(brush, e.Bounds);
 
-            if (bHideText == false)
+            if (_bHideText == false)
             {
                 if (brushColor == Color.Black || brushColor == Color.MidnightBlue
                     || brushColor == Color.DarkBlue || brushColor == Color.Indigo
                     || brushColor == Color.MediumBlue || brushColor == Color.Maroon
                     || brushColor == Color.Navy || brushColor == Color.Purple)
                 {
-                    grfx.DrawString((string) Items[e.Index], e.Font, whiteBrush, e.Bounds);
+                    grfx.DrawString((string) Items[e.Index], e.Font, _whiteBrush, e.Bounds);
                 }
                 else
                 {
-                    grfx.DrawString((string) Items[e.Index], e.Font, blackBrush, e.Bounds);
+                    grfx.DrawString((string) Items[e.Index], e.Font, _blackBrush, e.Bounds);
                 }
 
                 SelectionStart = 0;
@@ -238,7 +234,7 @@ namespace ArachNGIN.Components.ColorComboBox
         {
             BackColor = GetColorFromString((string) SelectedItem);
 
-            if (bHideText)
+            if (_bHideText)
             {
                 ForeColor = BackColor;
                 SelectionStart = 0;
@@ -256,7 +252,7 @@ namespace ArachNGIN.Components.ColorComboBox
         {
             BackColor = GetColorFromString((string) SelectedItem);
 
-            if (bHideText)
+            if (_bHideText)
             {
                 ForeColor = BackColor;
                 SelectionStart = 0;

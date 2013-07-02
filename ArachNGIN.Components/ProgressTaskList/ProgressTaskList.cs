@@ -16,7 +16,7 @@ namespace ArachNGIN.Components.ProgressTaskList
 		private Label[] _labels;
 		private StringCollection2 _tasks;
 		private ImageList _imageList1; 
-		private int _currentTask = 0;
+		private int _currentTask;
 
 		/// <summary>
 		/// Class constructor

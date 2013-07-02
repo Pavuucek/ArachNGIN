@@ -38,7 +38,7 @@ namespace ArachNGIN.Components.Console
         /// <returns>konzole</returns>
         public DebugConsole()
         {
-            _consoleForm = new DebugConsoleForm();
+            _consoleForm = new ConsoleForm();
             _consoleForm.lstLogPlain.Size = _consoleForm.lstLogSeparate.Size;
             _consoleForm.lstLogPlain.Location = _consoleForm.lstLogSeparate.Location;
             _consoleForm.lstLogPlain.Dock = _consoleForm.lstLogSeparate.Dock;
@@ -55,7 +55,7 @@ namespace ArachNGIN.Components.Console
 
         private bool _echoCommands = true;
         private bool _processInternalCommands = true;
-        private readonly DebugConsoleForm _consoleForm;
+        private readonly ConsoleForm _consoleForm;
         private bool _usePlainView = true;
         private readonly string _logName = StringUtils.StrAddSlash(Path.GetDirectoryName(Application.ExecutablePath)) + DateTime.Now.ToString(CultureInfo.InvariantCulture).Replace(@"/","-").Replace(":","-") + ".log";
 

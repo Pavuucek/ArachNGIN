@@ -17,7 +17,7 @@
  */
 namespace ArachNGIN.Components.Console.Forms
 {
-	internal partial class DebugConsoleForm : System.Windows.Forms.Form
+	internal partial class ConsoleForm : System.Windows.Forms.Form
 	{
 		/// <summary>
 		/// Designer variable used to keep track of non-visual components.
@@ -137,7 +137,7 @@ namespace ArachNGIN.Components.Console.Forms
             this.lstLogPlain.Size = new System.Drawing.Size(120, 95);
             this.lstLogPlain.TabIndex = 2;
             // 
-            // DebugConsoleForm
+            // ConsoleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -146,8 +146,8 @@ namespace ArachNGIN.Components.Console.Forms
             this.Controls.Add(this.lstLogSeparate);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "DebugConsoleForm";
-            this.Text = "DebugConsoleForm";
+            this.Name = "ConsoleForm";
+            this.Text = "ConsoleForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DebugConsoleFormFormClosing);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -62,11 +62,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Misc\CommandEnteredEventArgs.cs" />
-    <Compile Include="Forms\Console.cs">
+    <Compile Include="Forms\ConsoleForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Console.Designer.cs">
-      <DependentUpon>Console.cs</DependentUpon>
+    <Compile Include="Forms\ConsoleForm.Designer.cs">
+      <DependentUpon>ConsoleForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Misc\ConsoleAutoSave.cs" />
     <Compile Include="Misc\ConsoleLocation.cs" />
@@ -74,8 +74,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\Console.resx">
-      <DependentUpon>Console.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ConsoleForm.resx">
+      <DependentUpon>ConsoleForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

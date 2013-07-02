@@ -31,9 +31,9 @@ namespace ArachNGIN.Components.Console.Forms
     /// <summary>
     /// Okno konzole
     /// </summary>
-    internal partial class DebugConsoleForm
+    internal partial class ConsoleForm
     {
-        public DebugConsoleForm()
+        public ConsoleForm()
         {
             //
             // The InitializeComponent() call is required for Windows Forms designer support.

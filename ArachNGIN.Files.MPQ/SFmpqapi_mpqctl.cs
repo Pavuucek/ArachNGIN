@@ -384,7 +384,7 @@ namespace ArachNGIN.Files.MPQ
 // with, 1 if the dll is newer, -1 if the dll is older.
         public static int SfMpqCompareVersion()
         {
-            int functionReturnValue = 0;
+            var functionReturnValue = 0;
             var exeVersion = default(SfMpqVersion);
             var DllVersion = default(SfMpqVersion);
             var _with1 = exeVersion;
@@ -399,7 +399,7 @@ namespace ArachNGIN.Files.MPQ
                 functionReturnValue = 1;
                 return functionReturnValue;
             }
-            else if (DllVersion.Major < exeVersion.Major)
+            if (DllVersion.Major < exeVersion.Major)
             {
                 functionReturnValue = -1;
                 return functionReturnValue;
@@ -409,7 +409,7 @@ namespace ArachNGIN.Files.MPQ
                 functionReturnValue = 1;
                 return functionReturnValue;
             }
-            else if (DllVersion.Minor < exeVersion.Minor)
+            if (DllVersion.Minor < exeVersion.Minor)
             {
                 functionReturnValue = -1;
                 return functionReturnValue;
@@ -419,7 +419,7 @@ namespace ArachNGIN.Files.MPQ
                 functionReturnValue = 1;
                 return functionReturnValue;
             }
-            else if (DllVersion.Revision < exeVersion.Revision)
+            if (DllVersion.Revision < exeVersion.Revision)
             {
                 functionReturnValue = -1;
                 return functionReturnValue;
@@ -429,7 +429,7 @@ namespace ArachNGIN.Files.MPQ
                 functionReturnValue = 1;
                 return functionReturnValue;
             }
-            else if (DllVersion.Subrevision < exeVersion.Subrevision)
+            if (DllVersion.Subrevision < exeVersion.Subrevision)
             {
                 functionReturnValue = -1;
                 return functionReturnValue;

@@ -6,13 +6,13 @@ namespace ArachNGIN.Components.FormHeader
 {
     /*******************************************************************************************************************************
 
-	*******************************************************************************************************************************/
+    *******************************************************************************************************************************/
 
     public class FormHeader : UserControl
     {
         /***************************************************************
-			static properties
-		***************************************************************/
+            static properties
+        ***************************************************************/
         public const FontStyle DefaultMessageFontStyle = FontStyle.Regular;
         public const FontStyle DefaultTitleFontStyle = FontStyle.Bold;
         public const int DefaultBoundrySize = 15;
@@ -40,8 +40,8 @@ namespace ArachNGIN.Components.FormHeader
 
 
         /***************************************************************
-			public properties
-		***************************************************************/
+            public properties
+        ***************************************************************/
 
         public String Message
         {
@@ -127,8 +127,8 @@ namespace ArachNGIN.Components.FormHeader
 
 
         /***************************************************************
-			newly implemented/overridden public properties
-		***************************************************************/
+            newly implemented/overridden public properties
+        ***************************************************************/
 
         public new Image BackgroundImage
         {
@@ -152,8 +152,8 @@ namespace ArachNGIN.Components.FormHeader
         }
 
         /***************************************************************
-			drawing stuff
-		***************************************************************/
+            drawing stuff
+        ***************************************************************/
 
         protected void CreateTitleFont()
         {
@@ -224,8 +224,8 @@ namespace ArachNGIN.Components.FormHeader
 
 
         /***************************************************************
-			overridden methods
-		***************************************************************/
+            overridden methods
+        ***************************************************************/
 
         protected override void OnFontChanged(EventArgs e)
         {
@@ -261,7 +261,7 @@ namespace ArachNGIN.Components.FormHeader
 
 
     /*******************************************************************************************************************************
-		ColorSlideFormHeader is an extended version of the FormHeader class
-		It also provides the functionality of a color slide of the background image
-	*******************************************************************************************************************************/
+        ColorSlideFormHeader is an extended version of the FormHeader class
+        It also provides the functionality of a color slide of the background image
+    *******************************************************************************************************************************/
 }

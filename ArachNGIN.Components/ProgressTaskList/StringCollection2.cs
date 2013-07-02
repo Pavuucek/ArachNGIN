@@ -8,14 +8,14 @@ namespace ArachNGIN.Components.ProgressTaskList
     /// </summary>
     public class StringCollection2 : CollectionBase
     {
-        private ProgressTaskList parent;
+        private readonly ProgressTaskList _parent;
         /// <summary>
         /// Constructor requires the  string that owns this collection
         /// </summary>
         /// <param name="parent">ProgressProgressTaskList</param>
         public StringCollection2(ProgressTaskList parent)
         {
-            this.parent = parent;
+            _parent = parent;
         }
 
         /// <summary>
@@ -40,11 +40,11 @@ namespace ArachNGIN.Components.ProgressTaskList
         {
             get 
             {
-                return parent;
+                return _parent;
             }
         }
 
-		
+        
         /// <summary>
         /// Adds a string into the Collection
         /// </summary>
@@ -116,9 +116,9 @@ namespace ArachNGIN.Components.ProgressTaskList
         protected override void OnInsertComplete(int index, object value)
         {
             base.OnInsertComplete (index, value);
-            parent.InitLabels();
+            _parent.InitLabels();
         }
-	
+    
         /// <summary>
         /// Propogates when external designers remove items from string
         /// </summary>
@@ -127,7 +127,7 @@ namespace ArachNGIN.Components.ProgressTaskList
         protected override void OnRemoveComplete(int index, object value)
         {
             base.OnRemoveComplete (index, value);
-            parent.InitLabels();
+            _parent.InitLabels();
         }
     }
 }

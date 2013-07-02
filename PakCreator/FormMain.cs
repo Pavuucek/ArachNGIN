@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Windows.Forms;
 using ArachNGIN.Files;
+using ArachNGIN.Files.QuakePak;
 using ArachNGIN.Files.Streams;
 using PakCreator.Properties;
 
@@ -62,8 +63,8 @@ namespace PakCreator
             file_index.Add("FileCount=" + path_files.Length.ToString());
             file_index.Add("");
             //
-            QuakePak.CreateNewPak(pak_file);
-            var NewPAK = new QuakePak(pak_file, true);
+            QuakePakFile.CreateNewPak(pak_file);
+            var NewPAK = new QuakePakFile(pak_file, true);
             Log("Created a new PAK: " + pak_file);
             //
             foreach (FileInfo fi in path_files)
@@ -143,7 +144,7 @@ namespace PakCreator
         private void button1_Click(object sender, EventArgs e)
         {
             // na otestovani pak filesystemu
-            var QFS = new QuakePakFilesystem(Program.ATemp.AppDir, Program.ATemp.AppTempDir);
+            var QFS = new QuakePakFileSystem(Program.ATemp.AppDir, Program.ATemp.AppTempDir);
             MessageBox.Show("created");
             MessageBox.Show(QFS.AskFile("Project v1.6/MP4Box/TODO").ToString());
             MessageBox.Show(QFS.AskFile("delphi-webp\\.svn\\entries").ToString());
