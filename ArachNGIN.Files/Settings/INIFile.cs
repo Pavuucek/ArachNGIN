@@ -20,6 +20,7 @@ using System;
 using System.Collections;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 
 namespace ArachNGIN.Files.Settings
@@ -1216,11 +1217,9 @@ namespace ArachNGIN.Files.Settings
             get { return _mFileName; }
             set
             {
-                if (value.Trim() != _mFileName)
-                {
-                    _mFileName = value;
-                    LoadIniToDataSet();
-                }
+                if (value.Trim() == _mFileName) return;
+                _mFileName = value;
+                LoadIniToDataSet();
             }
         }
 
@@ -1324,7 +1323,7 @@ namespace ArachNGIN.Files.Settings
         public int ReadInteger(string section, string key, int defaultValue)
         {
             int ret;
-            string tmpRet = Read(section, key, defaultValue.ToString());
+            string tmpRet = Read(section, key, defaultValue.ToString(CultureInfo.InvariantCulture));
             try
             {
                 ret = (Convert.ToInt32(tmpRet));
@@ -1449,7 +1448,7 @@ namespace ArachNGIN.Files.Settings
         /// <param name="value">hodnota</param>
         public void WriteInteger(string section, string key, int value)
         {
-            WriteString(section, key, value.ToString());
+            WriteString(section, key, value.ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>
@@ -1472,7 +1471,7 @@ namespace ArachNGIN.Files.Settings
         /// <param name="iniFileName">ini soubor</param>
         public void WriteInteger(string section, string key, int value, string iniFileName)
         {
-            WriteString(section, key, value.ToString(), iniFileName);
+            WriteString(section, key, value.ToString(CultureInfo.InvariantCulture), iniFileName);
         }
 
         /// <summary>
@@ -1616,7 +1615,7 @@ namespace ArachNGIN.Files.Settings
                 var fileStream = new StreamReader(_mFileName);
                 string readLine;
                 readLine = fileStream.ReadLine();
-                while (!((readLine == null)))
+                while (readLine != null)
                 {
                     readLine = readLine.Trim();
                     if (readLine != "" & !(readLine.StartsWith(";")))

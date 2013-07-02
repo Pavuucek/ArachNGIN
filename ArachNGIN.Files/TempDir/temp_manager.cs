@@ -70,13 +70,7 @@ namespace ArachNGIN.Files.TempDir
         /// </summary>
         public void Dispose()
         {
-            try
-            {
-                Close();
-            }
-            catch (Exception)
-            {
-            }
+            Close();
         }
 
         #endregion

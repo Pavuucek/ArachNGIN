@@ -128,7 +128,7 @@ namespace ArachNGIN.Files.Streams
             }
             catch (Exception e)
             {
-                string str = e.Message;
+                var str = e.Message;
             }
             finally
             {
@@ -144,7 +144,7 @@ namespace ArachNGIN.Files.Streams
         /// </summary>
         public void SaveToFile()
         {
-            var info = new FileInfo(_mFile);
+            //var info = new FileInfo(_mFile);
             //if(!info.Exists) info.Create();
             try
             {

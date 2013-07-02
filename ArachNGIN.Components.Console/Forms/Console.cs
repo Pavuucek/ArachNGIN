@@ -29,16 +29,16 @@ using System.Windows.Forms;
 namespace ArachNGIN.Components.Console.Forms
 {
     /// <summary>
-	/// Okno konzole
-	/// </summary>
-	internal partial class DebugConsoleForm
-	{
-		public DebugConsoleForm()
-		{
-			//
-			// The InitializeComponent() call is required for Windows Forms designer support.
-			//
-			InitializeComponent();
+    /// Okno konzole
+    /// </summary>
+    internal partial class DebugConsoleForm
+    {
+        public DebugConsoleForm()
+        {
+            //
+            // The InitializeComponent() call is required for Windows Forms designer support.
+            //
+            InitializeComponent();
         }
 
         private void DebugConsoleFormFormClosing(object sender, FormClosingEventArgs e)
@@ -53,5 +53,5 @@ namespace ArachNGIN.Components.Console.Forms
             lstLogPlain.Location = lstLogSeparate.Location;
             lstLogPlain.Dock = lstLogSeparate.Dock;
         }
-	}
+    }
 }

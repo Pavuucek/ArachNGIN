@@ -60,7 +60,7 @@ namespace ArachNGIN.Components.Console
         private readonly string _logName = StringUtils.StrAddSlash(Path.GetDirectoryName(Application.ExecutablePath)) + DateTime.Now.ToString(CultureInfo.InvariantCulture).Replace(@"/","-").Replace(":","-") + ".log";
 
         #region Veøejné vlastnosti
-		
+        
         /// <summary>
         /// Delegát události OnCommandEntered
         /// </summary>
@@ -69,7 +69,7 @@ namespace ArachNGIN.Components.Console
         /// Událost OnCommandEntered
         /// </summary>
         public event CommandEnteredEvent OnCommandEntered;
-		
+        
         /// <summary>
         /// Textový popisek formuláøe s konzolí
         /// </summary>
@@ -84,7 +84,7 @@ namespace ArachNGIN.Components.Console
                 _consoleForm.Text = value;
             }
         }
-		
+        
         /// <summary>
         /// Použít holý výstup nebo rozdìlený na datum a zprávu?
         /// </summary>
@@ -131,7 +131,7 @@ namespace ArachNGIN.Components.Console
                 }
             }
         }
-		
+        
         /// <summary>
         /// Výška formuláøe konzole
         /// </summary>
@@ -146,7 +146,7 @@ namespace ArachNGIN.Components.Console
                 _consoleForm.Height = value;
             }
         }
-		
+        
         /// <summary>
         /// Šíøka formuláøe konzole
         /// </summary>
@@ -161,7 +161,7 @@ namespace ArachNGIN.Components.Console
                 _consoleForm.Width = value;
             }
         }
-		
+        
         /// <summary>
         /// Umístìní formuláøe konzole
         /// (pokud je v <seealso cref="ScreenLocation">ScreenLocation</seealso>
@@ -178,7 +178,7 @@ namespace ArachNGIN.Components.Console
                 _consoleForm.Location = value;
             }
         }
-		
+        
         /// <summary>
         /// Urèuje, jestli se pøi provádìní pøíkazù budou i vypisovat do konzole
         /// </summary>
@@ -193,7 +193,7 @@ namespace ArachNGIN.Components.Console
                 _echoCommands = value;
             }
         }
-		
+        
         /// <summary>
         /// Urèuje, jestli se budou provádìt i interní pøíkazy
         /// (napø. cls - výmaz výpisu)
@@ -209,9 +209,9 @@ namespace ArachNGIN.Components.Console
                 _processInternalCommands = value;
             }
         }
-		
+        
         #endregion
-		
+        
         #region Veøejné procedury
         /// <summary>
         /// Ukáže konzoli
@@ -220,7 +220,7 @@ namespace ArachNGIN.Components.Console
         {
             _consoleForm.Show();
         }
-		
+        
         /// <summary>
         /// Zavøe konzoli
         /// </summary>
@@ -228,7 +228,7 @@ namespace ArachNGIN.Components.Console
         {
             _consoleForm.Close();
         }
-		
+        
         /// <summary>
         /// Zapíše událost do konzole
         /// </summary>
@@ -248,7 +248,7 @@ namespace ArachNGIN.Components.Console
             }
             Application.DoEvents();
         }
-		
+        
         /// <summary>
         /// Zapíše událost do konzole
         /// (èas je nastaven na teï)
@@ -287,7 +287,7 @@ namespace ArachNGIN.Components.Console
             }
             Application.DoEvents();
         }
-		
+        
         /// <summary>
         /// Provede pøíkaz pøes konzoli
         /// </summary>
@@ -314,10 +314,10 @@ namespace ArachNGIN.Components.Console
                     parStr += strCmdLine[i]+" ";
                 }
             }
-				
+                
             // zapiseme do outputu
             if (_echoCommands) Write("Command: " + command);
-												
+                                                
             // vyvolame event
             if(OnCommandEntered != null)
             {
@@ -325,11 +325,11 @@ namespace ArachNGIN.Components.Console
                 OnCommandEntered(this,ea);
             }
         }
-		
+        
         #endregion
-		
+        
         #region Eventy
-		
+        
         /// <summary>
         /// handler události na _consoleForm.txtCommand.KeyPress
         /// </summary>
@@ -347,7 +347,7 @@ namespace ArachNGIN.Components.Console
                 _consoleForm.txtCommand.Text = "";
             }
         }
-		
+        
         private void InternalCommands(object sender, CommandEnteredEventArgs e)
         {
             if(_processInternalCommands)
@@ -378,7 +378,7 @@ namespace ArachNGIN.Components.Console
                 }
             }
         }
-		
+        
         #endregion
     }
 }
