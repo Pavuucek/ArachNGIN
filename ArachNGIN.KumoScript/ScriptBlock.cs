@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ArachNGIN.KumoScript
 {
@@ -11,9 +10,9 @@ namespace ArachNGIN.KumoScript
     {
         #region Private Variables
 
-        private Script m_script;
-        private String m_strName;
-        private List<Statement> m_listStatements;
+        private readonly Script _mScript;
+        private readonly String _mStrName;
+        private readonly List<Statement> _mListStatements;
 
         #endregion
 
@@ -21,7 +20,7 @@ namespace ArachNGIN.KumoScript
 
         internal List<Statement> Statements
         {
-            get { return m_listStatements; }
+            get { return _mListStatements; }
         }
 
         #endregion
@@ -36,9 +35,9 @@ namespace ArachNGIN.KumoScript
         /// <param name="strName">Name of the block.</param>
         public ScriptBlock(Script script, String strName)
         {
-            m_script = script;
-            m_strName = strName;
-            m_listStatements = new List<Statement>();
+            _mScript = script;
+            _mStrName = strName;
+            _mListStatements = new List<Statement>();
         }
 
         /// <summary>
@@ -47,7 +46,7 @@ namespace ArachNGIN.KumoScript
         /// <returns>String representation of the script block</returns>
         public override string ToString()
         {
-            return "Block: " + m_strName;
+            return "Block: " + _mStrName;
         }
 
         #endregion
@@ -59,7 +58,7 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public Script Script
         {
-            get { return m_script; }
+            get { return _mScript; }
         }
 
         /// <summary>
@@ -67,7 +66,7 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public String Name
         {
-            get { return m_strName; }
+            get { return _mStrName; }
         }
 
         #endregion

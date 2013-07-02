@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
 
 namespace ArachNGIN.KumoScript
 {
     internal class ScriptLoaderDefault
-        : ScriptLoader
+        : IScriptLoader
     {
         #region Public Methods
 
@@ -14,9 +13,9 @@ namespace ArachNGIN.KumoScript
         {
             try
             {
-                List<String> listStatements = new List<string>();
+                var listStatements = new List<string>();
 
-                StreamReader streamReader = new StreamReader(strResourceName);
+                var streamReader = new StreamReader(strResourceName);
                 while (!streamReader.EndOfStream)
                 {
                     String strStatement = streamReader.ReadLine();

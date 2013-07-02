@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ArachNGIN.KumoScript
 {
@@ -12,9 +11,9 @@ namespace ArachNGIN.KumoScript
     {
         #region Private Variables
 
-        private ScriptLoader m_scriptLoader;
-        private VariableDictionary m_variableDictionary;
-        private Dictionary<String, CommandPrototype> m_dictCommandPrototypes;
+        private IScriptLoader _mScriptLoader;
+        private readonly VariableDictionary _mVariableDictionary;
+        private readonly Dictionary<String, CommandPrototype> _mDictCommandPrototypes;
 
         #endregion
 
@@ -25,9 +24,9 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public ScriptManager()
         {
-            m_scriptLoader = new ScriptLoaderDefault();
-            m_variableDictionary = new VariableDictionary(null);
-            m_dictCommandPrototypes = new Dictionary<string, CommandPrototype>();
+            _mScriptLoader = new ScriptLoaderDefault();
+            _mVariableDictionary = new VariableDictionary(null);
+            _mDictCommandPrototypes = new Dictionary<string, CommandPrototype>();
         }
 
         /// <summary>
@@ -37,11 +36,11 @@ namespace ArachNGIN.KumoScript
         public void RegisterCommand(CommandPrototype commandPrototype)
         {
             String strKey = commandPrototype.Name.ToUpper();
-            if (m_dictCommandPrototypes.ContainsKey(strKey))
+            if (_mDictCommandPrototypes.ContainsKey(strKey))
                 throw new ScriptException(
                     "Command " + commandPrototype.Name + " already registered.");
 
-            m_dictCommandPrototypes[strKey] = commandPrototype;
+            _mDictCommandPrototypes[strKey] = commandPrototype;
         }
 
         #endregion
@@ -52,10 +51,10 @@ namespace ArachNGIN.KumoScript
         /// Script loader bound to the manager. The default loader
         /// retrieves scripts from disk.
         /// </summary>
-        public ScriptLoader Loader
+        public IScriptLoader Loader
         {
-            get { return m_scriptLoader; }
-            set { m_scriptLoader = value; }
+            get { return _mScriptLoader; }
+            set { _mScriptLoader = value; }
         }
 
         /// <summary>
@@ -63,7 +62,7 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public Dictionary<String, CommandPrototype> CommandPrototypes
         {
-            get { return m_dictCommandPrototypes; }
+            get { return _mDictCommandPrototypes; }
         }
 
         /// <summary>
@@ -71,7 +70,7 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public VariableDictionary GlobalVariables
         {
-            get { return m_variableDictionary; }
+            get { return _mVariableDictionary; }
         }
 
         #endregion

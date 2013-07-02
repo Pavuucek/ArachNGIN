@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.IO;
 
 namespace ArachNGIN.KumoScript
 {
@@ -9,17 +8,17 @@ namespace ArachNGIN.KumoScript
 
     internal struct IfBlock
     {
-        public Statement m_statementIf;
-        public ScriptBlock m_scriptBlockTrue;
-        public ScriptBlock m_scriptBlockFalse;
-        public int m_iNextStatement;
+        public Statement MStatementIf;
+        public ScriptBlock MScriptBlockTrue;
+        public ScriptBlock MScriptBlockFalse;
+        public int MiNextStatement;
     }
 
     internal struct WhileBlock
     {
-        public Statement m_statementWhile;
-        public ScriptBlock m_scriptBlock;
-        public int m_iNextStatement;
+        public Statement MStatementWhile;
+        public ScriptBlock MScriptBlock;
+        public int MiNextStatement;
     }
 
     #endregion
@@ -32,13 +31,13 @@ namespace ArachNGIN.KumoScript
     {
         #region Private Variables
 
-        String m_strName;
-        ScriptManager m_scriptManager;
-        private List<Statement> m_listStatements;
-        private ScriptBlock m_scriptBlockMain;
-        private Dictionary<String, ScriptBlock> m_dictScriptBlocks;
-        private Dictionary<Statement, IfBlock> m_dictIfBlocks;
-        private Dictionary<Statement, WhileBlock> m_dictWhileBlocks;
+        readonly String _mStrName;
+        readonly ScriptManager _mScriptManager;
+        private readonly List<Statement> _mListStatements;
+        private ScriptBlock _mScriptBlockMain;
+        private readonly Dictionary<String, ScriptBlock> _mDictScriptBlocks;
+        private readonly Dictionary<Statement, IfBlock> _mDictIfBlocks;
+        private readonly Dictionary<Statement, WhileBlock> _mDictWhileBlocks;
 
         #endregion
 
@@ -47,11 +46,10 @@ namespace ArachNGIN.KumoScript
         private void Compile()
         {
             // organise statements into main and other blocks
-            m_scriptBlockMain = new ScriptBlock(this, "_MAIN");
+            _mScriptBlockMain = new ScriptBlock(this, "_MAIN");
 
             Stack<ScriptBlock> stackScriptBlocks = new Stack<ScriptBlock>();
-            stackScriptBlocks.Push(m_scriptBlockMain);
-            ScriptBlock scriptBlock = null;
+            stackScriptBlocks.Push(_mScriptBlockMain);
 
             Stack<IfBlock> stackIfBlocks = new Stack<IfBlock>();
             IfBlock ifBlock;
@@ -59,7 +57,7 @@ namespace ArachNGIN.KumoScript
             Stack<WhileBlock> stackWhileBlocks = new Stack<WhileBlock>();
             WhileBlock whileBlock;
 
-            foreach (Statement statement in m_listStatements)
+            foreach (Statement statement in _mListStatements)
             {
                 // ignore blank lines and comments
                 if (statement.Type == StatementType.BlankLine) continue;
@@ -67,16 +65,17 @@ namespace ArachNGIN.KumoScript
 
                 Token token = statement.Tokens[0];
 
+                ScriptBlock scriptBlock = null;
                 switch (token.Type)
                 {
-                    case TokenType.BLOCK:
+                    case TokenType.Block:
                         if (stackScriptBlocks.Count > 1)
                             throw new ScriptException("A BLOCK cannot be defined within another BLOCK, IF or WHILE ",
                                 statement);
 
                         String strBlockName = statement.Tokens[1].Value.ToString();
 
-                        if (m_dictScriptBlocks.ContainsKey(strBlockName.ToUpper()))
+                        if (_mDictScriptBlocks.ContainsKey(strBlockName.ToUpper()))
                             throw new ScriptException("Block " + strBlockName + " is already defined.",
                                 statement);
 
@@ -84,7 +83,7 @@ namespace ArachNGIN.KumoScript
                         stackScriptBlocks.Push(scriptBlock);
 
                         break;
-                    case TokenType.ENDBLOCK:
+                    case TokenType.Endblock:
                         if (stackScriptBlocks.Count > 2)
                             throw new ScriptException("ENDBLOCK cannot be specified within IF or WHILE.",
                                 statement);
@@ -93,10 +92,10 @@ namespace ArachNGIN.KumoScript
                                 statement);
 
                         scriptBlock = stackScriptBlocks.Pop();
-                        m_dictScriptBlocks[scriptBlock.Name.ToUpper()] = scriptBlock;
+                        _mDictScriptBlocks[scriptBlock.Name.ToUpper()] = scriptBlock;
 
                         break;
-                    case TokenType.IF:
+                    case TokenType.If:
                         // place IF statement in current block
                         scriptBlock = stackScriptBlocks.Pop();
                         scriptBlock.Statements.Add(statement);
@@ -106,11 +105,11 @@ namespace ArachNGIN.KumoScript
                         stackScriptBlocks.Push(scriptBlock);
 
                         ifBlock = new IfBlock();
-                        ifBlock.m_statementIf = statement;
-                        ifBlock.m_scriptBlockTrue = scriptBlock;
+                        ifBlock.MStatementIf = statement;
+                        ifBlock.MScriptBlockTrue = scriptBlock;
                         stackIfBlocks.Push(ifBlock);
                         break;
-                    case TokenType.ELSE:
+                    case TokenType.Else:
                         if (stackIfBlocks.Count == 0)
                             throw new ScriptException("ELSE without matching IF");
 
@@ -121,10 +120,10 @@ namespace ArachNGIN.KumoScript
                         stackScriptBlocks.Push(scriptBlock);
 
                         ifBlock = stackIfBlocks.Pop();
-                        ifBlock.m_scriptBlockFalse = scriptBlock;
+                        ifBlock.MScriptBlockFalse = scriptBlock;
                         stackIfBlocks.Push(ifBlock);
                         break;
-                    case TokenType.ENDIF:
+                    case TokenType.Endif:
                         if (stackIfBlocks.Count == 0)
                             throw new ScriptException("ENDIF without matching IF", statement);
 
@@ -133,12 +132,12 @@ namespace ArachNGIN.KumoScript
 
                         // set next statement to next in current block
                         ifBlock = stackIfBlocks.Pop();
-                        ifBlock.m_iNextStatement = stackScriptBlocks.Peek().Statements.Count;
+                        ifBlock.MiNextStatement = stackScriptBlocks.Peek().Statements.Count;
 
-                        m_dictIfBlocks[ifBlock.m_statementIf] = ifBlock;
+                        _mDictIfBlocks[ifBlock.MStatementIf] = ifBlock;
 
                         break;
-                    case TokenType.WHILE:
+                    case TokenType.While:
                         // place WHILE statement in current block
                         scriptBlock = stackScriptBlocks.Pop();
                         scriptBlock.Statements.Add(statement);
@@ -148,11 +147,11 @@ namespace ArachNGIN.KumoScript
                         stackScriptBlocks.Push(scriptBlock);
 
                         whileBlock = new WhileBlock();
-                        whileBlock.m_statementWhile = statement;
-                        whileBlock.m_scriptBlock = scriptBlock;
+                        whileBlock.MStatementWhile = statement;
+                        whileBlock.MScriptBlock = scriptBlock;
                         stackWhileBlocks.Push(whileBlock);
                         break;
-                    case TokenType.ENDWHILE:
+                    case TokenType.Endwhile:
                         if (stackWhileBlocks.Count == 0)
                             throw new ScriptException("ENDWHILE without matching WHILE", statement);
 
@@ -161,9 +160,9 @@ namespace ArachNGIN.KumoScript
 
                         // set next statement to next in current block
                         whileBlock = stackWhileBlocks.Pop();
-                        whileBlock.m_iNextStatement = stackScriptBlocks.Peek().Statements.Count;
+                        whileBlock.MiNextStatement = stackScriptBlocks.Peek().Statements.Count;
 
-                        m_dictWhileBlocks[whileBlock.m_statementWhile] = whileBlock;
+                        _mDictWhileBlocks[whileBlock.MStatementWhile] = whileBlock;
 
                         break;
                     default:
@@ -179,12 +178,12 @@ namespace ArachNGIN.KumoScript
                 throw new ScriptException("Missing ENDBLOCK, ENDIF or ENDWHILE command.");
 
             // ensure CALLs refer to existing blocks
-            foreach (Statement statement in m_listStatements)
+            foreach (Statement statement in _mListStatements)
             {
                 if (statement.Type != StatementType.Control) continue;
-                if (statement.Tokens[0].Type != TokenType.CALL) continue;
+                if (statement.Tokens[0].Type != TokenType.Call) continue;
                 String strBlockName = statement.Tokens[1].Value.ToString();
-                if (!m_dictScriptBlocks.ContainsKey(strBlockName.ToUpper()))
+                if (!_mDictScriptBlocks.ContainsKey(strBlockName.ToUpper()))
                     throw new ScriptException("Block " + strBlockName + " not defined.", statement);
             }
         }
@@ -195,17 +194,17 @@ namespace ArachNGIN.KumoScript
 
         internal List<Statement> Statements
         {
-            get { return m_listStatements; }
+            get { return _mListStatements; }
         }
 
         internal Dictionary<Statement, IfBlock> IfBlocks
         {
-            get { return m_dictIfBlocks; }
+            get { return _mDictIfBlocks; }
         }
 
         internal Dictionary<Statement, WhileBlock> WhileBlocks
         {
-            get { return m_dictWhileBlocks; }
+            get { return _mDictWhileBlocks; }
         }
 
         #endregion
@@ -223,37 +222,37 @@ namespace ArachNGIN.KumoScript
         /// <param name="strName">Resource name for the script.</param>
         public Script(ScriptManager scriptManager, String strName)
         {
-            m_strName = strName;
-            m_scriptManager = scriptManager;
-            m_listStatements = new List<Statement>();
-            m_dictScriptBlocks = new Dictionary<string, ScriptBlock>();
-            m_dictIfBlocks = new Dictionary<Statement, IfBlock>();
-            m_dictWhileBlocks = new Dictionary<Statement, WhileBlock>();
+            _mStrName = strName;
+            _mScriptManager = scriptManager;
+            _mListStatements = new List<Statement>();
+            _mDictScriptBlocks = new Dictionary<string, ScriptBlock>();
+            _mDictIfBlocks = new Dictionary<Statement, IfBlock>();
+            _mDictWhileBlocks = new Dictionary<Statement, WhileBlock>();
 
             // load main script file
             List<String> listStatements
-                = m_scriptManager.Loader.LoadScript(strName);
+                = _mScriptManager.Loader.LoadScript(strName);
 
             // parse to statements
             foreach (String strStatement in listStatements)
-                m_listStatements.Add(new Statement(this, 0, strStatement));
+                _mListStatements.Add(new Statement(this, 0, strStatement));
 
             // includes dictionary
             Dictionary<String, bool> dictIncludes = new Dictionary<string, bool>();
 
             // process statements for INCLUDEs
-            for (int iIndex = 0; iIndex < m_listStatements.Count; iIndex++)
+            for (int iIndex = 0; iIndex < _mListStatements.Count; iIndex++)
             {
                 // skip anything that is not a control statement
-                Statement statement = m_listStatements[iIndex];
+                Statement statement = _mListStatements[iIndex];
                 if (statement.Type != StatementType.Control) continue;
 
                 // skip statements that are not INCLUDE
                 Token token = statement.Tokens[0];
-                if (token.Type != TokenType.INCLUDE) continue;
+                if (token.Type != TokenType.Include) continue;
 
                 // remove INCLUDE statement
-                m_listStatements.RemoveAt(iIndex);
+                _mListStatements.RemoveAt(iIndex);
 
                 // determine included script name
                 String strIncludeName = statement.Tokens[1].Value.ToString();
@@ -262,18 +261,18 @@ namespace ArachNGIN.KumoScript
                 if (dictIncludes.ContainsKey(strIncludeName.ToUpper())) continue;
 
                 List<Statement> listStatementsIncluded = new List<Statement>();
-                foreach (String strStatement in m_scriptManager.Loader.LoadScript(strIncludeName))
+                foreach (String strStatement in _mScriptManager.Loader.LoadScript(strIncludeName))
                     listStatementsIncluded.Add(new Statement(this, 0, strStatement));
 
-                m_listStatements.InsertRange(iIndex, listStatementsIncluded);
+                _mListStatements.InsertRange(iIndex, listStatementsIncluded);
 
                 // mark include file as included
                 dictIncludes[strIncludeName.ToUpper()] = true;
             }
 
             // renumber lines
-            for (int iIndex = 0; iIndex < m_listStatements.Count; iIndex++)
-                m_listStatements[iIndex].Line = iIndex + 1;
+            for (int iIndex = 0; iIndex < _mListStatements.Count; iIndex++)
+                _mListStatements[iIndex].Line = iIndex + 1;
 
             Compile();
         }
@@ -285,8 +284,8 @@ namespace ArachNGIN.KumoScript
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("Script: " + m_strName + "\r\n");
-            foreach (Statement statement in m_listStatements)
+            stringBuilder.Append("Script: " + _mStrName + "\r\n");
+            foreach (Statement statement in _mListStatements)
                 stringBuilder.Append(statement.ToString() + "\r\n");
             return stringBuilder.ToString();
         }
@@ -300,7 +299,7 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public String Name
         {
-            get { return m_strName; }
+            get { return _mStrName; }
         }
 
         /// <summary>
@@ -308,7 +307,7 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public ScriptManager Manager
         {
-            get { return m_scriptManager; }
+            get { return _mScriptManager; }
         }
 
         /// <summary>
@@ -316,7 +315,7 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public ScriptBlock MainBlock
         {
-            get { return m_scriptBlockMain; }
+            get { return _mScriptBlockMain; }
         }
 
         /// <summary>
@@ -324,7 +323,7 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public Dictionary<String, ScriptBlock> Blocks
         {
-            get { return m_dictScriptBlocks; }
+            get { return _mDictScriptBlocks; }
         }
 
         #endregion

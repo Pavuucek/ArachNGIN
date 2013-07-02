@@ -44,8 +44,8 @@
     <Compile Include="ScriptBlock.cs" />
     <Compile Include="ScriptContext.cs" />
     <Compile Include="ScriptException.cs" />
-    <Compile Include="ScriptHandler.cs" />
-    <Compile Include="ScriptLoader.cs" />
+    <Compile Include="IScriptHandler.cs" />
+    <Compile Include="IScriptLoader.cs" />
     <Compile Include="ScriptLoaderDefault.cs" />
     <Compile Include="ScriptManager.cs" />
     <Compile Include="Statement.cs" />

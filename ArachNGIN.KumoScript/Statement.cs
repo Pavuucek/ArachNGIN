@@ -51,16 +51,16 @@ namespace ArachNGIN.KumoScript
     {
         #region Private Static Variables
 
-        private static Dictionary<String, TokenType> s_dictTokenTypes;
+        private static Dictionary<String, TokenType> _sDictTokenTypes;
 
         #endregion
 
         #region Private Variables
 
-        private Script m_script;
-        private int m_iLine;
-        private StatementType m_statementType;
-        private List<Token> m_listTokens;
+        private readonly Script _mScript;
+        private int _mILine;
+        private readonly StatementType _mStatementType;
+        private readonly List<Token> _mListTokens;
 
         #endregion
 
@@ -68,37 +68,37 @@ namespace ArachNGIN.KumoScript
 
         private void InitialiseTokenTypeMap()
         {
-            s_dictTokenTypes = new Dictionary<string, TokenType>();
+            _sDictTokenTypes = new Dictionary<string, TokenType>();
 
-            s_dictTokenTypes["TRUE"] = TokenType.Boolean;
-            s_dictTokenTypes["FALSE"] = TokenType.Boolean;
-            s_dictTokenTypes["INCLUDE"] = TokenType.INCLUDE;
-            s_dictTokenTypes["SETGLOBAL"] = TokenType.SETGLOBAL;
-            s_dictTokenTypes["SET"] = TokenType.SET;
-            s_dictTokenTypes["ADD"] = TokenType.ADD;
-            s_dictTokenTypes["SUBTRACT"] = TokenType.SUBTRACT;
-            s_dictTokenTypes["MULTIPLY"] = TokenType.MULTIPLY;
-            s_dictTokenTypes["DIVIDE"] = TokenType.DIVIDE;
-            s_dictTokenTypes["TO"] = TokenType.TO;
-            s_dictTokenTypes["FROM"] = TokenType.FROM;
-            s_dictTokenTypes["BY"] = TokenType.BY;
-            s_dictTokenTypes["IF"] = TokenType.IF;
-            s_dictTokenTypes["THEN"] = TokenType.THEN;
-            s_dictTokenTypes["ELSE"] = TokenType.ELSE;
-            s_dictTokenTypes["ENDIF"] = TokenType.ENDIF;
-            s_dictTokenTypes["WHILE"] = TokenType.WHILE;
-            s_dictTokenTypes["ENDWHILE"] = TokenType.ENDWHILE;
-            s_dictTokenTypes["CALL"] = TokenType.CALL;
-            s_dictTokenTypes["BLOCK"] = TokenType.BLOCK;
-            s_dictTokenTypes["ENDBLOCK"] = TokenType.ENDBLOCK;
-            s_dictTokenTypes["YIELD"] = TokenType.YIELD;
+            _sDictTokenTypes["TRUE"] = TokenType.Boolean;
+            _sDictTokenTypes["FALSE"] = TokenType.Boolean;
+            _sDictTokenTypes["INCLUDE"] = TokenType.Include;
+            _sDictTokenTypes["SETGLOBAL"] = TokenType.Setglobal;
+            _sDictTokenTypes["SET"] = TokenType.Set;
+            _sDictTokenTypes["ADD"] = TokenType.Add;
+            _sDictTokenTypes["SUBTRACT"] = TokenType.Subtract;
+            _sDictTokenTypes["MULTIPLY"] = TokenType.Multiply;
+            _sDictTokenTypes["DIVIDE"] = TokenType.Divide;
+            _sDictTokenTypes["TO"] = TokenType.To;
+            _sDictTokenTypes["FROM"] = TokenType.From;
+            _sDictTokenTypes["BY"] = TokenType.By;
+            _sDictTokenTypes["IF"] = TokenType.If;
+            _sDictTokenTypes["THEN"] = TokenType.Then;
+            _sDictTokenTypes["ELSE"] = TokenType.Else;
+            _sDictTokenTypes["ENDIF"] = TokenType.Endif;
+            _sDictTokenTypes["WHILE"] = TokenType.While;
+            _sDictTokenTypes["ENDWHILE"] = TokenType.Endwhile;
+            _sDictTokenTypes["CALL"] = TokenType.Call;
+            _sDictTokenTypes["BLOCK"] = TokenType.Block;
+            _sDictTokenTypes["ENDBLOCK"] = TokenType.Endblock;
+            _sDictTokenTypes["YIELD"] = TokenType.Yield;
             // added by pvk
-            s_dictTokenTypes["BREAK"] = TokenType.BREAK;
+            _sDictTokenTypes["BREAK"] = TokenType.Break;
         }
 
         private List<Token> GetTokens(String strStatement)
         {
-            if (s_dictTokenTypes == null)
+            if (_sDictTokenTypes == null)
                 InitialiseTokenTypeMap();
 
             strStatement += " ";
@@ -170,9 +170,9 @@ namespace ArachNGIN.KumoScript
                         {
                             String strTokenUpper = strToken.ToUpper();
                             Token token = null;
-                            if (s_dictTokenTypes.ContainsKey(strTokenUpper))
+                            if (_sDictTokenTypes.ContainsKey(strTokenUpper))
                             {
-                                TokenType tokenType = s_dictTokenTypes[strTokenUpper];
+                                TokenType tokenType = _sDictTokenTypes[strTokenUpper];
                                 if (strTokenUpper == "TRUE")
                                     token = new Token(tokenType, true);
                                 else if (strTokenUpper == "FALSE")
@@ -302,7 +302,7 @@ namespace ArachNGIN.KumoScript
                 throw new ScriptException("Variable name expected after SETGLOBAL command.", this);
 
             token = listTokens[2];
-            if (token.Type != TokenType.TO)
+            if (token.Type != TokenType.To)
                 throw new ScriptException("TO keyword expected.", this);
 
             token = listTokens[3];
@@ -319,7 +319,7 @@ namespace ArachNGIN.KumoScript
                 throw new ScriptException("Variable name expected after SET command.", this);
 
             token = listTokens[2];
-            if (token.Type != TokenType.TO)
+            if (token.Type != TokenType.To)
                 throw new ScriptException("TO keyword expected.", this);
 
             token = listTokens[3];
@@ -335,7 +335,7 @@ namespace ArachNGIN.KumoScript
             VerifyIdentifierOrNumberOrString(token);
 
             token = listTokens[2];
-            if (token.Type != TokenType.TO)
+            if (token.Type != TokenType.To)
                 throw new ScriptException("TO keyword expected.", this);
 
             token = listTokens[3];
@@ -352,7 +352,7 @@ namespace ArachNGIN.KumoScript
             VerifyIdentifierOrNumber(token);
 
             token = listTokens[2];
-            if (token.Type != TokenType.FROM)
+            if (token.Type != TokenType.From)
                 throw new ScriptException("FROM keyword expected.", this);
 
             token = listTokens[3];
@@ -370,7 +370,7 @@ namespace ArachNGIN.KumoScript
                 throw new ScriptException("Variable name expected after MULTIPLY.", this);
 
             token = listTokens[2];
-            if (token.Type != TokenType.BY)
+            if (token.Type != TokenType.By)
                 throw new ScriptException("BY keyword expected.", this);
 
             token = listTokens[3];
@@ -387,7 +387,7 @@ namespace ArachNGIN.KumoScript
                 throw new ScriptException("Variable name expected after DIVIDE.", this);
 
             token = listTokens[2];
-            if (token.Type != TokenType.BY)
+            if (token.Type != TokenType.By)
                 throw new ScriptException("BY keyword expected.", this);
 
             token = listTokens[3];
@@ -406,7 +406,7 @@ namespace ArachNGIN.KumoScript
                 throw new ScriptException("THEN, =, > or < expected in IF.", this);
 
             token = listTokens[2];
-            if (token.Type == TokenType.THEN)
+            if (token.Type == TokenType.Then)
             {
                 Token tokenCondition = listTokens[1];
                 if (tokenCondition.Type != TokenType.Identifier
@@ -426,7 +426,7 @@ namespace ArachNGIN.KumoScript
                 token = listTokens[3];
                 VerifyIdentifierOrLiteral(token);
 
-                if (listTokens.Count < 5 || listTokens[4].Type != TokenType.THEN)
+                if (listTokens.Count < 5 || listTokens[4].Type != TokenType.Then)
                     throw new ScriptException("THEN expected.", this);
 
                 if (listTokens.Count > 5)
@@ -533,53 +533,53 @@ namespace ArachNGIN.KumoScript
 
             switch (token.Type)
             {
-                case TokenType.SETGLOBAL:
+                case TokenType.Setglobal:
                     ParseStatementSetGlobal(listTokens);
                     break;
-                case TokenType.SET:
+                case TokenType.Set:
                     ParseStatementSet(listTokens);
                     break;
-                case TokenType.ADD:
+                case TokenType.Add:
                     ParseStatementAdd(listTokens);
                     break;
-                case TokenType.SUBTRACT:
+                case TokenType.Subtract:
                     ParseStatementSubtract(listTokens);
                     break;
-                case TokenType.MULTIPLY:
+                case TokenType.Multiply:
                     ParseStatementMultiply(listTokens);
                     break;
-                case TokenType.DIVIDE:
+                case TokenType.Divide:
                     ParseStatementDivide(listTokens);
                     break;
-                case TokenType.IF:
+                case TokenType.If:
                     ParseStatementIf(listTokens);
                     break;
-                case TokenType.ELSE:
+                case TokenType.Else:
                     ParseStatementElse(listTokens);
                     break;
-                case TokenType.ENDIF:
+                case TokenType.Endif:
                     ParseStatementEndIf(listTokens);
                     break;
-                case TokenType.WHILE:
+                case TokenType.While:
                     ParseStatementWhile(listTokens);
                     break;
-                case TokenType.ENDWHILE:
+                case TokenType.Endwhile:
                     ParseStatementEndWhile(listTokens);
                     break;
-                case TokenType.CALL:
+                case TokenType.Call:
                     ParseStatementCall(listTokens);
                     break;
-                case TokenType.BLOCK:
+                case TokenType.Block:
                     ParseStatementBlock(listTokens);
                     break;
-                case TokenType.ENDBLOCK:
+                case TokenType.Endblock:
                     ParseStatementEndBlock(listTokens);
                     break;
-                case TokenType.YIELD:
+                case TokenType.Yield:
                     ParseStatementYield(listTokens);
                     break;
                 // added by pvk
-                case TokenType.BREAK:
+                case TokenType.Break:
                     break;
             }
         }
@@ -590,7 +590,7 @@ namespace ArachNGIN.KumoScript
 
         internal List<Token> Tokens
         {
-            get { return m_listTokens; }
+            get { return _mListTokens; }
         }
 
         #endregion
@@ -608,19 +608,19 @@ namespace ArachNGIN.KumoScript
         /// <param name="strStatement">Statement in uncompiled string form.</param>
         public Statement(Script script, int iLine, String strStatement)
         {
-            m_script = script;
-            m_iLine = iLine;
+            _mScript = script;
+            _mILine = iLine;
             strStatement = strStatement.Trim();
 
             if (strStatement.Length == 0)
             {
-                m_statementType = StatementType.BlankLine;
+                _mStatementType = StatementType.BlankLine;
                 return;
             }
 
             if (strStatement.Length >= 2 && strStatement.StartsWith("//"))
             {
-                m_statementType = StatementType.Comment;
+                _mStatementType = StatementType.Comment;
                 return;
             }
 
@@ -628,12 +628,12 @@ namespace ArachNGIN.KumoScript
 
             ParseStatement(listTokens);
 
-            m_listTokens = listTokens;
+            _mListTokens = listTokens;
 
-            if (m_listTokens[0].Type == TokenType.Identifier)
-                m_statementType = StatementType.Command;
+            if (_mListTokens[0].Type == TokenType.Identifier)
+                _mStatementType = StatementType.Command;
             else
-                m_statementType = StatementType.Control;
+                _mStatementType = StatementType.Control;
         }
 
         /// <summary>
@@ -642,20 +642,20 @@ namespace ArachNGIN.KumoScript
         /// <returns>String representation of the statement</returns>
         public override string ToString()
         {
-            if (m_statementType == StatementType.BlankLine)
-                return m_iLine + ": (blank line)";
+            if (_mStatementType == StatementType.BlankLine)
+                return _mILine + ": (blank line)";
 
-            if (m_statementType == StatementType.Comment)
-                return m_iLine + ": (comment)";
+            if (_mStatementType == StatementType.Comment)
+                return _mILine + ": (comment)";
 
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append(m_iLine);
+            var stringBuilder = new StringBuilder();
+            stringBuilder.Append(_mILine);
             stringBuilder.Append(": ");
-            for (int iIndex = 0; iIndex < m_listTokens.Count; iIndex++)
+            for (int iIndex = 0; iIndex < _mListTokens.Count; iIndex++)
             {
                 if (iIndex > 0) stringBuilder.Append(" ");
 
-                Token token = m_listTokens[iIndex];
+                Token token = _mListTokens[iIndex];
 
                 String strValue = (token.Type == TokenType.String)
                     ? "\"" + token.Value + "\""
@@ -674,7 +674,7 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public Script Script
         {
-            get { return m_script; }
+            get { return _mScript; }
         }
 
         /// <summary>
@@ -682,8 +682,8 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public int Line
         {
-            get { return m_iLine; }
-            internal set { m_iLine = value; }
+            get { return _mILine; }
+            internal set { _mILine = value; }
         }
 
         /// <summary>
@@ -692,7 +692,7 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public StatementType Type
         {
-            get { return m_statementType; }
+            get { return _mStatementType; }
         }
 
         #endregion

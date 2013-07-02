@@ -1,18 +1,17 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ArachNGIN.KumoScript
 {
     internal struct Frame
     {
-        public ScriptBlock m_scriptBlock;
-        public int m_iNextStatement;
+        public ScriptBlock MScriptBlock;
+        public int MiNextStatement;
 
         public Frame(ScriptBlock scriptBlock, int iNextStatement)
         {
-            m_scriptBlock = scriptBlock;
-            m_iNextStatement = iNextStatement;
+            MScriptBlock = scriptBlock;
+            MiNextStatement = iNextStatement;
         }
     }
 
@@ -26,13 +25,13 @@ namespace ArachNGIN.KumoScript
     {
         #region Private Variables
 
-        private ScriptBlock m_scriptBlock;
-        private VariableDictionary m_variableDicitonary;
-        private int m_iCurrentBlockSize;
-        private Stack<Frame> m_stackFrame;
-        private bool m_bInterrupted;
-        private ScriptHandler m_scriptHandler;
-        private bool m_bInterruptOnCustomCommand;
+        private readonly ScriptBlock _mScriptBlock;
+        private readonly VariableDictionary _mVariableDicitonary;
+        private int _mICurrentBlockSize;
+        private readonly Stack<Frame> _mStackFrame;
+        private bool _mBInterrupted;
+        private IScriptHandler _mScriptHandler;
+        private bool _mBInterruptOnCustomCommand;
 
         #endregion
 
@@ -41,16 +40,16 @@ namespace ArachNGIN.KumoScript
         private bool CompareParameters(Token tokenParameter1,
             TokenType tokenTypeOperator, Token tokenParameter2)
         {
-            object objectValue1 = ResolveValue(tokenParameter1);
-            object objectValue2 = ResolveValue(tokenParameter2);
+            var objectValue1 = ResolveValue(tokenParameter1);
+            var objectValue2 = ResolveValue(tokenParameter2);
 
             if (tokenParameter2.Type == TokenType.Identifier)
                 objectValue2 = GetVariable(tokenParameter2.Value.ToString());
             else
                 objectValue2 = tokenParameter2.Value;
 
-            if (objectValue1.GetType() == typeof(int)
-                && objectValue2.GetType() == typeof(int))
+            if (objectValue1 is int
+                && objectValue2 is int)
             {
                 // pure int comparison
                 int iValue1 = (int)objectValue1;
@@ -67,8 +66,8 @@ namespace ArachNGIN.KumoScript
                         return iValue1 < iValue2;
                 }
             }
-            else if (objectValue1.GetType() == typeof(bool)
-                || objectValue2.GetType() == typeof(bool))
+            else if (objectValue1 is bool
+                || objectValue2 is bool)
             {
                 bool bValue1 = (bool)objectValue1;
                 bool bValue2 = (bool)objectValue2;
@@ -82,8 +81,8 @@ namespace ArachNGIN.KumoScript
                         throw new ScriptException("Boolean parameters cannot be compared using > or <.");
                 }
             }
-            else if (objectValue1.GetType() == typeof(String)
-                && objectValue2.GetType() == typeof(String))
+            else if (objectValue1 is string
+                && objectValue2 is string)
             {
                 // string comparison
                 String strValue1 = (String)objectValue1;
@@ -100,10 +99,10 @@ namespace ArachNGIN.KumoScript
                         return strValue1.CompareTo(strValue2) < 0;
                 }
             }
-            else if ((objectValue1.GetType() == typeof(float)
-                || objectValue1.GetType() == typeof(int))
-                && (objectValue2.GetType() == typeof(float)
-                || objectValue2.GetType() == typeof(int)))
+            else if ((objectValue1 is float
+                || objectValue1 is int)
+                && (objectValue2 is float
+                || objectValue2 is int))
             {
                 // pure float, or mixed number comparison
                 float fValue1 = (float)objectValue1;
@@ -142,16 +141,16 @@ namespace ArachNGIN.KumoScript
 
         private object GetVariable(String strIdentifier)
         {
-            return m_variableDicitonary[strIdentifier.ToUpper()];
+            return _mVariableDicitonary[strIdentifier.ToUpper()];
         }
 
         private void SetVariable(String strIdentifier, object objectValue)
         {
-            m_variableDicitonary[strIdentifier] = objectValue;
+            _mVariableDicitonary[strIdentifier] = objectValue;
 
             // if handler set, notify it
-            if (m_scriptHandler != null)
-                m_scriptHandler.OnScriptVariableUpdate(this, strIdentifier, objectValue);
+            if (_mScriptHandler != null)
+                _mScriptHandler.OnScriptVariableUpdate(this, strIdentifier, objectValue);
         }
 
         private void ExecuteSetGlobal(Statement statement)
@@ -170,8 +169,8 @@ namespace ArachNGIN.KumoScript
             GlobalVariables[strIdentifier] = objectValue;
 
             // if handler set, notify it
-            if (m_scriptHandler != null)
-                m_scriptHandler.OnScriptVariableUpdate(this, strIdentifier, objectValue);
+            if (_mScriptHandler != null)
+                _mScriptHandler.OnScriptVariableUpdate(this, strIdentifier, objectValue);
         }
 
         private void ExecuteSet(Statement statement)
@@ -248,18 +247,18 @@ namespace ArachNGIN.KumoScript
                     "Cannot subtract a value from a boolean or string variable.",
                     statement);
 
-            if (objectValue.GetType() == typeof(int)
-                && objectToSubtract.GetType() == typeof(int))
+            if (objectValue is int
+                && objectToSubtract is int)
                 // pure int
                 SetVariable(strIdentifier,
                     (int)objectValue - (int)objectToSubtract);
             else
             {
                 // float or mixed
-                float fValue = objectValue.GetType() == typeof(float)
+                float fValue = objectValue is float
                     ? (float)objectValue : (int)objectValue;
 
-                float fToSubtract = objectToSubtract.GetType() == typeof(float)
+                float fToSubtract = objectToSubtract is float
                     ? (float)objectToSubtract : (int)objectToSubtract;
 
                 SetVariable(strIdentifier, fValue - fToSubtract);
@@ -291,10 +290,10 @@ namespace ArachNGIN.KumoScript
             else
             {
                 // float or mixed
-                float fValue = objectValue.GetType() == typeof(float)
+                float fValue = objectValue is float
                     ? (float)objectValue : (int)objectValue;
 
-                float fMultiplier = objectMultiplier.GetType() == typeof(float)
+                float fMultiplier = objectMultiplier is float
                     ? (float)objectMultiplier : (int)objectMultiplier;
 
                 SetVariable(strIdentifier, fValue * fMultiplier);
@@ -319,7 +318,7 @@ namespace ArachNGIN.KumoScript
             object objectDivider = ResolveValue(listTokens[3]);
 
             float fDivider = 0.0f;
-            if (objectDivider.GetType() == typeof(int))
+            if (objectDivider is int)
                 fDivider = (int)objectDivider;
             else
                 fDivider = (float)objectDivider;
@@ -328,15 +327,15 @@ namespace ArachNGIN.KumoScript
             if (fDivider == 0.0f)
                 throw new ScriptException("Cannot divide by zero.", statement);
 
-            if (objectValue.GetType() == typeof(int)
-                && objectDivider.GetType() == typeof(int))
+            if (objectValue is int
+                && objectDivider is int)
                 // pure int
                 SetVariable(strIdentifier,
                     (int)objectValue / (int)objectDivider);
             else
             {
                 // float or mixed
-                float fValue = objectValue.GetType() == typeof(float)
+                float fValue = objectValue is float
                     ? (float)objectValue : (int)objectValue;
 
                 SetVariable(strIdentifier,
@@ -346,18 +345,18 @@ namespace ArachNGIN.KumoScript
 
         private void ExecuteIf(Statement statement)
         {
-            Script script = m_scriptBlock.Script;
+            Script script = _mScriptBlock.Script;
 
             IfBlock ifBLock = script.IfBlocks[statement];
 
             // update next index for current frame
-            Frame frame = m_stackFrame.Pop();
-            frame.m_iNextStatement = ifBLock.m_iNextStatement;
-            m_stackFrame.Push(frame);
+            Frame frame = _mStackFrame.Pop();
+            frame.MiNextStatement = ifBLock.MiNextStatement;
+            _mStackFrame.Push(frame);
 
             // perform comparison
             ScriptBlock scriptBlock = null;
-            List<Token> listTokens = statement.Tokens;
+            var listTokens = statement.Tokens;
 
             if (listTokens.Count == 3)
             {
@@ -367,19 +366,19 @@ namespace ArachNGIN.KumoScript
                 // literal TRUE or FALSE
                 if (token.Type == TokenType.Boolean)
                     scriptBlock = (bool)token.Value
-                        ? ifBLock.m_scriptBlockTrue
-                        : ifBLock.m_scriptBlockFalse;
+                        ? ifBLock.MScriptBlockTrue
+                        : ifBLock.MScriptBlockFalse;
                 else // is identifier
                 {
                     String strIdentifier = token.Value.ToString();
                     object objectValue = GetVariable(strIdentifier);
 
                     // if bool var, process according to value
-                    if (objectValue.GetType() == typeof(Boolean))
+                    if (objectValue is bool)
                     {
                         scriptBlock = (bool)objectValue
-                            ? ifBLock.m_scriptBlockTrue
-                            : ifBLock.m_scriptBlockFalse;
+                            ? ifBLock.MScriptBlockTrue
+                            : ifBLock.MScriptBlockFalse;
                     }
                     else
                         throw new ScriptException("Variable must contain a boolean value.", statement);
@@ -389,21 +388,21 @@ namespace ArachNGIN.KumoScript
             {
                 scriptBlock
                     = CompareParameters(listTokens[1], listTokens[2].Type, listTokens[3])
-                        ? ifBLock.m_scriptBlockTrue
-                        : ifBLock.m_scriptBlockFalse;
+                        ? ifBLock.MScriptBlockTrue
+                        : ifBLock.MScriptBlockFalse;
             }
 
             // push block
             if (scriptBlock != null) // else part is optional
             {
                 frame = new Frame(scriptBlock, 0);
-                m_stackFrame.Push(frame);
+                _mStackFrame.Push(frame);
             }
         }
 
         private void ExecuteWhile(Statement statement)
         {
-            Script script = m_scriptBlock.Script;
+            Script script = _mScriptBlock.Script;
 
             WhileBlock whileBlock = script.WhileBlocks[statement];
 
@@ -424,7 +423,7 @@ namespace ArachNGIN.KumoScript
                     object objectValue = GetVariable(strIdentifier);
 
                     // if bool var, process according to value
-                    if (objectValue.GetType() == typeof(Boolean))
+                    if (objectValue is bool)
                         bLoopContinue = (bool)objectValue;
                     else
                         throw new ScriptException("Variable must contain a boolean value.", statement);
@@ -437,20 +436,20 @@ namespace ArachNGIN.KumoScript
             if (bLoopContinue)
             {
                 // keep statement index on while statement
-                Frame frame = m_stackFrame.Pop();
-                frame.m_iNextStatement--;
-                m_stackFrame.Push(frame);
+                Frame frame = _mStackFrame.Pop();
+                frame.MiNextStatement--;
+                _mStackFrame.Push(frame);
 
                 // push while block
-                frame = new Frame(whileBlock.m_scriptBlock, 0);
-                m_stackFrame.Push(frame);
+                frame = new Frame(whileBlock.MScriptBlock, 0);
+                _mStackFrame.Push(frame);
             }
             else
             {
                 // update next index for current frame
-                Frame frame = m_stackFrame.Pop();
-                frame.m_iNextStatement = whileBlock.m_iNextStatement;
-                m_stackFrame.Push(frame);
+                Frame frame = _mStackFrame.Pop();
+                frame.MiNextStatement = whileBlock.MiNextStatement;
+                _mStackFrame.Push(frame);
             }
         }
 
@@ -459,15 +458,15 @@ namespace ArachNGIN.KumoScript
             List<Token> listTokens = statement.Tokens;
 
             String strBlockName = listTokens[1].Value.ToString().ToUpper();
-            ScriptBlock scriptBlock = m_scriptBlock.Script.Blocks[strBlockName];
-            Frame frameToCall = new Frame(scriptBlock, 0);
+            ScriptBlock scriptBlock = _mScriptBlock.Script.Blocks[strBlockName];
+            var frameToCall = new Frame(scriptBlock, 0);
 
-            m_stackFrame.Push(frameToCall);
+            _mStackFrame.Push(frameToCall);
         }
 
         private void ExecuteYield(Statement statement)
         {
-            m_bInterrupted = true;
+            _mBInterrupted = true;
         }
 
         private void ExecuteCustom(Statement statement)
@@ -478,7 +477,7 @@ namespace ArachNGIN.KumoScript
 
             String strCommand = token.Value.ToString();
 
-            ScriptManager scriptManager = m_scriptBlock.Script.Manager;
+            ScriptManager scriptManager = _mScriptBlock.Script.Manager;
 
             if (!scriptManager.CommandPrototypes.ContainsKey(
                 strCommand.ToUpper()))
@@ -487,7 +486,7 @@ namespace ArachNGIN.KumoScript
             CommandPrototype commandPrototype
                 = scriptManager.CommandPrototypes[strCommand.ToUpper()];
 
-            List<object> listParameters = new List<object>();
+            var listParameters = new List<object>();
             for (int iIndex = 1; iIndex < listTokens.Count; iIndex++)
                 listParameters.Add(ResolveValue(listTokens[iIndex]));
 
@@ -497,12 +496,12 @@ namespace ArachNGIN.KumoScript
 
                 // set interrupt flag to trigger break in
                 // continuous execution
-                if (m_bInterruptOnCustomCommand)
-                    m_bInterrupted = true;
+                if (_mBInterruptOnCustomCommand)
+                    _mBInterrupted = true;
 
                 // pass to handler
-                if (m_scriptHandler != null)
-                    m_scriptHandler.OnScriptCommand(this,
+                if (_mScriptHandler != null)
+                    _mScriptHandler.OnScriptCommand(this,
                         commandPrototype.Name, listParameters);
             }
             catch (Exception exception)
@@ -513,59 +512,59 @@ namespace ArachNGIN.KumoScript
 
         private void ExecuteBreak(Statement statement)
         {
-            m_bInterrupted = true;
+            _mBInterrupted = true;
         }
 
         private void ExecuteNextStatement()
         {
             // reset interrupt
-            m_bInterrupted = false;
+            _mBInterrupted = false;
 
-            Frame frame = m_stackFrame.Pop();
-            Statement statement = frame.m_scriptBlock.Statements[frame.m_iNextStatement++];
-            m_stackFrame.Push(frame);
+            Frame frame = _mStackFrame.Pop();
+            Statement statement = frame.MScriptBlock.Statements[frame.MiNextStatement++];
+            _mStackFrame.Push(frame);
 
             Token token = statement.Tokens[0];
             switch (token.Type)
             {
                 // SETGLOBAL
-                case TokenType.SETGLOBAL:
+                case TokenType.Setglobal:
                     ExecuteSetGlobal(statement);
                     break;
                 // SET
-                case TokenType.SET:
+                case TokenType.Set:
                     ExecuteSet(statement);
                     break;
                 // ADD
-                case TokenType.ADD:
+                case TokenType.Add:
                     ExecuteAdd(statement);
                     break;
                 // SUBTRACT
-                case TokenType.SUBTRACT:
+                case TokenType.Subtract:
                     ExecuteSubtract(statement);
                     break;
                 // MULTIPLY
-                case TokenType.MULTIPLY:
+                case TokenType.Multiply:
                     ExecuteMultiply(statement);
                     break;
                 // DIVIDE
-                case TokenType.DIVIDE:
+                case TokenType.Divide:
                     ExecuteDivide(statement);
                     break;
                 // IF
-                case TokenType.IF:
+                case TokenType.If:
                     ExecuteIf(statement);
                     break;
                 // WHILE
-                case TokenType.WHILE:
+                case TokenType.While:
                     ExecuteWhile(statement);
                     break;
                 // CALL
-                case TokenType.CALL:
+                case TokenType.Call:
                     ExecuteCall(statement);
                     break;
                 // YIELD
-                case TokenType.YIELD:
+                case TokenType.Yield:
                     ExecuteYield(statement);
                     break;
                 // custom command
@@ -573,22 +572,22 @@ namespace ArachNGIN.KumoScript
                     ExecuteCustom(statement);
                     break;
                 // added by pvk
-                case TokenType.BREAK:
+                case TokenType.Break:
                     ExecuteBreak(statement);
                     break;
             }
 
             // if interrupt set and handler set, notify it
-            if (m_bInterrupted && m_scriptHandler != null)
-                m_scriptHandler.OnScriptInterrupt(this);
+            if (_mBInterrupted && _mScriptHandler != null)
+                _mScriptHandler.OnScriptInterrupt(this);
 
             // pop stack frame(s) if end of block reached
-            while (m_stackFrame.Count > 0)
+            while (_mStackFrame.Count > 0)
             {
-                frame = m_stackFrame.Pop();
-                if (frame.m_iNextStatement < frame.m_scriptBlock.Statements.Count)
+                frame = _mStackFrame.Pop();
+                if (frame.MiNextStatement < frame.MScriptBlock.Statements.Count)
                 {
-                    m_stackFrame.Push(frame);
+                    _mStackFrame.Push(frame);
                     break;
                 }
             }
@@ -604,15 +603,15 @@ namespace ArachNGIN.KumoScript
         /// <param name="scriptBlock">Code block from a specific script.</param>
         public ScriptContext(ScriptBlock scriptBlock)
         {
-            m_scriptBlock = scriptBlock;
-            m_variableDicitonary = new VariableDictionary(
+            _mScriptBlock = scriptBlock;
+            _mVariableDicitonary = new VariableDictionary(
                 scriptBlock.Script.Manager.GlobalVariables);
-            m_iCurrentBlockSize = scriptBlock.Statements.Count;
-            m_stackFrame = new Stack<Frame>();
-            m_bInterrupted = false;
-            m_scriptHandler = null;
-            m_stackFrame.Push(new Frame(scriptBlock, 0));
-            m_bInterruptOnCustomCommand = false;
+            _mICurrentBlockSize = scriptBlock.Statements.Count;
+            _mStackFrame = new Stack<Frame>();
+            _mBInterrupted = false;
+            _mScriptHandler = null;
+            _mStackFrame.Push(new Frame(scriptBlock, 0));
+            _mBInterruptOnCustomCommand = false;
         }
 
         /// <summary>
@@ -635,9 +634,9 @@ namespace ArachNGIN.KumoScript
         /// <returns>Number of statements executed.</returns>
         public int Execute()
         {
-            m_bInterrupted = false;
+            _mBInterrupted = false;
             int iCount = 0;
-            while (!Terminated && !m_bInterrupted)
+            while (!Terminated && !_mBInterrupted)
             {
                 ExecuteNextStatement();
                 ++iCount;
@@ -655,9 +654,9 @@ namespace ArachNGIN.KumoScript
         /// <returns>Number of statements executed.</returns>
         public int Execute(int iStatements)
         {
-            m_bInterrupted = false;
+            _mBInterrupted = false;
             int iCount = 0;
-            while (iStatements-- > 0 && !Terminated && !m_bInterrupted)
+            while (iStatements-- > 0 && !Terminated && !_mBInterrupted)
             {
                 ExecuteNextStatement();
                 ++iCount;
@@ -675,9 +674,9 @@ namespace ArachNGIN.KumoScript
         public int Execute(TimeSpan tsInterval)
         {
             DateTime dtIntervalEnd = DateTime.Now + tsInterval;
-            m_bInterrupted = false;
+            _mBInterrupted = false;
             int iCount = 0;
-            while (DateTime.Now < dtIntervalEnd && !Terminated && !m_bInterrupted)
+            while (DateTime.Now < dtIntervalEnd && !Terminated && !_mBInterrupted)
             {
                 ExecuteNextStatement();
                 ++iCount;
@@ -691,10 +690,10 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public void Restart()
         {
-            m_variableDicitonary.Clear();
-            m_stackFrame.Clear();
-            m_stackFrame.Push(new Frame(m_scriptBlock, 0));
-            m_bInterrupted = false;
+            _mVariableDicitonary.Clear();
+            _mStackFrame.Clear();
+            _mStackFrame.Push(new Frame(_mScriptBlock, 0));
+            _mBInterrupted = false;
         }
 
         #endregion
@@ -706,7 +705,7 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public ScriptBlock Block
         {
-            get { return m_scriptBlock; }
+            get { return _mScriptBlock; }
         }
 
         /// <summary>
@@ -715,8 +714,8 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public bool InterruptOnCustomCommand
         {
-            get { return m_bInterruptOnCustomCommand; }
-            set { m_bInterruptOnCustomCommand = value; }
+            get { return _mBInterruptOnCustomCommand; }
+            set { _mBInterruptOnCustomCommand = value; }
         }
 
         /// <summary>
@@ -725,7 +724,7 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public bool Interrupted
         {
-            get { return m_bInterrupted; }
+            get { return _mBInterrupted; }
         }
 
         /// <summary>
@@ -734,7 +733,7 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public bool Terminated
         {
-            get { return m_stackFrame.Count == 0; }
+            get { return _mStackFrame.Count == 0; }
         }
 
         /// <summary>
@@ -745,10 +744,10 @@ namespace ArachNGIN.KumoScript
         {
             get
             {
-                if (m_stackFrame.Count == 0)
+                if (_mStackFrame.Count == 0)
                     return null;
-                int iNextStatement = m_stackFrame.Peek().m_iNextStatement;
-                Script script = m_scriptBlock.Script;
+                int iNextStatement = _mStackFrame.Peek().MiNextStatement;
+                Script script = _mScriptBlock.Script;
                 if (iNextStatement >= script.Statements.Count)
                     return null;
                 return script.Statements[iNextStatement];
@@ -760,7 +759,7 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public VariableDictionary LocalVariables
         {
-            get { return m_variableDicitonary; }
+            get { return _mVariableDicitonary; }
         }
 
         /// <summary>
@@ -769,16 +768,16 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public VariableDictionary GlobalVariables
         {
-            get { return m_scriptBlock.Script.Manager.GlobalVariables; }
+            get { return _mScriptBlock.Script.Manager.GlobalVariables; }
         }
 
         /// <summary>
         /// Script handler for this context.
         /// </summary>
-        public ScriptHandler Handler
+        public IScriptHandler Handler
         {
-            get { return m_scriptHandler; }
-            set { m_scriptHandler = value; }
+            get { return _mScriptHandler; }
+            set { _mScriptHandler = value; }
         }
 
         #endregion

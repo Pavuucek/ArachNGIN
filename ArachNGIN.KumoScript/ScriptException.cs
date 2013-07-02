@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ArachNGIN.KumoScript
 {
@@ -13,9 +11,9 @@ namespace ArachNGIN.KumoScript
     {
         #region Private Variables
 
-        private String m_strMessage;
-        private Exception m_exceptionInner;
-        private Statement m_statement;
+        private readonly String _mStrMessage;
+        private readonly Exception _mExceptionInner;
+        private readonly Statement _mStatement;
 
         #endregion
 
@@ -26,9 +24,9 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public ScriptException()
         {
-            m_strMessage = "";
-            m_exceptionInner = null;
-            m_statement = null;
+            _mStrMessage = "";
+            _mExceptionInner = null;
+            _mStatement = null;
         }
 
         /// <summary>
@@ -37,9 +35,9 @@ namespace ArachNGIN.KumoScript
         /// <param name="strMessage">Exception message.</param>
         public ScriptException(String strMessage)
         {
-            m_strMessage = strMessage;
-            m_exceptionInner = null;
-            m_statement = null;
+            _mStrMessage = strMessage;
+            _mExceptionInner = null;
+            _mStatement = null;
         }
 
         /// <summary>
@@ -49,9 +47,9 @@ namespace ArachNGIN.KumoScript
         /// <param name="exceptionInner">Inner exception wrapped by this exception.</param>
         public ScriptException(String strMessage, Exception exceptionInner)
         {
-            m_strMessage = strMessage;
-            m_exceptionInner = exceptionInner;
-            m_statement = null;
+            _mStrMessage = strMessage;
+            _mExceptionInner = exceptionInner;
+            _mStatement = null;
         }
 
         /// <summary>
@@ -62,9 +60,9 @@ namespace ArachNGIN.KumoScript
         /// compilation exception occured.</param>
         public ScriptException(String strMessage, Statement statement)
         {
-            m_strMessage = strMessage;
-            m_exceptionInner = null;
-            m_statement = statement;
+            _mStrMessage = strMessage;
+            _mExceptionInner = null;
+            _mStatement = statement;
         }
 
         /// <summary>
@@ -77,9 +75,9 @@ namespace ArachNGIN.KumoScript
         /// compilation exception occured.</param>
         public ScriptException(String strMessage, Exception exceptionInner, Statement statement)
         {
-            m_strMessage = strMessage;
-            m_exceptionInner = exceptionInner;
-            m_statement = Statement;
+            _mStrMessage = strMessage;
+            _mExceptionInner = exceptionInner;
+            _mStatement = Statement;
         }
 
         #endregion
@@ -93,10 +91,9 @@ namespace ArachNGIN.KumoScript
         {
             get
             {
-                if (m_exceptionInner == null)
-                    return m_strMessage;
-                else
-                    return m_strMessage + " Reason: " + m_exceptionInner.Message;
+                if (_mExceptionInner == null)
+                    return _mStrMessage;
+                return _mStrMessage + " Reason: " + _mExceptionInner.Message;
             }
         }
 
@@ -105,7 +102,7 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public new Exception InnerException
         {
-            get { return m_exceptionInner; }
+            get { return _mExceptionInner; }
         }
 
         /// <summary>
@@ -114,7 +111,7 @@ namespace ArachNGIN.KumoScript
         /// </summary>
         public Statement Statement
         {
-            get { return m_statement; }
+            get { return _mStatement; }
         }
 
         #endregion

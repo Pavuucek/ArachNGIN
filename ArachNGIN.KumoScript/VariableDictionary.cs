@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ArachNGIN.KumoScript
 {
@@ -68,13 +67,9 @@ namespace ArachNGIN.KumoScript
                 // check if var exists as global
                 if (m_variableDicrionaryGlobal.HasVariable(strIdentifier))
                     return true;
-                else
-                    // otherwise, check local scope
-                    return m_dictVariables.ContainsKey(strIdentifier.ToUpper());
-            }
-            else
-                // is global reference - check own scope
                 return m_dictVariables.ContainsKey(strIdentifier.ToUpper());
+            }
+            return m_dictVariables.ContainsKey(strIdentifier.ToUpper());
         }
 
         /// <summary>
@@ -95,21 +90,15 @@ namespace ArachNGIN.KumoScript
                     // if in global scope, return value
                     if (m_variableDicrionaryGlobal.HasVariable(strIdentifier))
                         return m_variableDicrionaryGlobal[strIdentifier];
-                    else
-                    {
-                        // otherwise, check local scope
-                        if (!m_dictVariables.ContainsKey(strIdentifier.ToUpper()))
-                            throw new ScriptException("Variable " + strIdentifier + " not set.");
-                        return m_dictVariables[strIdentifier.ToUpper()];
-                    }
-                }
-                else
-                {
-                    // is already global reference - check own scope
+                    // otherwise, check local scope
                     if (!m_dictVariables.ContainsKey(strIdentifier.ToUpper()))
-                        throw new ScriptException("Global variable " + strIdentifier + " not set.");
-                    return m_dictVariables[strIdentifier];
+                        throw new ScriptException("Variable " + strIdentifier + " not set.");
+                    return m_dictVariables[strIdentifier.ToUpper()];
                 }
+                // is already global reference - check own scope
+                if (!m_dictVariables.ContainsKey(strIdentifier.ToUpper()))
+                    throw new ScriptException("Global variable " + strIdentifier + " not set.");
+                return m_dictVariables[strIdentifier];
             }
             set
             {

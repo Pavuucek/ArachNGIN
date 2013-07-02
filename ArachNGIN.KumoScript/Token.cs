@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ArachNGIN.KumoScript
 {
@@ -17,28 +15,28 @@ namespace ArachNGIN.KumoScript
         NotEquals,
         Greater,
         Less,
-        INCLUDE,
-        SETGLOBAL,
-        SET,
-        ADD,
-        SUBTRACT,
-        MULTIPLY,
-        DIVIDE,
-        TO,
-        FROM,
-        BY,
-        IF,
-        THEN,
-        ELSE,
-        ENDIF,
-        WHILE,
-        ENDWHILE,
-        CALL,
-        BLOCK,
-        ENDBLOCK,
-        YIELD,
+        Include,
+        Setglobal,
+        Set,
+        Add,
+        Subtract,
+        Multiply,
+        Divide,
+        To,
+        From,
+        By,
+        If,
+        Then,
+        Else,
+        Endif,
+        While,
+        Endwhile,
+        Call,
+        Block,
+        Endblock,
+        Yield,
         // added by pvk
-        BREAK
+        Break
     }
 
     #endregion
@@ -47,8 +45,8 @@ namespace ArachNGIN.KumoScript
     {
         #region Private Variables
 
-        private TokenType m_tokenType;
-        private object m_objectValue;
+        private readonly TokenType _mTokenType;
+        private readonly object _mObjectValue;
 
         #endregion
 
@@ -56,16 +54,15 @@ namespace ArachNGIN.KumoScript
 
         public Token(TokenType tokenType, object objectValue)
         {
-            m_tokenType = tokenType;
-            m_objectValue = objectValue;
+            _mTokenType = tokenType;
+            _mObjectValue = objectValue;
         }
 
         public override String ToString()
         {
-            if (m_tokenType == TokenType.String)
-                return m_tokenType + " (\"" + m_objectValue + "\")";
-            else
-                return m_tokenType + " (" + m_objectValue + ")";
+            if (_mTokenType == TokenType.String)
+                return _mTokenType + " (\"" + _mObjectValue + "\")";
+            return _mTokenType + " (" + _mObjectValue + ")";
         }
 
         #endregion
@@ -74,12 +71,12 @@ namespace ArachNGIN.KumoScript
 
         public TokenType Type
         {
-            get { return m_tokenType; }
+            get { return _mTokenType; }
         }
 
         public object Value
         {
-            get { return m_objectValue; }
+            get { return _mObjectValue; }
         }
 
         #endregion
