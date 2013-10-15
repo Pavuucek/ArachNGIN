@@ -247,7 +247,7 @@ namespace ArachNGIN.Files.QuakePak
         /// </summary>
         /// <param name="stream">proud</param>
         /// <param name="pakFileName">jméno souboru v PAKu</param>
-        /// <param name="writeFat">má se zapsat fatka? Pokud to není poslední pøidaný soubor, tak urèitì JO!</param>
+        /// <param name="writeFat">má se zapsat fatka? Pokud to je poslední pøidaný soubor, tak urèitì JO!</param>
         /// <returns>podle úspìšnosti buï true nebo false</returns>
         public bool AddStream(Stream stream, string pakFileName, bool writeFat /*=true*/)
         {
@@ -286,7 +286,7 @@ namespace ArachNGIN.Files.QuakePak
         /// </summary>
         /// <param name="fileName">název souboru (napø. c:\windows\win.ini)</param>
         /// <param name="pakFileName">název souboru v paku (napø ini/win.ini)</param>
-        /// <param name="writeFat">má se zapsat fatka? Pokud to není poslední pøidaný soubor, tak urèitì JO!</param>
+        /// <param name="writeFat">má se zapsat fatka? Pokud to je poslední pøidaný soubor, tak urèitì JO!</param>
         /// <returns>podle úspìšnosti buï true nebo false</returns>
         public bool AddFile(string fileName, string pakFileName, bool writeFat = true)
         {
