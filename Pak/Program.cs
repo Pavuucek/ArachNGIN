@@ -95,6 +95,7 @@ namespace Pak
                         NotEnoughArgs();
                         return;
                     }
+                    LoadIndex(pak);
                     string s = AddIndexedFile(args[2]);
                     args[2] = s;
                     if (!AddSingleFile(args, pak))
@@ -210,8 +211,8 @@ namespace Pak
         private static string AddIndexedFile(string file)
         {
             Guid g = Guid.NewGuid();
-            PakIndex.Add(file + "=" + g.ToString());
-            return g.ToString();
+            PakIndex.Add(file + "=" + g.ToString().ToLower());
+            return g.ToString().ToLower();
         }
 
         private static void FinishIndex()
@@ -228,6 +229,50 @@ namespace Pak
             PakIndex.Add("");
             PakIndex.AddRange(tempIndex);
             // TODO: dopsat nahrazovani souboru do quakepakfile.
+        }
+
+        private static void CleanIndex()
+        {
+            var tempIndex = new string[PakIndex.Count];
+            PakIndex.CopyTo(tempIndex, 0);
+            PakIndex.Clear();
+            foreach (string line in tempIndex)
+            {
+                string[] split = line.Split('=');
+                // vic jak 1 -> radka je v ini formatu, tj ok a neobsahuje 'filecount' a neni prazdny
+                if (split.Length > 1 && !line.ToLower().Contains("filecount") && !string.IsNullOrEmpty(line)) PakIndex.Add(line.ToLower());
+            }
+        }
+        private static void ReplaceInIndex(string oldFile, string newFile)
+        {
+            var tempIndex = new string[PakIndex.Count];
+            PakIndex.CopyTo(tempIndex, 0);
+            PakIndex.Clear();
+            foreach (string line in tempIndex)
+            {
+                if (line.Contains(oldFile.ToLower()))
+                {
+                    string[] linesplit = line.Split('=');
+                    if (linesplit.Length != 2) PakIndex.Add(line);
+                    else PakIndex.Add(linesplit[0] + "=" + newFile.ToLower());
+                }
+                else
+                {
+                    PakIndex.Add(line);
+                }
+            }
+        }
+
+        private static void LoadIndex(QuakePakFile pak)
+        {
+            if (!pak.PakFileExists("(pak-index)")) return;
+            var ms = new MemoryStream();
+            pak.ExtractStream("(pak-index)", ms);
+            ms.Seek(0, SeekOrigin.Begin);
+            StringCollections.LoadFromStream(ms, PakIndex);
+            ms.Close();
+            //
+            CleanIndex();
         }
     }
 }
