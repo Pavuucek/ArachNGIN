@@ -96,13 +96,26 @@ namespace Pak
                         return;
                     }
                     LoadIndex(pak);
-                    string s = AddIndexedFile(args[2]);
-                    args[2] = s;
-                    if (!AddSingleFile(args, pak))
+                    
+                    if (ExistsInIndex(args[2]))
                     {
-                        pak.Close();
-                        return;
+                        var g = Guid.NewGuid();
+                        ReplaceInIndex(args[2], g.ToString());
+                        pak.AddFile(args[2], g.ToString());
                     }
+                    else
+                    {
+                        string s = AddIndexedFile(args[2]);
+                        // TODO: tohle neudělá nic. AddFile neumí nahrazovat :-)
+                        pak.AddFile(args[2], s);
+                    }
+                    //
+                    FinishIndex();
+                    Stream ms = new MemoryStream();
+                    StringCollections.SaveToStream(ms, PakIndex);
+                    ms.Seek(0, SeekOrigin.Begin);
+                    pak.AddStream(ms, "(pak-index)", true);
+                    ms.Close();
                     break;
             }
             Console.WriteLine();
@@ -273,6 +286,17 @@ namespace Pak
             ms.Close();
             //
             CleanIndex();
+        }
+
+        private static bool ExistsInIndex(string filename)
+        {
+            var sd = new StringDictionary();
+            foreach (string s in PakIndex)
+            {
+                var split = s.Split('=');
+                if (split.Length > 1) sd.Add(split[0], split[1]);
+            }
+            return sd.ContainsKey(filename.ToLower());
         }
     }
 }
