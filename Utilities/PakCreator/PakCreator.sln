@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PakCreator", "PakCreator.csproj", "{12DF9997-CA4A-40CA-97FF-8A71D3F296C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArachNGIN.Files", "..\ArachNGIN.Files\ArachNGIN.Files.csproj", "{21FE4EC9-B716-43BA-9124-08439AC740AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArachNGIN.Components", "..\ArachNGIN.Components\ArachNGIN.Components.csproj", "{CD82B8C3-BD15-4185-867D-E7EF915464F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArachNGIN.Components.Console", "..\ArachNGIN.Components.Console\ArachNGIN.Components.Console.csproj", "{24082240-398A-46E4-BF29-18B4B85EE9DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArachNGIN.Files.MPQ", "..\ArachNGIN.Files.MPQ\ArachNGIN.Files.MPQ.csproj", "{0B2AA780-C794-4E87-9465-4DA15813790B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArachNGIN.KumoScript", "..\ArachNGIN.KumoScript\ArachNGIN.KumoScript.csproj", "{2A2FF6FE-D3F9-4C41-AD37-7B740F2FA8FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArachNGIN.Net", "..\ArachNGIN.Net\ArachNGIN.Net.csproj", "{2A29BCBE-818E-494D-93FC-63937B4A8F4B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12DF9997-CA4A-40CA-97FF-8A71D3F296C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12DF9997-CA4A-40CA-97FF-8A71D3F296C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12DF9997-CA4A-40CA-97FF-8A71D3F296C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12DF9997-CA4A-40CA-97FF-8A71D3F296C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21FE4EC9-B716-43BA-9124-08439AC740AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21FE4EC9-B716-43BA-9124-08439AC740AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21FE4EC9-B716-43BA-9124-08439AC740AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21FE4EC9-B716-43BA-9124-08439AC740AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD82B8C3-BD15-4185-867D-E7EF915464F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD82B8C3-BD15-4185-867D-E7EF915464F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD82B8C3-BD15-4185-867D-E7EF915464F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD82B8C3-BD15-4185-867D-E7EF915464F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24082240-398A-46E4-BF29-18B4B85EE9DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24082240-398A-46E4-BF29-18B4B85EE9DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24082240-398A-46E4-BF29-18B4B85EE9DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24082240-398A-46E4-BF29-18B4B85EE9DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B2AA780-C794-4E87-9465-4DA15813790B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B2AA780-C794-4E87-9465-4DA15813790B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B2AA780-C794-4E87-9465-4DA15813790B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B2AA780-C794-4E87-9465-4DA15813790B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A2FF6FE-D3F9-4C41-AD37-7B740F2FA8FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A2FF6FE-D3F9-4C41-AD37-7B740F2FA8FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A2FF6FE-D3F9-4C41-AD37-7B740F2FA8FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A2FF6FE-D3F9-4C41-AD37-7B740F2FA8FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A29BCBE-818E-494D-93FC-63937B4A8F4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A29BCBE-818E-494D-93FC-63937B4A8F4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A29BCBE-818E-494D-93FC-63937B4A8F4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A29BCBE-818E-494D-93FC-63937B4A8F4B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

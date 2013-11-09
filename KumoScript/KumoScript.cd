@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Segoe UI" Size="9" />
+  <Class Name="KumoScript.CommandPrototype" Collapsed="true">
+    <Position X="3" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>CommandPrototype.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAQAgAAgAAACAAAAAAAAQgA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KumoScript.Script" Collapsed="true">
+    <Position X="4.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Script.cs</FileName>
+      <HashCode>AAAEAAAAAAQAAAAsBAABAAQAAAAgBABAIAAAQAAAQEA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KumoScript.ScriptBlock" Collapsed="true">
+    <Position X="6.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ScriptBlock.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAQAAAAABAAAAAAAQgAgQAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KumoScript.ScriptContext" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ScriptContext.cs</FileName>
+      <HashCode>VAAUAgAIAACYIAwCAACAAAQABAAAACCAIAAABADEQAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KumoScript.ScriptException" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ScriptException.cs</FileName>
+      <HashCode>AAAAAAAQAAACAAAAAAAAABACAAAAAAAAAAAAIAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KumoScript.ScriptLoaderDefault" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ScriptLoaderDefault.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KumoScript.Statement" Collapsed="true">
+    <Position X="6.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Statement.cs</FileName>
+      <HashCode>KAAgQQECAAACAAAEEEQAAAAAEAEEAAAQAQAAAoghAAQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KumoScript.Token" Collapsed="true">
+    <Position X="3" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Token.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAIAIAAAAAAQAgAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KumoScript.VariableDictionary" Collapsed="true">
+    <Position X="4.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>VariableDictionary.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAEAAAAAIAAAAAAAAAAZAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Exception" Collapsed="true">
+    <Position X="0.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Struct Name="KumoScript.IfBlock" Collapsed="true">
+    <Position X="4.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Script.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAICAAAAAAAAAQIAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="KumoScript.WhileBlock" Collapsed="true">
+    <Position X="6.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Script.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAIAIAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="KumoScript.Frame" Collapsed="true">
+    <Position X="3" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ScriptContext.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="KumoScript.ScriptHandler" Collapsed="true">
+    <Position X="3" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ScriptHandler.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KumoScript.ScriptLoader" Collapsed="true">
+    <Position X="4.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ScriptLoader.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="KumoScript.ParseState" Collapsed="true">
+    <Position X="3" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Statement.cs</FileName>
+      <HashCode>AAAAACAAAQIAAAAAQAAAAAAAAAAAAgAAAAAAQAQgAAA=</HashCode>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="KumoScript.StatementType" Collapsed="true">
+    <Position X="4.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Statement.cs</FileName>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAFAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="KumoScript.TokenType" Collapsed="true">
+    <Position X="6.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Token.cs</FileName>
+      <HashCode>AAABAISAQQgIANAAwEAAiAhAAAAAIgAAQQAAQAUgAQA=</HashCode>
+    </TypeIdentifier>
+  </Enum>
+</ClassDiagram>
