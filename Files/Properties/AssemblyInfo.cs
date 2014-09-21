@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("X-C Soft ltd.")]
 [assembly: AssemblyProduct("ArachNGIN")]
-[assembly: AssemblyCopyright("Copyright © X-C Soft ltd. 2007 - 2011")]
+[assembly: AssemblyCopyright("Copyright © X-C Soft ltd. 2007 - 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,6 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.132")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("$MajorVersion$.$MinorVersion$.$Revision$.$Commit$")]
+[assembly: AssemblyFileVersion("$MajorVersion$.$MinorVersion$.$Revision$.$Commit$")]
+[assembly: AssemblyInformationalVersion("$Branch$:$MajorVersion$.$MinorVersion$.$Revision$-$Commit$-$ShortHash$")]
