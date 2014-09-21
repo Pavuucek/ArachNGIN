@@ -1,5 +1,4 @@
-﻿
-/**************************************************************************************************************/
+﻿/**************************************************************************************************************/
 /*                                                                                                            */
 /*  Versioner.cs                                                                                              */
 /*                                                                                                            */
@@ -15,54 +14,59 @@
 /*                                                                                                            */
 /**************************************************************************************************************/
 
-[assembly: System.Security.Permissions.FileIOPermission(System.Security.Permissions.SecurityAction.RequestMinimum)]
-[assembly: System.Reflection.AssemblyVersion("1.0.0.0")]
+using System;
+using System.IO;
+using System.Reflection;
+using System.Security.Permissions;
+using System.Text.RegularExpressions;
+
+[assembly: FileIOPermission(SecurityAction.RequestMinimum)]
 
 namespace PIEBALD.Versioner
 {
-    static class Versioner
+    internal static class Versioner
     {
         private static void
-        Reversion
-        (
-            System.IO.FileInfo fi
-        )
-        {
-            System.IO.FileStream fs = null;
-
-            System.Text.RegularExpressions.Regex reg = new System.Text.RegularExpressions.Regex
+            Reversion
             (
+            FileInfo fi
+            )
+        {
+            FileStream fs = null;
+
+            var reg = new Regex
+                (
                 "^(?'Part1'\\s*\\[\\s*assembly\\s*:.*AssemblyVersion\\s*\\(\\s*\")" +
                 "(?'Major'\\d+)\\.(?'Minor'\\d+)\\.(?'Build'\\d+)\\.(?'Rever'\\d+)" +
                 "(?'Part2'\"\\s*\\)\\s*].*)"
-            );
+                );
 
-            System.Text.RegularExpressions.MatchCollection mat;
+            MatchCollection mat;
 
             string[] lines;
-            decimal[] vvals = new decimal[4];
+            var vvals = new decimal[4];
 
             try
             {
                 fs = fi.Open
-                (
-                    System.IO.FileMode.Open
-                ,
-                    System.IO.FileAccess.Read
-                ,
-                    System.IO.FileShare.None
-                );
+                    (
+                        FileMode.Open
+                        ,
+                        FileAccess.Read
+                        ,
+                        FileShare.None
+                    );
 
-                lines = (new System.IO.StreamReader(fs)).ReadToEnd().Split
-                (
-                    new char[] { '\n' }
-                ,
-                    System.StringSplitOptions.RemoveEmptyEntries
-                );
+                lines = (new StreamReader(fs)).ReadToEnd().Split
+                    (
+                        new[] {'\n'}
+                        ,
+                        StringSplitOptions.RemoveEmptyEntries
+                    );
             }
-            catch (System.Exception err)
+            catch (Exception err)
             {
-                throw (new System.Exception("Could not read file", err));
+                throw (new Exception("Could not read file", err));
             }
             finally
             {
@@ -90,9 +94,9 @@ namespace PIEBALD.Versioner
                         }
 
                         if ((vvals[0] < ushort.MaxValue) &&
-                             (vvals[1] < ushort.MaxValue) &&
-                             (vvals[2] < ushort.MaxValue) &&
-                             (vvals[3] < ushort.MaxValue))
+                            (vvals[1] < ushort.MaxValue) &&
+                            (vvals[2] < ushort.MaxValue) &&
+                            (vvals[3] < ushort.MaxValue))
                         {
                             vvals[3] += 1;
 
@@ -113,10 +117,10 @@ namespace PIEBALD.Versioner
 
                                         if (vvals[0] >= ushort.MaxValue)
                                         {
-                                            System.Console.WriteLine
-                                            (
-                                                "AssemblyVersion hit the max: " + lines[runner]
-                                            );
+                                            Console.WriteLine
+                                                (
+                                                    "AssemblyVersion hit the max: " + lines[runner]
+                                                );
 
                                             continue;
                                         }
@@ -125,30 +129,30 @@ namespace PIEBALD.Versioner
                             }
 
                             lines[runner] = string.Format
-                            (
-                               "{0}{1}.{2}.{3}.{4}{5}"
-                            ,
-                                mat[0].Groups["Part1"].Value
-                            ,
-                                vvals[0]
-                            ,
-                                vvals[1]
-                            ,
-                                vvals[2]
-                            ,
-                                vvals[3]
-                            ,
-                                mat[0].Groups["Part2"].Value
-                            );
+                                (
+                                    "{0}{1}.{2}.{3}.{4}{5}"
+                                    ,
+                                    mat[0].Groups["Part1"].Value
+                                    ,
+                                    vvals[0]
+                                    ,
+                                    vvals[1]
+                                    ,
+                                    vvals[2]
+                                    ,
+                                    vvals[3]
+                                    ,
+                                    mat[0].Groups["Part2"].Value
+                                );
                         }
                         else
                         {
-                            System.Console.WriteLine("Invalid AssemblyVersion entry: " + lines[runner]);
+                            Console.WriteLine("Invalid AssemblyVersion entry: " + lines[runner]);
                         }
                     }
                     catch
                     {
-                        System.Console.WriteLine("Invalid AssemblyVersion entry: " + lines[runner]);
+                        Console.WriteLine("Invalid AssemblyVersion entry: " + lines[runner]);
                     }
                 }
             }
@@ -156,25 +160,25 @@ namespace PIEBALD.Versioner
             try
             {
                 fs = fi.Open
-                (
-                    System.IO.FileMode.Create
-                ,
-                    System.IO.FileAccess.Write
-                ,
-                    System.IO.FileShare.None
-                );
+                    (
+                        FileMode.Create
+                        ,
+                        FileAccess.Write
+                        ,
+                        FileShare.None
+                    );
 
-                using (System.IO.StreamWriter sw = new System.IO.StreamWriter(fs))
+                using (var sw = new StreamWriter(fs))
                 {
                     for (int runner = 0; runner < lines.Length; runner++)
                     {
-                        sw.WriteLine(lines[runner].Trim(new char[] { '\r' }));
+                        sw.WriteLine(lines[runner].Trim(new[] {'\r'}));
                     }
                 }
             }
-            catch (System.Exception err)
+            catch (Exception err)
             {
-                throw (new System.Exception("Could not write file", err));
+                throw (new Exception("Could not write file", err));
             }
             finally
             {
@@ -186,21 +190,21 @@ namespace PIEBALD.Versioner
             }
         }
 
-        [System.STAThread]
-        static void
-        Main
-        (
+        [STAThread]
+        private static void
+            Main
+            (
             string[] args
-        )
+            )
         {
             try
             {
                 if (args.Length > 0)
                 {
-                    System.IO.FileInfo fi = new System.IO.FileInfo
-                    (
-                        System.Environment.ExpandEnvironmentVariables(args[0])
-                    );
+                    var fi = new FileInfo
+                        (
+                        Environment.ExpandEnvironmentVariables(args[0])
+                        );
 
                     if (fi.Exists)
                     {
@@ -208,24 +212,22 @@ namespace PIEBALD.Versioner
                     }
                     else
                     {
-                        throw (new System.Exception("Did not find file: " + fi.FullName));
+                        throw (new Exception("Did not find file: " + fi.FullName));
                     }
                 }
                 else
                 {
-                    System.Console.WriteLine("Syntax: Versioner assemblyinfo.cs");
+                    Console.WriteLine("Syntax: Versioner assemblyinfo.cs");
                 }
             }
-            catch (System.Exception err)
+            catch (Exception err)
             {
                 while (err != null)
                 {
-                    System.Console.Write(err.Message);
+                    Console.Write(err.Message);
                     err = err.InnerException;
                 }
             }
-
-            return;
         }
     }
 }
