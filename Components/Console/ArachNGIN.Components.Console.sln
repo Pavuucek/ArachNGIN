@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArachNGIN.Components.Console", "ArachNGIN.Components.Console.csproj", "{24082240-398A-46E4-BF29-18B4B85EE9DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScriptDotNet", "..\..\3rdParty\ScriptDotNet\ScriptDotNet.csproj", "{29570C16-EAE9-42B7-BB0E-435DCD5B50D4}"
