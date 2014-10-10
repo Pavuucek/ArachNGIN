@@ -1,0 +1,840 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.8"/>
+<title>ArachNGIN: Dokumentace třídy ArachNGIN.Net.Mail.Pop3Client</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">ArachNGIN
+   &#160;<span id="projectnumber">1.0.0-21-gb0c1c06</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generováno programem Doxygen 1.8.8 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Hledat');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Hlavní&#160;stránka</span></a></li>
+      <li><a href="pages.html"><span>Ostatní&#160;stránky</span></a></li>
+      <li><a href="namespaces.html"><span>Balíky</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Třídy</span></a></li>
+      <li><a href="files.html"><span>Soubory</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Hledat" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="annotated.html"><span>Seznam&#160;tříd</span></a></li>
+      <li><a href="classes.html"><span>Rejstřík&#160;tříd</span></a></li>
+      <li><a href="hierarchy.html"><span>Hierarchie&#160;tříd</span></a></li>
+      <li><a href="functions.html"><span>Seznam&#160;členů&#160;tříd</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Vše</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Třídy</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Prostory jmen</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Soubory</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Funkce</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Proměnné</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Výčty</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Hodnoty výčtu</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Vlastnosti</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Události</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Stránky</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespace_arach_n_g_i_n.html">ArachNGIN</a></li><li class="navelem"><a class="el" href="namespace_arach_n_g_i_n_1_1_net.html">Net</a></li><li class="navelem"><a class="el" href="namespace_arach_n_g_i_n_1_1_net_1_1_mail.html">Mail</a></li><li class="navelem"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html">Pop3Client</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Veřejné metody</a> &#124;
+<a href="#properties">Vlastnosti</a> &#124;
+<a href="#events">Události</a> &#124;
+<a href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client-members.html">Seznam všech členů</a>  </div>
+  <div class="headertitle">
+<div class="title">Dokumentace třídy ArachNGIN.Net.Mail.Pop3Client</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>The <a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html" title="The Pop3Client class provides a wrapper for the Pop3 commands that can be executed against a Pop3Serv...">Pop3Client</a> class provides a wrapper for the Pop3 commands that can be executed against a Pop3Server. This class will execute and return results for the various commands that are executed.  
+ <a href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#details">...</a></p>
+<div class="dynheader">
+Diagram dědičnosti pro třídu ArachNGIN.Net.Mail.Pop3Client</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.png" usemap="#ArachNGIN.Net.Mail.Pop3Client_map" alt=""/>
+  <map id="ArachNGIN.Net.Mail.Pop3Client_map" name="ArachNGIN.Net.Mail.Pop3Client_map">
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Veřejné metody</h2></td></tr>
+<tr class="memitem:a58ea8c5bbaf9cdbdbe32b6a204cc0e6b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#a58ea8c5bbaf9cdbdbe32b6a204cc0e6b">Pop3Client</a> (string hostname, string username, string password)</td></tr>
+<tr class="memdesc:a58ea8c5bbaf9cdbdbe32b6a204cc0e6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the <a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html" title="The Pop3Client class provides a wrapper for the Pop3 commands that can be executed against a Pop3Serv...">Pop3Client</a> class using the default POP3 port 110 without using SSL.  <a href="#a58ea8c5bbaf9cdbdbe32b6a204cc0e6b">...</a><br /></td></tr>
+<tr class="separator:a58ea8c5bbaf9cdbdbe32b6a204cc0e6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dd1657ee02434f257200f5c9e0b4b92"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#a0dd1657ee02434f257200f5c9e0b4b92">Pop3Client</a> (string hostname, bool useSsl, string username, string password)</td></tr>
+<tr class="memdesc:a0dd1657ee02434f257200f5c9e0b4b92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the <a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html" title="The Pop3Client class provides a wrapper for the Pop3 commands that can be executed against a Pop3Serv...">Pop3Client</a> class using the default POP3 port 110.  <a href="#a0dd1657ee02434f257200f5c9e0b4b92">...</a><br /></td></tr>
+<tr class="separator:a0dd1657ee02434f257200f5c9e0b4b92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71f55064624886bfae28564494e20d08"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#a71f55064624886bfae28564494e20d08">Pop3Client</a> (string hostname, int port, bool useSsl, string username, string password)</td></tr>
+<tr class="memdesc:a71f55064624886bfae28564494e20d08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the <a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html" title="The Pop3Client class provides a wrapper for the Pop3 commands that can be executed against a Pop3Serv...">Pop3Client</a> class.  <a href="#a71f55064624886bfae28564494e20d08">...</a><br /></td></tr>
+<tr class="separator:a71f55064624886bfae28564494e20d08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a768ac262a2e67f9963ac9a38289fed61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#a768ac262a2e67f9963ac9a38289fed61">Authenticate</a> ()</td></tr>
+<tr class="memdesc:a768ac262a2e67f9963ac9a38289fed61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Authenticates this instance.  <a href="#a768ac262a2e67f9963ac9a38289fed61">...</a><br /></td></tr>
+<tr class="separator:a768ac262a2e67f9963ac9a38289fed61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1519da5d64e57a4814215b0c53d02f32"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#a1519da5d64e57a4814215b0c53d02f32">Dele</a> (<a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_list_item.html">Pop3ListItem</a> item)</td></tr>
+<tr class="memdesc:a1519da5d64e57a4814215b0c53d02f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the POP3 DELE command.  <a href="#a1519da5d64e57a4814215b0c53d02f32">...</a><br /></td></tr>
+<tr class="separator:a1519da5d64e57a4814215b0c53d02f32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b43f21945ee2bb1078f9947c539485c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#a2b43f21945ee2bb1078f9947c539485c">Noop</a> ()</td></tr>
+<tr class="memdesc:a2b43f21945ee2bb1078f9947c539485c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the POP3 NOOP command.  <a href="#a2b43f21945ee2bb1078f9947c539485c">...</a><br /></td></tr>
+<tr class="separator:a2b43f21945ee2bb1078f9947c539485c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac397d61b13135025b05aa1a44af5dc47"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#ac397d61b13135025b05aa1a44af5dc47">Rset</a> ()</td></tr>
+<tr class="memdesc:ac397d61b13135025b05aa1a44af5dc47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the POP3 RSET command.  <a href="#ac397d61b13135025b05aa1a44af5dc47">...</a><br /></td></tr>
+<tr class="separator:ac397d61b13135025b05aa1a44af5dc47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2af93840d2632e42482b6c7ebd59849f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_stat.html">Stat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#a2af93840d2632e42482b6c7ebd59849f">Stat</a> ()</td></tr>
+<tr class="memdesc:a2af93840d2632e42482b6c7ebd59849f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the POP3 STAT command.  <a href="#a2af93840d2632e42482b6c7ebd59849f">...</a><br /></td></tr>
+<tr class="separator:a2af93840d2632e42482b6c7ebd59849f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cbf0fd1e6a57c871d3332ab5e69b6f6"><td class="memItemLeft" align="right" valign="top">List&lt; <a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_list_item.html">Pop3ListItem</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#a9cbf0fd1e6a57c871d3332ab5e69b6f6">List</a> ()</td></tr>
+<tr class="memdesc:a9cbf0fd1e6a57c871d3332ab5e69b6f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the POP3 List command.  <a href="#a9cbf0fd1e6a57c871d3332ab5e69b6f6">...</a><br /></td></tr>
+<tr class="separator:a9cbf0fd1e6a57c871d3332ab5e69b6f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6994ace69ff5b030144c9a44a3f290d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_list_item.html">Pop3ListItem</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#a6994ace69ff5b030144c9a44a3f290d4">List</a> (int messageId)</td></tr>
+<tr class="memdesc:a6994ace69ff5b030144c9a44a3f290d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lists the specified message.  <a href="#a6994ace69ff5b030144c9a44a3f290d4">...</a><br /></td></tr>
+<tr class="separator:a6994ace69ff5b030144c9a44a3f290d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45f81c8ec13227bee8724dc5aa35d850"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html">MimeEntity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#a45f81c8ec13227bee8724dc5aa35d850">RetrMimeEntity</a> (<a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_list_item.html">Pop3ListItem</a> item)</td></tr>
+<tr class="memdesc:a45f81c8ec13227bee8724dc5aa35d850"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrs the specified message.  <a href="#a45f81c8ec13227bee8724dc5aa35d850">...</a><br /></td></tr>
+<tr class="separator:a45f81c8ec13227bee8724dc5aa35d850"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24cba794db8c45cd66b3b27f412d6871"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_mail_message_ex.html">MailMessageEx</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#a24cba794db8c45cd66b3b27f412d6871">Top</a> (int messageId, int lineCount)</td></tr>
+<tr class="separator:a24cba794db8c45cd66b3b27f412d6871"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37daf0d8056b09450842954d57ba81f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_mail_message_ex.html">MailMessageEx</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#a37daf0d8056b09450842954d57ba81f1">RetrMailMessageEx</a> (<a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_list_item.html">Pop3ListItem</a> item)</td></tr>
+<tr class="memdesc:a37daf0d8056b09450842954d57ba81f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrs the mail message ex.  <a href="#a37daf0d8056b09450842954d57ba81f1">...</a><br /></td></tr>
+<tr class="separator:a37daf0d8056b09450842954d57ba81f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adce788ab44e25988192cb2dd32d52458"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#adce788ab44e25988192cb2dd32d52458">Quit</a> ()</td></tr>
+<tr class="memdesc:adce788ab44e25988192cb2dd32d52458"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the Pop3 QUIT command.  <a href="#adce788ab44e25988192cb2dd32d52458">...</a><br /></td></tr>
+<tr class="separator:adce788ab44e25988192cb2dd32d52458"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34394c5959862f454aea86cd452bee21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#a34394c5959862f454aea86cd452bee21">Dispose</a> ()</td></tr>
+<tr class="separator:a34394c5959862f454aea86cd452bee21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
+Vlastnosti</h2></td></tr>
+<tr class="memitem:a2d9237dcbbb5b1104b03eb21ad61a16b"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#a2d9237dcbbb5b1104b03eb21ad61a16b">Hostname</a><code> [get]</code></td></tr>
+<tr class="memdesc:a2d9237dcbbb5b1104b03eb21ad61a16b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the hostname.  <a href="#a2d9237dcbbb5b1104b03eb21ad61a16b">...</a><br /></td></tr>
+<tr class="separator:a2d9237dcbbb5b1104b03eb21ad61a16b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab94ce2a3df579dff8dbe472246ba4252"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#ab94ce2a3df579dff8dbe472246ba4252">Port</a><code> [get]</code></td></tr>
+<tr class="memdesc:ab94ce2a3df579dff8dbe472246ba4252"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the port.  <a href="#ab94ce2a3df579dff8dbe472246ba4252">...</a><br /></td></tr>
+<tr class="separator:ab94ce2a3df579dff8dbe472246ba4252"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6cf5d3d1cd8eb0fd504a33174b293b8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#af6cf5d3d1cd8eb0fd504a33174b293b8">UseSsl</a><code> [get]</code></td></tr>
+<tr class="memdesc:af6cf5d3d1cd8eb0fd504a33174b293b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a value indicating whether [use SSL].  <a href="#af6cf5d3d1cd8eb0fd504a33174b293b8">...</a><br /></td></tr>
+<tr class="separator:af6cf5d3d1cd8eb0fd504a33174b293b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66f8ee542a4b0efc48b3e1f19c2a6a1f"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#a66f8ee542a4b0efc48b3e1f19c2a6a1f">Username</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a66f8ee542a4b0efc48b3e1f19c2a6a1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the username.  <a href="#a66f8ee542a4b0efc48b3e1f19c2a6a1f">...</a><br /></td></tr>
+<tr class="separator:a66f8ee542a4b0efc48b3e1f19c2a6a1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a621eeb3adc3d7dba70ca828a0053c211"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#a621eeb3adc3d7dba70ca828a0053c211">Password</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a621eeb3adc3d7dba70ca828a0053c211"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the password.  <a href="#a621eeb3adc3d7dba70ca828a0053c211">...</a><br /></td></tr>
+<tr class="separator:a621eeb3adc3d7dba70ca828a0053c211"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52ef854005e6ae57fe43bacc8422787b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_arach_n_g_i_n_1_1_net_1_1_mail.html#aa64d2ceccf830e8718ca1c7aff3f98b2">Pop3State</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#a52ef854005e6ae57fe43bacc8422787b">CurrentState</a><code> [get]</code></td></tr>
+<tr class="memdesc:a52ef854005e6ae57fe43bacc8422787b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the state of the current.  <a href="#a52ef854005e6ae57fe43bacc8422787b">...</a><br /></td></tr>
+<tr class="separator:a52ef854005e6ae57fe43bacc8422787b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
+Události</h2></td></tr>
+<tr class="memitem:a804f15dd00094d50905f05a1eff538fb"><td class="memItemLeft" align="right" valign="top">Action&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#a804f15dd00094d50905f05a1eff538fb">Trace</a></td></tr>
+<tr class="memdesc:a804f15dd00094d50905f05a1eff538fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traces the various command objects that executed during this objects lifetime.  <a href="#a804f15dd00094d50905f05a1eff538fb">...</a><br /></td></tr>
+<tr class="separator:a804f15dd00094d50905f05a1eff538fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailní popis</h2>
+<div class="textblock"><p>The <a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html" title="The Pop3Client class provides a wrapper for the Pop3 commands that can be executed against a Pop3Serv...">Pop3Client</a> class provides a wrapper for the Pop3 commands that can be executed against a Pop3Server. This class will execute and return results for the various commands that are executed. </p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00021">21</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+</div><h2 class="groupheader">Dokumentace konstruktoru a destruktoru</h2>
+<a class="anchor" id="a58ea8c5bbaf9cdbdbe32b6a204cc0e6b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ArachNGIN.Net.Mail.Pop3Client.Pop3Client </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>hostname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>username</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>password</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes a new instance of the <a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html" title="The Pop3Client class provides a wrapper for the Pop3 commands that can be executed against a Pop3Serv...">Pop3Client</a> class using the default POP3 port 110 without using SSL. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hostname</td><td>The hostname.</td></tr>
+    <tr><td class="paramname">username</td><td>The username.</td></tr>
+    <tr><td class="paramname">password</td><td>The password.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00111">111</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0dd1657ee02434f257200f5c9e0b4b92"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ArachNGIN.Net.Mail.Pop3Client.Pop3Client </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>hostname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>useSsl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>username</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>password</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes a new instance of the <a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html" title="The Pop3Client class provides a wrapper for the Pop3 commands that can be executed against a Pop3Serv...">Pop3Client</a> class using the default POP3 port 110. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hostname</td><td>The hostname.</td></tr>
+    <tr><td class="paramname">useSsl</td><td>if set to <code>true</code> [use SSL].</td></tr>
+    <tr><td class="paramname">username</td><td>The username.</td></tr>
+    <tr><td class="paramname">password</td><td>The password.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00121">121</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a71f55064624886bfae28564494e20d08"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ArachNGIN.Net.Mail.Pop3Client.Pop3Client </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>hostname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>useSsl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>username</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>password</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes a new instance of the <a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html" title="The Pop3Client class provides a wrapper for the Pop3 commands that can be executed against a Pop3Serv...">Pop3Client</a> class. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hostname</td><td>The hostname.</td></tr>
+    <tr><td class="paramname">port</td><td>The port.</td></tr>
+    <tr><td class="paramname">useSsl</td><td>if set to <code>true</code> [use SSL].</td></tr>
+    <tr><td class="paramname">username</td><td>The username.</td></tr>
+    <tr><td class="paramname">password</td><td>The password.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00132">132</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Dokumentace k metodám</h2>
+<a class="anchor" id="a768ac262a2e67f9963ac9a38289fed61"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArachNGIN.Net.Mail.Pop3Client.Authenticate </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Authenticates this instance. </p>
+<p>A successful execution of this method will result in a Current State of Transaction. Unsuccessful USER or PASS commands can be reattempted by resetting the Username or Password properties and re-execution of the methods.</p>
+<dl class="exception"><dt>Výjimky</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_exception.html" title="This class represents a Pop3 Exception. ">Pop3Exception</a></td><td>If the Pop3Server is unable to be connected. If the User command is unable to be successfully executed. If the Pass command is unable to be successfully executed. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00300">300</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1519da5d64e57a4814215b0c53d02f32"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArachNGIN.Net.Mail.Pop3Client.Dele </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_list_item.html">Pop3ListItem</a>&#160;</td>
+          <td class="paramname"><em>item</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Executes the POP3 DELE command. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">item</td><td>The item.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>/// </p><dl class="exception"><dt>Výjimky</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_exception.html" title="This class represents a Pop3 Exception. ">Pop3Exception</a></td><td>If the DELE command was unable to be executed successfully.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00324">324</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a34394c5959862f454aea86cd452bee21"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArachNGIN.Net.Mail.Pop3Client.Dispose </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00532">532</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9cbf0fd1e6a57c871d3332ab5e69b6f6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">List&lt;<a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_list_item.html">Pop3ListItem</a>&gt; ArachNGIN.Net.Mail.Pop3Client.List </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Executes the POP3 List command. </p>
+<dl class="section return"><dt>Návratová hodnota</dt><dd>A generic List of Pop3Items containing the results of the LIST command.</dd></dl>
+<dl class="exception"><dt>Výjimky</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_exception.html" title="This class represents a Pop3 Exception. ">Pop3Exception</a></td><td>If the LIST command was unable to be executed successfully.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00382">382</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6994ace69ff5b030144c9a44a3f290d4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_list_item.html">Pop3ListItem</a> ArachNGIN.Net.Mail.Pop3Client.List </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>messageId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lists the specified message. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">message</td><td>The message.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd>A <code><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_list_item.html" title="This class represents an item returned from the Pop3 LIST command. ">Pop3ListItem</a></code> for the requested Pop3Item.</dd></dl>
+<dl class="exception"><dt>Výjimky</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_exception.html" title="This class represents a Pop3 Exception. ">Pop3Exception</a></td><td>If the LIST command was unable to be executed successfully for the provided message id.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00398">398</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2b43f21945ee2bb1078f9947c539485c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArachNGIN.Net.Mail.Pop3Client.Noop </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Executes the POP3 NOOP command. </p>
+<dl class="exception"><dt>Výjimky</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_exception.html" title="This class represents a Pop3 Exception. ">Pop3Exception</a></td><td>If the NOOP command was unable to be executed successfully.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00341">341</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="adce788ab44e25988192cb2dd32d52458"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArachNGIN.Net.Mail.Pop3Client.Quit </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Executes the Pop3 QUIT command. </p>
+<dl class="exception"><dt>Výjimky</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_exception.html" title="This class represents a Pop3 Exception. ">Pop3Exception</a></td><td>If the quit command returns a -ERR server message.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00478">478</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a37daf0d8056b09450842954d57ba81f1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_mail_message_ex.html">MailMessageEx</a> ArachNGIN.Net.Mail.Pop3Client.RetrMailMessageEx </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_list_item.html">Pop3ListItem</a>&#160;</td>
+          <td class="paramname"><em>item</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrs the mail message ex. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">item</td><td>The item.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd></dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00466">466</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a45f81c8ec13227bee8724dc5aa35d850"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html">MimeEntity</a> ArachNGIN.Net.Mail.Pop3Client.RetrMimeEntity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_list_item.html">Pop3ListItem</a>&#160;</td>
+          <td class="paramname"><em>item</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrs the specified message. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">item</td><td>The item.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd>A MimeEntity for the requested Pop3 <a class="el" href="namespace_arach_n_g_i_n_1_1_net_1_1_mail.html">Mail</a> Item.</dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00413">413</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac397d61b13135025b05aa1a44af5dc47"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArachNGIN.Net.Mail.Pop3Client.Rset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Executes the POP3 RSET command. </p>
+<dl class="exception"><dt>Výjimky</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_exception.html" title="This class represents a Pop3 Exception. ">Pop3Exception</a></td><td>If the RSET command was unable to be executed successfully.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00353">353</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2af93840d2632e42482b6c7ebd59849f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_stat.html">Stat</a> ArachNGIN.Net.Mail.Pop3Client.Stat </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Executes the POP3 STAT command. </p>
+<dl class="section return"><dt>Návratová hodnota</dt><dd>A <a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_stat.html" title="This class represents the results from the execution of a pop3 STAT command. ">Stat</a> object containing the results of STAT command.</dd></dl>
+<dl class="exception"><dt>Výjimky</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_exception.html" title="This class represents a Pop3 Exception. ">Pop3Exception</a></td><td>If the STAT command was unable to be executed successfully.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00366">366</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a24cba794db8c45cd66b3b27f412d6871"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_mail_message_ex.html">MailMessageEx</a> ArachNGIN.Net.Mail.Pop3Client.Top </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>messageId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>lineCount</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00435">435</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Dokumentace k vlastnosti</h2>
+<a class="anchor" id="a52ef854005e6ae57fe43bacc8422787b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_arach_n_g_i_n_1_1_net_1_1_mail.html#aa64d2ceccf830e8718ca1c7aff3f98b2">Pop3State</a> ArachNGIN.Net.Mail.Pop3Client.CurrentState</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the state of the current. </p>
+<p>The state of the current.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00100">100</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2d9237dcbbb5b1104b03eb21ad61a16b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string ArachNGIN.Net.Mail.Pop3Client.Hostname</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the hostname. </p>
+<p>The hostname.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00048">48</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a621eeb3adc3d7dba70ca828a0053c211"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string ArachNGIN.Net.Mail.Pop3Client.Password</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets or sets the password. </p>
+<p>The password.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00089">89</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab94ce2a3df579dff8dbe472246ba4252"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ArachNGIN.Net.Mail.Pop3Client.Port</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the port. </p>
+<p>The port.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00058">58</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a66f8ee542a4b0efc48b3e1f19c2a6a1f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string ArachNGIN.Net.Mail.Pop3Client.Username</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets or sets the username. </p>
+<p>The username.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00078">78</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af6cf5d3d1cd8eb0fd504a33174b293b8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArachNGIN.Net.Mail.Pop3Client.UseSsl</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets a value indicating whether [use SSL]. </p>
+<p><code>true</code> if [use SSL]; otherwise, <code>false</code>.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00068">68</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Dokumentace událostí</h2>
+<a class="anchor" id="a804f15dd00094d50905f05a1eff538fb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Action&lt;string&gt; ArachNGIN.Net.Mail.Pop3Client.Trace</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Traces the various command objects that executed during this objects lifetime. </p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_pop3_client_8cs_source.html#l00032">32</a> v souboru <a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a>.</p>
+
+</div>
+</div>
+<hr/>Dokumentace pro tuto třídu byla generována z následujícího souboru:<ul>
+<li>Net/Mail/<a class="el" href="_pop3_client_8cs_source.html">Pop3Client.cs</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generováno pá 10. říj 2014 22.49:14 pro projekt ArachNGIN programem &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.8
+</small></address>
+</body>
+</html>

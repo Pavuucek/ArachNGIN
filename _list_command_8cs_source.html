@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.8"/>
+<title>ArachNGIN: Zdrojový soubor Net/Mail/ListCommand.cs</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">ArachNGIN
+   &#160;<span id="projectnumber">1.0.0-21-gb0c1c06</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generováno programem Doxygen 1.8.8 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Hledat');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Hlavní&#160;stránka</span></a></li>
+      <li><a href="pages.html"><span>Ostatní&#160;stránky</span></a></li>
+      <li><a href="namespaces.html"><span>Balíky</span></a></li>
+      <li><a href="annotated.html"><span>Třídy</span></a></li>
+      <li class="current"><a href="files.html"><span>Soubory</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Hledat" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Seznam&#160;souborů</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Vše</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Třídy</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Prostory jmen</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Soubory</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Funkce</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Proměnné</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Výčty</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Hodnoty výčtu</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Vlastnosti</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Události</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Stránky</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_e7d873842ae81c55151df55727a2a23d.html">Net</a></li><li class="navelem"><a class="el" href="dir_f0e5f926277bfbd7b569e416d504d38e.html">Mail</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">ListCommand.cs</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_list_command_8cs.html">Zobrazit dokumentaci tohoto souboru.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">using</span> <a class="code" href="namespace_system.html">System</a>;</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="keyword">using</span> <a class="code" href="namespace_system.html">System</a>.Collections.Generic;</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">using</span> <a class="code" href="namespace_system.html">System</a>.IO;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">using</span> <a class="code" href="namespace_system.html">System</a>.Net.Sockets;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">using</span> <a class="code" href="namespace_system.html">System</a>.Text;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_arach_n_g_i_n.html">ArachNGIN</a>.Net.Mail</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">internal</span> sealed <span class="keyword">class </span>ListCommand : Pop3Command&lt;ListResponse&gt;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="comment">// the id of the message on the server to retrieve.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keywordtype">int</span> _messageId;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keyword">public</span> ListCommand(Stream stream) </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            : base(stream, true, <a class="code" href="namespace_arach_n_g_i_n_1_1_net_1_1_mail.html#aa64d2ceccf830e8718ca1c7aff3f98b2">Pop3State</a>.<a class="code" href="namespace_arach_n_g_i_n_1_1_net_1_1_mail.html#aa64d2ceccf830e8718ca1c7aff3f98b2a1b0ffaae3973401f71cd000ab9f7856e">Transaction</a>)</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        }</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keyword">public</span> ListCommand(Stream stream, <span class="keywordtype">int</span> messageId)</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            : this(stream)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keywordflow">if</span> (messageId &lt; 0)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                <span class="keywordflow">throw</span> <span class="keyword">new</span> ArgumentOutOfRangeException(<span class="stringliteral">&quot;messageId&quot;</span>);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            _messageId = messageId;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            base.IsMultiline = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        }</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">protected</span> <span class="keyword">override</span> byte[] CreateRequestMessage()</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <span class="keywordtype">string</span> requestMessage = Pop3Commands.List;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <span class="keywordflow">if</span> (!IsMultiline)</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                requestMessage += _messageId.ToString();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            } <span class="comment">// Append the message id to perform the LIST command for.</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keywordflow">return</span> GetRequestMessage(requestMessage, Pop3Commands.Crlf);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keyword">protected</span> <span class="keyword">override</span> ListResponse CreateResponse(byte[] buffer)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            Pop3Response response = Pop3Response.CreateResponse(buffer);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            List&lt;Pop3ListItem&gt; items;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <span class="keywordflow">if</span> (IsMultiline)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                items = <span class="keyword">new</span> List&lt;Pop3ListItem&gt;();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                <span class="keywordtype">string</span>[] values;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                <span class="keywordtype">string</span>[] lines = GetResponseLines(StripPop3HostMessage(buffer, response.HostMessage));</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                <span class="keywordflow">foreach</span> (<span class="keywordtype">string</span> line <span class="keywordflow">in</span> lines)</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                    <span class="comment">//each line should consist of &#39;n m&#39; where n is the message number and m is the number of octets</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                    values = line.Split(<span class="charliteral">&#39; &#39;</span>);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                    <span class="keywordflow">if</span> (values.Length &lt; 2)</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                    {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                        <span class="keywordflow">throw</span> <span class="keyword">new</span> Pop3Exception(<span class="keywordtype">string</span>.Concat(<span class="stringliteral">&quot;Invalid line in multiline response:  &quot;</span>, line));</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                    }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                    items.Add(<span class="keyword">new</span> Pop3ListItem(Convert.ToInt32(values[0]), </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                        Convert.ToInt64(values[1])));</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            } <span class="comment">//Parse the multiline response.</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                items = <span class="keyword">new</span> List&lt;Pop3ListItem&gt;(1);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                <span class="keywordtype">string</span>[] values = response.HostMessage.Split(<span class="charliteral">&#39; &#39;</span>);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                <span class="comment">//should consist of &#39;+OK messageNumber octets&#39;</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                <span class="keywordflow">if</span> (values.Length &lt; 3)</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                    <span class="keywordflow">throw</span> <span class="keyword">new</span> Pop3Exception(<span class="keywordtype">string</span>.Concat(<span class="stringliteral">&quot;Invalid response message: &quot;</span>, response.HostMessage));</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                items.Add(<span class="keyword">new</span> Pop3ListItem(Convert.ToInt32(values[1]), Convert.ToInt64(values[2])));</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            } <span class="comment">//Parse the single line results.</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">new</span> ListResponse(response, items);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    }</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;}</div>
+<div class="ttc" id="namespace_arach_n_g_i_n_1_1_net_1_1_mail_html_aa64d2ceccf830e8718ca1c7aff3f98b2a1b0ffaae3973401f71cd000ab9f7856e"><div class="ttname"><a href="namespace_arach_n_g_i_n_1_1_net_1_1_mail.html#aa64d2ceccf830e8718ca1c7aff3f98b2a1b0ffaae3973401f71cd000ab9f7856e">ArachNGIN.Net.Mail.Transaction</a></div><div class="ttdoc">Authorized to Pop3 server, can issue any of the following commands; STAT, LIST, RETR, DELE, RSET </div></div>
+<div class="ttc" id="namespace_arach_n_g_i_n_html"><div class="ttname"><a href="namespace_arach_n_g_i_n.html">ArachNGIN</a></div></div>
+<div class="ttc" id="namespace_arach_n_g_i_n_1_1_net_1_1_mail_html_aa64d2ceccf830e8718ca1c7aff3f98b2"><div class="ttname"><a href="namespace_arach_n_g_i_n_1_1_net_1_1_mail.html#aa64d2ceccf830e8718ca1c7aff3f98b2">ArachNGIN.Net.Mail.Pop3State</a></div><div class="ttdeci">Pop3State</div><div class="ttdef"><b>Definition:</b> <a href="_pop3_state_8cs_source.html#l00008">Pop3State.cs:8</a></div></div>
+<div class="ttc" id="namespace_system_html"><div class="ttname"><a href="namespace_system.html">System</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generováno pá 10. říj 2014 22.49:07 pro projekt ArachNGIN programem &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.8
+</small></address>
+</body>
+</html>

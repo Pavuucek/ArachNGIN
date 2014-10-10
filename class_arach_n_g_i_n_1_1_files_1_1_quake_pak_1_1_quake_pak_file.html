@@ -1,0 +1,534 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.8"/>
+<title>ArachNGIN: Dokumentace třídy ArachNGIN.Files.QuakePak.QuakePakFile</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">ArachNGIN
+   &#160;<span id="projectnumber">1.0.0-21-gb0c1c06</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generováno programem Doxygen 1.8.8 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Hledat');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Hlavní&#160;stránka</span></a></li>
+      <li><a href="pages.html"><span>Ostatní&#160;stránky</span></a></li>
+      <li><a href="namespaces.html"><span>Balíky</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Třídy</span></a></li>
+      <li><a href="files.html"><span>Soubory</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Hledat" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="annotated.html"><span>Seznam&#160;tříd</span></a></li>
+      <li><a href="classes.html"><span>Rejstřík&#160;tříd</span></a></li>
+      <li><a href="hierarchy.html"><span>Hierarchie&#160;tříd</span></a></li>
+      <li><a href="functions.html"><span>Seznam&#160;členů&#160;tříd</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Vše</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Třídy</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Prostory jmen</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Soubory</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Funkce</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Proměnné</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Výčty</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Hodnoty výčtu</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Vlastnosti</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Události</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Stránky</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespace_arach_n_g_i_n.html">ArachNGIN</a></li><li class="navelem"><a class="el" href="namespace_arach_n_g_i_n_1_1_files.html">Files</a></li><li class="navelem"><a class="el" href="namespace_arach_n_g_i_n_1_1_files_1_1_quake_pak.html">QuakePak</a></li><li class="navelem"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_quake_pak_1_1_quake_pak_file.html">QuakePakFile</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Třídy</a> &#124;
+<a href="#pub-methods">Veřejné metody</a> &#124;
+<a href="#pub-static-methods">Statické veřejné metody</a> &#124;
+<a href="#pub-attribs">Veřejné atributy</a> &#124;
+<a href="class_arach_n_g_i_n_1_1_files_1_1_quake_pak_1_1_quake_pak_file-members.html">Seznam všech členů</a>  </div>
+  <div class="headertitle">
+<div class="title">Dokumentace třídy ArachNGIN.Files.QuakePak.QuakePakFile</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Třída na čtení z PAK souborů Quaka  
+ <a href="class_arach_n_g_i_n_1_1_files_1_1_quake_pak_1_1_quake_pak_file.html#details">...</a></p>
+<div class="dynheader">
+Diagram dědičnosti pro třídu ArachNGIN.Files.QuakePak.QuakePakFile</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_arach_n_g_i_n_1_1_files_1_1_quake_pak_1_1_quake_pak_file.png" usemap="#ArachNGIN.Files.QuakePak.QuakePakFile_map" alt=""/>
+  <map id="ArachNGIN.Files.QuakePak.QuakePakFile_map" name="ArachNGIN.Files.QuakePak.QuakePakFile_map">
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Veřejné metody</h2></td></tr>
+<tr class="memitem:a056d3ca8d4e1c4290c4b10cd7794e57b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_quake_pak_1_1_quake_pak_file.html#a056d3ca8d4e1c4290c4b10cd7794e57b">QuakePakFile</a> (string strFileName, bool bAllowWrite)</td></tr>
+<tr class="memdesc:a056d3ca8d4e1c4290c4b10cd7794e57b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Konstruktor - otevře pak soubor a načte z něj hlavičku.  <a href="#a056d3ca8d4e1c4290c4b10cd7794e57b">...</a><br /></td></tr>
+<tr class="separator:a056d3ca8d4e1c4290c4b10cd7794e57b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32b215f83be60a366affd0d1e380f4c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_quake_pak_1_1_quake_pak_file.html#a32b215f83be60a366affd0d1e380f4c0">Dispose</a> ()</td></tr>
+<tr class="memdesc:a32b215f83be60a366affd0d1e380f4c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oficiální Destruktor  <a href="#a32b215f83be60a366affd0d1e380f4c0">...</a><br /></td></tr>
+<tr class="separator:a32b215f83be60a366affd0d1e380f4c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82191e7945c303bc82b5c48230fcfab6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_quake_pak_1_1_quake_pak_file.html#a82191e7945c303bc82b5c48230fcfab6">Close</a> ()</td></tr>
+<tr class="memdesc:a82191e7945c303bc82b5c48230fcfab6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Neoficiální destruktor  <a href="#a82191e7945c303bc82b5c48230fcfab6">...</a><br /></td></tr>
+<tr class="separator:a82191e7945c303bc82b5c48230fcfab6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2bb2f7ff057ce023c64eb8f1e97f8b6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_quake_pak_1_1_quake_pak_file.html#ae2bb2f7ff057ce023c64eb8f1e97f8b6">PakFileExists</a> (string strFileInPak)</td></tr>
+<tr class="memdesc:ae2bb2f7ff057ce023c64eb8f1e97f8b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zkontroluje, jestli je soubor zadaného jména v pak souboru  <a href="#ae2bb2f7ff057ce023c64eb8f1e97f8b6">...</a><br /></td></tr>
+<tr class="separator:ae2bb2f7ff057ce023c64eb8f1e97f8b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac300c4f276c985aacce49745de1899b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_quake_pak_1_1_quake_pak_file.html#ac300c4f276c985aacce49745de1899b0">ExtractStream</a> (string strFileInPak, Stream sOutput)</td></tr>
+<tr class="memdesc:ac300c4f276c985aacce49745de1899b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rozbalí soubor z paku do proudu  <a href="#ac300c4f276c985aacce49745de1899b0">...</a><br /></td></tr>
+<tr class="separator:ac300c4f276c985aacce49745de1899b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abde0de24d747a64359d03c8409f5f8b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_quake_pak_1_1_quake_pak_file.html#abde0de24d747a64359d03c8409f5f8b7">ExtractFile</a> (string strFileInPak, string strOutputFile)</td></tr>
+<tr class="memdesc:abde0de24d747a64359d03c8409f5f8b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rozbalí soubor z paku na disk  <a href="#abde0de24d747a64359d03c8409f5f8b7">...</a><br /></td></tr>
+<tr class="separator:abde0de24d747a64359d03c8409f5f8b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4f6e592309370c2ea301a5168922ef7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_quake_pak_1_1_quake_pak_file.html#ab4f6e592309370c2ea301a5168922ef7">AddStream</a> (Stream stream, string pakFileName, bool writeFat)</td></tr>
+<tr class="memdesc:ab4f6e592309370c2ea301a5168922ef7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Přidá proud do PAKu  <a href="#ab4f6e592309370c2ea301a5168922ef7">...</a><br /></td></tr>
+<tr class="separator:ab4f6e592309370c2ea301a5168922ef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeef1918bca37a609f492bb1ce292eafb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_quake_pak_1_1_quake_pak_file.html#aeef1918bca37a609f492bb1ce292eafb">AddFile</a> (string fileName, string pakFileName, bool writeFat=true)</td></tr>
+<tr class="memdesc:aeef1918bca37a609f492bb1ce292eafb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Přidá soubor do paku  <a href="#aeef1918bca37a609f492bb1ce292eafb">...</a><br /></td></tr>
+<tr class="separator:aeef1918bca37a609f492bb1ce292eafb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bb11c2759897d817cee5514be1a5af1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_quake_pak_1_1_quake_pak_file.html#a0bb11c2759897d817cee5514be1a5af1">AddFile</a> (string fileName, string pakFileName)</td></tr>
+<tr class="memdesc:a0bb11c2759897d817cee5514be1a5af1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Přidá soubor do paku  <a href="#a0bb11c2759897d817cee5514be1a5af1">...</a><br /></td></tr>
+<tr class="separator:a0bb11c2759897d817cee5514be1a5af1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Statické veřejné metody</h2></td></tr>
+<tr class="memitem:a7d0f5949f7573a07b561a3dcbaa7eb6b"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_quake_pak_1_1_quake_pak_file.html#a7d0f5949f7573a07b561a3dcbaa7eb6b">CreateNewPak</a> (string strFileName)</td></tr>
+<tr class="memdesc:a7d0f5949f7573a07b561a3dcbaa7eb6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vytvoří nový prázdný pak soubor  <a href="#a7d0f5949f7573a07b561a3dcbaa7eb6b">...</a><br /></td></tr>
+<tr class="separator:a7d0f5949f7573a07b561a3dcbaa7eb6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Veřejné atributy</h2></td></tr>
+<tr class="memitem:a935c44795d4af4781b2dfdae755796b0"><td class="memItemLeft" align="right" valign="top">StringCollection&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_quake_pak_1_1_quake_pak_file.html#a935c44795d4af4781b2dfdae755796b0">PakFileList</a> = new StringCollection()</td></tr>
+<tr class="memdesc:a935c44795d4af4781b2dfdae755796b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seznam souborů v PAKu  <a href="#a935c44795d4af4781b2dfdae755796b0">...</a><br /></td></tr>
+<tr class="separator:a935c44795d4af4781b2dfdae755796b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailní popis</h2>
+<div class="textblock"><p>Třída na čtení z PAK souborů Quaka </p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_quake_pak_file_8cs_source.html#l00030">30</a> v souboru <a class="el" href="_quake_pak_file_8cs_source.html">QuakePakFile.cs</a>.</p>
+</div><h2 class="groupheader">Dokumentace konstruktoru a destruktoru</h2>
+<a class="anchor" id="a056d3ca8d4e1c4290c4b10cd7794e57b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ArachNGIN.Files.QuakePak.QuakePakFile.QuakePakFile </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>strFileName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bAllowWrite</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Konstruktor - otevře pak soubor a načte z něj hlavičku. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">strFileName</td><td>jméno pak souboru</td></tr>
+    <tr><td class="paramname">bAllowWrite</td><td>povolit zápis do souboru, když je true <code>true</code> tak ano.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Výjimky</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">System.IO.FileNotFoundException</td><td>nastane když se soubor nenajde </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_quake_pak_file_8cs_source.html#l00053">53</a> v souboru <a class="el" href="_quake_pak_file_8cs_source.html">QuakePakFile.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Dokumentace k metodám</h2>
+<a class="anchor" id="aeef1918bca37a609f492bb1ce292eafb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArachNGIN.Files.QuakePak.QuakePakFile.AddFile </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>fileName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>pakFileName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>writeFat</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Přidá soubor do paku </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fileName</td><td>název souboru (např. c:.ini)</td></tr>
+    <tr><td class="paramname">pakFileName</td><td>název souboru v paku (např ini/win.ini)</td></tr>
+    <tr><td class="paramname">writeFat</td><td>má se zapsat fatka? Pokud to je poslední přidaný soubor, tak určitě JO!</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd>podle úspěšnosti buď true nebo false</dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_quake_pak_file_8cs_source.html#l00291">291</a> v souboru <a class="el" href="_quake_pak_file_8cs_source.html">QuakePakFile.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0bb11c2759897d817cee5514be1a5af1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArachNGIN.Files.QuakePak.QuakePakFile.AddFile </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>fileName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>pakFileName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Přidá soubor do paku </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fileName</td><td>název souboru (např. c:.ini)</td></tr>
+    <tr><td class="paramname">pakFileName</td><td>název souboru v paku (např ini/win.ini)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd>podle úspěšnosti buď true nebo false</dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_quake_pak_file_8cs_source.html#l00315">315</a> v souboru <a class="el" href="_quake_pak_file_8cs_source.html">QuakePakFile.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab4f6e592309370c2ea301a5168922ef7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArachNGIN.Files.QuakePak.QuakePakFile.AddStream </td>
+          <td>(</td>
+          <td class="paramtype">Stream&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>pakFileName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>writeFat</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Přidá proud do PAKu </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>proud</td></tr>
+    <tr><td class="paramname">pakFileName</td><td>jméno souboru v PAKu</td></tr>
+    <tr><td class="paramname">writeFat</td><td>má se zapsat fatka? Pokud to je poslední přidaný soubor, tak určitě JO!</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd>podle úspěšnosti buď true nebo false</dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_quake_pak_file_8cs_source.html#l00252">252</a> v souboru <a class="el" href="_quake_pak_file_8cs_source.html">QuakePakFile.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a82191e7945c303bc82b5c48230fcfab6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArachNGIN.Files.QuakePak.QuakePakFile.Close </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Neoficiální destruktor </p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_quake_pak_file_8cs_source.html#l00093">93</a> v souboru <a class="el" href="_quake_pak_file_8cs_source.html">QuakePakFile.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7d0f5949f7573a07b561a3dcbaa7eb6b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool ArachNGIN.Files.QuakePak.QuakePakFile.CreateNewPak </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>strFileName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vytvoří nový prázdný pak soubor </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">strFileName</td><td>jméno souboru.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd>jestli se zadaří tak true, jinak false</dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_quake_pak_file_8cs_source.html#l00191">191</a> v souboru <a class="el" href="_quake_pak_file_8cs_source.html">QuakePakFile.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a32b215f83be60a366affd0d1e380f4c0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArachNGIN.Files.QuakePak.QuakePakFile.Dispose </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Oficiální Destruktor </p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_quake_pak_file_8cs_source.html#l00083">83</a> v souboru <a class="el" href="_quake_pak_file_8cs_source.html">QuakePakFile.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abde0de24d747a64359d03c8409f5f8b7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArachNGIN.Files.QuakePak.QuakePakFile.ExtractFile </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>strFileInPak</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>strOutputFile</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rozbalí soubor z paku na disk </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">strFileInPak</td><td>jméno souboru v paku</td></tr>
+    <tr><td class="paramname">strOutputFile</td><td>cesta k výstupnímu souboru</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_quake_pak_file_8cs_source.html#l00178">178</a> v souboru <a class="el" href="_quake_pak_file_8cs_source.html">QuakePakFile.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac300c4f276c985aacce49745de1899b0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArachNGIN.Files.QuakePak.QuakePakFile.ExtractStream </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>strFileInPak</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Stream&#160;</td>
+          <td class="paramname"><em>sOutput</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rozbalí soubor z paku do proudu </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">strFileInPak</td><td>jméno souboru v paku</td></tr>
+    <tr><td class="paramname">sOutput</td><td>výstupní proud</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_quake_pak_file_8cs_source.html#l00164">164</a> v souboru <a class="el" href="_quake_pak_file_8cs_source.html">QuakePakFile.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae2bb2f7ff057ce023c64eb8f1e97f8b6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArachNGIN.Files.QuakePak.QuakePakFile.PakFileExists </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>strFileInPak</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Zkontroluje, jestli je soubor zadaného jména v pak souboru </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">strFileInPak</td><td>jméno hledaného souboru</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd>je/není</dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_quake_pak_file_8cs_source.html#l00140">140</a> v souboru <a class="el" href="_quake_pak_file_8cs_source.html">QuakePakFile.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Dokumentace k datovým členům</h2>
+<a class="anchor" id="a935c44795d4af4781b2dfdae755796b0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">StringCollection ArachNGIN.Files.QuakePak.QuakePakFile.PakFileList = new StringCollection()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Seznam souborů v PAKu </p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_quake_pak_file_8cs_source.html#l00039">39</a> v souboru <a class="el" href="_quake_pak_file_8cs_source.html">QuakePakFile.cs</a>.</p>
+
+</div>
+</div>
+<hr/>Dokumentace pro tuto třídu byla generována z následujícího souboru:<ul>
+<li>Files/QuakePak/<a class="el" href="_quake_pak_file_8cs_source.html">QuakePakFile.cs</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generováno pá 10. říj 2014 22.49:12 pro projekt ArachNGIN programem &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.8
+</small></address>
+</body>
+</html>

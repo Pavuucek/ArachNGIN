@@ -1,0 +1,719 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.8"/>
+<title>ArachNGIN: Dokumentace třídy ArachNGIN.Net.MIME.MimeEntity</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">ArachNGIN
+   &#160;<span id="projectnumber">1.0.0-21-gb0c1c06</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generováno programem Doxygen 1.8.8 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Hledat');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Hlavní&#160;stránka</span></a></li>
+      <li><a href="pages.html"><span>Ostatní&#160;stránky</span></a></li>
+      <li><a href="namespaces.html"><span>Balíky</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Třídy</span></a></li>
+      <li><a href="files.html"><span>Soubory</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Hledat" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="annotated.html"><span>Seznam&#160;tříd</span></a></li>
+      <li><a href="classes.html"><span>Rejstřík&#160;tříd</span></a></li>
+      <li><a href="hierarchy.html"><span>Hierarchie&#160;tříd</span></a></li>
+      <li><a href="functions.html"><span>Seznam&#160;členů&#160;tříd</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Vše</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Třídy</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Prostory jmen</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Soubory</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Funkce</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Proměnné</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Výčty</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Hodnoty výčtu</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Vlastnosti</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Události</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Stránky</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespace_arach_n_g_i_n.html">ArachNGIN</a></li><li class="navelem"><a class="el" href="namespace_arach_n_g_i_n_1_1_net.html">Net</a></li><li class="navelem"><a class="el" href="namespace_arach_n_g_i_n_1_1_net_1_1_m_i_m_e.html">MIME</a></li><li class="navelem"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html">MimeEntity</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Veřejné metody</a> &#124;
+<a href="#pub-static-methods">Statické veřejné metody</a> &#124;
+<a href="#properties">Vlastnosti</a> &#124;
+<a href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity-members.html">Seznam všech členů</a>  </div>
+  <div class="headertitle">
+<div class="title">Dokumentace třídy ArachNGIN.Net.MIME.MimeEntity</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>This class represents a Mime entity.  
+ <a href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#details">...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Veřejné metody</h2></td></tr>
+<tr class="memitem:a17ed4e6b17a1af70de04a78f7b3413bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#a17ed4e6b17a1af70de04a78f7b3413bb">MimeEntity</a> ()</td></tr>
+<tr class="memdesc:a17ed4e6b17a1af70de04a78f7b3413bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the <a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html" title="This class represents a Mime entity. ">MimeEntity</a> class.  <a href="#a17ed4e6b17a1af70de04a78f7b3413bb">...</a><br /></td></tr>
+<tr class="separator:a17ed4e6b17a1af70de04a78f7b3413bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d012d6a2e60744ed44da1ac8fd2095c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#a4d012d6a2e60744ed44da1ac8fd2095c">MimeEntity</a> (<a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html">MimeEntity</a> parent)</td></tr>
+<tr class="memdesc:a4d012d6a2e60744ed44da1ac8fd2095c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the <a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html" title="This class represents a Mime entity. ">MimeEntity</a> class.  <a href="#a4d012d6a2e60744ed44da1ac8fd2095c">...</a><br /></td></tr>
+<tr class="separator:a4d012d6a2e60744ed44da1ac8fd2095c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b156684cac6d6545dac129cac9c8145"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_mail_message_ex.html">MailMessageEx</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#a2b156684cac6d6545dac129cac9c8145">ToMailMessageEx</a> ()</td></tr>
+<tr class="memdesc:a2b156684cac6d6545dac129cac9c8145"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toes the mail message ex.  <a href="#a2b156684cac6d6545dac129cac9c8145">...</a><br /></td></tr>
+<tr class="separator:a2b156684cac6d6545dac129cac9c8145"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f302d8c62e47b9b69d156e3f9e3dcb4"><td class="memItemLeft" align="right" valign="top">Encoding&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#a6f302d8c62e47b9b69d156e3f9e3dcb4">GetEncoding</a> ()</td></tr>
+<tr class="memdesc:a6f302d8c62e47b9b69d156e3f9e3dcb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the body encoding.  <a href="#a6f302d8c62e47b9b69d156e3f9e3dcb4">...</a><br /></td></tr>
+<tr class="separator:a6f302d8c62e47b9b69d156e3f9e3dcb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Statické veřejné metody</h2></td></tr>
+<tr class="memitem:a6ec3b08a5199ac4c4bd517d4a4e47ac8"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#a6ec3b08a5199ac4c4bd517d4a4e47ac8">TrimBrackets</a> (string value)</td></tr>
+<tr class="memdesc:a6ec3b08a5199ac4c4bd517d4a4e47ac8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trims the brackets.  <a href="#a6ec3b08a5199ac4c4bd517d4a4e47ac8">...</a><br /></td></tr>
+<tr class="separator:a6ec3b08a5199ac4c4bd517d4a4e47ac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
+Vlastnosti</h2></td></tr>
+<tr class="memitem:a74a6563c278e0ec579f149221561a957"><td class="memItemLeft" align="right" valign="top">StringBuilder&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#a74a6563c278e0ec579f149221561a957">EncodedMessage</a><code> [get]</code></td></tr>
+<tr class="memdesc:a74a6563c278e0ec579f149221561a957"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the encoded message.  <a href="#a74a6563c278e0ec579f149221561a957">...</a><br /></td></tr>
+<tr class="separator:a74a6563c278e0ec579f149221561a957"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19cd1114b6e9a804b191ddbec2c46036"><td class="memItemLeft" align="right" valign="top">List&lt; <a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html">MimeEntity</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#a19cd1114b6e9a804b191ddbec2c46036">Children</a><code> [get]</code></td></tr>
+<tr class="memdesc:a19cd1114b6e9a804b191ddbec2c46036"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the children.  <a href="#a19cd1114b6e9a804b191ddbec2c46036">...</a><br /></td></tr>
+<tr class="separator:a19cd1114b6e9a804b191ddbec2c46036"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a689c81601596001a435348ebc47c71a8"><td class="memItemLeft" align="right" valign="top">ContentType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#a689c81601596001a435348ebc47c71a8">ContentType</a><code> [get]</code></td></tr>
+<tr class="memdesc:a689c81601596001a435348ebc47c71a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the type of the content.  <a href="#a689c81601596001a435348ebc47c71a8">...</a><br /></td></tr>
+<tr class="separator:a689c81601596001a435348ebc47c71a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51783a9220743c2e550f2ba116fa5a0f"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#a51783a9220743c2e550f2ba116fa5a0f">MediaSubType</a><code> [get]</code></td></tr>
+<tr class="memdesc:a51783a9220743c2e550f2ba116fa5a0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the type of the media sub.  <a href="#a51783a9220743c2e550f2ba116fa5a0f">...</a><br /></td></tr>
+<tr class="separator:a51783a9220743c2e550f2ba116fa5a0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf64b5d35fd9a479f55f6aae0e5f9dd0"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#aaf64b5d35fd9a479f55f6aae0e5f9dd0">MediaMainType</a><code> [get]</code></td></tr>
+<tr class="memdesc:aaf64b5d35fd9a479f55f6aae0e5f9dd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the type of the media main.  <a href="#aaf64b5d35fd9a479f55f6aae0e5f9dd0">...</a><br /></td></tr>
+<tr class="separator:aaf64b5d35fd9a479f55f6aae0e5f9dd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0abc7c2a4218f926a8ae0ff57bd087d3"><td class="memItemLeft" align="right" valign="top">NameValueCollection&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#a0abc7c2a4218f926a8ae0ff57bd087d3">Headers</a><code> [get]</code></td></tr>
+<tr class="memdesc:a0abc7c2a4218f926a8ae0ff57bd087d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the headers.  <a href="#a0abc7c2a4218f926a8ae0ff57bd087d3">...</a><br /></td></tr>
+<tr class="separator:a0abc7c2a4218f926a8ae0ff57bd087d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c3850f69118c1fd7a008c8244ca7686"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#a2c3850f69118c1fd7a008c8244ca7686">MimeVersion</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a2c3850f69118c1fd7a008c8244ca7686"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the <a class="el" href="namespace_arach_n_g_i_n_1_1_net_1_1_m_i_m_e.html">MIME</a> version.  <a href="#a2c3850f69118c1fd7a008c8244ca7686">...</a><br /></td></tr>
+<tr class="separator:a2c3850f69118c1fd7a008c8244ca7686"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a995b00f10b5b14b2427ea1eb765ebf70"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#a995b00f10b5b14b2427ea1eb765ebf70">ContentId</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a995b00f10b5b14b2427ea1eb765ebf70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the content id.  <a href="#a995b00f10b5b14b2427ea1eb765ebf70">...</a><br /></td></tr>
+<tr class="separator:a995b00f10b5b14b2427ea1eb765ebf70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae316d569f416c5fe72f9a92658a9b9f6"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#ae316d569f416c5fe72f9a92658a9b9f6">ContentDescription</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ae316d569f416c5fe72f9a92658a9b9f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the content description.  <a href="#ae316d569f416c5fe72f9a92658a9b9f6">...</a><br /></td></tr>
+<tr class="separator:ae316d569f416c5fe72f9a92658a9b9f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8d1982073201da15cda10231c84a9b6"><td class="memItemLeft" align="right" valign="top">ContentDisposition&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#ab8d1982073201da15cda10231c84a9b6">ContentDisposition</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ab8d1982073201da15cda10231c84a9b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the content disposition.  <a href="#ab8d1982073201da15cda10231c84a9b6">...</a><br /></td></tr>
+<tr class="separator:ab8d1982073201da15cda10231c84a9b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2545b18b7e737f251ffc235b52528c9"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#aa2545b18b7e737f251ffc235b52528c9">TransferEncoding</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:aa2545b18b7e737f251ffc235b52528c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the transfer encoding.  <a href="#aa2545b18b7e737f251ffc235b52528c9">...</a><br /></td></tr>
+<tr class="separator:aa2545b18b7e737f251ffc235b52528c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a847071319e61a33d48df8de52dbba181"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#aa2545b18b7e737f251ffc235b52528c9">TransferEncoding</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#a847071319e61a33d48df8de52dbba181">ContentTransferEncoding</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a847071319e61a33d48df8de52dbba181"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the content transfer encoding.  <a href="#a847071319e61a33d48df8de52dbba181">...</a><br /></td></tr>
+<tr class="separator:a847071319e61a33d48df8de52dbba181"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ef4b4e1f63e2b66511c6721ce45e2c9"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#a5ef4b4e1f63e2b66511c6721ce45e2c9">StartBoundary</a><code> [get]</code></td></tr>
+<tr class="memdesc:a5ef4b4e1f63e2b66511c6721ce45e2c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the start boundary.  <a href="#a5ef4b4e1f63e2b66511c6721ce45e2c9">...</a><br /></td></tr>
+<tr class="separator:a5ef4b4e1f63e2b66511c6721ce45e2c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af78138f54b4a6e9a7049026b1bf9aea6"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#af78138f54b4a6e9a7049026b1bf9aea6">EndBoundary</a><code> [get]</code></td></tr>
+<tr class="memdesc:af78138f54b4a6e9a7049026b1bf9aea6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the end boundary.  <a href="#af78138f54b4a6e9a7049026b1bf9aea6">...</a><br /></td></tr>
+<tr class="separator:af78138f54b4a6e9a7049026b1bf9aea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9c44797d17fb8bc26e381c1c532def2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html">MimeEntity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#ac9c44797d17fb8bc26e381c1c532def2">Parent</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ac9c44797d17fb8bc26e381c1c532def2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the parent.  <a href="#ac9c44797d17fb8bc26e381c1c532def2">...</a><br /></td></tr>
+<tr class="separator:ac9c44797d17fb8bc26e381c1c532def2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af066151ef999cfb3e616ed2b970854c8"><td class="memItemLeft" align="right" valign="top">MemoryStream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#af066151ef999cfb3e616ed2b970854c8">Content</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:af066151ef999cfb3e616ed2b970854c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the content.  <a href="#af066151ef999cfb3e616ed2b970854c8">...</a><br /></td></tr>
+<tr class="separator:af066151ef999cfb3e616ed2b970854c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailní popis</h2>
+<div class="textblock"><p>This class represents a Mime entity. </p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00016">16</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+</div><h2 class="groupheader">Dokumentace konstruktoru a destruktoru</h2>
+<a class="anchor" id="a17ed4e6b17a1af70de04a78f7b3413bb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ArachNGIN.Net.MIME.MimeEntity.MimeEntity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes a new instance of the <a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html" title="This class represents a Mime entity. ">MimeEntity</a> class. </p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00257">257</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4d012d6a2e60744ed44da1ac8fd2095c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ArachNGIN.Net.MIME.MimeEntity.MimeEntity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html">MimeEntity</a>&#160;</td>
+          <td class="paramname"><em>parent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes a new instance of the <a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html" title="This class represents a Mime entity. ">MimeEntity</a> class. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parent</td><td>The parent.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00270">270</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Dokumentace k metodám</h2>
+<a class="anchor" id="a6f302d8c62e47b9b69d156e3f9e3dcb4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Encoding ArachNGIN.Net.MIME.MimeEntity.GetEncoding </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the body encoding. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">contentType</td><td>Type of the content.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00362">362</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2b156684cac6d6545dac129cac9c8145"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_mail_message_ex.html">MailMessageEx</a> ArachNGIN.Net.MIME.MimeEntity.ToMailMessageEx </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Toes the mail message ex. </p>
+<dl class="section return"><dt>Návratová hodnota</dt><dd></dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00297">297</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6ec3b08a5199ac4c4bd517d4a4e47ac8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static string ArachNGIN.Net.MIME.MimeEntity.TrimBrackets </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Trims the brackets. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The value.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd></dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00475">475</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Dokumentace k vlastnosti</h2>
+<a class="anchor" id="a19cd1114b6e9a804b191ddbec2c46036"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">List&lt;<a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html">MimeEntity</a>&gt; ArachNGIN.Net.MIME.MimeEntity.Children</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the children. </p>
+<p>The children.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00036">36</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af066151ef999cfb3e616ed2b970854c8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MemoryStream ArachNGIN.Net.MIME.MimeEntity.Content</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets or sets the content. </p>
+<p>The content.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00248">248</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae316d569f416c5fe72f9a92658a9b9f6"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string ArachNGIN.Net.MIME.MimeEntity.ContentDescription</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets or sets the content description. </p>
+<p>The content description.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00123">123</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab8d1982073201da15cda10231c84a9b6"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ContentDisposition ArachNGIN.Net.MIME.MimeEntity.ContentDisposition</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets or sets the content disposition. </p>
+<p>The content disposition.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00140">140</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a995b00f10b5b14b2427ea1eb765ebf70"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string ArachNGIN.Net.MIME.MimeEntity.ContentId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets or sets the content id. </p>
+<p>The content id.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00106">106</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a847071319e61a33d48df8de52dbba181"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html#aa2545b18b7e737f251ffc235b52528c9">TransferEncoding</a> ArachNGIN.Net.MIME.MimeEntity.ContentTransferEncoding</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets or sets the content transfer encoding. </p>
+<p>The content transfer encoding.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00174">174</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a689c81601596001a435348ebc47c71a8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ContentType ArachNGIN.Net.MIME.MimeEntity.ContentType</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the type of the content. </p>
+<p>The type of the content.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00049">49</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a74a6563c278e0ec579f149221561a957"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">StringBuilder ArachNGIN.Net.MIME.MimeEntity.EncodedMessage</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the encoded message. </p>
+<p>The encoded message.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00024">24</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af78138f54b4a6e9a7049026b1bf9aea6"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string ArachNGIN.Net.MIME.MimeEntity.EndBoundary</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the end boundary. </p>
+<p>The end boundary.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00223">223</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0abc7c2a4218f926a8ae0ff57bd087d3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">NameValueCollection ArachNGIN.Net.MIME.MimeEntity.Headers</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the headers. </p>
+<p>The headers.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00079">79</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aaf64b5d35fd9a479f55f6aae0e5f9dd0"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string ArachNGIN.Net.MIME.MimeEntity.MediaMainType</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the type of the media main. </p>
+<p>The type of the media main.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00069">69</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a51783a9220743c2e550f2ba116fa5a0f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string ArachNGIN.Net.MIME.MimeEntity.MediaSubType</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the type of the media sub. </p>
+<p>The type of the media sub.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00059">59</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2c3850f69118c1fd7a008c8244ca7686"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string ArachNGIN.Net.MIME.MimeEntity.MimeVersion</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets or sets the <a class="el" href="namespace_arach_n_g_i_n_1_1_net_1_1_m_i_m_e.html">MIME</a> version. </p>
+<p>The <a class="el" href="namespace_arach_n_g_i_n_1_1_net_1_1_m_i_m_e.html">MIME</a> version.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00089">89</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac9c44797d17fb8bc26e381c1c532def2"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html">MimeEntity</a> ArachNGIN.Net.MIME.MimeEntity.Parent</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets or sets the parent. </p>
+<p>The parent.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00236">236</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5ef4b4e1f63e2b66511c6721ce45e2c9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string ArachNGIN.Net.MIME.MimeEntity.StartBoundary</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the start boundary. </p>
+<p>The start boundary.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00206">206</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa2545b18b7e737f251ffc235b52528c9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string ArachNGIN.Net.MIME.MimeEntity.TransferEncoding</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets or sets the transfer encoding. </p>
+<p>The transfer encoding.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_entity_8cs_source.html#l00157">157</a> v souboru <a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a>.</p>
+
+</div>
+</div>
+<hr/>Dokumentace pro tuto třídu byla generována z následujícího souboru:<ul>
+<li>Net/Mime/<a class="el" href="_mime_entity_8cs_source.html">MimeEntity.cs</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generováno pá 10. říj 2014 22.49:14 pro projekt ArachNGIN programem &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.8
+</small></address>
+</body>
+</html>

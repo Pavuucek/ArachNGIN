@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.8"/>
+<title>ArachNGIN: Dokumentace třídy ArachNGIN.Files.Torrents.TorrentParser</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">ArachNGIN
+   &#160;<span id="projectnumber">1.0.0-21-gb0c1c06</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generováno programem Doxygen 1.8.8 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Hledat');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Hlavní&#160;stránka</span></a></li>
+      <li><a href="pages.html"><span>Ostatní&#160;stránky</span></a></li>
+      <li><a href="namespaces.html"><span>Balíky</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Třídy</span></a></li>
+      <li><a href="files.html"><span>Soubory</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Hledat" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="annotated.html"><span>Seznam&#160;tříd</span></a></li>
+      <li><a href="classes.html"><span>Rejstřík&#160;tříd</span></a></li>
+      <li><a href="hierarchy.html"><span>Hierarchie&#160;tříd</span></a></li>
+      <li><a href="functions.html"><span>Seznam&#160;členů&#160;tříd</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Vše</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Třídy</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Prostory jmen</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Soubory</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Funkce</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Proměnné</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Výčty</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Hodnoty výčtu</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Vlastnosti</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Události</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Stránky</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespace_arach_n_g_i_n.html">ArachNGIN</a></li><li class="navelem"><a class="el" href="namespace_arach_n_g_i_n_1_1_files.html">Files</a></li><li class="navelem"><a class="el" href="namespace_arach_n_g_i_n_1_1_files_1_1_torrents.html">Torrents</a></li><li class="navelem"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_torrents_1_1_torrent_parser.html">TorrentParser</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Třídy</a> &#124;
+<a href="#pub-methods">Veřejné metody</a> &#124;
+<a href="#pub-attribs">Veřejné atributy</a> &#124;
+<a href="class_arach_n_g_i_n_1_1_files_1_1_torrents_1_1_torrent_parser-members.html">Seznam všech členů</a>  </div>
+  <div class="headertitle">
+<div class="title">Dokumentace třídy ArachNGIN.Files.Torrents.TorrentParser</div>  </div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Třídy</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arach_n_g_i_n_1_1_files_1_1_torrents_1_1_torrent_parser_1_1st_file.html">stFile</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Veřejné metody</h2></td></tr>
+<tr class="memitem:ab46f706dac50789610f071d75a34cba8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_torrents_1_1_torrent_parser.html#ab46f706dac50789610f071d75a34cba8">TorrentParser</a> (BinaryReader torrentFile)</td></tr>
+<tr class="separator:ab46f706dac50789610f071d75a34cba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Veřejné atributy</h2></td></tr>
+<tr class="memitem:a032d94138485c7722cc101ff30558256"><td class="memItemLeft" align="right" valign="top">string[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_torrents_1_1_torrent_parser.html#a032d94138485c7722cc101ff30558256">p_AnnounceList</a></td></tr>
+<tr class="separator:a032d94138485c7722cc101ff30558256"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55843916a5c6f16635819ada5eec2162"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arach_n_g_i_n_1_1_files_1_1_torrents_1_1_torrent_parser_1_1st_file.html">stFile</a>[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_torrents_1_1_torrent_parser.html#a55843916a5c6f16635819ada5eec2162">p_Files</a></td></tr>
+<tr class="separator:a55843916a5c6f16635819ada5eec2162"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e4a726a4ebe0dde3e9d0e7bc4c391c2"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_torrents_1_1_torrent_parser.html#a1e4a726a4ebe0dde3e9d0e7bc4c391c2">p_InfoHash</a></td></tr>
+<tr class="separator:a1e4a726a4ebe0dde3e9d0e7bc4c391c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf416d20171e4eba82d8fb0e022059cc"><td class="memItemLeft" align="right" valign="top">Boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_torrents_1_1_torrent_parser.html#acf416d20171e4eba82d8fb0e022059cc">p_IsSingleFile</a> = true</td></tr>
+<tr class="separator:acf416d20171e4eba82d8fb0e022059cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailní popis</h2>
+<div class="textblock">
+<p>Definice je uvedena na řádku <a class="el" href="_torrent_parser_8cs_source.html#l00007">7</a> v souboru <a class="el" href="_torrent_parser_8cs_source.html">TorrentParser.cs</a>.</p>
+</div><h2 class="groupheader">Dokumentace konstruktoru a destruktoru</h2>
+<a class="anchor" id="ab46f706dac50789610f071d75a34cba8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ArachNGIN.Files.Torrents.TorrentParser.TorrentParser </td>
+          <td>(</td>
+          <td class="paramtype">BinaryReader&#160;</td>
+          <td class="paramname"><em>torrentFile</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definice je uvedena na řádku <a class="el" href="_torrent_parser_8cs_source.html#l00011">11</a> v souboru <a class="el" href="_torrent_parser_8cs_source.html">TorrentParser.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Dokumentace k datovým členům</h2>
+<a class="anchor" id="a032d94138485c7722cc101ff30558256"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string [] ArachNGIN.Files.Torrents.TorrentParser.p_AnnounceList</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definice je uvedena na řádku <a class="el" href="_torrent_parser_8cs_source.html#l00359">359</a> v souboru <a class="el" href="_torrent_parser_8cs_source.html">TorrentParser.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a55843916a5c6f16635819ada5eec2162"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_arach_n_g_i_n_1_1_files_1_1_torrents_1_1_torrent_parser_1_1st_file.html">stFile</a> [] ArachNGIN.Files.Torrents.TorrentParser.p_Files</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definice je uvedena na řádku <a class="el" href="_torrent_parser_8cs_source.html#l00364">364</a> v souboru <a class="el" href="_torrent_parser_8cs_source.html">TorrentParser.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1e4a726a4ebe0dde3e9d0e7bc4c391c2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string ArachNGIN.Files.Torrents.TorrentParser.p_InfoHash</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definice je uvedena na řádku <a class="el" href="_torrent_parser_8cs_source.html#l00365">365</a> v souboru <a class="el" href="_torrent_parser_8cs_source.html">TorrentParser.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acf416d20171e4eba82d8fb0e022059cc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Boolean ArachNGIN.Files.Torrents.TorrentParser.p_IsSingleFile = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definice je uvedena na řádku <a class="el" href="_torrent_parser_8cs_source.html#l00366">366</a> v souboru <a class="el" href="_torrent_parser_8cs_source.html">TorrentParser.cs</a>.</p>
+
+</div>
+</div>
+<hr/>Dokumentace pro tuto třídu byla generována z následujícího souboru:<ul>
+<li>Files/Torrents/<a class="el" href="_torrent_parser_8cs_source.html">TorrentParser.cs</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generováno pá 10. říj 2014 22.49:13 pro projekt ArachNGIN programem &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.8
+</small></address>
+</body>
+</html>

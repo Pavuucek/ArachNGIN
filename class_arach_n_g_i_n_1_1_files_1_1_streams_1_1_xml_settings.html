@@ -1,0 +1,663 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.8"/>
+<title>ArachNGIN: Dokumentace třídy ArachNGIN.Files.Streams.XmlSettings</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">ArachNGIN
+   &#160;<span id="projectnumber">1.0.0-21-gb0c1c06</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generováno programem Doxygen 1.8.8 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Hledat');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Hlavní&#160;stránka</span></a></li>
+      <li><a href="pages.html"><span>Ostatní&#160;stránky</span></a></li>
+      <li><a href="namespaces.html"><span>Balíky</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Třídy</span></a></li>
+      <li><a href="files.html"><span>Soubory</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Hledat" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="annotated.html"><span>Seznam&#160;tříd</span></a></li>
+      <li><a href="classes.html"><span>Rejstřík&#160;tříd</span></a></li>
+      <li><a href="hierarchy.html"><span>Hierarchie&#160;tříd</span></a></li>
+      <li><a href="functions.html"><span>Seznam&#160;členů&#160;tříd</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Vše</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Třídy</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Prostory jmen</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Soubory</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Funkce</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Proměnné</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Výčty</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Hodnoty výčtu</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Vlastnosti</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Události</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Stránky</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespace_arach_n_g_i_n.html">ArachNGIN</a></li><li class="navelem"><a class="el" href="namespace_arach_n_g_i_n_1_1_files.html">Files</a></li><li class="navelem"><a class="el" href="namespace_arach_n_g_i_n_1_1_files_1_1_streams.html">Streams</a></li><li class="navelem"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html">XmlSettings</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Veřejné metody</a> &#124;
+<a href="#properties">Vlastnosti</a> &#124;
+<a href="class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings-members.html">Seznam všech členů</a>  </div>
+  <div class="headertitle">
+<div class="title">Dokumentace třídy ArachNGIN.Files.Streams.XmlSettings</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Třída pro ukládání nastavení do xml souboru  
+ <a href="class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html#details">...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Veřejné metody</h2></td></tr>
+<tr class="memitem:a3b4a1c1eca4cc746a0778985ab191ade"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html#a3b4a1c1eca4cc746a0778985ab191ade">XmlSettings</a> ()</td></tr>
+<tr class="memdesc:a3b4a1c1eca4cc746a0778985ab191ade"><td class="mdescLeft">&#160;</td><td class="mdescRight">Konstruktor - bez jména souboru  <a href="#a3b4a1c1eca4cc746a0778985ab191ade">...</a><br /></td></tr>
+<tr class="separator:a3b4a1c1eca4cc746a0778985ab191ade"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad642b37ad971f11f8f56496137d7caa7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html#ad642b37ad971f11f8f56496137d7caa7">XmlSettings</a> (string strFileName)</td></tr>
+<tr class="memdesc:ad642b37ad971f11f8f56496137d7caa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Konstruktor, se specifikováním jména souboru  <a href="#ad642b37ad971f11f8f56496137d7caa7">...</a><br /></td></tr>
+<tr class="separator:ad642b37ad971f11f8f56496137d7caa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a759d7d06e01d2cf3d3259ef217f87a74"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html#a759d7d06e01d2cf3d3259ef217f87a74">LoadFromFile</a> ()</td></tr>
+<tr class="memdesc:a759d7d06e01d2cf3d3259ef217f87a74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Načtě xml nastavení ze souboru  <a href="#a759d7d06e01d2cf3d3259ef217f87a74">...</a><br /></td></tr>
+<tr class="separator:a759d7d06e01d2cf3d3259ef217f87a74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c8c58ca237812cfe2adffe247d1377c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html#a2c8c58ca237812cfe2adffe247d1377c">SaveToFile</a> ()</td></tr>
+<tr class="memdesc:a2c8c58ca237812cfe2adffe247d1377c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uloží xml nastavení do souboru  <a href="#a2c8c58ca237812cfe2adffe247d1377c">...</a><br /></td></tr>
+<tr class="separator:a2c8c58ca237812cfe2adffe247d1377c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e06213a7917311d71945b3b7910c71c"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html#a1e06213a7917311d71945b3b7910c71c">GetSetting</a> (string mName, string strDefault)</td></tr>
+<tr class="memdesc:a1e06213a7917311d71945b3b7910c71c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Načte nastavení zadaného jména  <a href="#a1e06213a7917311d71945b3b7910c71c">...</a><br /></td></tr>
+<tr class="separator:a1e06213a7917311d71945b3b7910c71c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a685fb1f2748b6c24ceb2fb8557c61954"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html#a685fb1f2748b6c24ceb2fb8557c61954">GetSetting</a> (string mName)</td></tr>
+<tr class="memdesc:a685fb1f2748b6c24ceb2fb8557c61954"><td class="mdescLeft">&#160;</td><td class="mdescRight">Načte nastavení zadaného jména  <a href="#a685fb1f2748b6c24ceb2fb8557c61954">...</a><br /></td></tr>
+<tr class="separator:a685fb1f2748b6c24ceb2fb8557c61954"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad779a589259184f5f6da36b27b5380a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html#ad779a589259184f5f6da36b27b5380a9">SetSetting</a> (string mName, string mValue)</td></tr>
+<tr class="memdesc:ad779a589259184f5f6da36b27b5380a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uloží nastavení zadaného jména a hodnoty  <a href="#ad779a589259184f5f6da36b27b5380a9">...</a><br /></td></tr>
+<tr class="separator:ad779a589259184f5f6da36b27b5380a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d27844f92dc36e62722199b74af7a48"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html#a8d27844f92dc36e62722199b74af7a48">SetString</a> (string mName, string mValue)</td></tr>
+<tr class="memdesc:a8d27844f92dc36e62722199b74af7a48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uloží řetězec zadaného jména a hodnoty  <a href="#a8d27844f92dc36e62722199b74af7a48">...</a><br /></td></tr>
+<tr class="separator:a8d27844f92dc36e62722199b74af7a48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af47ff33a16b21cea04555c53db1e2b3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html#af47ff33a16b21cea04555c53db1e2b3a">SetInt</a> (string mName, int mValue)</td></tr>
+<tr class="memdesc:af47ff33a16b21cea04555c53db1e2b3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uloží číslo zadaného jména a hodnoty  <a href="#af47ff33a16b21cea04555c53db1e2b3a">...</a><br /></td></tr>
+<tr class="separator:af47ff33a16b21cea04555c53db1e2b3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b9e0c806c32ab2e879787e6ae9dc24d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html#a4b9e0c806c32ab2e879787e6ae9dc24d">SetBool</a> (string mName, bool mValue)</td></tr>
+<tr class="memdesc:a4b9e0c806c32ab2e879787e6ae9dc24d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uloží hodnotu ano/ne zadaného jména a hodnoty  <a href="#a4b9e0c806c32ab2e879787e6ae9dc24d">...</a><br /></td></tr>
+<tr class="separator:a4b9e0c806c32ab2e879787e6ae9dc24d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20656d948d7fa8fcb175053a025eaed6"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html#a20656d948d7fa8fcb175053a025eaed6">GetString</a> (string mName, string strDefault)</td></tr>
+<tr class="memdesc:a20656d948d7fa8fcb175053a025eaed6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Načte řetězec z nastavení  <a href="#a20656d948d7fa8fcb175053a025eaed6">...</a><br /></td></tr>
+<tr class="separator:a20656d948d7fa8fcb175053a025eaed6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47472839710456e92788344029aa4482"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html#a47472839710456e92788344029aa4482">GetInt</a> (string mName, int intDefault)</td></tr>
+<tr class="memdesc:a47472839710456e92788344029aa4482"><td class="mdescLeft">&#160;</td><td class="mdescRight">Načte číslo z nastavení  <a href="#a47472839710456e92788344029aa4482">...</a><br /></td></tr>
+<tr class="separator:a47472839710456e92788344029aa4482"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe8d65e2060cfbfd3bd228a2cd1d28bf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html#abe8d65e2060cfbfd3bd228a2cd1d28bf">GetInt</a> (string mName)</td></tr>
+<tr class="memdesc:abe8d65e2060cfbfd3bd228a2cd1d28bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Načte číslo z nastavení  <a href="#abe8d65e2060cfbfd3bd228a2cd1d28bf">...</a><br /></td></tr>
+<tr class="separator:abe8d65e2060cfbfd3bd228a2cd1d28bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac58fcf1c444f97a538f2c7eae7648396"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html#ac58fcf1c444f97a538f2c7eae7648396">GetBool</a> (string mName, bool boolDefault)</td></tr>
+<tr class="memdesc:ac58fcf1c444f97a538f2c7eae7648396"><td class="mdescLeft">&#160;</td><td class="mdescRight">Načte hodnotu ano/ne z nastavení  <a href="#ac58fcf1c444f97a538f2c7eae7648396">...</a><br /></td></tr>
+<tr class="separator:ac58fcf1c444f97a538f2c7eae7648396"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a1c7adf602eb5bcb737995d085e82c4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html#a3a1c7adf602eb5bcb737995d085e82c4">GetBool</a> (string mName)</td></tr>
+<tr class="memdesc:a3a1c7adf602eb5bcb737995d085e82c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Načte hodnotu ano/ne z nastavení  <a href="#a3a1c7adf602eb5bcb737995d085e82c4">...</a><br /></td></tr>
+<tr class="separator:a3a1c7adf602eb5bcb737995d085e82c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
+Vlastnosti</h2></td></tr>
+<tr class="memitem:a2778c80265d7aa395d90d48143fec24b"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html#a2778c80265d7aa395d90d48143fec24b">FileName</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a2778c80265d7aa395d90d48143fec24b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vlastnost udávající jméno souboru  <a href="#a2778c80265d7aa395d90d48143fec24b">...</a><br /></td></tr>
+<tr class="separator:a2778c80265d7aa395d90d48143fec24b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailní popis</h2>
+<div class="textblock"><p>Třída pro ukládání nastavení do xml souboru </p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_xml_settings_8cs_source.html#l00035">35</a> v souboru <a class="el" href="_xml_settings_8cs_source.html">XmlSettings.cs</a>.</p>
+</div><h2 class="groupheader">Dokumentace konstruktoru a destruktoru</h2>
+<a class="anchor" id="a3b4a1c1eca4cc746a0778985ab191ade"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ArachNGIN.Files.Streams.XmlSettings.XmlSettings </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Konstruktor - bez jména souboru </p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_xml_settings_8cs_source.html#l00071">71</a> v souboru <a class="el" href="_xml_settings_8cs_source.html">XmlSettings.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad642b37ad971f11f8f56496137d7caa7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ArachNGIN.Files.Streams.XmlSettings.XmlSettings </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>strFileName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Konstruktor, se specifikováním jména souboru </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">strFileName</td><td>jméno souboru</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_xml_settings_8cs_source.html#l00096">96</a> v souboru <a class="el" href="_xml_settings_8cs_source.html">XmlSettings.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Dokumentace k metodám</h2>
+<a class="anchor" id="ac58fcf1c444f97a538f2c7eae7648396"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArachNGIN.Files.Streams.XmlSettings.GetBool </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>mName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>boolDefault</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Načte hodnotu ano/ne z nastavení </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mName</td><td>jméno nastavení</td></tr>
+    <tr><td class="paramname">boolDefault</td><td>defaultní hodnota</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd>hodnota nebo defaultní hodnota</dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_xml_settings_8cs_source.html#l00329">329</a> v souboru <a class="el" href="_xml_settings_8cs_source.html">XmlSettings.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3a1c7adf602eb5bcb737995d085e82c4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArachNGIN.Files.Streams.XmlSettings.GetBool </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>mName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Načte hodnotu ano/ne z nastavení </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mName</td><td>jméno nastavení</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd>hodnota</dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_xml_settings_8cs_source.html#l00349">349</a> v souboru <a class="el" href="_xml_settings_8cs_source.html">XmlSettings.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a47472839710456e92788344029aa4482"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ArachNGIN.Files.Streams.XmlSettings.GetInt </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>mName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>intDefault</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Načte číslo z nastavení </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mName</td><td>jméno nastavení</td></tr>
+    <tr><td class="paramname">intDefault</td><td>defaultní hodnota</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd>hodnota nebo defaultní hodnota</dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_xml_settings_8cs_source.html#l00298">298</a> v souboru <a class="el" href="_xml_settings_8cs_source.html">XmlSettings.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abe8d65e2060cfbfd3bd228a2cd1d28bf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ArachNGIN.Files.Streams.XmlSettings.GetInt </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>mName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Načte číslo z nastavení </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mName</td><td>jméno nastavení</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd>hodnota</dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_xml_settings_8cs_source.html#l00318">318</a> v souboru <a class="el" href="_xml_settings_8cs_source.html">XmlSettings.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1e06213a7917311d71945b3b7910c71c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string ArachNGIN.Files.Streams.XmlSettings.GetSetting </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>mName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>strDefault</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Načte nastavení zadaného jména </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mName</td><td>jméno nastavení</td></tr>
+    <tr><td class="paramname">strDefault</td><td>defaultní hodnota</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd>hodnota nastavení, nebo defaultní hodnota</dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_xml_settings_8cs_source.html#l00214">214</a> v souboru <a class="el" href="_xml_settings_8cs_source.html">XmlSettings.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a685fb1f2748b6c24ceb2fb8557c61954"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string ArachNGIN.Files.Streams.XmlSettings.GetSetting </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>mName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Načte nastavení zadaného jména </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mName</td><td>jméno nastavení</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd>hodnota nastavení, nebo prázdný řetězec když není nalezeno</dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_xml_settings_8cs_source.html#l00229">229</a> v souboru <a class="el" href="_xml_settings_8cs_source.html">XmlSettings.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a20656d948d7fa8fcb175053a025eaed6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string ArachNGIN.Files.Streams.XmlSettings.GetString </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>mName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>strDefault</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Načte řetězec z nastavení </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mName</td><td>jméno nastavení</td></tr>
+    <tr><td class="paramname">strDefault</td><td>defaultní hodnota</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd>hodnota nebo defaultní hodnota</dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_xml_settings_8cs_source.html#l00287">287</a> v souboru <a class="el" href="_xml_settings_8cs_source.html">XmlSettings.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a759d7d06e01d2cf3d3259ef217f87a74"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArachNGIN.Files.Streams.XmlSettings.LoadFromFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Načtě xml nastavení ze souboru </p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_xml_settings_8cs_source.html#l00121">121</a> v souboru <a class="el" href="_xml_settings_8cs_source.html">XmlSettings.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2c8c58ca237812cfe2adffe247d1377c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArachNGIN.Files.Streams.XmlSettings.SaveToFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uloží xml nastavení do souboru </p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_xml_settings_8cs_source.html#l00145">145</a> v souboru <a class="el" href="_xml_settings_8cs_source.html">XmlSettings.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4b9e0c806c32ab2e879787e6ae9dc24d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArachNGIN.Files.Streams.XmlSettings.SetBool </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>mName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>mValue</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uloží hodnotu ano/ne zadaného jména a hodnoty </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mName</td><td>jméno nastavení</td></tr>
+    <tr><td class="paramname">mValue</td><td>hodnota nastavení</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_xml_settings_8cs_source.html#l00276">276</a> v souboru <a class="el" href="_xml_settings_8cs_source.html">XmlSettings.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af47ff33a16b21cea04555c53db1e2b3a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArachNGIN.Files.Streams.XmlSettings.SetInt </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>mName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>mValue</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uloží číslo zadaného jména a hodnoty </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mName</td><td>jméno nastavení</td></tr>
+    <tr><td class="paramname">mValue</td><td>hodnota nastavení</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_xml_settings_8cs_source.html#l00266">266</a> v souboru <a class="el" href="_xml_settings_8cs_source.html">XmlSettings.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad779a589259184f5f6da36b27b5380a9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArachNGIN.Files.Streams.XmlSettings.SetSetting </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>mName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>mValue</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uloží nastavení zadaného jména a hodnoty </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mName</td><td>jméno nastavení</td></tr>
+    <tr><td class="paramname">mValue</td><td>hodnota nastavení</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_xml_settings_8cs_source.html#l00239">239</a> v souboru <a class="el" href="_xml_settings_8cs_source.html">XmlSettings.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8d27844f92dc36e62722199b74af7a48"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArachNGIN.Files.Streams.XmlSettings.SetString </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>mName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>mValue</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uloží řetězec zadaného jména a hodnoty </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mName</td><td>jméno nastavení</td></tr>
+    <tr><td class="paramname">mValue</td><td>hodnota nastavení</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_xml_settings_8cs_source.html#l00256">256</a> v souboru <a class="el" href="_xml_settings_8cs_source.html">XmlSettings.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Dokumentace k vlastnosti</h2>
+<a class="anchor" id="a2778c80265d7aa395d90d48143fec24b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string ArachNGIN.Files.Streams.XmlSettings.FileName</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vlastnost udávající jméno souboru </p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_xml_settings_8cs_source.html#l00113">113</a> v souboru <a class="el" href="_xml_settings_8cs_source.html">XmlSettings.cs</a>.</p>
+
+</div>
+</div>
+<hr/>Dokumentace pro tuto třídu byla generována z následujícího souboru:<ul>
+<li>Files/Streams/<a class="el" href="_xml_settings_8cs_source.html">XmlSettings.cs</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generováno pá 10. říj 2014 22.49:13 pro projekt ArachNGIN programem &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.8
+</small></address>
+</body>
+</html>

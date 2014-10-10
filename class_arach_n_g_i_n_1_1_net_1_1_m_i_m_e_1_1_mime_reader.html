@@ -1,0 +1,402 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.8"/>
+<title>ArachNGIN: Dokumentace třídy ArachNGIN.Net.MIME.MimeReader</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">ArachNGIN
+   &#160;<span id="projectnumber">1.0.0-21-gb0c1c06</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generováno programem Doxygen 1.8.8 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Hledat');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Hlavní&#160;stránka</span></a></li>
+      <li><a href="pages.html"><span>Ostatní&#160;stránky</span></a></li>
+      <li><a href="namespaces.html"><span>Balíky</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Třídy</span></a></li>
+      <li><a href="files.html"><span>Soubory</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Hledat" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="annotated.html"><span>Seznam&#160;tříd</span></a></li>
+      <li><a href="classes.html"><span>Rejstřík&#160;tříd</span></a></li>
+      <li><a href="hierarchy.html"><span>Hierarchie&#160;tříd</span></a></li>
+      <li><a href="functions.html"><span>Seznam&#160;členů&#160;tříd</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Vše</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Třídy</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Prostory jmen</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Soubory</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Funkce</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Proměnné</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Výčty</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Hodnoty výčtu</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Vlastnosti</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Události</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Stránky</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespace_arach_n_g_i_n.html">ArachNGIN</a></li><li class="navelem"><a class="el" href="namespace_arach_n_g_i_n_1_1_net.html">Net</a></li><li class="navelem"><a class="el" href="namespace_arach_n_g_i_n_1_1_net_1_1_m_i_m_e.html">MIME</a></li><li class="navelem"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_reader.html">MimeReader</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Veřejné metody</a> &#124;
+<a href="#pub-static-methods">Statické veřejné metody</a> &#124;
+<a href="#properties">Vlastnosti</a> &#124;
+<a href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_reader-members.html">Seznam všech členů</a>  </div>
+  <div class="headertitle">
+<div class="title">Dokumentace třídy ArachNGIN.Net.MIME.MimeReader</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>This class is responsible for parsing a string array of lines containing a <a class="el" href="namespace_arach_n_g_i_n_1_1_net_1_1_m_i_m_e.html">MIME</a> message.  
+ <a href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_reader.html#details">...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Veřejné metody</h2></td></tr>
+<tr class="memitem:a28b5fd4ba033fee28dd62ae8ae8ff02f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_reader.html#a28b5fd4ba033fee28dd62ae8ae8ff02f">MimeReader</a> (string[] lines)</td></tr>
+<tr class="memdesc:a28b5fd4ba033fee28dd62ae8ae8ff02f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the <a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_reader.html" title="This class is responsible for parsing a string array of lines containing a MIME message. ">MimeReader</a> class.  <a href="#a28b5fd4ba033fee28dd62ae8ae8ff02f">...</a><br /></td></tr>
+<tr class="separator:a28b5fd4ba033fee28dd62ae8ae8ff02f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade8d802fd1d8ede7e50fbdc32b691761"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html">MimeEntity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_reader.html#ade8d802fd1d8ede7e50fbdc32b691761">CreateMimeEntity</a> ()</td></tr>
+<tr class="memdesc:ade8d802fd1d8ede7e50fbdc32b691761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the <a class="el" href="namespace_arach_n_g_i_n_1_1_net_1_1_m_i_m_e.html">MIME</a> entity.  <a href="#ade8d802fd1d8ede7e50fbdc32b691761">...</a><br /></td></tr>
+<tr class="separator:ade8d802fd1d8ede7e50fbdc32b691761"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Statické veřejné metody</h2></td></tr>
+<tr class="memitem:ac256229ac7d9b7e60533d483686f1cd6"><td class="memItemLeft" align="right" valign="top">static ContentType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_reader.html#ac256229ac7d9b7e60533d483686f1cd6">GetContentType</a> (string contentType)</td></tr>
+<tr class="memdesc:ac256229ac7d9b7e60533d483686f1cd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the type of the content.  <a href="#ac256229ac7d9b7e60533d483686f1cd6">...</a><br /></td></tr>
+<tr class="separator:ac256229ac7d9b7e60533d483686f1cd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c95f027a9ca74e76d213b52317ccc94"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_reader.html#a8c95f027a9ca74e76d213b52317ccc94">GetMediaType</a> (string mediaType)</td></tr>
+<tr class="memdesc:a8c95f027a9ca74e76d213b52317ccc94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the type of the media.  <a href="#a8c95f027a9ca74e76d213b52317ccc94">...</a><br /></td></tr>
+<tr class="separator:a8c95f027a9ca74e76d213b52317ccc94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa88102299cc6a474ba6621708919da74"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_reader.html#aa88102299cc6a474ba6621708919da74">GetMediaMainType</a> (string mediaType)</td></tr>
+<tr class="memdesc:aa88102299cc6a474ba6621708919da74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the type of the media main.  <a href="#aa88102299cc6a474ba6621708919da74">...</a><br /></td></tr>
+<tr class="separator:aa88102299cc6a474ba6621708919da74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa22ee9c05c543fffb97555b311e1a45"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_reader.html#afa22ee9c05c543fffb97555b311e1a45">GetMediaSubType</a> (string mediaType)</td></tr>
+<tr class="memdesc:afa22ee9c05c543fffb97555b311e1a45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the type of the media sub.  <a href="#afa22ee9c05c543fffb97555b311e1a45">...</a><br /></td></tr>
+<tr class="separator:afa22ee9c05c543fffb97555b311e1a45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a373e5695a2bcd8d90dcc3219ba431fca"><td class="memItemLeft" align="right" valign="top">static TransferEncoding&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_reader.html#a373e5695a2bcd8d90dcc3219ba431fca">GetTransferEncoding</a> (string transferEncoding)</td></tr>
+<tr class="memdesc:a373e5695a2bcd8d90dcc3219ba431fca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the transfer encoding.  <a href="#a373e5695a2bcd8d90dcc3219ba431fca">...</a><br /></td></tr>
+<tr class="separator:a373e5695a2bcd8d90dcc3219ba431fca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
+Vlastnosti</h2></td></tr>
+<tr class="memitem:a09e07a8b6d48ffe5564ef5bcad41309f"><td class="memItemLeft" align="right" valign="top">Queue&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_reader.html#a09e07a8b6d48ffe5564ef5bcad41309f">Lines</a><code> [get]</code></td></tr>
+<tr class="memdesc:a09e07a8b6d48ffe5564ef5bcad41309f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the lines.  <a href="#a09e07a8b6d48ffe5564ef5bcad41309f">...</a><br /></td></tr>
+<tr class="separator:a09e07a8b6d48ffe5564ef5bcad41309f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailní popis</h2>
+<div class="textblock"><p>This class is responsible for parsing a string array of lines containing a <a class="el" href="namespace_arach_n_g_i_n_1_1_net_1_1_m_i_m_e.html">MIME</a> message. </p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_reader_8cs_source.html#l00018">18</a> v souboru <a class="el" href="_mime_reader_8cs_source.html">MimeReader.cs</a>.</p>
+</div><h2 class="groupheader">Dokumentace konstruktoru a destruktoru</h2>
+<a class="anchor" id="a28b5fd4ba033fee28dd62ae8ae8ff02f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ArachNGIN.Net.MIME.MimeReader.MimeReader </td>
+          <td>(</td>
+          <td class="paramtype">string[]&#160;</td>
+          <td class="paramname"><em>lines</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes a new instance of the <a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_reader.html" title="This class is responsible for parsing a string array of lines containing a MIME message. ">MimeReader</a> class. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lines</td><td>The lines.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_reader_8cs_source.html#l00071">71</a> v souboru <a class="el" href="_mime_reader_8cs_source.html">MimeReader.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Dokumentace k metodám</h2>
+<a class="anchor" id="ade8d802fd1d8ede7e50fbdc32b691761"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_arach_n_g_i_n_1_1_net_1_1_m_i_m_e_1_1_mime_entity.html">MimeEntity</a> ArachNGIN.Net.MIME.MimeReader.CreateMimeEntity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the <a class="el" href="namespace_arach_n_g_i_n_1_1_net_1_1_m_i_m_e.html">MIME</a> entity. </p>
+<dl class="section return"><dt>Návratová hodnota</dt><dd>A mime entity containing 0 or more children representing the mime message.</dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_reader_8cs_source.html#l00162">162</a> v souboru <a class="el" href="_mime_reader_8cs_source.html">MimeReader.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac256229ac7d9b7e60533d483686f1cd6"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static ContentType ArachNGIN.Net.MIME.MimeReader.GetContentType </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>contentType</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the type of the content. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">contentType</td><td>Type of the content.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd></dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_reader_8cs_source.html#l00291">291</a> v souboru <a class="el" href="_mime_reader_8cs_source.html">MimeReader.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa88102299cc6a474ba6621708919da74"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static string ArachNGIN.Net.MIME.MimeReader.GetMediaMainType </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>mediaType</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the type of the media main. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mediaType</td><td>Type of the media.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd></dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_reader_8cs_source.html#l00331">331</a> v souboru <a class="el" href="_mime_reader_8cs_source.html">MimeReader.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afa22ee9c05c543fffb97555b311e1a45"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static string ArachNGIN.Net.MIME.MimeReader.GetMediaSubType </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>mediaType</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the type of the media sub. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mediaType</td><td>Type of the media.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd></dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_reader_8cs_source.html#l00349">349</a> v souboru <a class="el" href="_mime_reader_8cs_source.html">MimeReader.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8c95f027a9ca74e76d213b52317ccc94"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static string ArachNGIN.Net.MIME.MimeReader.GetMediaType </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>mediaType</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the type of the media. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mediaType</td><td>Type of the media.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd></dd></dl>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_reader_8cs_source.html#l00317">317</a> v souboru <a class="el" href="_mime_reader_8cs_source.html">MimeReader.cs</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a373e5695a2bcd8d90dcc3219ba431fca"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static TransferEncoding ArachNGIN.Net.MIME.MimeReader.GetTransferEncoding </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>transferEncoding</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the transfer encoding. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">transferEncoding</td><td>The transfer encoding.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Návratová hodnota</dt><dd></dd></dl>
+<p>The transfer encoding determination follows the same rules as Peter Huber's article w/ the exception of not throwing exceptions when binary is provided as a transferEncoding. Instead it is left to the calling code to check for binary. </p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_reader_8cs_source.html#l00389">389</a> v souboru <a class="el" href="_mime_reader_8cs_source.html">MimeReader.cs</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Dokumentace k vlastnosti</h2>
+<a class="anchor" id="a09e07a8b6d48ffe5564ef5bcad41309f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Queue&lt;string&gt; ArachNGIN.Net.MIME.MimeReader.Lines</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the lines. </p>
+<p>The lines.</p>
+
+<p>Definice je uvedena na řádku <a class="el" href="_mime_reader_8cs_source.html#l00028">28</a> v souboru <a class="el" href="_mime_reader_8cs_source.html">MimeReader.cs</a>.</p>
+
+</div>
+</div>
+<hr/>Dokumentace pro tuto třídu byla generována z následujícího souboru:<ul>
+<li>Net/Mime/<a class="el" href="_mime_reader_8cs_source.html">MimeReader.cs</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generováno pá 10. říj 2014 22.49:15 pro projekt ArachNGIN programem &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.8
+</small></address>
+</body>
+</html>
