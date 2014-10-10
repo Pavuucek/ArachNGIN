@@ -3,16 +3,16 @@ using System;
 namespace ArachNGIN.Components.Console.Misc
 {
     /// <summary>
-    /// Tøída parametrù události OnCommandEntered
+    /// TÅ™Ã­da parametrÅ¯ udÃ¡losti OnCommandEntered
     /// </summary>
     public class CommandEnteredEventArgs : EventArgs
     {
         /// <summary>
-        /// Konstruktor tøídy události OnCommandEntered
+        /// Konstruktor tÅ™Ã­dy udÃ¡losti OnCommandEntered
         /// </summary>
-        /// <param name="cmd">pøíkaz (1 slovo)</param>
-        /// <param name="parArray">parametry (ostatní slova) jako pole</param>
-        /// <param name="parString">parametry (ostatní slova) jako øetìzec</param>
+        /// <param name="cmd">pÅ™Ã­kaz (1 slovo)</param>
+        /// <param name="parArray">parametry (ostatnÃ­ slova) jako pole</param>
+        /// <param name="parString">parametry (ostatnÃ­ slova) jako Å™etÄ›zec</param>
         /// <returns></returns>
         public CommandEnteredEventArgs(string cmd, string[] parArray, string parString )
         {
@@ -23,7 +23,7 @@ namespace ArachNGIN.Components.Console.Misc
 
         readonly string _prikaz;
         /// <summary>
-        /// Pøíkaz konzole
+        /// PÅ™Ã­kaz konzole
         /// </summary>
         public string Command
         {
@@ -35,7 +35,7 @@ namespace ArachNGIN.Components.Console.Misc
 
         readonly string[] _parametry;
         /// <summary>
-        /// Parametry pøíkazu jako pole
+        /// Parametry pÅ™Ã­kazu jako pole
         /// </summary>
         public string[] ParamArray
         {
@@ -47,7 +47,7 @@ namespace ArachNGIN.Components.Console.Misc
 
         readonly string _parametryStr;
         /// <summary>
-        /// Parametry pøíkazu jako øetìzec
+        /// Parametry pÅ™Ã­kazu jako Å™etÄ›zec
         /// </summary>
         public string ParamString
         {

@@ -29,7 +29,7 @@ using System.Xml.Serialization;
 namespace ArachNGIN.Files.Streams
 {
     /// <summary>
-    /// Tøída pro ukládání nastavení do xml souboru
+    /// TÅ™Ã­da pro uklÃ¡dÃ¡nÃ­ nastavenÃ­ do xml souboru
     /// </summary>
     [XmlRoot("xml_def")]
     public class XmlSettings
@@ -39,10 +39,10 @@ namespace ArachNGIN.Files.Streams
         [XmlAttribute("fileName")] private string _mFile; //= "conf.xml";
         [XmlElement("Settings")] private Hashtable _mSettingstable;
 
-        #region  privátní podpùrné fce 
+        #region  privÃ¡tnÃ­ podpÅ¯rnÃ© fce 
 
         /// <summary>
-        /// fce na zjištìní cesty k aplikaci
+        /// fce na zjiÅ¡tÄ›nÃ­ cesty k aplikaci
         /// </summary>
         /// <returns>cesta k aplikaci</returns>
         private string GetAppPath()
@@ -51,13 +51,13 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Zjistí jestli cesta konèí lomítkem, kdy ne, tak ho pøidá
+        /// ZjistÃ­ jestli cesta konÄÃ­ lomÃ­tkem, kdyÅ¾ ne, tak ho pÅ™idÃ¡
         /// </summary>
         /// <param name="strString">cesta</param>
-        /// <returns>cesta s lomítkem</returns>
+        /// <returns>cesta s lomÃ­tkem</returns>
         private string StrAddSlash(string strString)
         {
-            // zapamatovat si: lomítko je 0x5C!
+            // zapamatovat si: lomÃ­tko je 0x5C!
             string s = strString;
             if (s[s.Length - 1] != (char) 0x5C) return s + (char) 0x5C;
             return s;
@@ -66,7 +66,7 @@ namespace ArachNGIN.Files.Streams
         #endregion
 
         /// <summary>
-        /// Konstruktor - bez jména souboru
+        /// Konstruktor - bez jmÃ©na souboru
         /// </summary>
         public XmlSettings()
         {
@@ -90,9 +90,9 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Konstruktor, se specifikováním jména souboru
+        /// Konstruktor, se specifikovÃ¡nÃ­m jmÃ©na souboru
         /// </summary>
-        /// <param name="strFileName">jméno souboru</param>
+        /// <param name="strFileName">jmÃ©no souboru</param>
         public XmlSettings(string strFileName)
         {
             _mSettingstable = new Hashtable();
@@ -107,7 +107,7 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Vlastnost udávající jméno souboru
+        /// Vlastnost udÃ¡vajÃ­cÃ­ jmÃ©no souboru
         /// </summary>
         public string FileName
         {
@@ -116,7 +116,7 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Naètì xml nastavení ze souboru
+        /// NaÄtÄ› xml nastavenÃ­ ze souboru
         /// </summary>
         public void LoadFromFile()
         {
@@ -140,7 +140,7 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Uloí xml nastavení do souboru
+        /// UloÅ¾Ã­ xml nastavenÃ­ do souboru
         /// </summary>
         public void SaveToFile()
         {
@@ -206,11 +206,11 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Naète nastavení zadaného jména
+        /// NaÄte nastavenÃ­ zadanÃ©ho jmÃ©na
         /// </summary>
-        /// <param name="mName">jméno nastavení</param>
-        /// <param name="strDefault">defaultní hodnota</param>
-        /// <returns>hodnota nastavení, nebo defaultní hodnota</returns>
+        /// <param name="mName">jmÃ©no nastavenÃ­</param>
+        /// <param name="strDefault">defaultnÃ­ hodnota</param>
+        /// <returns>hodnota nastavenÃ­, nebo defaultnÃ­ hodnota</returns>
         public string GetSetting(string mName, string strDefault)
         {
             if (_mSettingstable.ContainsKey(mName))
@@ -222,20 +222,20 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Naète nastavení zadaného jména
+        /// NaÄte nastavenÃ­ zadanÃ©ho jmÃ©na
         /// </summary>
-        /// <param name="mName">jméno nastavení</param>
-        /// <returns>hodnota nastavení, nebo prázdnı øetìzec kdy není nalezeno</returns>
+        /// <param name="mName">jmÃ©no nastavenÃ­</param>
+        /// <returns>hodnota nastavenÃ­, nebo prÃ¡zdnÃ½ Å™etÄ›zec kdyÅ¾ nenÃ­ nalezeno</returns>
         public string GetSetting(string mName)
         {
             return GetSetting(mName, "");
         }
 
         /// <summary>
-        /// Uloí nastavení zadaného jména a hodnoty
+        /// UloÅ¾Ã­ nastavenÃ­ zadanÃ©ho jmÃ©na a hodnoty
         /// </summary>
-        /// <param name="mName">jméno nastavení</param>
-        /// <param name="mValue">hodnota nastavení</param>
+        /// <param name="mName">jmÃ©no nastavenÃ­</param>
+        /// <param name="mValue">hodnota nastavenÃ­</param>
         public void SetSetting(string mName, string mValue)
         {
             if (_mSettingstable.ContainsKey(mName))
@@ -249,52 +249,52 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Uloí øetìzec zadaného jména a hodnoty
+        /// UloÅ¾Ã­ Å™etÄ›zec zadanÃ©ho jmÃ©na a hodnoty
         /// </summary>
-        /// <param name="mName">jméno nastavení</param>
-        /// <param name="mValue">hodnota nastavení</param>
+        /// <param name="mName">jmÃ©no nastavenÃ­</param>
+        /// <param name="mValue">hodnota nastavenÃ­</param>
         public void SetString(string mName, string mValue)
         {
             SetSetting(mName, mValue);
         }
 
         /// <summary>
-        /// Uloí èíslo zadaného jména a hodnoty
+        /// UloÅ¾Ã­ ÄÃ­slo zadanÃ©ho jmÃ©na a hodnoty
         /// </summary>
-        /// <param name="mName">jméno nastavení</param>
-        /// <param name="mValue">hodnota nastavení</param>
+        /// <param name="mName">jmÃ©no nastavenÃ­</param>
+        /// <param name="mValue">hodnota nastavenÃ­</param>
         public void SetInt(string mName, int mValue)
         {
             SetSetting(mName, mValue.ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>
-        /// Uloí hodnotu ano/ne zadaného jména a hodnoty
+        /// UloÅ¾Ã­ hodnotu ano/ne zadanÃ©ho jmÃ©na a hodnoty
         /// </summary>
-        /// <param name="mName">jméno nastavení</param>
-        /// <param name="mValue">hodnota nastavení</param>
+        /// <param name="mName">jmÃ©no nastavenÃ­</param>
+        /// <param name="mValue">hodnota nastavenÃ­</param>
         public void SetBool(string mName, bool mValue)
         {
             SetSetting(mName, mValue.ToString());
         }
 
         /// <summary>
-        /// Naète øetìzec z nastavení
+        /// NaÄte Å™etÄ›zec z nastavenÃ­
         /// </summary>
-        /// <param name="mName">jméno nastavení</param>
-        /// <param name="strDefault">defaultní hodnota</param>
-        /// <returns>hodnota nebo defaultní hodnota</returns>
+        /// <param name="mName">jmÃ©no nastavenÃ­</param>
+        /// <param name="strDefault">defaultnÃ­ hodnota</param>
+        /// <returns>hodnota nebo defaultnÃ­ hodnota</returns>
         public string GetString(string mName, string strDefault)
         {
             return GetSetting(mName, strDefault);
         }
 
         /// <summary>
-        /// Naète èíslo z nastavení
+        /// NaÄte ÄÃ­slo z nastavenÃ­
         /// </summary>
-        /// <param name="mName">jméno nastavení</param>
-        /// <param name="intDefault">defaultní hodnota</param>
-        /// <returns>hodnota nebo defaultní hodnota</returns>
+        /// <param name="mName">jmÃ©no nastavenÃ­</param>
+        /// <param name="intDefault">defaultnÃ­ hodnota</param>
+        /// <returns>hodnota nebo defaultnÃ­ hodnota</returns>
         public int GetInt(string mName, int intDefault)
         {
             string str = GetSetting(mName, intDefault.ToString(CultureInfo.InvariantCulture));
@@ -311,9 +311,9 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Naète èíslo z nastavení
+        /// NaÄte ÄÃ­slo z nastavenÃ­
         /// </summary>
-        /// <param name="mName">jméno nastavení</param>
+        /// <param name="mName">jmÃ©no nastavenÃ­</param>
         /// <returns>hodnota</returns>
         public int GetInt(string mName)
         {
@@ -321,11 +321,11 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Naète hodnotu ano/ne z nastavení
+        /// NaÄte hodnotu ano/ne z nastavenÃ­
         /// </summary>
-        /// <param name="mName">jméno nastavení</param>
-        /// <param name="boolDefault">defaultní hodnota</param>
-        /// <returns>hodnota nebo defaultní hodnota</returns>
+        /// <param name="mName">jmÃ©no nastavenÃ­</param>
+        /// <param name="boolDefault">defaultnÃ­ hodnota</param>
+        /// <returns>hodnota nebo defaultnÃ­ hodnota</returns>
         public bool GetBool(string mName, bool boolDefault)
         {
             string str = GetSetting(mName, boolDefault.ToString());
@@ -342,9 +342,9 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Naète hodnotu ano/ne z nastavení
+        /// NaÄte hodnotu ano/ne z nastavenÃ­
         /// </summary>
-        /// <param name="mName">jméno nastavení</param>
+        /// <param name="mName">jmÃ©no nastavenÃ­</param>
         /// <returns>hodnota</returns>
         public bool GetBool(string mName)
         {

@@ -28,7 +28,7 @@ using ArachNGIN.Files.Streams;
 namespace ArachNGIN.Components.Console
 {
     /// <summary>
-    /// Tøída debugovací/pøíkazové konzole
+    /// TÅ™Ã­da debugovacÃ­/pÅ™Ã­kazovÃ© konzole
     /// </summary>
     public class DebugConsole
     {
@@ -42,14 +42,14 @@ namespace ArachNGIN.Components.Console
             _consoleForm.lstLogPlain.Size = _consoleForm.lstLogSeparate.Size;
             _consoleForm.lstLogPlain.Location = _consoleForm.lstLogSeparate.Location;
             _consoleForm.lstLogPlain.Dock = _consoleForm.lstLogSeparate.Dock;
-            // pøipíchneme na txtCommand event pro zpracování zmáèknutí klávesy
+            // pÅ™ipÃ­chneme na txtCommand event pro zpracovÃ¡nÃ­ zmÃ¡ÄknutÃ­ klÃ¡vesy
             _consoleForm.txtCommand.KeyPress += TxtCommandKeyPress;
-            // pøipíchneme ještì event interních pøíkazù
+            // pÅ™ipÃ­chneme jeÅ¡tÄ› event internÃ­ch pÅ™Ã­kazÅ¯
             OnCommandEntered += InternalCommands;
         }
 
         /// <summary>
-        /// Urèuje jestli má konzole automaticky
+        /// UrÄuje jestli mÃ¡ konzole automaticky
         /// </summary>
         public ConsoleAutoSave AutoSave = ConsoleAutoSave.ManualOnly;
 
@@ -59,19 +59,19 @@ namespace ArachNGIN.Components.Console
         private bool _usePlainView = true;
         private readonly string _logName = StringUtils.StrAddSlash(Path.GetDirectoryName(Application.ExecutablePath)) + DateTime.Now.ToString(CultureInfo.InvariantCulture).Replace(@"/","-").Replace(":","-") + ".log";
 
-        #region Veøejné vlastnosti
+        #region VeÅ™ejnÃ© vlastnosti
         
         /// <summary>
-        /// Delegát události OnCommandEntered
+        /// DelegÃ¡t udÃ¡losti OnCommandEntered
         /// </summary>
         public delegate void CommandEnteredEvent(object sender, CommandEnteredEventArgs e);
         /// <summary>
-        /// Událost OnCommandEntered
+        /// UdÃ¡lost OnCommandEntered
         /// </summary>
         public event CommandEnteredEvent OnCommandEntered;
         
         /// <summary>
-        /// Textovı popisek formuláøe s konzolí
+        /// TextovÃ½ popisek formulÃ¡Å™e s konzolÃ­
         /// </summary>
         public string Caption
         {
@@ -86,7 +86,7 @@ namespace ArachNGIN.Components.Console
         }
         
         /// <summary>
-        /// Pouít holı vıstup nebo rozdìlenı na datum a zprávu?
+        /// PouÅ¾Ã­t holÃ½ vÃ½stup nebo rozdÄ›lenÃ½ na datum a zprÃ¡vu?
         /// </summary>
         public bool UsePlainView
         {
@@ -100,7 +100,7 @@ namespace ArachNGIN.Components.Console
         }
 
         /// <summary>
-        /// Property umístìní konzole (pouze zápis)
+        /// Property umÃ­stÄ›nÃ­ konzole (pouze zÃ¡pis)
         /// </summary>
         public ConsoleLocation ScreenLocation
         {
@@ -133,7 +133,7 @@ namespace ArachNGIN.Components.Console
         }
         
         /// <summary>
-        /// Vıška formuláøe konzole
+        /// VÃ½Å¡ka formulÃ¡Å™e konzole
         /// </summary>
         public int Height
         {
@@ -148,7 +148,7 @@ namespace ArachNGIN.Components.Console
         }
         
         /// <summary>
-        /// Šíøka formuláøe konzole
+        /// Å Ã­Å™ka formulÃ¡Å™e konzole
         /// </summary>
         public int Width
         {
@@ -163,7 +163,7 @@ namespace ArachNGIN.Components.Console
         }
         
         /// <summary>
-        /// Umístìní formuláøe konzole
+        /// UmÃ­stÄ›nÃ­ formulÃ¡Å™e konzole
         /// (pokud je v <seealso cref="ScreenLocation">ScreenLocation</seealso>
         /// nastaveno SomeWhereElse)
         /// </summary>
@@ -180,7 +180,7 @@ namespace ArachNGIN.Components.Console
         }
         
         /// <summary>
-        /// Urèuje, jestli se pøi provádìní pøíkazù budou i vypisovat do konzole
+        /// UrÄuje, jestli se pÅ™i provÃ¡dÄ›nÃ­ pÅ™Ã­kazÅ¯ budou i vypisovat do konzole
         /// </summary>
         public bool EchoCommands
         {
@@ -195,8 +195,8 @@ namespace ArachNGIN.Components.Console
         }
         
         /// <summary>
-        /// Urèuje, jestli se budou provádìt i interní pøíkazy
-        /// (napø. cls - vımaz vıpisu)
+        /// UrÄuje, jestli se budou provÃ¡dÄ›t i internÃ­ pÅ™Ã­kazy
+        /// (napÅ™. cls - vÃ½maz vÃ½pisu)
         /// </summary>
         public bool ProcessInternalCommands
         {
@@ -212,9 +212,9 @@ namespace ArachNGIN.Components.Console
         
         #endregion
         
-        #region Veøejné procedury
+        #region VeÅ™ejnÃ© procedury
         /// <summary>
-        /// Ukáe konzoli
+        /// UkÃ¡Å¾e konzoli
         /// </summary>
         public void Show()
         {
@@ -222,7 +222,7 @@ namespace ArachNGIN.Components.Console
         }
         
         /// <summary>
-        /// Zavøe konzoli
+        /// ZavÅ™e konzoli
         /// </summary>
         public void Close()
         {
@@ -230,10 +230,10 @@ namespace ArachNGIN.Components.Console
         }
         
         /// <summary>
-        /// Zapíše událost do konzole
+        /// ZapÃ­Å¡e udÃ¡lost do konzole
         /// </summary>
-        /// <param name="t">èas události</param>
-        /// <param name="message">název události</param>
+        /// <param name="t">Äas udÃ¡losti</param>
+        /// <param name="message">nÃ¡zev udÃ¡losti</param>
         public void Write(DateTime t, string message)
         {
             var item = new ListViewItem(t.ToLongTimeString());
@@ -250,10 +250,10 @@ namespace ArachNGIN.Components.Console
         }
         
         /// <summary>
-        /// Zapíše událost do konzole
-        /// (èas je nastaven na teï)
+        /// ZapÃ­Å¡e udÃ¡lost do konzole
+        /// (Äas je nastaven na teÄ)
         /// </summary>
-        /// <param name="message">název události</param>
+        /// <param name="message">nÃ¡zev udÃ¡losti</param>
         public void Write(string message)
         {
             Write(DateTime.Now,message);
@@ -261,7 +261,7 @@ namespace ArachNGIN.Components.Console
 
 
         /// <summary>
-        /// Zapíše soubor se záznamem
+        /// ZapÃ­Å¡e soubor se zÃ¡znamem
         /// </summary>
         public void SaveLog()
         {
@@ -269,8 +269,8 @@ namespace ArachNGIN.Components.Console
         }
 
         /// <summary>
-        /// Zapíše událost do konzole
-        /// (èas se nevyplòuje)
+        /// ZapÃ­Å¡e udÃ¡lost do konzole
+        /// (Äas se nevyplÅˆuje)
         /// </summary>
         /// <param name="message"></param>
         public void WriteNoTime(string message)
@@ -289,9 +289,9 @@ namespace ArachNGIN.Components.Console
         }
         
         /// <summary>
-        /// Provede pøíkaz pøes konzoli
+        /// Provede pÅ™Ã­kaz pÅ™es konzoli
         /// </summary>
-        /// <param name="command">název pøíkazu + parametry</param>
+        /// <param name="command">nÃ¡zev pÅ™Ã­kazu + parametry</param>
         public void DoCommand(string command)
         {
             string[] strCmdLine = StringUtils.StringSplit(command, " "); // cely prikaz
@@ -331,9 +331,9 @@ namespace ArachNGIN.Components.Console
         #region Eventy
         
         /// <summary>
-        /// handler události na _consoleForm.txtCommand.KeyPress
+        /// handler udÃ¡losti na _consoleForm.txtCommand.KeyPress
         /// </summary>
-        /// <param name="sender">Odesílatel</param>
+        /// <param name="sender">OdesÃ­latel</param>
         /// <param name="e">Parametry (System.Windows.Forms.KeyPressEventArgs)</param>
         private void TxtCommandKeyPress(object sender, KeyPressEventArgs e)
         {

@@ -1,7 +1,7 @@
 namespace ArachNGIN.Components.SplashForm
 {
     /// <summary>
-    /// deleg·t ud·losti zav¯enÌ okna
+    /// deleg√°t ud√°losti zav≈ôen√≠ okna
     /// </summary>
     public delegate void DelegateCloseSplash();
 }

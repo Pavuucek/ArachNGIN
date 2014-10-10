@@ -6,7 +6,7 @@ using ArachNGIN.Files.Streams;
 namespace ArachNGIN.Files.TempDir
 {
     /// <summary>
-    /// Tøída pro obstarávání temp adresáøe a podobné vìci
+    /// TÅ™Ã­da pro obstarÃ¡vÃ¡nÃ­ temp adresÃ¡Å™e a podobnÃ© vÄ›ci
     /// </summary>
     public class TempManager : IDisposable
     {
@@ -15,10 +15,10 @@ namespace ArachNGIN.Files.TempDir
         private readonly string _sTempDir;
 
         /// <summary>
-        /// Konstruktor tøídy
-        /// vytvoøí adresáø v tempu
+        /// Konstruktor tÅ™Ã­dy
+        /// vytvoÅ™Ã­ adresÃ¡Å™ v tempu
         /// </summary>
-        /// <returns>instance tøídy</returns>
+        /// <returns>instance tÅ™Ã­dy</returns>
         public TempManager()
         {
             Guid gGuid = Guid.NewGuid();
@@ -36,7 +36,7 @@ namespace ArachNGIN.Files.TempDir
         }
 
         /// <summary>
-        /// property vracející adresáø aplikace
+        /// property vracejÃ­cÃ­ adresÃ¡Å™ aplikace
         /// </summary>
         public string AppDir
         {
@@ -44,10 +44,10 @@ namespace ArachNGIN.Files.TempDir
         }
 
         /// <summary>
-        /// property vracející adresáø aplikace v tempu
-        /// (napø. c:\windows\temp\aplikace_035521152515)
-        /// poslední èást je guid (aby se 2 instance aplikace/této tøídy
-        /// nehádaly o 1 adresáø)
+        /// property vracejÃ­cÃ­ adresÃ¡Å™ aplikace v tempu
+        /// (napÅ™. c:\windows\temp\aplikace_035521152515)
+        /// poslednÃ­ ÄÃ¡st je guid (aby se 2 instance aplikace/tÃ©to tÅ™Ã­dy
+        /// nehÃ¡daly o 1 adresÃ¡Å™)
         /// </summary>
         public string AppTempDir
         {
@@ -55,8 +55,8 @@ namespace ArachNGIN.Files.TempDir
         }
 
         /// <summary>
-        /// property vracející tempovı adresáø
-        /// (napø. c:\windows\temp)
+        /// property vracejÃ­cÃ­ tempovÃ½ adresÃ¡Å™
+        /// (napÅ™. c:\windows\temp)
         /// </summary>
         public string TempDir
         {
@@ -66,7 +66,7 @@ namespace ArachNGIN.Files.TempDir
         #region IDisposable Members
 
         /// <summary>
-        /// Destruktor tøídy vyvolá fci Close(); a potlaèuje vıjimky
+        /// Destruktor tÅ™Ã­dy vyvolÃ¡ fci Close(); a potlaÄuje vÃ½jimky
         /// </summary>
         public void Dispose()
         {
@@ -76,7 +76,7 @@ namespace ArachNGIN.Files.TempDir
         #endregion
 
         /// <summary>
-        /// Smae adresáø v tempu
+        /// SmaÅ¾e adresÃ¡Å™ v tempu
         /// </summary>
         public void Close()
         {

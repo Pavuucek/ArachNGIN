@@ -24,7 +24,7 @@ using ArachNGIN.Files.Streams;
 namespace ArachNGIN.Files.QuakePak
 {
     /// <summary>
-    /// Souborovı systém Quake pakù
+    /// SouborovÃ½ systÃ©m Quake pakÅ¯
     /// </summary>
     public class QuakePakFileSystem : IDisposable
     {
@@ -42,8 +42,8 @@ namespace ArachNGIN.Files.QuakePak
         /// <summary>
         /// Konstruktor <see cref="QuakePakFileSystem"/> class.
         /// </summary>
-        /// <param name="appDir">Startovní adresáø ze kterého se budou naèítat pak soubory, nejlépe ten s aplikací</param>
-        /// <param name="tempDir">Adresáø aplikace v tempu</param>
+        /// <param name="appDir">StartovnÃ­ adresÃ¡Å™ ze kterÃ©ho se budou naÄÃ­tat pak soubory, nejlÃ©pe ten s aplikacÃ­</param>
+        /// <param name="tempDir">AdresÃ¡Å™ aplikace v tempu</param>
         public QuakePakFileSystem(string appDir, string tempDir)
         {
             _sDir = StringUtils.StrAddSlash(appDir);
@@ -124,15 +124,15 @@ namespace ArachNGIN.Files.QuakePak
         }
 
         /// <summary>
-        /// Vyádá soubor a umístí ho do tempu.
-        /// Soubor mùe bıt buï:
-        /// - u v tempu -> neudìlá se nic
-        /// - v adresáøi programu -> zkopíruje se do tempu
-        /// - v jednom z pak souborù -> rozbalí se do tempu.
-        /// V tomto poøadí.
+        /// VyÅ¾Ã¡dÃ¡ soubor a umÃ­stÃ­ ho do tempu.
+        /// Soubor mÅ¯Å¾e bÃ½t buÄ:
+        /// - uÅ¾ v tempu -> neudÄ›lÃ¡ se nic
+        /// - v adresÃ¡Å™i programu -> zkopÃ­ruje se do tempu
+        /// - v jednom z pak souborÅ¯ -> rozbalÃ­ se do tempu.
+        /// V tomto poÅ™adÃ­.
         /// </summary>
-        /// <param name="sFile">název souboru</param>
-        /// <returns>jestli se zadaøí tak true</returns>
+        /// <param name="sFile">nÃ¡zev souboru</param>
+        /// <returns>jestli se zadaÅ™Ã­ tak true</returns>
         public bool AskFile(string sFile)
         {
             bool r = false;

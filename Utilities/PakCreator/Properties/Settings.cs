@@ -1,15 +1,15 @@
 namespace PakCreator.Properties {
     
     
-    // Tato tøída Vám umoòuje zpracovávat specifické události v tøídì nastavení:
-    //  Událost SettingChanging je vyvolána pøed zmìnou hodnoty nastavení.
-    //  Událost PropertyChanged  je vyvolána po zmìnì hodnoty nastavení.
-    //  Událost SettingsLoaded je vyvolána po naètení hodnot nastavení.
-    //  Událost SettingsSaving je vyvolána pøed uloením hodnot nastavení.
+    // Tato tÅ™Ã­da VÃ¡m umoÅ¾Åˆuje zpracovÃ¡vat specifickÃ© udÃ¡losti v tÅ™Ã­dÄ› nastavenÃ­:
+    //  UdÃ¡lost SettingChanging je vyvolÃ¡na pÅ™ed zmÄ›nou hodnoty nastavenÃ­.
+    //  UdÃ¡lost PropertyChanged  je vyvolÃ¡na po zmÄ›nÄ› hodnoty nastavenÃ­.
+    //  UdÃ¡lost SettingsLoaded je vyvolÃ¡na po naÄtenÃ­ hodnot nastavenÃ­.
+    //  UdÃ¡lost SettingsSaving je vyvolÃ¡na pÅ™ed uloÅ¾enÃ­m hodnot nastavenÃ­.
     internal sealed partial class Settings {
         
         public Settings() {
-            // // Pro pøidávání obslunıch rutin událostí urèenıch pro ukládání a zmìnu nastavení odkomentujte prosím níe uvedené øádky:
+            // // Pro pÅ™idÃ¡vÃ¡nÃ­ obsluÅ¾nÃ½ch rutin udÃ¡lostÃ­ urÄenÃ½ch pro uklÃ¡dÃ¡nÃ­ a zmÄ›nu nastavenÃ­ odkomentujte prosÃ­m nÃ­Å¾e uvedenÃ© Å™Ã¡dky:
             //
             // this.SettingChanging += this.SettingChangingEventHandler;
             //
@@ -18,11 +18,11 @@ namespace PakCreator.Properties {
         }
         
         private void SettingChangingEventHandler(object sender, System.Configuration.SettingChangingEventArgs e) {
-            // Kód pro zpracování události SettingChangingEvent pøidejte zde.
+            // KÃ³d pro zpracovÃ¡nÃ­ udÃ¡losti SettingChangingEvent pÅ™idejte zde.
         }
         
         private void SettingsSavingEventHandler(object sender, System.ComponentModel.CancelEventArgs e) {
-            // Kód pro zpracování události SettingsSaving pøidejte zde.
+            // KÃ³d pro zpracovÃ¡nÃ­ udÃ¡losti SettingsSaving pÅ™idejte zde.
         }
     }
 }

@@ -28,16 +28,16 @@ using System.Threading;
 namespace ArachNGIN.Components.SplashForm
 {
     /// <summary>
-    /// tøída "splash" okna
+    /// tÅ™Ã­da "splash" okna
     /// </summary>
     public class SplashForm : Form
     {	
         #region Constructor
         /// <summary>
-        /// Konstruktor tøídy
+        /// Konstruktor tÅ™Ã­dy
         /// </summary>
-        /// <param name="imageFile">obrázek</param>
-        /// <param name="col">barva prùsvitnosti</param>
+        /// <param name="imageFile">obrÃ¡zek</param>
+        /// <param name="col">barva prÅ¯svitnosti</param>
         public SplashForm(String imageFile, Color col)
         {
             Debug.Assert(!string.IsNullOrEmpty(imageFile), 
@@ -86,10 +86,10 @@ namespace ArachNGIN.Components.SplashForm
         #region Public methods
         // this can be used for About dialogs
         /// <summary>
-        /// zobrazí okno modálnì
+        /// zobrazÃ­ okno modÃ¡lnÄ›
         /// </summary>
-        /// <param name="imageFile">obrázek</param>
-        /// <param name="col">barva prùsvitnosti</param>
+        /// <param name="imageFile">obrÃ¡zek</param>
+        /// <param name="col">barva prÅ¯svitnosti</param>
         public static void ShowModal(String imageFile, Color col)
         {
             _mImageFile = imageFile;
@@ -99,10 +99,10 @@ namespace ArachNGIN.Components.SplashForm
         // Call this method with the image file path and the color 
         // in the image to be rendered transparent
         /// <summary>
-        /// zobrazí okno modálnì
+        /// zobrazÃ­ okno modÃ¡lnÄ›
         /// </summary>
-        /// <param name="imageFile">obrázek</param>
-        /// <param name="col">barva prùsvitnosti</param>
+        /// <param name="imageFile">obrÃ¡zek</param>
+        /// <param name="col">barva prÅ¯svitnosti</param>
         public static void StartSplash(String imageFile, Color col)
         {
             _mImageFile = imageFile;
@@ -114,7 +114,7 @@ namespace ArachNGIN.Components.SplashForm
 
         // Call this at the end of your apps initialization to close the splash screen
         /// <summary>
-        /// uzavøe okno
+        /// uzavÅ™e okno
         /// </summary>
         public static void CloseSplash()
         {

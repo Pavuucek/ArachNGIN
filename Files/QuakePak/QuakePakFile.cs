@@ -25,7 +25,7 @@ using ArachNGIN.Files.Streams;
 namespace ArachNGIN.Files.QuakePak
 {
     /// <summary>
-    /// Tøída na ètení z PAK souborù Quaka
+    /// TÅ™Ã­da na ÄtenÃ­ z PAK souborÅ¯ Quaka
     /// </summary>
     public class QuakePakFile : IDisposable
     {
@@ -34,7 +34,7 @@ namespace ArachNGIN.Files.QuakePak
         private readonly FileStream _pakStream;
 
         /// <summary>
-        /// Seznam souborù v PAKu
+        /// Seznam souborÅ¯ v PAKu
         /// </summary>
         public StringCollection PakFileList = new StringCollection();
 
@@ -43,12 +43,12 @@ namespace ArachNGIN.Files.QuakePak
         private PakFat[] _pakFat;
 
         /// <summary>
-        /// Konstruktor - otevøe pak soubor a naète z nìj hlavièku.
+        /// Konstruktor - otevÅ™e pak soubor a naÄte z nÄ›j hlaviÄku.
         /// </summary>
-        /// <param name="strFileName">jméno pak souboru</param>
-        /// <param name="bAllowWrite">povolit zápis do souboru, kdy je true <c>true</c> tak ano.</param>
+        /// <param name="strFileName">jmÃ©no pak souboru</param>
+        /// <param name="bAllowWrite">povolit zÃ¡pis do souboru, kdyÅ¾ je true <c>true</c> tak ano.</param>
         /// <exception cref="System.IO.FileNotFoundException">
-        /// nastane kdy se soubor nenajde
+        /// nastane kdyÅ¾ se soubor nenajde
         /// </exception>
         public QuakePakFile(string strFileName, bool bAllowWrite)
         {
@@ -78,7 +78,7 @@ namespace ArachNGIN.Files.QuakePak
         #region IDisposable Members
 
         /// <summary>
-        /// Oficiální Destruktor
+        /// OficiÃ¡lnÃ­ Destruktor
         /// </summary>
         public void Dispose()
         {
@@ -88,7 +88,7 @@ namespace ArachNGIN.Files.QuakePak
         #endregion
 
         /// <summary>
-        /// Neoficiální destruktor
+        /// NeoficiÃ¡lnÃ­ destruktor
         /// </summary>
         public void Close()
         {
@@ -133,10 +133,10 @@ namespace ArachNGIN.Files.QuakePak
         }
 
         /// <summary>
-        /// Zkontroluje, jestli je soubor zadaného jména v pak souboru
+        /// Zkontroluje, jestli je soubor zadanÃ©ho jmÃ©na v pak souboru
         /// </summary>
-        /// <param name="strFileInPak">jméno hledaného souboru</param>
-        /// <returns>je/není</returns>
+        /// <param name="strFileInPak">jmÃ©no hledanÃ©ho souboru</param>
+        /// <returns>je/nenÃ­</returns>
         public bool PakFileExists(string strFileInPak)
         {
             return GetFileIndex(strFileInPak) != -1;
@@ -157,10 +157,10 @@ namespace ArachNGIN.Files.QuakePak
         }
 
         /// <summary>
-        /// Rozbalí soubor z paku do proudu
+        /// RozbalÃ­ soubor z paku do proudu
         /// </summary>
-        /// <param name="strFileInPak">jméno souboru v paku</param>
-        /// <param name="sOutput">vıstupní proud</param>
+        /// <param name="strFileInPak">jmÃ©no souboru v paku</param>
+        /// <param name="sOutput">vÃ½stupnÃ­ proud</param>
         public void ExtractStream(string strFileInPak, Stream sOutput)
         {
             int fIndex = GetFileIndex(strFileInPak);
@@ -171,10 +171,10 @@ namespace ArachNGIN.Files.QuakePak
         }
 
         /// <summary>
-        /// Rozbalí soubor z paku na disk
+        /// RozbalÃ­ soubor z paku na disk
         /// </summary>
-        /// <param name="strFileInPak">jméno souboru v paku</param>
-        /// <param name="strOutputFile">cesta k vıstupnímu souboru</param>
+        /// <param name="strFileInPak">jmÃ©no souboru v paku</param>
+        /// <param name="strOutputFile">cesta k vÃ½stupnÃ­mu souboru</param>
         public void ExtractFile(string strFileInPak, string strOutputFile)
         {
             Stream fOutput = new FileStream(strOutputFile, FileMode.OpenOrCreate, FileAccess.ReadWrite,
@@ -184,13 +184,13 @@ namespace ArachNGIN.Files.QuakePak
         }
 
         /// <summary>
-        /// Vytvoøí novı prázdnı pak soubor
+        /// VytvoÅ™Ã­ novÃ½ prÃ¡zdnÃ½ pak soubor
         /// </summary>
-        /// <param name="strFileName">jméno souboru.</param>
-        /// <returns>jestli se zadaøí tak true, jinak false</returns>
+        /// <param name="strFileName">jmÃ©no souboru.</param>
+        /// <returns>jestli se zadaÅ™Ã­ tak true, jinak false</returns>
         public static bool CreateNewPak(string strFileName)
         {
-            // TODO: taky by to mohlo vracet true podle úspìšnosti :-)
+            // TODO: taky by to mohlo vracet true podle ÃºspÄ›Å¡nosti :-)
             var result = false;
             var fs = new FileStream(strFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
             fs.Position = 0;
@@ -226,7 +226,7 @@ namespace ArachNGIN.Files.QuakePak
 
         private void WriteFat()
         {
-            // naseekovat startovní pozici fatky
+            // naseekovat startovnÃ­ pozici fatky
             _pakStream.Seek(_pFatstart, SeekOrigin.Begin);
             var bw = new BinaryWriter(_pakStream, Encoding.GetEncoding("Windows-1250"));
             foreach (var item in _pakFat)
@@ -243,12 +243,12 @@ namespace ArachNGIN.Files.QuakePak
         }
 
         /// <summary>
-        /// Pøidá proud do PAKu
+        /// PÅ™idÃ¡ proud do PAKu
         /// </summary>
         /// <param name="stream">proud</param>
-        /// <param name="pakFileName">jméno souboru v PAKu</param>
-        /// <param name="writeFat">má se zapsat fatka? Pokud to je poslední pøidanı soubor, tak urèitì JO!</param>
-        /// <returns>podle úspìšnosti buï true nebo false</returns>
+        /// <param name="pakFileName">jmÃ©no souboru v PAKu</param>
+        /// <param name="writeFat">mÃ¡ se zapsat fatka? Pokud to je poslednÃ­ pÅ™idanÃ½ soubor, tak urÄitÄ› JO!</param>
+        /// <returns>podle ÃºspÄ›Å¡nosti buÄ true nebo false</returns>
         public bool AddStream(Stream stream, string pakFileName, bool writeFat /*=true*/)
         {
             // soubor uz existuje --> dal se nebavime!
@@ -282,12 +282,12 @@ namespace ArachNGIN.Files.QuakePak
         }
 
         /// <summary>
-        /// Pøidá soubor do paku
+        /// PÅ™idÃ¡ soubor do paku
         /// </summary>
-        /// <param name="fileName">název souboru (napø. c:\windows\win.ini)</param>
-        /// <param name="pakFileName">název souboru v paku (napø ini/win.ini)</param>
-        /// <param name="writeFat">má se zapsat fatka? Pokud to je poslední pøidanı soubor, tak urèitì JO!</param>
-        /// <returns>podle úspìšnosti buï true nebo false</returns>
+        /// <param name="fileName">nÃ¡zev souboru (napÅ™. c:\windows\win.ini)</param>
+        /// <param name="pakFileName">nÃ¡zev souboru v paku (napÅ™ ini/win.ini)</param>
+        /// <param name="writeFat">mÃ¡ se zapsat fatka? Pokud to je poslednÃ­ pÅ™idanÃ½ soubor, tak urÄitÄ› JO!</param>
+        /// <returns>podle ÃºspÄ›Å¡nosti buÄ true nebo false</returns>
         public bool AddFile(string fileName, string pakFileName, bool writeFat = true)
         {
             if (!File.Exists(fileName)) return false;
@@ -307,11 +307,11 @@ namespace ArachNGIN.Files.QuakePak
         }
 
         /// <summary>
-        /// Pøidá soubor do paku
+        /// PÅ™idÃ¡ soubor do paku
         /// </summary>
-        /// <param name="fileName">název souboru (napø. c:\windows\win.ini)</param>
-        /// <param name="pakFileName">název souboru v paku (napø ini/win.ini)</param>
-        /// <returns>podle úspìšnosti buï true nebo false</returns>
+        /// <param name="fileName">nÃ¡zev souboru (napÅ™. c:\windows\win.ini)</param>
+        /// <param name="pakFileName">nÃ¡zev souboru v paku (napÅ™ ini/win.ini)</param>
+        /// <returns>podle ÃºspÄ›Å¡nosti buÄ true nebo false</returns>
         public bool AddFile(string fileName, string pakFileName)
         {
             return AddFile(fileName, pakFileName, true);

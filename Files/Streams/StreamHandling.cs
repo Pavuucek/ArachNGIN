@@ -22,20 +22,20 @@ using System.IO;
 namespace ArachNGIN.Files.Streams
 {
     /// <summary>
-    /// Tøída pro práci s proudy plná statickıch procedur
+    /// TÅ™Ã­da pro prÃ¡ci s proudy plnÃ¡ statickÃ½ch procedur
     /// </summary>
     public class StreamHandling
     {
         /// <summary>
-        /// Zkopíruje jeden proud do druhého
+        /// ZkopÃ­ruje jeden proud do druhÃ©ho
         /// </summary>
         /// <remarks>
-        /// (Aneb Pavùèci rádi Delphi a to co jim z nich chybí si prostì pøeloej ;-)
+        /// (Aneb PavÅ¯Äci rÃ¡di Delphi a to co jim z nich chybÃ­ si prostÄ› pÅ™eloÅ¾ej ;-)
         /// </remarks>
-        /// <param name="sSource">zdrojovı proud</param>
-        /// <param name="sDest">cílovı proud</param>
-        /// <param name="iCount">poèet bajtù ke zkopírování. kdy je 0 tak se zkopíruje celı proud</param>
-        /// <returns>poèet zkopírovanıch bajtù</returns>
+        /// <param name="sSource">zdrojovÃ½ proud</param>
+        /// <param name="sDest">cÃ­lovÃ½ proud</param>
+        /// <param name="iCount">poÄet bajtÅ¯ ke zkopÃ­rovÃ¡nÃ­. kdyÅ¾ je 0 tak se zkopÃ­ruje celÃ½ proud</param>
+        /// <returns>poÄet zkopÃ­rovanÃ½ch bajtÅ¯</returns>
         public static long StreamCopy(Stream sSource, Stream sDest, long iCount)
         {
             const int maxBufSize = 0xF000;
@@ -75,13 +75,13 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Zkopíruje jeden stream do druhého.
+        /// ZkopÃ­ruje jeden stream do druhÃ©ho.
         /// </summary>
-        /// <param name="sSource">zdrojovı stream</param>
-        /// <param name="sDest">cílovı stream</param>
-        /// <param name="iCount">poèet bajtù ke zkopírování</param>
-        /// <param name="iStartposition">startovní pozice</param>
-        /// <returns>poèet zkopírovanıch bajtù</returns>
+        /// <param name="sSource">zdrojovÃ½ stream</param>
+        /// <param name="sDest">cÃ­lovÃ½ stream</param>
+        /// <param name="iCount">poÄet bajtÅ¯ ke zkopÃ­rovÃ¡nÃ­</param>
+        /// <param name="iStartposition">startovnÃ­ pozice</param>
+        /// <returns>poÄet zkopÃ­rovanÃ½ch bajtÅ¯</returns>
         public static long StreamCopy(Stream sSource, Stream sDest, long iCount, long iStartposition)
         {
             const int maxBufSize = 0xF000;
@@ -174,10 +174,10 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Funkce pro pøevod pole znakù na string
+        /// Funkce pro pÅ™evod pole znakÅ¯ na string
         /// </summary>
-        /// <param name="cInput">vsupní pole znakù</param>
-        /// <returns>vıslednı øetìzec</returns>
+        /// <param name="cInput">vsupnÃ­ pole znakÅ¯</param>
+        /// <returns>vÃ½slednÃ½ Å™etÄ›zec</returns>
         public static string PCharToString(char[] cInput)
         {
             // TODO: ODDELIT DO ArachNGIN.Strings! (az bude)

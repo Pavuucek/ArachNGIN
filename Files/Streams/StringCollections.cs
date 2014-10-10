@@ -25,15 +25,15 @@ using System.Windows.Forms;
 namespace ArachNGIN.Files.Streams
 {
     /// <summary>
-    /// T¯Ìda pro pr·ci se StringCollection (aka TStrings)
+    /// T≈ô√≠da pro pr√°ci se StringCollection (aka TStrings)
     /// </summary>
     public static class StringCollections
     {
         /// <summary>
-        /// P¯evede StringCollection na jeden string
+        /// P≈ôevede StringCollection na jeden string
         /// </summary>
-        /// <param name="stringCollection">VstupnÌ StringCollection</param>
-        /// <returns>V˝stupnÌ string</returns>
+        /// <param name="stringCollection">Vstupn√≠ StringCollection</param>
+        /// <returns>V√Ωstupn√≠ string</returns>
         public static string StringCollectionToString(StringCollection stringCollection)
         {
             string outputString = "";
@@ -48,9 +48,9 @@ namespace ArachNGIN.Files.Streams
 
 
         /// <summary>
-        /// UloûÌ obsah StringCollection do souboru
+        /// Ulo≈æ√≠ obsah StringCollection do souboru
         /// </summary>
-        /// <param name="sFile">n·zev souboru</param>
+        /// <param name="sFile">n√°zev souboru</param>
         /// <param name="sCollection">StringCollection</param>
         public static void SaveToFile(string sFile, StringCollection sCollection)
         {
@@ -65,7 +65,7 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// UloûÌ obsah StringCollection do proudu
+        /// Ulo≈æ√≠ obsah StringCollection do proudu
         /// </summary>
         /// <param name="sOutput">proud</param>
         /// <param name="sCollection">obsah</param>
@@ -83,7 +83,7 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// UloûÌ StringCollection do souboru.
+        /// Ulo≈æ√≠ StringCollection do souboru.
         /// </summary>
         /// <param name="sFile">soubor</param>
         /// <param name="sCollection">kolekce</param>
@@ -110,33 +110,33 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// NaËte soubor (textov˝) do StringCollection
+        /// Naƒçte soubor (textov√Ω) do StringCollection
         /// </summary>
-        /// <param name="sFile">n·zev souboru</param>
-        /// <param name="sCollection">StringCollection do kterÈ se bude naËÌtat</param>
-        /// <param name="bAppend">p¯ipojit k existujÌcÌm prvk˘m v kolekci</param>
+        /// <param name="sFile">n√°zev souboru</param>
+        /// <param name="sCollection">StringCollection do kter√© se bude naƒç√≠tat</param>
+        /// <param name="bAppend">p≈ôipojit k existuj√≠c√≠m prvk≈Øm v kolekci</param>
         public static void LoadFromFile(string sFile, StringCollection sCollection, bool bAppend)
         {
             var souborInfo = new FileInfo(sFile);
             string s;
             if (!souborInfo.Exists) return;
-            // naËÌty naËÌty :-)
+            // naƒç√≠ty naƒç√≠ty :-)
             TextReader reader = souborInfo.OpenText();
             if (!bAppend) sCollection.Clear();
             while ((s = reader.ReadLine()) != null)
             {
                 sCollection.Add(s);
             }
-            // naËteno	
+            // naƒçteno	
             reader.Close();
         }
 
         /// <summary>
-        /// NaËte proud do StringCollection
+        /// Naƒçte proud do StringCollection
         /// </summary>
         /// <param name="sInput">proud</param>
-        /// <param name="sCollection">v˝stup</param>
-        /// <param name="bAppend">p¯ipojit k existujÌcÌm prvk˘m v kolekci</param>
+        /// <param name="sCollection">v√Ωstup</param>
+        /// <param name="bAppend">p≈ôipojit k existuj√≠c√≠m prvk≈Øm v kolekci</param>
         public static void LoadFromStream(Stream sInput, StringCollection sCollection, bool bAppend)
         {
             var reader = new StreamReader(sInput);
@@ -150,27 +150,27 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// NaËte proud do StringCollection
+        /// Naƒçte proud do StringCollection
         /// </summary>
         /// <param name="sInput">proud</param>
-        /// <param name="sCollection">v˝stup</param>
+        /// <param name="sCollection">v√Ωstup</param>
         public static void LoadFromStream(Stream sInput, StringCollection sCollection)
         {
             LoadFromStream(sInput, sCollection, false);
         }
 
         /// <summary>
-        /// NaËte soubor (textov˝) do StringCollection
+        /// Naƒçte soubor (textov√Ω) do StringCollection
         /// </summary>
-        /// <param name="sFile">n·zev souboru</param>
-        /// <param name="sCollection">StringCollection do kterÈ se bude naËÌtat</param>
+        /// <param name="sFile">n√°zev souboru</param>
+        /// <param name="sCollection">StringCollection do kter√© se bude naƒç√≠tat</param>
         public static void LoadFromFile(string sFile, StringCollection sCollection)
         {
             LoadFromFile(sFile, sCollection, false);
         }
 
         /// <summary>
-        /// UloûÌ ListView do souboru.
+        /// Ulo≈æ√≠ ListView do souboru.
         /// </summary>
         /// <param name="sFile">soubor</param>
         /// <param name="list">ListView</param>
