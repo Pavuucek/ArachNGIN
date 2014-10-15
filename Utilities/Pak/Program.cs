@@ -1,4 +1,22 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2006-2014 Michal Kuncl <michal.kuncl@gmail.com> http://www.pavucina.info
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
+ * is furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+ * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+using System;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
@@ -8,11 +26,28 @@ using ArachNGIN.Files.Streams;
 
 namespace Pak
 {
-    internal class Program
+
+    /// <summary>
+    /// Main class of Pak
+    /// </summary>
+    internal static class Program
     {
+
+        /// <summary>
+        /// The pak index
+        /// </summary>
         private static readonly StringCollection PakIndex = new StringCollection();
+
+
+        /// <summary>
+        /// The executable name
+        /// </summary>
         private static readonly string ExeName = Path.GetFileName(Assembly.GetExecutingAssembly().CodeBase);
 
+
+        /// <summary>
+        /// Displays the header.
+        /// </summary>
         private static void DisplayHeader()
         {
             Console.WriteLine("ArachNGIN PAK file Creator/Extractor\n(c) 2013 Michal Kuncl (michal.kuncl@gmail.com)");
@@ -20,6 +55,10 @@ namespace Pak
             Console.WriteLine();
         }
 
+
+        /// <summary>
+        /// Displays the help.
+        /// </summary>
         private static void DisplayHelp()
         {
             Console.WriteLine("Použití:");
@@ -38,6 +77,10 @@ namespace Pak
             Console.WriteLine("{0} x [název_archivu] [výstupní_cesta]", ExeName);
         }
 
+
+        /// <summary>
+        /// Prints a message when more command line arguments are expected.
+        /// </summary>
         private static void NotEnoughArgs()
         {
             Console.WriteLine("Chyba: nedostatečný počet parametrů!");
@@ -45,6 +88,11 @@ namespace Pak
             DisplayHelp();
         }
 
+
+        /// <summary>
+        /// Main function of Pak program.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
         private static void Main(string[] args)
         {
             DisplayHeader();
@@ -123,6 +171,13 @@ namespace Pak
             pak.Close();
         }
 
+
+        /// <summary>
+        /// Extracts all files.
+        /// </summary>
+        /// <param name="args">The command line arguments.</param>
+        /// <param name="pak">The pak file.</param>
+        /// <returns></returns>
         private static bool ExtractAllFiles(string[] args, QuakePakFile pak)
         {
             if (args.Length < 3)
@@ -147,6 +202,13 @@ namespace Pak
             return true;
         }
 
+
+        /// <summary>
+        /// Extracts a single file.
+        /// </summary>
+        /// <param name="args">The command line arguments.</param>
+        /// <param name="pak">The pak file.</param>
+        /// <returns></returns>
         private static bool ExtractSingleFile(string[] args, QuakePakFile pak)
         {
             if (args.Length < 4)
@@ -172,6 +234,13 @@ namespace Pak
             return true;
         }
 
+
+        /// <summary>
+        /// Adds a directory to pak file.
+        /// </summary>
+        /// <param name="args">The command line arguments.</param>
+        /// <param name="pak">The pak file.</param>
+        /// <returns></returns>
         private static bool AddDirectory(string[] args, QuakePakFile pak)
         {
             if (args.Length < 3)
@@ -201,6 +270,13 @@ namespace Pak
             return true;
         }
 
+
+        /// <summary>
+        /// Adds a single file.
+        /// </summary>
+        /// <param name="args">The command line arguments.</param>
+        /// <param name="pak">The pak file.</param>
+        /// <returns></returns>
         private static bool AddSingleFile(string[] args, QuakePakFile pak)
         {
             if (args.Length < 3)
@@ -221,6 +297,12 @@ namespace Pak
             return true;
         }
 
+
+        /// <summary>
+        /// Adds an indexed file.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <returns>The file name under which file is stored in pak.</returns>
         private static string AddIndexedFile(string file)
         {
             Guid g = Guid.NewGuid();
@@ -228,6 +310,10 @@ namespace Pak
             return g.ToString().ToLower();
         }
 
+
+        /// <summary>
+        /// Finishes the index.
+        /// </summary>
         private static void FinishIndex()
         {
             var tempIndex = new string[PakIndex.Count];
@@ -244,6 +330,10 @@ namespace Pak
             // TODO: dopsat nahrazovani souboru do quakepakfile.
         }
 
+
+        /// <summary>
+        /// Cleans the index.
+        /// </summary>
         private static void CleanIndex()
         {
             var tempIndex = new string[PakIndex.Count];
@@ -256,6 +346,13 @@ namespace Pak
                 if (split.Length > 1 && !line.ToLower().Contains("filecount") && !string.IsNullOrEmpty(line)) PakIndex.Add(line.ToLower());
             }
         }
+
+
+        /// <summary>
+        /// Replaces a file in index.
+        /// </summary>
+        /// <param name="oldFile">The old file.</param>
+        /// <param name="newFile">The new file.</param>
         private static void ReplaceInIndex(string oldFile, string newFile)
         {
             var tempIndex = new string[PakIndex.Count];
@@ -276,6 +373,11 @@ namespace Pak
             }
         }
 
+
+        /// <summary>
+        /// Loads the index.
+        /// </summary>
+        /// <param name="pak">The pak file.</param>
         private static void LoadIndex(QuakePakFile pak)
         {
             if (!pak.PakFileExists("(pak-index)")) return;
@@ -288,6 +390,12 @@ namespace Pak
             CleanIndex();
         }
 
+
+        /// <summary>
+        /// Checks if file exists in index.
+        /// </summary>
+        /// <param name="filename">The file name.</param>
+        /// <returns><c>true</c> if found</returns>
         private static bool ExistsInIndex(string filename)
         {
             var sd = new StringDictionary();
