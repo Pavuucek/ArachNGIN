@@ -23,16 +23,16 @@ using System.IO;
 namespace ArachNGIN.Files.Graphics
 {
     /// <summary>
-    /// Převaděče obrázků na bytové pole a nazpátek
+    /// Converts images from byte arrays and back
     /// </summary>
     public static class ByteArrayConverters
     {
         /// <summary>
-        /// Převede obrázek na bytové pole
+        /// Converts image to a byte array
         /// </summary>
-        /// <param name="imageIn">vstupní obrázek</param>
-        /// <param name="imageFormat">formát výstupního obrázku</param>
-        /// <returns>bytové pole</returns>
+        /// <param name="imageIn">input image</param>
+        /// <param name="imageFormat">output image format</param>
+        /// <returns>byte array</returns>
         public static byte[] ImageToByteArray(Image imageIn, ImageFormat imageFormat)
         {
             var ms = new MemoryStream();
@@ -41,10 +41,10 @@ namespace ArachNGIN.Files.Graphics
         }
 
         /// <summary>
-        /// Převede bytové pole na obrázek
+        /// Converts byte array back to image
         /// </summary>
-        /// <param name="byteArrayIn">bytové pole</param>
-        /// <returns>obrázek</returns>
+        /// <param name="byteArrayIn">byte array</param>
+        /// <returns>image</returns>
         public static Image ByteArrayToImage(byte[] byteArrayIn)
         {
             var ms = new MemoryStream(byteArrayIn);
