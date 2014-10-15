@@ -23,12 +23,12 @@ using System.IO;
 namespace ArachNGIN.Files.Graphics
 {
     /// <summary>
-    /// Converts images from byte arrays and back
+    ///     Converts images from byte arrays and back
     /// </summary>
     public static class ByteArrayConverters
     {
         /// <summary>
-        /// Converts image to a byte array
+        ///     Converts image to a byte array
         /// </summary>
         /// <param name="imageIn">input image</param>
         /// <param name="imageFormat">output image format</param>
@@ -41,14 +41,14 @@ namespace ArachNGIN.Files.Graphics
         }
 
         /// <summary>
-        /// Converts byte array back to image
+        ///     Converts byte array back to image
         /// </summary>
         /// <param name="byteArrayIn">byte array</param>
         /// <returns>image</returns>
         public static Image ByteArrayToImage(byte[] byteArrayIn)
         {
             var ms = new MemoryStream(byteArrayIn);
-            var returnImage = Image.FromStream(ms);
+            Image returnImage = Image.FromStream(ms);
             return returnImage;
         }
     }

@@ -26,27 +26,25 @@ using ArachNGIN.Files.Streams;
 
 namespace Pak
 {
-
     /// <summary>
-    /// Main class of Pak
+    ///     Main class of Pak
     /// </summary>
     internal static class Program
     {
-
         /// <summary>
-        /// The pak index
+        ///     The pak index
         /// </summary>
         private static readonly StringCollection PakIndex = new StringCollection();
 
 
         /// <summary>
-        /// The executable name
+        ///     The executable name
         /// </summary>
         private static readonly string ExeName = Path.GetFileName(Assembly.GetExecutingAssembly().CodeBase);
 
 
         /// <summary>
-        /// Displays the header.
+        ///     Displays the header.
         /// </summary>
         private static void DisplayHeader()
         {
@@ -57,7 +55,7 @@ namespace Pak
 
 
         /// <summary>
-        /// Displays the help.
+        ///     Displays the help.
         /// </summary>
         private static void DisplayHelp()
         {
@@ -79,7 +77,7 @@ namespace Pak
 
 
         /// <summary>
-        /// Prints a message when more command line arguments are expected.
+        ///     Prints a message when more command line arguments are expected.
         /// </summary>
         private static void NotEnoughArgs()
         {
@@ -90,7 +88,7 @@ namespace Pak
 
 
         /// <summary>
-        /// Main function of Pak program.
+        ///     Main function of Pak program.
         /// </summary>
         /// <param name="args">The arguments.</param>
         private static void Main(string[] args)
@@ -144,10 +142,10 @@ namespace Pak
                         return;
                     }
                     LoadIndex(pak);
-                    
+
                     if (ExistsInIndex(args[2]))
                     {
-                        var g = Guid.NewGuid();
+                        Guid g = Guid.NewGuid();
                         ReplaceInIndex(args[2], g.ToString());
                         pak.AddFile(args[2], g.ToString());
                     }
@@ -173,7 +171,7 @@ namespace Pak
 
 
         /// <summary>
-        /// Extracts all files.
+        ///     Extracts all files.
         /// </summary>
         /// <param name="args">The command line arguments.</param>
         /// <param name="pak">The pak file.</param>
@@ -204,7 +202,7 @@ namespace Pak
 
 
         /// <summary>
-        /// Extracts a single file.
+        ///     Extracts a single file.
         /// </summary>
         /// <param name="args">The command line arguments.</param>
         /// <param name="pak">The pak file.</param>
@@ -236,7 +234,7 @@ namespace Pak
 
 
         /// <summary>
-        /// Adds a directory to pak file.
+        ///     Adds a directory to pak file.
         /// </summary>
         /// <param name="args">The command line arguments.</param>
         /// <param name="pak">The pak file.</param>
@@ -272,7 +270,7 @@ namespace Pak
 
 
         /// <summary>
-        /// Adds a single file.
+        ///     Adds a single file.
         /// </summary>
         /// <param name="args">The command line arguments.</param>
         /// <param name="pak">The pak file.</param>
@@ -299,7 +297,7 @@ namespace Pak
 
 
         /// <summary>
-        /// Adds an indexed file.
+        ///     Adds an indexed file.
         /// </summary>
         /// <param name="file">The file.</param>
         /// <returns>The file name under which file is stored in pak.</returns>
@@ -312,7 +310,7 @@ namespace Pak
 
 
         /// <summary>
-        /// Finishes the index.
+        ///     Finishes the index.
         /// </summary>
         private static void FinishIndex()
         {
@@ -332,7 +330,7 @@ namespace Pak
 
 
         /// <summary>
-        /// Cleans the index.
+        ///     Cleans the index.
         /// </summary>
         private static void CleanIndex()
         {
@@ -343,13 +341,14 @@ namespace Pak
             {
                 string[] split = line.Split('=');
                 // vic jak 1 -> radka je v ini formatu, tj ok a neobsahuje 'filecount' a neni prazdny
-                if (split.Length > 1 && !line.ToLower().Contains("filecount") && !string.IsNullOrEmpty(line)) PakIndex.Add(line.ToLower());
+                if (split.Length > 1 && !line.ToLower().Contains("filecount") && !string.IsNullOrEmpty(line))
+                    PakIndex.Add(line.ToLower());
             }
         }
 
 
         /// <summary>
-        /// Replaces a file in index.
+        ///     Replaces a file in index.
         /// </summary>
         /// <param name="oldFile">The old file.</param>
         /// <param name="newFile">The new file.</param>
@@ -375,7 +374,7 @@ namespace Pak
 
 
         /// <summary>
-        /// Loads the index.
+        ///     Loads the index.
         /// </summary>
         /// <param name="pak">The pak file.</param>
         private static void LoadIndex(QuakePakFile pak)
@@ -392,7 +391,7 @@ namespace Pak
 
 
         /// <summary>
-        /// Checks if file exists in index.
+        ///     Checks if file exists in index.
         /// </summary>
         /// <param name="filename">The file name.</param>
         /// <returns><c>true</c> if found</returns>
@@ -401,7 +400,7 @@ namespace Pak
             var sd = new StringDictionary();
             foreach (string s in PakIndex)
             {
-                var split = s.Split('=');
+                string[] split = s.Split('=');
                 if (split.Length > 1) sd.Add(split[0], split[1]);
             }
             return sd.ContainsKey(filename.ToLower());

@@ -16,17 +16,18 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * 
  */
+
 using System.Drawing;
 
 namespace ArachNGIN.Files.Graphics
 {
     /// <summary>
-    /// Image resizing class
+    ///     Image resizing class
     /// </summary>
     public static class ImageResizer
     {
         /// <summary>
-        /// Resizes an image and preserves size ratios
+        ///     Resizes an image and preserves size ratios
         /// </summary>
         /// <param name="img">an image</param>
         /// <param name="maxWidth">max width</param>
@@ -39,18 +40,18 @@ namespace ArachNGIN.Files.Graphics
             double resizeWidth = srcWidth;
             double resizeHeight = srcHeight;
 
-            double aspect = resizeWidth / resizeHeight;
+            double aspect = resizeWidth/resizeHeight;
 
             if (resizeWidth > maxWidth)
             {
                 resizeWidth = maxWidth;
-                resizeHeight = resizeWidth / aspect;
+                resizeHeight = resizeWidth/aspect;
             }
             if (resizeHeight > maxHeight)
             {
-                aspect = resizeWidth / resizeHeight;
+                aspect = resizeWidth/resizeHeight;
                 resizeHeight = maxHeight;
-                resizeWidth = resizeHeight * aspect;
+                resizeWidth = resizeHeight*aspect;
             }
 
             img = new Bitmap(img, (int) resizeWidth, (int) resizeHeight);
