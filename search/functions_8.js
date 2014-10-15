@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['kumoscriptexception',['KumoScriptException',['../class_arach_n_g_i_n_1_1_kumo_script_1_1_kumo_script_exception.html#aa93818c9da0e7d99a8a7f0ea2970e6b7',1,'ArachNGIN::KumoScript::KumoScriptException']]]
+  ['multimaskfilesearcher',['MultimaskFileSearcher',['../class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_multimask_file_searcher.html#ad2d5a4c619738f5686fc223f6006de70',1,'ArachNGIN::Files::Streams::MultimaskFileSearcher']]]
 ];

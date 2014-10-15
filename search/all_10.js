@@ -1,12 +1,17 @@
 var searchData=
 [
-  ['quakepakfile',['QuakePakFile',['../class_arach_n_g_i_n_1_1_files_1_1_quake_pak_1_1_quake_pak_file.html',1,'ArachNGIN::Files::QuakePak']]],
-  ['quakepakfile',['QuakePakFile',['../class_arach_n_g_i_n_1_1_files_1_1_quake_pak_1_1_quake_pak_file.html#a056d3ca8d4e1c4290c4b10cd7794e57b',1,'ArachNGIN::Files::QuakePak::QuakePakFile']]],
-  ['quakepakfile_2ecs',['QuakePakFile.cs',['../_quake_pak_file_8cs.html',1,'']]],
-  ['quakepakfilesystem',['QuakePakFileSystem',['../class_arach_n_g_i_n_1_1_files_1_1_quake_pak_1_1_quake_pak_file_system.html',1,'ArachNGIN::Files::QuakePak']]],
-  ['quakepakfilesystem',['QuakePakFileSystem',['../class_arach_n_g_i_n_1_1_files_1_1_quake_pak_1_1_quake_pak_file_system.html#a467959d7bb0b775823654586def3448a',1,'ArachNGIN::Files::QuakePak::QuakePakFileSystem']]],
-  ['quakepakfilesystem_2ecs',['QuakePakFileSystem.cs',['../_quake_pak_file_system_8cs.html',1,'']]],
-  ['quit',['Quit',['../class_arach_n_g_i_n_1_1_net_1_1_mail_1_1_pop3_client.html#adce788ab44e25988192cb2dd32d52458',1,'ArachNGIN::Net::Mail::Pop3Client']]],
-  ['quitcommand_2ecs',['QuitCommand.cs',['../_quit_command_8cs.html',1,'']]],
-  ['quotedprintableencoding_2ecs',['QuotedPrintableEncoding.cs',['../_quoted_printable_encoding_8cs.html',1,'']]]
+  ['readme',['README',['../md__r_e_a_d_m_e.html',1,'']]],
+  ['readbool',['ReadBool',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_ini_file.html#ad0e5531cdd61df4b1dc552fc447cd754',1,'ArachNGIN.Files.Settings.IniFile.ReadBool(string section, string key)'],['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_ini_file.html#a1fc52fe1ea692a2b7659057f681229fc',1,'ArachNGIN.Files.Settings.IniFile.ReadBool(string section, string key, bool defaultValue)'],['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_ini_file.html#a1196406b314b0e57c10523fb5df6b93a',1,'ArachNGIN.Files.Settings.IniFile.ReadBool(string section, string key, bool defaultValue, string iniFileName)']]],
+  ['readcolor',['ReadColor',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_ini_file.html#a8949b352bd10220d77c731dcd4219043',1,'ArachNGIN.Files.Settings.IniFile.ReadColor(string section, string key, Color defaultValue)'],['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_ini_file.html#a32129cdc703e3eea443dd0fc87fb2be8',1,'ArachNGIN.Files.Settings.IniFile.ReadColor(string section, string key)'],['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_ini_file.html#a4159e800b11a245a55cf5d6575e1989e',1,'ArachNGIN.Files.Settings.IniFile.ReadColor(string section, string key, Color defaultValue, string iniFileName)']]],
+  ['readinteger',['ReadInteger',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_ini_file.html#a96d4a129f020bab429eeffb25b5276cb',1,'ArachNGIN.Files.Settings.IniFile.ReadInteger(string section, string key)'],['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_ini_file.html#a893beb95815869ad31eeb8d22c73c273',1,'ArachNGIN.Files.Settings.IniFile.ReadInteger(string section, string key, int defaultValue)'],['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_ini_file.html#acf7371954505392f99c53ba599b9a91b',1,'ArachNGIN.Files.Settings.IniFile.ReadInteger(string section, string key, int defaultValue, string iniFileName)']]],
+  ['readme_2emd',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]],
+  ['readsection',['ReadSection',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_ini_file.html#a83be2356cb1d4a0de98d96762ad18fc9',1,'ArachNGIN::Files::Settings::IniFile']]],
+  ['readsectiontoarray',['ReadSectionToArray',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_ini_file.html#aed6c39d4d97a09b249c34b6cab2a7d32',1,'ArachNGIN::Files::Settings::IniFile']]],
+  ['readstring',['ReadString',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_ini_file.html#ac350b32e0d9c4b9bd3eb36a97b05546e',1,'ArachNGIN.Files.Settings.IniFile.ReadString(string section, string key)'],['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_ini_file.html#af182a6a1df655e221f56d2dac21900e0',1,'ArachNGIN.Files.Settings.IniFile.ReadString(string section, string key, string defaultValue)'],['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_ini_file.html#ac8a72f136fd45fa7622b40d328fc749a',1,'ArachNGIN.Files.Settings.IniFile.ReadString(string section, string key, string defaultValue, string iniFileName)']]],
+  ['recursive',['Recursive',['../class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_multimask_file_searcher.html#a8a3bc936cd0e49995e5c7f7c1bf5c1f6',1,'ArachNGIN::Files::Streams::MultimaskFileSearcher']]],
+  ['remove',['Remove',['../class_arach_n_g_i_n_1_1_components_1_1_progress_task_list_1_1_string_collection2.html#af6b1370cd34ab8d004476c2d8f5f6310',1,'ArachNGIN::Components::ProgressTaskList::StringCollection2']]],
+  ['reset',['Reset',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_portable_settings_provider.html#a4949c97725a0d5d09411b7a17c4ad1d5',1,'ArachNGIN::Files::Settings::PortableSettingsProvider']]],
+  ['resetcrc',['ResetCrc',['../class_arach_n_g_i_n_1_1_files_1_1_c_r_c_1_1_anime_crc.html#af6836b3d307dc6549a9212b96eb9ef23',1,'ArachNGIN::Files::CRC::AnimeCrc']]],
+  ['resources_2edesigner_2ecs',['Resources.Designer.cs',['../_resources_8_designer_8cs.html',1,'']]],
+  ['revision',['Revision',['../struct_arach_n_g_i_n_1_1_files_1_1_m_p_q_1_1_s_fmpqapi_1_1_sf_mpq_version.html#aa870523de6829b5863afb3851c305b5b',1,'ArachNGIN::Files::MPQ::SFmpqapi::SfMpqVersion']]]
 ];

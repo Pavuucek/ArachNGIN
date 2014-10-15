@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['name',['Name',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_portable_settings_provider.html#a25216494b02aacc9c6f792044ee1b9e7',1,'ArachNGIN.Files.Settings.PortableSettingsProvider.Name()'],['../class_arach_n_g_i_n_1_1_kumo_script_1_1_command_prototype.html#a7b5c57a0924f5abcc5950fc63aa6716f',1,'ArachNGIN.KumoScript.CommandPrototype.Name()'],['../class_arach_n_g_i_n_1_1_kumo_script_1_1_script.html#a8746381f0152801fdad788ab0e2f25bb',1,'ArachNGIN.KumoScript.Script.Name()'],['../class_arach_n_g_i_n_1_1_kumo_script_1_1_script_block.html#aad9a238dca37249aed9952416290e021',1,'ArachNGIN.KumoScript.ScriptBlock.Name()']]],
-  ['nextstatement',['NextStatement',['../class_arach_n_g_i_n_1_1_kumo_script_1_1_script_context.html#ad3f370ca4ab13e665fcb2e7bf3ec19b7',1,'ArachNGIN::KumoScript::ScriptContext']]]
+  ['paramarray',['ParamArray',['../class_arach_n_g_i_n_1_1_components_1_1_console_1_1_misc_1_1_command_entered_event_args.html#a7918fdf5767a93ce208d991d312c99c3',1,'ArachNGIN::Components::Console::Misc::CommandEnteredEventArgs']]],
+  ['paramstring',['ParamString',['../class_arach_n_g_i_n_1_1_components_1_1_console_1_1_misc_1_1_command_entered_event_args.html#ac9a48b9c8f157611ad2754adb68f30e1',1,'ArachNGIN::Components::Console::Misc::CommandEnteredEventArgs']]],
+  ['parent',['Parent',['../class_arach_n_g_i_n_1_1_components_1_1_progress_task_list_1_1_string_collection2.html#a88076b7623895a4215c483e5850c974f',1,'ArachNGIN::Components::ProgressTaskList::StringCollection2']]],
+  ['processinternalcommands',['ProcessInternalCommands',['../class_arach_n_g_i_n_1_1_components_1_1_console_1_1_debug_console.html#a4e906971c277c66442d9fd77979cdd62',1,'ArachNGIN::Components::Console::DebugConsole']]]
 ];

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['update',['Update',['../class_arach_n_g_i_n_1_1_files_1_1_c_r_c_1_1_anime_crc.html#a6feface2fe78921eb348ef809d7636c8',1,'ArachNGIN.Files.CRC.AnimeCrc.Update(int bval)'],['../class_arach_n_g_i_n_1_1_files_1_1_c_r_c_1_1_anime_crc.html#a06ab3db89c2e0fd88e6209d9d94bb0dc',1,'ArachNGIN.Files.CRC.AnimeCrc.Update(byte[] buf)'],['../class_arach_n_g_i_n_1_1_files_1_1_c_r_c_1_1_anime_crc.html#a117426e7f3be663484bcf8634c4510c3',1,'ArachNGIN.Files.CRC.AnimeCrc.Update(byte[] b, int off, int l)']]],
-  ['upgrade',['Upgrade',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_portable_settings_provider.html#aae50a4f20d8cf24a8460aa1b3c0e908a',1,'ArachNGIN::Files::Settings::PortableSettingsProvider']]]
+  ['xmlsettings',['XmlSettings',['../class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html#a3b4a1c1eca4cc746a0778985ab191ade',1,'ArachNGIN.Files.Streams.XmlSettings.XmlSettings()'],['../class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html#ad642b37ad971f11f8f56496137d7caa7',1,'ArachNGIN.Files.Streams.XmlSettings.XmlSettings(string strFileName)']]]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['add',['Add',['../namespace_arach_n_g_i_n_1_1_kumo_script.html#a76789291d8ded561f469479043c240c7aec211f7c20af43e742bf2570c3cb84f9',1,'ArachNGIN::KumoScript']]],
-  ['authorization',['Authorization',['../namespace_arach_n_g_i_n_1_1_net_1_1_mail.html#aa64d2ceccf830e8718ca1c7aff3f98b2a9cd8a2455b1839ff98ef70c05b9b5983',1,'ArachNGIN::Net::Mail']]]
+  ['bottomleft',['BottomLeft',['../namespace_arach_n_g_i_n_1_1_components_1_1_console_1_1_misc.html#a6eb9a9e0166c8b65cfbc7c6602ea5178a98e5a1c44509157ebcaf46c515c78875',1,'ArachNGIN::Components::Console::Misc']]],
+  ['bottomright',['BottomRight',['../namespace_arach_n_g_i_n_1_1_components_1_1_console_1_1_misc.html#a6eb9a9e0166c8b65cfbc7c6602ea5178a9146bfc669fddc88db2c4d89297d0e9a',1,'ArachNGIN::Components::Console::Misc']]]
 ];
