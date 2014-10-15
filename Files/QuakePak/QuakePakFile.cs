@@ -25,30 +25,43 @@ using ArachNGIN.Files.Streams;
 namespace ArachNGIN.Files.QuakePak
 {
     /// <summary>
-    /// Třída na čtení z PAK souborů Quaka
+    ///     Class for reading Quake PAK files
     /// </summary>
     public class QuakePakFile : IDisposable
     {
-        private static readonly char[] PakId = new[] {'P', 'A', 'C', 'K'};
+        private static readonly char[] PakId = {'P', 'A', 'C', 'K'};
         private readonly BinaryReader _pakReader;
         private readonly FileStream _pakStream;
 
         /// <summary>
-        /// Seznam souborů v PAKu
+        ///     The pak file list
         /// </summary>
         public StringCollection PakFileList = new StringCollection();
 
+        /// <summary>
+        ///     The position of start of FAT
+        /// </summary>
         private int _pFatstart;
+
+        /// <summary>
+        ///     The count of files inside a PAK
+        /// </summary>
         private int _pFilecount;
+
+        /// <summary>
+        ///     The PAK File Allocation Table
+        /// </summary>
         private PakFat[] _pakFat;
 
         /// <summary>
-        /// Konstruktor - otevře pak soubor a načte z něj hlavičku.
+        ///     Initializes a new instance of the <see cref="QuakePakFile" /> class.
         /// </summary>
-        /// <param name="strFileName">jméno pak souboru</param>
-        /// <param name="bAllowWrite">povolit zápis do souboru, když je true <c>true</c> tak ano.</param>
+        /// <param name="strFileName">Name of the PAK file.</param>
+        /// <param name="bAllowWrite">if set to <c>true</c> [b allow write].</param>
         /// <exception cref="System.IO.FileNotFoundException">
-        /// nastane když se soubor nenajde
+        ///     Can''t open  + strFileName
+        ///     or
+        ///     File  + strFileName +  has unsupported format
         /// </exception>
         public QuakePakFile(string strFileName, bool bAllowWrite)
         {
@@ -78,7 +91,7 @@ namespace ArachNGIN.Files.QuakePak
         #region IDisposable Members
 
         /// <summary>
-        /// Oficiální Destruktor
+        ///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose()
         {
@@ -88,7 +101,7 @@ namespace ArachNGIN.Files.QuakePak
         #endregion
 
         /// <summary>
-        /// Neoficiální destruktor
+        ///     Closes this instance.
         /// </summary>
         public void Close()
         {
@@ -97,6 +110,10 @@ namespace ArachNGIN.Files.QuakePak
             _pakStream.Dispose();
         }
 
+        /// <summary>
+        ///     Reads the PAK file header.
+        /// </summary>
+        /// <returns>true or false</returns>
         private bool ReadHeader()
         {
             _pakStream.Position = 0;
@@ -133,15 +150,20 @@ namespace ArachNGIN.Files.QuakePak
         }
 
         /// <summary>
-        /// Zkontroluje, jestli je soubor zadaného jména v pak souboru
+        ///     Checks if a file exists in a PAK
         /// </summary>
-        /// <param name="strFileInPak">jméno hledaného souboru</param>
-        /// <returns>je/není</returns>
+        /// <param name="strFileInPak">The file in a PAK.</param>
+        /// <returns>true or false</returns>
         public bool PakFileExists(string strFileInPak)
         {
             return GetFileIndex(strFileInPak) != -1;
         }
 
+        /// <summary>
+        ///     Gets the index of a file.
+        /// </summary>
+        /// <param name="strFileInPak">The file in a PAK.</param>
+        /// <returns>-1 if not found</returns>
         private int GetFileIndex(string strFileInPak)
         {
             for (int i = 0; i < _pakFat.Length; i++)
@@ -157,10 +179,10 @@ namespace ArachNGIN.Files.QuakePak
         }
 
         /// <summary>
-        /// Rozbalí soubor z paku do proudu
+        ///     Extracts a file to a stream.
         /// </summary>
-        /// <param name="strFileInPak">jméno souboru v paku</param>
-        /// <param name="sOutput">výstupní proud</param>
+        /// <param name="strFileInPak">The file in pak.</param>
+        /// <param name="sOutput">The stream to output.</param>
         public void ExtractStream(string strFileInPak, Stream sOutput)
         {
             int fIndex = GetFileIndex(strFileInPak);
@@ -171,32 +193,32 @@ namespace ArachNGIN.Files.QuakePak
         }
 
         /// <summary>
-        /// Rozbalí soubor z paku na disk
+        ///     Extracts the file to disk.
         /// </summary>
-        /// <param name="strFileInPak">jméno souboru v paku</param>
-        /// <param name="strOutputFile">cesta k výstupnímu souboru</param>
+        /// <param name="strFileInPak">The file in a pak.</param>
+        /// <param name="strOutputFile">The output file.</param>
         public void ExtractFile(string strFileInPak, string strOutputFile)
         {
             Stream fOutput = new FileStream(strOutputFile, FileMode.OpenOrCreate, FileAccess.ReadWrite,
-                                            FileShare.ReadWrite);
+                FileShare.ReadWrite);
             ExtractStream(strFileInPak, fOutput);
             fOutput.Close();
         }
 
         /// <summary>
-        /// Vytvoří nový prázdný pak soubor
+        ///     Creates a new PAK file.
         /// </summary>
-        /// <param name="strFileName">jméno souboru.</param>
-        /// <returns>jestli se zadaří tak true, jinak false</returns>
+        /// <param name="strFileName">Name of the file.</param>
+        /// <returns>true or false</returns>
         public static bool CreateNewPak(string strFileName)
         {
             // TODO: taky by to mohlo vracet true podle úspěšnosti :-)
-            var result = false;
+            bool result = false;
             var fs = new FileStream(strFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
             fs.Position = 0;
             var bw = new BinaryWriter(fs, Encoding.GetEncoding("Windows-1250"));
             bw.Write(PakId);
-            var pFatstart = PakId.Length;
+            int pFatstart = PakId.Length;
             pFatstart += sizeof (Int32); // offset
             pFatstart += sizeof (Int32); // length
             const Int32 pFilecount = 0;
@@ -207,6 +229,11 @@ namespace ArachNGIN.Files.QuakePak
             return result;
         }
 
+        /// <summary>
+        ///     Prepares the file name to write.
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        /// <returns></returns>
         private static char[] PrepFileNameWrite(string filename)
         {
             var result = new char[56];
@@ -224,12 +251,15 @@ namespace ArachNGIN.Files.QuakePak
             return result;
         }
 
+        /// <summary>
+        ///     Writes the FAT.
+        /// </summary>
         private void WriteFat()
         {
             // naseekovat startovní pozici fatky
             _pakStream.Seek(_pFatstart, SeekOrigin.Begin);
             var bw = new BinaryWriter(_pakStream, Encoding.GetEncoding("Windows-1250"));
-            foreach (var item in _pakFat)
+            foreach (PakFat item in _pakFat)
             {
                 // nazev souboru
                 bw.Write(PrepFileNameWrite(item.FileName));
@@ -243,12 +273,12 @@ namespace ArachNGIN.Files.QuakePak
         }
 
         /// <summary>
-        /// Přidá proud do PAKu
+        ///     Adds the stream to a PAK.
         /// </summary>
-        /// <param name="stream">proud</param>
-        /// <param name="pakFileName">jméno souboru v PAKu</param>
-        /// <param name="writeFat">má se zapsat fatka? Pokud to je poslední přidaný soubor, tak určitě JO!</param>
-        /// <returns>podle úspěšnosti buď true nebo false</returns>
+        /// <param name="stream">The stream.</param>
+        /// <param name="pakFileName">Name of the file in a pak.</param>
+        /// <param name="writeFat">if set to <c>true</c> [write fat].</param>
+        /// <returns></returns>
         public bool AddStream(Stream stream, string pakFileName, bool writeFat /*=true*/)
         {
             // soubor uz existuje --> dal se nebavime!
@@ -282,12 +312,12 @@ namespace ArachNGIN.Files.QuakePak
         }
 
         /// <summary>
-        /// Přidá soubor do paku
+        ///     Adds the file to a PAK.
         /// </summary>
-        /// <param name="fileName">název souboru (např. c:\windows\win.ini)</param>
-        /// <param name="pakFileName">název souboru v paku (např ini/win.ini)</param>
-        /// <param name="writeFat">má se zapsat fatka? Pokud to je poslední přidaný soubor, tak určitě JO!</param>
-        /// <returns>podle úspěšnosti buď true nebo false</returns>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="pakFileName">Name of the file. in a pak</param>
+        /// <param name="writeFat">if set to <c>true</c> [write fat].</param>
+        /// <returns></returns>
         public bool AddFile(string fileName, string pakFileName, bool writeFat = true)
         {
             if (!File.Exists(fileName)) return false;
@@ -307,11 +337,11 @@ namespace ArachNGIN.Files.QuakePak
         }
 
         /// <summary>
-        /// Přidá soubor do paku
+        ///     Adds the file to a PAK.
         /// </summary>
-        /// <param name="fileName">název souboru (např. c:\windows\win.ini)</param>
-        /// <param name="pakFileName">název souboru v paku (např ini/win.ini)</param>
-        /// <returns>podle úspěšnosti buď true nebo false</returns>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="pakFileName">Name of the file in a PAK.</param>
+        /// <returns></returns>
         public bool AddFile(string fileName, string pakFileName)
         {
             return AddFile(fileName, pakFileName, true);
@@ -319,10 +349,24 @@ namespace ArachNGIN.Files.QuakePak
 
         #region Nested type: PakFat
 
+        /// <summary>
+        ///     PAK File Allocation Table
+        /// </summary>
         private struct PakFat
         {
+            /// <summary>
+            ///     The file length
+            /// </summary>
             public int FileLength;
+
+            /// <summary>
+            ///     The file name
+            /// </summary>
             public string FileName;
+
+            /// <summary>
+            ///     The starting offset of a file
+            /// </summary>
             public int FileStart;
         }
 
