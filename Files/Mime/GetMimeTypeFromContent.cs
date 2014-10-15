@@ -4,31 +4,31 @@ using System.Linq;
 namespace ArachNGIN.Files.Mime
 {
     /// <summary>
-    /// Class to find a file mime type by content
+    ///     Class to find a file mime type by content
     /// </summary>
     public class GetMimeTypeFromContent
     {
-        private static readonly byte[] Bmp = { 66, 77 };
-        private static readonly byte[] Doc = { 208, 207, 17, 224, 161, 177, 26, 225 };
-        private static readonly byte[] ExeDll = { 77, 90 };
-        private static readonly byte[] Gif = { 71, 73, 70, 56 };
-        private static readonly byte[] Ico = { 0, 0, 1, 0 };
-        private static readonly byte[] Jpeg = { 255, 216, 255 };
-        private static readonly byte[] Mp3 = { 255, 251, 48 };
-        private static readonly byte[] Ogg = { 79, 103, 103, 83, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0 };
-        private static readonly byte[] Pdf = { 37, 80, 68, 70, 45, 49, 46 };
-        private static readonly byte[] Png = { 137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82 };
-        private static readonly byte[] Rar = { 82, 97, 114, 33, 26, 7, 0 };
-        private static readonly byte[] Swf = { 70, 87, 83 };
-        private static readonly byte[] Tiff = { 73, 73, 42, 0 };
-        private static readonly byte[] Torrent = { 100, 56, 58, 97, 110, 110, 111, 117, 110, 99, 101 };
-        private static readonly byte[] Ttf = { 0, 1, 0, 0, 0 };
-        private static readonly byte[] WavAvi = { 82, 73, 70, 70 };
-        private static readonly byte[] WmvWma = { 48, 38, 178, 117, 142, 102, 207, 17, 166, 217, 0, 170, 0, 98, 206, 108 };
-        private static readonly byte[] ZipDocx = { 80, 75, 3, 4 };
+        private static readonly byte[] Bmp = {66, 77};
+        private static readonly byte[] Doc = {208, 207, 17, 224, 161, 177, 26, 225};
+        private static readonly byte[] ExeDll = {77, 90};
+        private static readonly byte[] Gif = {71, 73, 70, 56};
+        private static readonly byte[] Ico = {0, 0, 1, 0};
+        private static readonly byte[] Jpeg = {255, 216, 255};
+        private static readonly byte[] Mp3 = {255, 251, 48};
+        private static readonly byte[] Ogg = {79, 103, 103, 83, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0};
+        private static readonly byte[] Pdf = {37, 80, 68, 70, 45, 49, 46};
+        private static readonly byte[] Png = {137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82};
+        private static readonly byte[] Rar = {82, 97, 114, 33, 26, 7, 0};
+        private static readonly byte[] Swf = {70, 87, 83};
+        private static readonly byte[] Tiff = {73, 73, 42, 0};
+        private static readonly byte[] Torrent = {100, 56, 58, 97, 110, 110, 111, 117, 110, 99, 101};
+        private static readonly byte[] Ttf = {0, 1, 0, 0, 0};
+        private static readonly byte[] WavAvi = {82, 73, 70, 70};
+        private static readonly byte[] WmvWma = {48, 38, 178, 117, 142, 102, 207, 17, 166, 217, 0, 170, 0, 98, 206, 108};
+        private static readonly byte[] ZipDocx = {80, 75, 3, 4};
 
         /// <summary>
-        /// Gets the mime type by contents
+        ///     Gets the mime type by contents
         /// </summary>
         /// <param name="fileName">Name of the file as string</param>
         /// <returns>mime type as string</returns>
@@ -37,14 +37,14 @@ namespace ArachNGIN.Files.Mime
             byte[] bytes = File.ReadAllBytes(fileName);
             return GetMimeType(bytes);
         }
+
         /// <summary>
-        /// Gets the mime type by contents
+        ///     Gets the mime type by contents
         /// </summary>
         /// <param name="file">The file as byte array</param>
         /// <returns>mime type as string</returns>
-        public static string GetMimeType(byte[] file/*, string fileName*/)
+        public static string GetMimeType(byte[] file /*, string fileName*/)
         {
-
             string mime = "application/octet-stream"; //DEFAULT UNKNOWN MIME TYPE
 
             /*//Ensure that the filename isn't empty or null
@@ -138,7 +138,7 @@ namespace ArachNGIN.Files.Mime
             }
             else if (file.Take(16).SequenceEqual(WmvWma))
             {
-               // mime = extension == ".WMA" ? "audio/x-ms-wma" : "video/x-ms-wmv";
+                // mime = extension == ".WMA" ? "audio/x-ms-wma" : "video/x-ms-wmv";
                 mime = "video/x-ms-wmv";
             }
             else if (file.Take(4).SequenceEqual(ZipDocx))
