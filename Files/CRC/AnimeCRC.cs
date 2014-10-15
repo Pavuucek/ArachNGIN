@@ -1,15 +1,22 @@
-﻿using System.IO;
+﻿/* file downloaded from internet. Author unknown. License unknown. 
+ */
+
+using System.IO;
 using ArachNGIN.Files.Streams;
 
 namespace ArachNGIN.Files.CRC
 {
     /// <summary>
-    /// 
+    /// Class for generating file CRC like those found on anime releases (probably a MD5 or something)
     /// </summary>
     public class AnimeCrc
     {
         #region crc tabule.
 
+
+        /// <summary>
+        /// The CRC table
+        /// </summary>
         private static readonly uint[] CrcTable = new uint[]
                                                       {
                                                           0x00000000, 0x77073096, 0xee0e612c, 0x990951ba, 0x076dc419,
@@ -68,11 +75,19 @@ namespace ArachNGIN.Files.CRC
 
         #endregion
 
+
+        /// <summary>
+        /// The CRC seed
+        /// </summary>
         private const uint CrcSeed = 0xFFFFFFFF;
+
+        /// <summary>
+        /// The _CRC sof far
+        /// </summary>
         private uint _crcSofFar;
 
         /// <summary>
-        /// 
+        /// Calculated value so far
         /// </summary>
         public uint Value
         {
@@ -81,10 +96,11 @@ namespace ArachNGIN.Files.CRC
         }
 
         #region konstruktory
+
         /// <summary>
-        /// 
+        /// Calculates the specified value.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The value.</param>
         /// <returns></returns>
         public static byte[] Calculate(byte[] value)
         {
@@ -104,9 +120,9 @@ namespace ArachNGIN.Files.CRC
         #endregion
 
         /// <summary>
-        /// 
+        /// Gets the CRC from stream in UinT format.
         /// </summary>
-        /// <param name="stream"></param>
+        /// <param name="stream">The stream.</param>
         /// <returns></returns>
         public static uint GetCrcFromStreamUint(Stream stream)
         {
@@ -126,10 +142,11 @@ namespace ArachNGIN.Files.CRC
             return acrc.Value;
         }
 
+
         /// <summary>
-        /// 
+        /// Gets the CRC from stream in string format.
         /// </summary>
-        /// <param name="stream"></param>
+        /// <param name="stream">The stream.</param>
         /// <returns></returns>
         public static string GetCrcFromStream(Stream stream)
         {
@@ -137,10 +154,11 @@ namespace ArachNGIN.Files.CRC
             return StringUtils.UInt32ToByteString(r);
         }
 
+
         /// <summary>
-        /// 
+        /// Gets the CRC from file in uint format.
         /// </summary>
-        /// <param name="filename"></param>
+        /// <param name="filename">The filename.</param>
         /// <returns></returns>
         public static uint GetCrcFromFileUint(string filename)
         {
@@ -161,10 +179,11 @@ namespace ArachNGIN.Files.CRC
             return acrc.Value;
         }
 
+
         /// <summary>
-        /// 
+        /// Gets the CRC from file in string format.
         /// </summary>
-        /// <param name="filename"></param>
+        /// <param name="filename">The filename.</param>
         /// <returns></returns>
         public static string GetCrcFromFile(string filename)
         {
@@ -173,7 +192,7 @@ namespace ArachNGIN.Files.CRC
         }
 
         /// <summary>
-        /// 
+        /// Resets the CRC.
         /// </summary>
         public void ResetCrc()
         {
@@ -181,9 +200,9 @@ namespace ArachNGIN.Files.CRC
         }
 
         /// <summary>
-        /// 
+        /// Updates the specified bval.
         /// </summary>
-        /// <param name="bval"></param>
+        /// <param name="bval">The bval.</param>
         public void Update(int bval)
         {
             _crcSofFar ^= CrcSeed;
@@ -192,20 +211,20 @@ namespace ArachNGIN.Files.CRC
         }
 
         /// <summary>
-        /// 
+        /// Updates the specified buffer.
         /// </summary>
-        /// <param name="buf"></param>
+        /// <param name="buf">The buffer.</param>
         public void Update(byte[] buf)
         {
             Update(buf, 0, buf.Length);
         }
 
         /// <summary>
-        /// 
+        /// Updates the specified b.
         /// </summary>
-        /// <param name="b"></param>
-        /// <param name="off"></param>
-        /// <param name="l"></param>
+        /// <param name="b">The b.</param>
+        /// <param name="off">The off.</param>
+        /// <param name="l">The l.</param>
         public void Update(byte[] b, int off, int l)
         {
             if ((b == null) && (off < 0 || l < 0 || off + l > b.Length)) return;
