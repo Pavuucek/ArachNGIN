@@ -22,20 +22,17 @@ using System.IO;
 namespace ArachNGIN.Files.Streams
 {
     /// <summary>
-    /// Třída pro práci s proudy plná statických procedur
+    ///     Class for working with streams. Full of static functions
     /// </summary>
-    public class StreamHandling
+    public static class StreamHandling
     {
         /// <summary>
-        /// Zkopíruje jeden proud do druhého
+        ///     Copies one stream to another.
         /// </summary>
-        /// <remarks>
-        /// (Aneb Pavůčci rádi Delphi a to co jim z nich chybí si prostě přeložej ;-)
-        /// </remarks>
-        /// <param name="sSource">zdrojový proud</param>
-        /// <param name="sDest">cílový proud</param>
-        /// <param name="iCount">počet bajtů ke zkopírování. když je 0 tak se zkopíruje celý proud</param>
-        /// <returns>počet zkopírovaných bajtů</returns>
+        /// <param name="sSource">The source stream.</param>
+        /// <param name="sDest">The destination stream.</param>
+        /// <param name="iCount">Bytes to copy.</param>
+        /// <returns></returns>
         public static long StreamCopy(Stream sSource, Stream sDest, long iCount)
         {
             const int maxBufSize = 0xF000;
@@ -75,13 +72,13 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Zkopíruje jeden stream do druhého.
+        ///     Copies one stream to another.
         /// </summary>
-        /// <param name="sSource">zdrojový stream</param>
-        /// <param name="sDest">cílový stream</param>
-        /// <param name="iCount">počet bajtů ke zkopírování</param>
-        /// <param name="iStartposition">startovní pozice</param>
-        /// <returns>počet zkopírovaných bajtů</returns>
+        /// <param name="sSource">The source stream.</param>
+        /// <param name="sDest">The destination stream.</param>
+        /// <param name="iCount">Bytes to copy.</param>
+        /// <param name="iStartposition">Starting position.</param>
+        /// <returns></returns>
         public static long StreamCopy(Stream sSource, Stream sDest, long iCount, long iStartposition)
         {
             const int maxBufSize = 0xF000;
@@ -121,15 +118,15 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Copies a stream.
+        ///     Copies a stream.
         /// </summary>
         /// <param name="source">The stream containing the source data.</param>
         /// <param name="target">The stream that will receive the source data.</param>
         /// <remarks>
-        /// This function copies until no more can be read from the stream
-        ///  and does not close the stream when done.<br/>
-        /// Read and write are performed simultaneously to improve throughput.<br/>
-        /// If no data can be read for 60 seconds, the copy will time-out.
+        ///     This function copies until no more can be read from the stream
+        ///     and does not close the stream when done.<br />
+        ///     Read and write are performed simultaneously to improve throughput.<br />
+        ///     If no data can be read for 60 seconds, the copy will time-out.
         /// </remarks>
         public static void StreamCopyAsync(Stream source, Stream target)
         {
@@ -174,10 +171,10 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Funkce pro převod pole znaků na string
+        ///     Converts a PChar (null terminated string) to normal string
         /// </summary>
-        /// <param name="cInput">vsupní pole znaků</param>
-        /// <returns>výsledný řetězec</returns>
+        /// <param name="cInput">The char array input.</param>
+        /// <returns></returns>
         public static string PCharToString(char[] cInput)
         {
             // TODO: ODDELIT DO ArachNGIN.Strings! (az bude)
