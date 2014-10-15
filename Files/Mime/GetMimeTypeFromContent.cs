@@ -4,7 +4,7 @@ using System.Linq;
 namespace ArachNGIN.Files.Mime
 {
     /// <summary>
-    /// Zjišťovač mime typu podle obsahu
+    /// Class to find a file mime type by content
     /// </summary>
     public class GetMimeTypeFromContent
     {
@@ -28,21 +28,20 @@ namespace ArachNGIN.Files.Mime
         private static readonly byte[] ZipDocx = { 80, 75, 3, 4 };
 
         /// <summary>
-        /// Vrátí Mime typ podle obsahu
+        /// Gets the mime type by contents
         /// </summary>
-        /// <param name="fileName">název souboru</param>
-        /// <returns>mime typ</returns>
+        /// <param name="fileName">Name of the file as string</param>
+        /// <returns>mime type as string</returns>
         public static string GetMimeType(string fileName)
         {
             byte[] bytes = File.ReadAllBytes(fileName);
             return GetMimeType(bytes);
         }
-
         /// <summary>
-        /// Vrátí mime typ podle obsahu
+        /// Gets the mime type by contents
         /// </summary>
-        /// <param name="file">bytové pole</param>
-        /// <returns>mime typ</returns>
+        /// <param name="file">The file as byte array</param>
+        /// <returns>mime type as string</returns>
         public static string GetMimeType(byte[] file/*, string fileName*/)
         {
 
