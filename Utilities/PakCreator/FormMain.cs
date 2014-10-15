@@ -9,8 +9,16 @@ using PakCreator.Properties;
 
 namespace PakCreator
 {
+
+    /// <summary>
+    /// Main Form class
+    /// </summary>
     public partial class FormMain : Form
     {
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormMain"/> class.
+        /// </summary>
         public FormMain()
         {
             InitializeComponent();
@@ -122,7 +130,7 @@ namespace PakCreator
             Application.DoEvents();
         }
 
-        protected void DisableControls(Control parent, bool enabled)
+        private void DisableControls(Control parent, bool enabled)
         {
             foreach (Control c in parent.Controls)
             {
