@@ -1,9 +1,5 @@
 @echo off
-md ..\ArachNGIN_gh-pages >nul
+call git-new-workdir.cmd . ..\ArachNGIN_gh-pages gh-pages
 pushd ..\ArachNGIN_gh-pages
-git clone https://github.com/Pavuucek/ArachNGIN.git .
-git checkout origin/gh-pages -b gh-pages
-git branch -d master
-git branch
+git branch --set-upstream-to=remotes/origin/gh-pages
 popd
-pause
