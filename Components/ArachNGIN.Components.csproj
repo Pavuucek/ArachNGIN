@@ -92,6 +92,9 @@
     <EmbeddedResource Include="ColorComboBox\ColorComboBox.resx">
       <DependentUpon>ColorComboBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormHeader\ColorSlideFormHeader.resx">
+      <DependentUpon>ColorSlideFormHeader.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormHeader\FormHeader.resx">
       <DependentUpon>FormHeader.cs</DependentUpon>
     </EmbeddedResource>
