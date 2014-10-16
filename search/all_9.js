@@ -1,6 +1,27 @@
 var searchData=
 [
-  ['jsonsettings1_2ecs',['JSONSettings1.cs',['../_j_s_o_n_settings1_8cs.html',1,'']]],
-  ['jsonsettings1_3c_20t_20_3e',['JsonSettings1&lt; T &gt;',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_json_settings1_3_01_t_01_4.html',1,'ArachNGIN::Files::Settings']]],
-  ['jsonsettings2_2ecs',['JSONSettings2.cs',['../_j_s_o_n_settings2_8cs.html',1,'']]]
+  ['ico',['Ico',['../class_arach_n_g_i_n_1_1_files_1_1_mime_1_1_get_mime_type_from_content.html#a588d247b6fa6207ffc3b9bec0ff80b95',1,'ArachNGIN::Files::Mime::GetMimeTypeFromContent']]],
+  ['icon',['Icon',['../class_arach_n_g_i_n_1_1_components_1_1_form_header_1_1_form_header.html#a8e03d9ecc3a5facdfa142b67b3cb86d4',1,'ArachNGIN::Components::FormHeader::FormHeader']]],
+  ['image',['Image',['../class_arach_n_g_i_n_1_1_components_1_1_form_header_1_1_form_header.html#afe114cd2a9ad5c8430a39a6df8854100',1,'ArachNGIN::Components::FormHeader::FormHeader']]],
+  ['imageformheader',['ImageFormHeader',['../class_arach_n_g_i_n_1_1_components_1_1_form_header_1_1_image_form_header.html',1,'ArachNGIN::Components::FormHeader']]],
+  ['imageformheader_2ecs',['ImageFormHeader.cs',['../_image_form_header_8cs.html',1,'']]],
+  ['imageresizer',['ImageResizer',['../class_arach_n_g_i_n_1_1_files_1_1_graphics_1_1_image_resizer.html',1,'ArachNGIN::Files::Graphics']]],
+  ['imageresizer_2ecs',['ImageResizer.cs',['../_image_resizer_8cs.html',1,'']]],
+  ['imagetobytearray',['ImageToByteArray',['../class_arach_n_g_i_n_1_1_files_1_1_graphics_1_1_byte_array_converters.html#a5aa7cad895761f79c62550ed3f3fc3ed',1,'ArachNGIN::Files::Graphics::ByteArrayConverters']]],
+  ['indexof',['IndexOf',['../class_arach_n_g_i_n_1_1_components_1_1_progress_task_list_1_1_string_collection2.html#a7257592b5794969c318bb0f415d5ca2a',1,'ArachNGIN::Components::ProgressTaskList::StringCollection2']]],
+  ['inifile',['IniFile',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_ini_file.html#acda5c04b2ca3fd98ad917d13686d2e8a',1,'ArachNGIN::Files::Settings::IniFile']]],
+  ['inifile',['IniFile',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_ini_file.html',1,'ArachNGIN::Files::Settings']]],
+  ['inifile_2ecs',['INIFile.cs',['../_i_n_i_file_8cs.html',1,'']]],
+  ['initialize',['Initialize',['../struct_arach_n_g_i_n_1_1_files_1_1_m_p_q_1_1_s_fmpqapi_1_1_file_list_entry.html#afd3da2c6536a36db6ab1b08a826c6625',1,'ArachNGIN.Files.MPQ.SFmpqapi.FileListEntry.Initialize()'],['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_portable_settings_provider.html#a97b383f998631cffbe41870744d28e0f',1,'ArachNGIN.Files.Settings.PortableSettingsProvider.Initialize()']]],
+  ['initializecomponent',['InitializeComponent',['../class_arach_n_g_i_n_1_1_components_1_1_console_1_1_forms_1_1_console_form.html#a2258b91f40edcd884492ae820a7f69fb',1,'ArachNGIN.Components.Console.Forms.ConsoleForm.InitializeComponent()'],['../class_arach_n_g_i_n_1_1_components_1_1_form_header_1_1_color_slide_form_header.html#a75701ca4b53b8a685f20fccfc9b50753',1,'ArachNGIN.Components.FormHeader.ColorSlideFormHeader.InitializeComponent()'],['../class_arach_n_g_i_n_1_1_components_1_1_form_header_1_1_image_form_header.html#a0c5ea1d8cf2a63c2584270f1448c99fe',1,'ArachNGIN.Components.FormHeader.ImageFormHeader.InitializeComponent()'],['../class_arach_n_g_i_n_1_1_components_1_1_progress_task_list_1_1_progress_task_list.html#a17f7defc5c02712200288b12e1eb2dd8',1,'ArachNGIN.Components.ProgressTaskList.ProgressTaskList.InitializeComponent()'],['../class_pak_creator_1_1_form_main.html#ae13a378577dfc5aeb87e828acde2e3b3',1,'PakCreator.FormMain.InitializeComponent()']]],
+  ['initinternalcommands',['InitInternalCommands',['../class_arach_n_g_i_n_1_1_components_1_1_console_1_1_debug_console.html#ac5f595c6aba10a40b4916138c2232e42',1,'ArachNGIN::Components::Console::DebugConsole']]],
+  ['inititems',['InitItems',['../class_arach_n_g_i_n_1_1_components_1_1_color_combo_box_1_1_color_combo_box.html#a0742deb5d515732df35feea602dfcea1',1,'ArachNGIN::Components::ColorComboBox::ColorComboBox']]],
+  ['initlabels',['InitLabels',['../class_arach_n_g_i_n_1_1_components_1_1_progress_task_list_1_1_progress_task_list.html#a8a17f07059728c3fb7f965624a317a17',1,'ArachNGIN::Components::ProgressTaskList::ProgressTaskList']]],
+  ['insert',['Insert',['../class_arach_n_g_i_n_1_1_components_1_1_progress_task_list_1_1_string_collection2.html#aff5b72f8f61c16be17a98352bc0e1244',1,'ArachNGIN::Components::ProgressTaskList::StringCollection2']]],
+  ['insertnewannounce',['InsertNewAnnounce',['../class_arach_n_g_i_n_1_1_files_1_1_torrents_1_1_torrent_parser.html#a7d1d691b503725a39f31c58f657905ce',1,'ArachNGIN::Files::Torrents::TorrentParser']]],
+  ['insertnewfile',['InsertNewFile',['../class_arach_n_g_i_n_1_1_files_1_1_torrents_1_1_torrent_parser.html#a86e6022b38c2d67aa6d895dbc2959e05',1,'ArachNGIN::Files::Torrents::TorrentParser']]],
+  ['internalclosesplash',['InternalCloseSplash',['../class_arach_n_g_i_n_1_1_components_1_1_splash_form_1_1_splash_form.html#a452f433df026bcef6dabebaba1c405c5',1,'ArachNGIN::Components::SplashForm::SplashForm']]],
+  ['invalidhandlevalue',['InvalidHandleValue',['../class_arach_n_g_i_n_1_1_files_1_1_m_p_q_1_1_s_fmpqapi.html#a035ed047a5b42499c65393ed07e8a8bd',1,'ArachNGIN::Files::MPQ::SFmpqapi']]],
+  ['is64bit',['Is64Bit',['../class_git_versioner_1_1_program.html#a537aa6c1e4ae33b12026652b6bdb5d08',1,'GitVersioner::Program']]],
+  ['isglobal',['IsGlobal',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_portable_settings_provider.html#aac6506388fe21778d3c536915e9f3180',1,'ArachNGIN::Files::Settings::PortableSettingsProvider']]]
 ];

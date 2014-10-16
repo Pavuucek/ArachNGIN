@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['message',['Message',['../class_arach_n_g_i_n_1_1_components_1_1_form_header_1_1_form_header.html#ae7fde85ca7333fdcb04681bd97c4fed1',1,'ArachNGIN::Components::FormHeader::FormHeader']]],
-  ['messagefontstyle',['MessageFontStyle',['../class_arach_n_g_i_n_1_1_components_1_1_form_header_1_1_form_header.html#a26814e9b6ef4bec62e8a25c7956eff2a',1,'ArachNGIN::Components::FormHeader::FormHeader']]]
+  ['localsettingsnode',['LocalSettingsNode',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_portable_settings_provider.html#a6f340da9c6eadb236998709b131c224e',1,'ArachNGIN::Files::Settings::PortableSettingsProvider']]],
+  ['location',['Location',['../class_arach_n_g_i_n_1_1_components_1_1_console_1_1_debug_console.html#acc092213f79def6a43b258dab5f7d8e9',1,'ArachNGIN::Components::Console::DebugConsole']]]
 ];

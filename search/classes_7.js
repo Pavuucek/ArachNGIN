@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['multimaskfilesearcher',['MultimaskFileSearcher',['../class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_multimask_file_searcher.html',1,'ArachNGIN::Files::Streams']]]
+  ['jsonsettings1_3c_20t_20_3e',['JsonSettings1&lt; T &gt;',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_json_settings1_3_01_t_01_4.html',1,'ArachNGIN::Files::Settings']]],
+  ['jsonsettings2',['JsonSettings2',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_json_settings2.html',1,'ArachNGIN::Files::Settings']]]
 ];

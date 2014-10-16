@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['jsonsettings1_3c_20t_20_3e',['JsonSettings1&lt; T &gt;',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_json_settings1_3_01_t_01_4.html',1,'ArachNGIN::Files::Settings']]]
+  ['imageformheader',['ImageFormHeader',['../class_arach_n_g_i_n_1_1_components_1_1_form_header_1_1_image_form_header.html',1,'ArachNGIN::Components::FormHeader']]],
+  ['imageresizer',['ImageResizer',['../class_arach_n_g_i_n_1_1_files_1_1_graphics_1_1_image_resizer.html',1,'ArachNGIN::Files::Graphics']]],
+  ['inifile',['IniFile',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_ini_file.html',1,'ArachNGIN::Files::Settings']]]
 ];

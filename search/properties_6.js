@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['height',['Height',['../class_arach_n_g_i_n_1_1_components_1_1_console_1_1_debug_console.html#a25a534753c84bff9f072c1a1413be282',1,'ArachNGIN::Components::Console::DebugConsole']]]
+  ['globalsettingsnode',['GlobalSettingsNode',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_portable_settings_provider.html#a643bb09fc54600d47201f94b86cabc95',1,'ArachNGIN::Files::Settings::PortableSettingsProvider']]]
 ];

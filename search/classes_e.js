@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['xmlsettings',['XmlSettings',['../class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html',1,'ArachNGIN::Files::Streams']]]
+  ['versioner',['Versioner',['../class_p_i_e_b_a_l_d_1_1_versioner_1_1_versioner.html',1,'PIEBALD::Versioner']]]
 ];
