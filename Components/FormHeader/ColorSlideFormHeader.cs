@@ -4,21 +4,39 @@ using System.Drawing.Imaging;
 
 namespace ArachNGIN.Components.FormHeader
 {
+    /// <summary>
+    ///     Class for drawing Form Header as Color slide
+    /// </summary>
     public class ColorSlideFormHeader : FormHeader
     {
+        /// <summary>
+        ///     The default color1
+        /// </summary>
         public static readonly Color DefaultColor1 = Color.White;
+
+        /// <summary>
+        ///     The default color2
+        /// </summary>
         public static readonly Color DefaultColor2 = Color.White;
 
         private Color _color1 = DefaultColor1;
         private Color _color2 = DefaultColor2;
         private Image _image;
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ColorSlideFormHeader" /> class.
+        /// </summary>
         public ColorSlideFormHeader()
         {
             CreateBackgroundPicture();
         }
 
-
+        /// <summary>
+        ///     Gets or sets the color1.
+        /// </summary>
+        /// <value>
+        ///     The color1.
+        /// </value>
         public Color Color1
         {
             get { return _color1; }
@@ -30,7 +48,12 @@ namespace ArachNGIN.Components.FormHeader
             }
         }
 
-
+        /// <summary>
+        ///     Gets or sets the color2.
+        /// </summary>
+        /// <value>
+        ///     The color2.
+        /// </value>
         public Color Color2
         {
             get { return _color2; }
@@ -42,6 +65,9 @@ namespace ArachNGIN.Components.FormHeader
             }
         }
 
+        /// <summary>
+        ///     Creates the background picture.
+        /// </summary>
         protected virtual void CreateBackgroundPicture()
         {
             try
@@ -76,18 +102,39 @@ namespace ArachNGIN.Components.FormHeader
             }
         }
 
-
+        /// <summary>
+        ///     Draws the background.
+        /// </summary>
+        /// <param name="g">The g.</param>
         protected override void DrawBackground(Graphics g)
         {
             g.DrawImage(_image, 0, 0);
         }
 
-
+        /// <summary>
+        ///     Raises the <see cref="E:System.Windows.Forms.Control.SizeChanged" /> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
         protected override void OnSizeChanged(EventArgs e)
         {
             CreateBackgroundPicture();
             base.OnSizeChanged(e);
             Invalidate();
+        }
+
+        /// <summary>
+        ///     Initializes the component.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // ColorSlideFormHeader
+            // 
+            this.Name = "ColorSlideFormHeader";
+            this.Size = new System.Drawing.Size(1502, 70);
+            this.ResumeLayout(false);
+
         }
     }
 }

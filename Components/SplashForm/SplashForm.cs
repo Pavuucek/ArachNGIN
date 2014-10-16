@@ -15,32 +15,35 @@
  * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 #region Usingy
 
 using System;
-using System.Drawing;
-using System.Windows.Forms;
 using System.Diagnostics;
+using System.Drawing;
 using System.Threading;
+using System.Windows.Forms;
 
 #endregion
 
 namespace ArachNGIN.Components.SplashForm
 {
     /// <summary>
-    /// třída "splash" okna
+    ///     Splash window class
     /// </summary>
     public class SplashForm : Form
-    {	
-        #region Constructor
+    {
+        #region Constructor        
+
         /// <summary>
-        /// Konstruktor třídy
+        ///     Initializes a new instance of the <see cref="SplashForm" /> class.
         /// </summary>
-        /// <param name="imageFile">obrázek</param>
-        /// <param name="col">barva průsvitnosti</param>
+        /// <param name="imageFile">The image file.</param>
+        /// <param name="col">The color.</param>
+        /// <exception cref="System.Exception">Failed to load the bitmap file  + imageFile</exception>
         public SplashForm(String imageFile, Color col)
         {
-            Debug.Assert(!string.IsNullOrEmpty(imageFile), 
+            Debug.Assert(!string.IsNullOrEmpty(imageFile),
                 "A valid file path has to be given");
             // ====================================================================================
             // Setup the form
@@ -60,7 +63,7 @@ namespace ArachNGIN.Components.SplashForm
             // load and make the bitmap transparent
             _mBmp = new Bitmap(imageFile);
 
-            if(_mBmp == null)
+            if (_mBmp == null)
                 throw new Exception("Failed to load the bitmap file " + imageFile);
             _mBmp.MakeTransparent(col);
 
@@ -75,6 +78,14 @@ namespace ArachNGIN.Components.SplashForm
             _mDelegateClose = InternalCloseSplash;
         }
 
+        /// <summary>
+        ///     Sets background color of splash window
+        /// </summary>
+        /// <PermissionSet>
+        ///     <IPermission
+        ///         class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+        ///         version="1" Unrestricted="true" />
+        /// </PermissionSet>
         public override sealed Color BackColor
         {
             get { return base.BackColor; }
@@ -83,26 +94,25 @@ namespace ArachNGIN.Components.SplashForm
 
         #endregion // Constructor
 
-        #region Public methods
-        // this can be used for About dialogs
+        #region Public methods        
+
         /// <summary>
-        /// zobrazí okno modálně
+        ///     Shows splash window modally.
         /// </summary>
-        /// <param name="imageFile">obrázek</param>
-        /// <param name="col">barva průsvitnosti</param>
+        /// <param name="imageFile">The image file.</param>
+        /// <param name="col">The col.</param>
         public static void ShowModal(String imageFile, Color col)
         {
             _mImageFile = imageFile;
             _mTransColor = col;
             MySplashThreadFunc();
         }
-        // Call this method with the image file path and the color 
-        // in the image to be rendered transparent
+
         /// <summary>
-        /// zobrazí okno modálně
+        ///     Call this method with the image file path and the color in the image to be rendered transparent
         /// </summary>
-        /// <param name="imageFile">obrázek</param>
-        /// <param name="col">barva průsvitnosti</param>
+        /// <param name="imageFile">The image file.</param>
+        /// <param name="col">The color.</param>
         public static void StartSplash(String imageFile, Color col)
         {
             _mImageFile = imageFile;
@@ -112,38 +122,44 @@ namespace ArachNGIN.Components.SplashForm
             instanceCaller.Start();
         }
 
-        // Call this at the end of your apps initialization to close the splash screen
         /// <summary>
-        /// uzavře okno
+        ///     Closes the splash.
         /// </summary>
         public static void CloseSplash()
         {
-            if(_mInstance != null)
+            if (_mInstance != null)
                 _mInstance.Invoke(_mInstance._mDelegateClose);
-
         }
+
         #endregion // Public methods
 
-        #region Dispose
+        #region Dispose        
+
         /// <summary>
-        /// "destruktor"
+        ///     Disposes of the resources (other than memory) used by the <see cref="T:System.Windows.Forms.Form" />.
         /// </summary>
-        /// <param name="disposing"></param>
-        protected override void Dispose( bool disposing )
+        /// <param name="disposing">
+        ///     true to release both managed and unmanaged resources; false to release only unmanaged
+        ///     resources.
+        /// </param>
+        protected override void Dispose(bool disposing)
         {
             _mBmp.Dispose();
-            base.Dispose( disposing );
+            base.Dispose(disposing);
             _mInstance = null;
         }
+
         #endregion // Dispose
 
         #region Threading code
-        // ultimately this is called for closing the splash window
-        void InternalCloseSplash()
+
+        // ultimately this is called for closing the splash window        
+        private void InternalCloseSplash()
         {
             Close();
             Dispose();
         }
+
         // this is called by the new thread to show the splash screen
         private static void MySplashThreadFunc()
         {
@@ -151,33 +167,37 @@ namespace ArachNGIN.Components.SplashForm
             _mInstance.TopMost = false;
             _mInstance.ShowDialog();
         }
+
         #endregion // Multithreading code
 
         #region Event Handlers
 
-        void SplashFormMouseClick(object sender, MouseEventArgs e)
+        private void SplashFormMouseClick(object sender, MouseEventArgs e)
         {
             InternalCloseSplash();
         }
 
         private void SplashFormPaint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(_mBmp, 0,0);
+            e.Graphics.DrawImage(_mBmp, 0, 0);
         }
 
         private void SplashFormKeyUp(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Escape)
+            if (e.KeyCode == Keys.Escape)
                 InternalCloseSplash();
         }
+
         #endregion // Event Handlers
 
         #region Private variables
+
         private static SplashForm _mInstance;
         private static String _mImageFile;
         private static Color _mTransColor;
         private readonly Bitmap _mBmp;
         private readonly DelegateCloseSplash _mDelegateClose;
+
         #endregion
     }
 }

@@ -26,7 +26,7 @@ using System.IO;
 namespace ArachNGIN.Files.Settings
 {
     /// <summary>
-    /// třída pro přístup k ini souborům
+    ///     Class for accessing INI files
     /// </summary>
     public class IniFile
     {
@@ -36,10 +36,10 @@ namespace ArachNGIN.Files.Settings
         #region Color fce
 
         /// <summary>
-        /// konvertne barvu na řetězec
+        ///     Converts a color to string
         /// </summary>
-        /// <param name="color">barva</param>
-        /// <returns>výsledný řetězec</returns>
+        /// <param name="color">The color.</param>
+        /// <returns></returns>
         public string GetStringFromColor(Color color)
         {
             string strColorName;
@@ -618,7 +618,7 @@ namespace ArachNGIN.Files.Settings
         }
 
         /// <summary>
-        /// konvertne řetězec na barvu
+        ///     konvertne řetězec na barvu
         /// </summary>
         /// <param name="strColorName">řetězec</param>
         /// <returns>výsledná barva</returns>
@@ -1201,17 +1201,20 @@ namespace ArachNGIN.Files.Settings
         #endregion
 
         /// <summary>
-        /// konstruktor třídy
+        ///     Initializes a new instance of the <see cref="IniFile" /> class.
         /// </summary>
-        /// <param name="iniFileName">název ini souboru</param>
+        /// <param name="iniFileName">Name of the ini file.</param>
         public IniFile(string iniFileName)
         {
             FileName = iniFileName;
         }
 
         /// <summary>
-        /// název ini souboru
+        ///     Gets or sets the name of the file.
         /// </summary>
+        /// <value>
+        ///     The name of the file.
+        /// </value>
         public string FileName
         {
             get { return _mFileName; }
@@ -1224,44 +1227,47 @@ namespace ArachNGIN.Files.Settings
         }
 
         /// <summary>
-        /// dataset do kterého se budou ukládat načtené hodnoty
+        ///     Gets the data storage.
         /// </summary>
-        public DataSet DataSet
+        /// <value>
+        ///     The data storage.
+        /// </value>
+        public DataSet DataStorage
         {
             get { return _mDs; }
         }
 
         /// <summary>
-        /// načte řetězec z ini souboru
+        ///     Reads the string.
         /// </summary>
-        /// <param name="section">název sekce</param>
-        /// <param name="key">název klíče</param>
-        /// <returns>hodnota</returns>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
         public string ReadString(string section, string key)
         {
             return ReadString(section, key, "");
         }
 
         /// <summary>
-        /// načte řetězec z ini souboru
+        ///     Reads the string.
         /// </summary>
-        /// <param name="section">sekce</param>
-        /// <param name="key">klíč</param>
-        /// <param name="defaultValue">defaultní hodnota</param>
-        /// <returns>hodnota</returns>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns></returns>
         public string ReadString(string section, string key, string defaultValue)
         {
             return Read(section, key, defaultValue);
         }
 
         /// <summary>
-        /// načte řetězec z ini souboru poskytnutého jako parametr
+        ///     Reads the string.
         /// </summary>
-        /// <param name="section">sekce</param>
-        /// <param name="key">klíč</param>
-        /// <param name="defaultValue">defaultní hodnota</param>
-        /// <param name="iniFileName">ini soubor</param>
-        /// <returns>hodnota</returns>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <param name="iniFileName">Name of the ini file.</param>
+        /// <returns></returns>
         public string ReadString(string section, string key, string defaultValue, string iniFileName)
         {
             FileName = iniFileName;
@@ -1269,34 +1275,34 @@ namespace ArachNGIN.Files.Settings
         }
 
         /// <summary>
-        /// načte boolean (true nebo false) hodnotu z ini souboru
+        ///     Reads the bool.
         /// </summary>
-        /// <param name="section">sekce</param>
-        /// <param name="key">klíč</param>
-        /// <returns>hodnota</returns>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
         public bool ReadBool(string section, string key)
         {
             return ReadBool(section, key, false);
         }
 
         /// <summary>
-        /// načte číslo z ini souboru
+        ///     Reads the integer.
         /// </summary>
-        /// <param name="section">sekce</param>
-        /// <param name="key">klíč</param>
-        /// <returns>hodnota</returns>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
         public int ReadInteger(string section, string key)
         {
             return ReadInteger(section, key, 0);
         }
 
         /// <summary>
-        /// načte boolean (true nebo false) hodnotu z ini souboru
+        ///     Reads the bool.
         /// </summary>
-        /// <param name="section">sekce</param>
-        /// <param name="key">klíč</param>
-        /// <param name="defaultValue">defaultní hodnota</param>
-        /// <returns>hodnota</returns>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">if set to <c>true</c> [default value].</param>
+        /// <returns></returns>
         public bool ReadBool(string section, string key, bool defaultValue)
         {
             bool ret;
@@ -1314,12 +1320,12 @@ namespace ArachNGIN.Files.Settings
         }
 
         /// <summary>
-        /// načte číslo z ini souboru
+        ///     Reads the integer.
         /// </summary>
-        /// <param name="section">sekce</param>
-        /// <param name="key">klíč</param>
-        /// <param name="defaultValue">defaultní hodnota</param>
-        /// <returns>hodnota</returns>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns></returns>
         public int ReadInteger(string section, string key, int defaultValue)
         {
             int ret;
@@ -1336,13 +1342,13 @@ namespace ArachNGIN.Files.Settings
         }
 
         /// <summary>
-        /// načte číslo z ini souboru poskytnutého jako parametr
+        ///     Reads the integer.
         /// </summary>
-        /// <param name="section">sekce</param>
-        /// <param name="key">klíč</param>
-        /// <param name="defaultValue">defaultní hodnota</param>
-        /// <param name="iniFileName">ini soubor</param>
-        /// <returns>hodnota</returns>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <param name="iniFileName">Name of the ini file.</param>
+        /// <returns></returns>
         public int ReadInteger(string section, string key, int defaultValue, string iniFileName)
         {
             FileName = iniFileName;
@@ -1350,13 +1356,13 @@ namespace ArachNGIN.Files.Settings
         }
 
         /// <summary>
-        /// načte boolean (true nebo false) hodnotu z ini souboru
+        ///     Reads the bool.
         /// </summary>
-        /// <param name="section">sekce</param>
-        /// <param name="key">klíč</param>
-        /// <param name="defaultValue">defaultní hodnota</param>
-        /// <param name="iniFileName">ini soubor</param>
-        /// <returns>hodnota</returns>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">if set to <c>true</c> [default value].</param>
+        /// <param name="iniFileName">Name of the ini file.</param>
+        /// <returns></returns>
         public bool ReadBool(string section, string key, bool defaultValue, string iniFileName)
         {
             FileName = iniFileName;
@@ -1364,36 +1370,36 @@ namespace ArachNGIN.Files.Settings
         }
 
         /// <summary>
-        /// načte barvu z ini souboru
+        ///     Reads the color.
         /// </summary>
-        /// <param name="section">sekce</param>
-        /// <param name="key">klíč</param>
-        /// <param name="defaultValue">defaultní hodnota</param>
-        /// <returns>barva</returns>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns></returns>
         public Color ReadColor(string section, string key, Color defaultValue)
         {
             return GetColorFromString(ReadString(section, key, GetStringFromColor(defaultValue)));
         }
 
         /// <summary>
-        /// načte barvu z ini souboru
+        ///     Reads the color.
         /// </summary>
-        /// <param name="section">sekce</param>
-        /// <param name="key">klíč</param>
-        /// <returns>barva</returns>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
         public Color ReadColor(string section, string key)
         {
             return ReadColor(section, key, Color.Black);
         }
 
         /// <summary>
-        /// načte barvu z ini souboru
+        ///     Reads the color.
         /// </summary>
-        /// <param name="section">sekce</param>
-        /// <param name="key">klíč</param>
-        /// <param name="defaultValue">standartní hodnota</param>
-        /// <param name="iniFileName">jméno ini souboru</param>
-        /// <returns>barva</returns>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <param name="iniFileName">Name of the ini file.</param>
+        /// <returns></returns>
         public Color ReadColor(string section, string key, Color defaultValue, string iniFileName)
         {
             FileName = iniFileName;
@@ -1401,9 +1407,9 @@ namespace ArachNGIN.Files.Settings
         }
 
         /// <summary>
-        /// získá z ini souboru jména sekcí
+        ///     Reads section names from ini file
         /// </summary>
-        /// <returns>pole s názvy sekcí</returns>
+        /// <returns></returns>
         public ArrayList SectionNames()
         {
             var ret = new ArrayList();
@@ -1416,11 +1422,11 @@ namespace ArachNGIN.Files.Settings
         }
 
         /// <summary>
-        /// zapíše do ini souboru řetězec
+        ///     Writes the string.
         /// </summary>
-        /// <param name="section">sekce</param>
-        /// <param name="key">klíč</param>
-        /// <param name="value">hodnota</param>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
         public void WriteString(string section, string key, string value)
         {
             Write(section, key, value);
@@ -1428,12 +1434,12 @@ namespace ArachNGIN.Files.Settings
         }
 
         /// <summary>
-        /// zapíše řetězec do ini souboru poskytnutého jako parametr
+        ///     Writes the string.
         /// </summary>
-        /// <param name="section">sekce</param>
-        /// <param name="key">klíč</param>
-        /// <param name="value">hodnota</param>
-        /// <param name="iniFileName">ini soubor</param>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="iniFileName">Name of the ini file.</param>
         public void WriteString(string section, string key, string value, string iniFileName)
         {
             FileName = iniFileName;
@@ -1441,70 +1447,68 @@ namespace ArachNGIN.Files.Settings
         }
 
         /// <summary>
-        /// zapíše do ini souboru číslo
+        ///     Writes the integer.
         /// </summary>
-        /// <param name="section">sekce</param>
-        /// <param name="key">klíč</param>
-        /// <param name="value">hodnota</param>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
         public void WriteInteger(string section, string key, int value)
         {
             WriteString(section, key, value.ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>
-        /// zapíše bool hodnotu do ini souboru
+        ///     Writes the bool.
         /// </summary>
-        /// <param name="section">sekce</param>
-        /// <param name="key">klíč</param>
-        /// <param name="value">hodnota</param>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">if set to <c>true</c> [value].</param>
         public void WriteBool(string section, string key, bool value)
         {
             WriteString(section, key, value.ToString());
         }
 
         /// <summary>
-        /// zapíše do ini souboru číslo. název ini souboru poskytnut jako parametr
+        ///     Writes the integer.
         /// </summary>
-        /// <param name="section">sekce</param>
-        /// <param name="key">klíč</param>
-        /// <param name="value">hodnota</param>
-        /// <param name="iniFileName">ini soubor</param>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="iniFileName">Name of the ini file.</param>
         public void WriteInteger(string section, string key, int value, string iniFileName)
         {
             WriteString(section, key, value.ToString(CultureInfo.InvariantCulture), iniFileName);
         }
 
         /// <summary>
-        /// zapíše bool hodnotu do ini souboru, název souboru jako parametr
+        ///     Writes the bool.
         /// </summary>
-        /// <param name="section">sekce</param>
-        /// <param name="key">klíč</param>
-        /// <param name="value">hodnota</param>
-        /// <param name="iniFileName">ini soubor</param>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">if set to <c>true</c> [value].</param>
+        /// <param name="iniFileName">Name of the ini file.</param>
         public void WriteBool(string section, string key, bool value, string iniFileName)
         {
             WriteString(section, key, value.ToString(), iniFileName);
         }
 
         /// <summary>
-        /// zapíše barvu do ini souboru, název jako parametr
+        ///     Writes the color.
         /// </summary>
-        /// <param name="section">sekce</param>
-        /// <param name="key">klíč</param>
-        /// <param name="value">hodnota</param>
-        /// <param name="iniFileName">ini soubor</param>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="iniFileName">Name of the ini file.</param>
         public void WriteColor(string section, string key, Color value, string iniFileName)
         {
             WriteString(section, key, GetStringFromColor(value), iniFileName);
         }
 
         /// <summary>
-        /// Načte celou sekci do pole řetězců
-        /// v případě, že se v sekci vyskytují standartní ini záznamy
-        /// (key=value) se načtou pouze názvy klíčů, nikoliv jejich hodnoty
+        ///     Reads a section to array.
         /// </summary>
-        /// <param name="section">název sekce</param>
-        /// <returns>názvy klíčů sekce</returns>
+        /// <param name="section">The section.</param>
+        /// <returns></returns>
         public string[] ReadSectionToArray(string section)
         {
             var result = new string[_mDs.Tables[section].Columns.Count];
@@ -1516,10 +1520,10 @@ namespace ArachNGIN.Files.Settings
         }
 
         /// <summary>
-        /// to samé jako ReadSectionToArray
+        ///     Reads a whole section.
         /// </summary>
-        /// <param name="section">název sekce</param>
-        /// <returns>názvy klíčů sekce jako jeden řetězec</returns>
+        /// <param name="section">The section.</param>
+        /// <returns></returns>
         public string ReadSection(string section)
         {
             string[] sc = ReadSectionToArray(section);
@@ -1532,20 +1536,20 @@ namespace ArachNGIN.Files.Settings
         }
 
         /// <summary>
-        /// zapíše barvu do teď otevřeného ini souboru
+        ///     Writes the color.
         /// </summary>
-        /// <param name="section">sekce</param>
-        /// <param name="key">klíč</param>
-        /// <param name="value">hodnota</param>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
         public void WriteColor(string section, string key, Color value)
         {
             WriteString(section, key, GetStringFromColor(value));
         }
 
         /// <summary>
-        /// smaže z ini souboru jednu sekci
+        ///     Deletes a section.
         /// </summary>
-        /// <param name="section">název sekce</param>
+        /// <param name="section">The section.</param>
         public void DeleteSection(string section)
         {
             if (!((_mDs.Tables[section] == null)))
@@ -1556,16 +1560,23 @@ namespace ArachNGIN.Files.Settings
         }
 
         /// <summary>
-        /// smaže z ini souboru jednu sekci
+        ///     Deletes a section.
         /// </summary>
-        /// <param name="section">sekce</param>
-        /// <param name="iniFileName">ini soubor</param>
+        /// <param name="section">The section.</param>
+        /// <param name="iniFileName">Name of the ini file.</param>
         public void DeleteSection(string section, string iniFileName)
         {
             FileName = iniFileName;
             DeleteSection(section);
         }
 
+        /// <summary>
+        ///     Reads the specified section.
+        /// </summary>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns></returns>
         private string Read(string section, string key, string defaultValue)
         {
             string ret;
@@ -1580,6 +1591,12 @@ namespace ArachNGIN.Files.Settings
             return ret;
         }
 
+        /// <summary>
+        ///     Writes the specified section.
+        /// </summary>
+        /// <param name="section">The section.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
         private void Write(string section, string key, string value)
         {
             if ((_mDs.Tables[section] == null))
@@ -1601,6 +1618,9 @@ namespace ArachNGIN.Files.Settings
             }
         }
 
+        /// <summary>
+        ///     Loads the ini to data set.
+        /// </summary>
         private void LoadIniToDataSet()
         {
             _mDs = new DataSet();
@@ -1671,6 +1691,9 @@ namespace ArachNGIN.Files.Settings
             }
         }
 
+        /// <summary>
+        ///     Dumps the dataset to ini.
+        /// </summary>
         private void DumpDatasetToIni()
         {
             if (File.Exists(_mFileName))

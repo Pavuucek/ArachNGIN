@@ -28,66 +28,53 @@ using ArachNGIN.Files.Streams;
 namespace ArachNGIN.Components.Console
 {
     /// <summary>
-    /// Třída debugovací/příkazové konzole
+    ///     A Debug / Command console class
     /// </summary>
     public class DebugConsole
     {
-        /// <summary>
-        /// Konstruktor konzole
-        /// </summary>
-        /// <returns>konzole</returns>
-        public DebugConsole()
-        {
-            _consoleForm = new ConsoleForm();
-            _consoleForm.lstLogPlain.Size = _consoleForm.lstLogSeparate.Size;
-            _consoleForm.lstLogPlain.Location = _consoleForm.lstLogSeparate.Location;
-            _consoleForm.lstLogPlain.Dock = _consoleForm.lstLogSeparate.Dock;
-            // připíchneme na txtCommand event pro zpracování zmáčknutí klávesy
-            _consoleForm.txtCommand.KeyPress += TxtCommandKeyPress;
-            // připíchneme ještě event interních příkazů
-            OnCommandEntered += InternalCommands;
-        }
+        private readonly ConsoleForm _consoleForm;
+
+        private readonly string _logName = StringUtils.StrAddSlash(Path.GetDirectoryName(Application.ExecutablePath)) +
+                                           DateTime.Now.ToString(CultureInfo.InvariantCulture)
+                                               .Replace(@"/", "-")
+                                               .Replace(":", "-") + ".log";
 
         /// <summary>
-        /// Určuje jestli má konzole automaticky
+        ///     The automatic save
         /// </summary>
         public ConsoleAutoSave AutoSave = ConsoleAutoSave.ManualOnly;
 
         private bool _echoCommands = true;
         private bool _processInternalCommands = true;
-        private readonly ConsoleForm _consoleForm;
         private bool _usePlainView = true;
-        private readonly string _logName = StringUtils.StrAddSlash(Path.GetDirectoryName(Application.ExecutablePath)) + DateTime.Now.ToString(CultureInfo.InvariantCulture).Replace(@"/","-").Replace(":","-") + ".log";
 
         #region Veřejné vlastnosti
-        
+
         /// <summary>
-        /// Delegát události OnCommandEntered
+        ///     Delegate for CommandEntered event
         /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="CommandEnteredEventArgs" /> instance containing the event data.</param>
         public delegate void CommandEnteredEvent(object sender, CommandEnteredEventArgs e);
+
         /// <summary>
-        /// Událost OnCommandEntered
+        ///     Gets or sets the caption.
         /// </summary>
-        public event CommandEnteredEvent OnCommandEntered;
-        
-        /// <summary>
-        /// Textový popisek formuláře s konzolí
-        /// </summary>
+        /// <value>
+        ///     The caption.
+        /// </value>
         public string Caption
         {
-            get
-            {
-                return _consoleForm.Text;
-            }
-            set
-            {
-                _consoleForm.Text = value;
-            }
+            get { return _consoleForm.Text; }
+            set { _consoleForm.Text = value; }
         }
-        
+
         /// <summary>
-        /// Použít holý výstup nebo rozdělený na datum a zprávu?
+        ///     Gets or sets a value indicating whether [use plain view].
         /// </summary>
+        /// <value>
+        ///     <c>true</c> if [use plain view]; otherwise, <c>false</c>.
+        /// </value>
         public bool UsePlainView
         {
             get { return _usePlainView; }
@@ -100,30 +87,33 @@ namespace ArachNGIN.Components.Console
         }
 
         /// <summary>
-        /// Property umístění konzole (pouze zápis)
+        ///     Sets the screen location.
         /// </summary>
+        /// <value>
+        ///     The screen location.
+        /// </value>
         public ConsoleLocation ScreenLocation
         {
             set
             {
                 _consoleForm.StartPosition = FormStartPosition.Manual;
-                switch(value)
+                switch (value)
                 {
                     case ConsoleLocation.TopLeft:
                         _consoleForm.Left = 0;
                         _consoleForm.Top = 0;
                         break;
                     case ConsoleLocation.TopRight:
-                        _consoleForm.Left = Screen.PrimaryScreen.WorkingArea.Width-_consoleForm.Width;
+                        _consoleForm.Left = Screen.PrimaryScreen.WorkingArea.Width - _consoleForm.Width;
                         _consoleForm.Top = 0;
                         break;
                     case ConsoleLocation.BottomLeft:
                         _consoleForm.Left = 0;
-                        _consoleForm.Top = Screen.PrimaryScreen.WorkingArea.Height-_consoleForm.Height;
+                        _consoleForm.Top = Screen.PrimaryScreen.WorkingArea.Height - _consoleForm.Height;
                         break;
                     case ConsoleLocation.BottomRight:
-                        _consoleForm.Top = Screen.PrimaryScreen.WorkingArea.Height-_consoleForm.Height;
-                        _consoleForm.Left = Screen.PrimaryScreen.WorkingArea.Width-_consoleForm.Width;
+                        _consoleForm.Top = Screen.PrimaryScreen.WorkingArea.Height - _consoleForm.Height;
+                        _consoleForm.Left = Screen.PrimaryScreen.WorkingArea.Width - _consoleForm.Width;
                         break;
                     case ConsoleLocation.ScreenCenter:
                         _consoleForm.StartPosition = FormStartPosition.CenterScreen;
@@ -131,116 +121,104 @@ namespace ArachNGIN.Components.Console
                 }
             }
         }
-        
+
         /// <summary>
-        /// Výška formuláře konzole
+        ///     Gets or sets the height.
         /// </summary>
+        /// <value>
+        ///     The height.
+        /// </value>
         public int Height
         {
-            get
-            {
-                return _consoleForm.Height;
-            }
-            set
-            {
-                _consoleForm.Height = value;
-            }
+            get { return _consoleForm.Height; }
+            set { _consoleForm.Height = value; }
         }
-        
+
         /// <summary>
-        /// Šířka formuláře konzole
+        ///     Gets or sets the width.
         /// </summary>
+        /// <value>
+        ///     The width.
+        /// </value>
         public int Width
         {
-            get
-            {
-                return _consoleForm.Width;
-            }
-            set
-            {
-                _consoleForm.Width = value;
-            }
+            get { return _consoleForm.Width; }
+            set { _consoleForm.Width = value; }
         }
-        
+
         /// <summary>
-        /// Umístění formuláře konzole
-        /// (pokud je v <seealso cref="ScreenLocation">ScreenLocation</seealso>
-        /// nastaveno SomeWhereElse)
+        ///     Gets or sets the location.
         /// </summary>
+        /// <value>
+        ///     The location.
+        /// </value>
         public Point Location
         {
-            get
-            {
-                return _consoleForm.Location;
-            }
-            set
-            {
-                _consoleForm.Location = value;
-            }
+            get { return _consoleForm.Location; }
+            set { _consoleForm.Location = value; }
         }
-        
+
         /// <summary>
-        /// Určuje, jestli se při provádění příkazů budou i vypisovat do konzole
+        ///     Gets or sets a value indicating whether [echo commands].
         /// </summary>
+        /// <value>
+        ///     <c>true</c> if [echo commands]; otherwise, <c>false</c>.
+        /// </value>
         public bool EchoCommands
         {
-            get
-            {
-                return _echoCommands;
-            }
-            set
-            {
-                _echoCommands = value;
-            }
+            get { return _echoCommands; }
+            set { _echoCommands = value; }
         }
-        
+
         /// <summary>
-        /// Určuje, jestli se budou provádět i interní příkazy
-        /// (např. cls - výmaz výpisu)
+        ///     Gets or sets a value indicating whether [process internal commands].
         /// </summary>
+        /// <value>
+        ///     <c>true</c> if [process internal commands]; otherwise, <c>false</c>.
+        /// </value>
         public bool ProcessInternalCommands
         {
-            get
-            {
-                return _processInternalCommands;
-            }
-            set
-            {
-                _processInternalCommands = value;
-            }
+            get { return _processInternalCommands; }
+            set { _processInternalCommands = value; }
         }
-        
-        #endregion
-        
-        #region Veřejné procedury
+
         /// <summary>
-        /// Ukáže konzoli
+        ///     Occurs when [on command entered].
+        /// </summary>
+        public event CommandEnteredEvent OnCommandEntered;
+
+        #endregion
+
+        #region Veřejné procedury        
+
+        /// <summary>
+        ///     Shows the console.
         /// </summary>
         public void Show()
         {
             _consoleForm.Show();
         }
-        
+
         /// <summary>
-        /// Zavře konzoli
+        ///     Closes the console.
         /// </summary>
         public void Close()
         {
             _consoleForm.Close();
         }
-        
+
         /// <summary>
-        /// Zapíše událost do konzole
+        ///     Writes a message to console.
         /// </summary>
-        /// <param name="t">čas události</param>
-        /// <param name="message">název události</param>
+        /// <param name="t">The time.</param>
+        /// <param name="message">The message.</param>
         public void Write(DateTime t, string message)
         {
             var item = new ListViewItem(t.ToLongTimeString());
             item.SubItems.Add(message);
             _consoleForm.lstLogSeparate.Items.Add(item);
             _consoleForm.lstLogPlain.Items.Add(t.ToLongTimeString() + " --> " + message);
-            _consoleForm.lstLogSeparate.EnsureVisible(_consoleForm.lstLogSeparate.Items.Count-1);
+            _consoleForm.lstLogSeparate.EnsureVisible(_consoleForm.lstLogSeparate.Items.Count - 1);
             _consoleForm.lstLogPlain.SelectedIndex = _consoleForm.lstLogPlain.Items.Count - 1;
             if (AutoSave == ConsoleAutoSave.OnLineAdd)
             {
@@ -248,38 +226,36 @@ namespace ArachNGIN.Components.Console
             }
             Application.DoEvents();
         }
-        
+
         /// <summary>
-        /// Zapíše událost do konzole
-        /// (čas je nastaven na teď)
+        ///     Writes the specified message.
         /// </summary>
-        /// <param name="message">název události</param>
+        /// <param name="message">The message.</param>
         public void Write(string message)
         {
-            Write(DateTime.Now,message);
+            Write(DateTime.Now, message);
         }
 
 
         /// <summary>
-        /// Zapíše soubor se záznamem
+        ///     Saves the log.
         /// </summary>
         public void SaveLog()
         {
-            StringCollections.SaveToFile(_logName,_consoleForm.lstLogSeparate.Items);
+            StringCollections.SaveToFile(_logName, _consoleForm.lstLogSeparate.Items);
         }
 
         /// <summary>
-        /// Zapíše událost do konzole
-        /// (čas se nevyplňuje)
+        ///     Writes a message to console without time.
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">The message.</param>
         public void WriteNoTime(string message)
         {
             var item = new ListViewItem("");
             item.SubItems.Add(message);
             _consoleForm.lstLogSeparate.Items.Add(item);
             _consoleForm.lstLogPlain.Items.Add(message);
-            _consoleForm.lstLogSeparate.EnsureVisible(_consoleForm.lstLogSeparate.Items.Count-1);
+            _consoleForm.lstLogSeparate.EnsureVisible(_consoleForm.lstLogSeparate.Items.Count - 1);
             _consoleForm.lstLogPlain.SelectedIndex = _consoleForm.lstLogPlain.Items.Count - 1;
             if (AutoSave == ConsoleAutoSave.OnLineAdd)
             {
@@ -287,18 +263,18 @@ namespace ArachNGIN.Components.Console
             }
             Application.DoEvents();
         }
-        
+
         /// <summary>
-        /// Provede příkaz přes konzoli
+        ///     Performs a console command.
         /// </summary>
-        /// <param name="command">název příkazu + parametry</param>
+        /// <param name="command">The command.</param>
         public void DoCommand(string command)
         {
             string[] strCmdLine = StringUtils.StringSplit(command, " "); // cely prikaz
             string cmd = strCmdLine[0];
             string[] parArray;
             string parStr;
-            if(strCmdLine.Length == 1)
+            if (strCmdLine.Length == 1)
             {
                 // pouze 1 slovo = prikaz bez parametru
                 parArray = new string[0];
@@ -306,39 +282,39 @@ namespace ArachNGIN.Components.Console
             }
             else
             {
-                parArray = new string[strCmdLine.Length-1];
+                parArray = new string[strCmdLine.Length - 1];
                 parStr = "";
-                for (int i = 1; i <= strCmdLine.Length-1 ;i++ )
+                for (int i = 1; i <= strCmdLine.Length - 1; i++)
                 {
-                    parArray[i-1] = strCmdLine[i];
-                    parStr += strCmdLine[i]+" ";
+                    parArray[i - 1] = strCmdLine[i];
+                    parStr += strCmdLine[i] + " ";
                 }
             }
-                
+
             // zapiseme do outputu
             if (_echoCommands) Write("Command: " + command);
-                                                
+
             // vyvolame event
-            if(OnCommandEntered != null)
+            if (OnCommandEntered != null)
             {
                 var ea = new CommandEnteredEventArgs(cmd, parArray, parStr.Trim());
-                OnCommandEntered(this,ea);
+                OnCommandEntered(this, ea);
             }
         }
-        
+
         #endregion
-        
+
         #region Eventy
-        
+
         /// <summary>
-        /// handler události na _consoleForm.txtCommand.KeyPress
+        ///     Texts the command key press.
         /// </summary>
-        /// <param name="sender">Odesílatel</param>
-        /// <param name="e">Parametry (System.Windows.Forms.KeyPressEventArgs)</param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="KeyPressEventArgs" /> instance containing the event data.</param>
         private void TxtCommandKeyPress(object sender, KeyPressEventArgs e)
         {
             // kdyz user zmackne enter a prikaz neni prazdny...
-            if((e.KeyChar == (char)Keys.Enter) && (_consoleForm.txtCommand.Text.Length >0))
+            if ((e.KeyChar == (char) Keys.Enter) && (_consoleForm.txtCommand.Text.Length > 0))
             {
                 //... poklada se obsah textboxu za prikaz
                 e.Handled = true;
@@ -347,12 +323,17 @@ namespace ArachNGIN.Components.Console
                 _consoleForm.txtCommand.Text = "";
             }
         }
-        
-        private void InternalCommands(object sender, CommandEnteredEventArgs e)
+
+        /// <summary>
+        ///     Initializes the internal commands.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="CommandEnteredEventArgs" /> instance containing the event data.</param>
+        private void InitInternalCommands(object sender, CommandEnteredEventArgs e)
         {
-            if(_processInternalCommands)
+            if (_processInternalCommands)
             {
-                switch(e.Command.ToLower())
+                switch (e.Command.ToLower())
                 {
                     case "cls":
                         _consoleForm.lstLogSeparate.Items.Clear();
@@ -378,7 +359,22 @@ namespace ArachNGIN.Components.Console
                 }
             }
         }
-        
+
         #endregion
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="DebugConsole" /> class.
+        /// </summary>
+        public DebugConsole()
+        {
+            _consoleForm = new ConsoleForm();
+            _consoleForm.lstLogPlain.Size = _consoleForm.lstLogSeparate.Size;
+            _consoleForm.lstLogPlain.Location = _consoleForm.lstLogSeparate.Location;
+            _consoleForm.lstLogPlain.Dock = _consoleForm.lstLogSeparate.Dock;
+            // připíchneme na txtCommand event pro zpracování zmáčknutí klávesy
+            _consoleForm.txtCommand.KeyPress += TxtCommandKeyPress;
+            // připíchneme ještě event interních příkazů
+            OnCommandEntered += InitInternalCommands;
+        }
     }
 }

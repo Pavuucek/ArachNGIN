@@ -4,7 +4,7 @@ using System.IO;
 namespace ArachNGIN.Files.Streams
 {
     /// <summary>
-    /// Multimaskový prohledávač souborů
+    ///     Multi-mask file searcher class
     /// </summary>
     public class MultimaskFileSearcher
     {
@@ -12,7 +12,7 @@ namespace ArachNGIN.Files.Streams
         private bool _recursive;
 
         /// <summary>
-        /// Konstruktor třídy <see cref="MultimaskFileSearcher"/>.
+        ///     Initializes a new instance of the <see cref="MultimaskFileSearcher" /> class.
         /// </summary>
         public MultimaskFileSearcher()
         {
@@ -21,10 +21,10 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Seznam přípon k vyhledání
+        ///     List of extensions used for search.
         /// </summary>
         /// <value>
-        /// Seznam přípon
+        ///     The search extensions.
         /// </value>
         public ArrayList SearchExtensions
         {
@@ -33,10 +33,10 @@ namespace ArachNGIN.Files.Streams
 
 
         /// <summary>
-        /// Má být vyhledávání rekurzivní (tj. včetně podadresářů) viz <see cref="MultimaskFileSearcher"/>
+        ///     Gets or sets a value indicating whether searching <see cref="MultimaskFileSearcher" /> is recursive.
         /// </summary>
         /// <value>
-        ///   <c>true</c> když je rekurzivní, jinak <c>false</c>.
+        ///     <c>true</c> if recursive; otherwise, <c>false</c>.
         /// </value>
         public bool Recursive
         {
@@ -45,10 +45,10 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Prohledá uvedenou cestu
+        ///     Searches the specified path.
         /// </summary>
-        /// <param name="path">cesta</param>
-        /// <returns>seznam souborů s příslušnýma příponama</returns>
+        /// <param name="path">The path.</param>
+        /// <returns></returns>
         public FileInfo[] Search(string path)
         {
             var root = new DirectoryInfo(path);

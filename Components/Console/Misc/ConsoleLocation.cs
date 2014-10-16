@@ -1,33 +1,37 @@
 namespace ArachNGIN.Components.Console.Misc
 {
     /// <summary>
-    /// Výčet použitý pro umístění konzole na obrazovku
+    ///     Enum for console location
     /// </summary>
     public enum ConsoleLocation
     {
         /// <summary>
-        /// Levý horní roh
+        ///     The top left
         /// </summary>
         TopLeft,
+
         /// <summary>
-        /// Pravý horní roh
+        ///     The top right
         /// </summary>
         TopRight,
+
         /// <summary>
-        /// Spodní levý roh
+        ///     The bottom left
         /// </summary>
         BottomLeft,
+
         /// <summary>
-        /// Spodní pravý roh
+        ///     The bottom right
         /// </summary>
         BottomRight,
+
         /// <summary>
-        /// Prostředek obrazovky
+        ///     The screen center
         /// </summary>
         ScreenCenter,
+
         /// <summary>
-        /// Někde jinde. Nastaví se na hodnoty uvedené
-        /// v property Location
+        ///     Somewhere else
         /// </summary>
         SomeWhereElse
     }

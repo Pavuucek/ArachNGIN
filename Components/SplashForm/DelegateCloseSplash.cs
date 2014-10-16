@@ -1,7 +1,7 @@
 namespace ArachNGIN.Components.SplashForm
 {
     /// <summary>
-    /// delegát události zavření okna
+    ///     Delegate for closing splash window
     /// </summary>
     public delegate void DelegateCloseSplash();
 }

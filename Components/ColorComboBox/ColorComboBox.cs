@@ -5,7 +5,7 @@ using System.Windows.Forms;
 namespace ArachNGIN.Components.ColorComboBox
 {
     /// <summary>
-    /// ComboBox s výběrem barev
+    ///     A ComboBox component for selecting a color
     /// </summary>
     public class ColorComboBox : ComboBox
     {
@@ -14,9 +14,8 @@ namespace ArachNGIN.Components.ColorComboBox
         private readonly SolidBrush _whiteBrush;
 
         /// <summary>
-        /// Konstruktor třídy
+        ///     Initializes a new instance of the <see cref="ColorComboBox" /> class.
         /// </summary>
-        /// <returns>ColorComboBox</returns>
         public ColorComboBox()
         {
             _blackBrush = new SolidBrush(Color.Black);
@@ -33,18 +32,20 @@ namespace ArachNGIN.Components.ColorComboBox
         }
 
         /// <summary>
-        /// Druhý konstruktor
+        ///     Initializes a new instance of the <see cref="ColorComboBox" /> class.
         /// </summary>
-        /// <param name="hideText">skrýt text</param>
-        /// <returns>ColorComboBox</returns>
+        /// <param name="hideText">if set to <c>true</c> [hide text].</param>
         public ColorComboBox(bool hideText) : this()
         {
             _bHideText = hideText;
         }
 
         /// <summary>
-        /// Vrátí vybranou barvu z comboboxu
+        ///     Gets or sets the color of the selected.
         /// </summary>
+        /// <value>
+        ///     The color of the selected.
+        /// </value>
         public Color SelectedColor
         {
             get { return BackColor; }
@@ -52,9 +53,7 @@ namespace ArachNGIN.Components.ColorComboBox
         }
 
         /// <summary>
-        /// Přidá do comboboxů položky s barvama
-        /// (kvůli chybě která zasírá designer managed kód
-        /// se musí volat v runtime)
+        ///     Initializes the items.
         /// </summary>
         public void InitItems()
         {
@@ -198,6 +197,11 @@ namespace ArachNGIN.Components.ColorComboBox
             Items.Add(GetStringFromColor(Color.YellowGreen));
         }
 
+        /// <summary>
+        ///     Called when [draw item].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="DrawItemEventArgs" /> instance containing the event data.</param>
         private void OnDrawItem(object sender, DrawItemEventArgs e)
         {
             Graphics grfx = e.Graphics;
@@ -226,10 +230,15 @@ namespace ArachNGIN.Components.ColorComboBox
             else
             {
                 grfx.DrawString((string) Items[e.Index], e.Font,
-                                new SolidBrush(GetColorFromString((string) Items[e.Index])), e.Bounds);
+                    new SolidBrush(GetColorFromString((string) Items[e.Index])), e.Bounds);
             }
         }
 
+        /// <summary>
+        ///     Called when [selected index changed].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void OnSelectedIndexChanged(object sender, EventArgs e)
         {
             BackColor = GetColorFromString((string) SelectedItem);
@@ -243,11 +252,10 @@ namespace ArachNGIN.Components.ColorComboBox
         }
 
         /// <summary>
-        /// prevents the hightlighted text being shown when drop down
+        ///     Called when [drop down].
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// 
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void OnDropDown(object sender, EventArgs e)
         {
             BackColor = GetColorFromString((string) SelectedItem);
@@ -261,10 +269,10 @@ namespace ArachNGIN.Components.ColorComboBox
         }
 
         /// <summary>
-        /// Převede barvu na text
+        ///     Gets the color of the string from.
         /// </summary>
-        /// <param name="color">barva</param>
-        /// <returns>textový název barvy</returns>
+        /// <param name="color">The color.</param>
+        /// <returns></returns>
         public string GetStringFromColor(Color color)
         {
             string strColorName;
@@ -843,10 +851,10 @@ namespace ArachNGIN.Components.ColorComboBox
         }
 
         /// <summary>
-        /// Převede text na barvu
+        ///     Gets the color from string.
         /// </summary>
-        /// <param name="strColorName">textový název barvy</param>
-        /// <returns>barva</returns>
+        /// <param name="strColorName">Name of the string color.</param>
+        /// <returns></returns>
         public Color GetColorFromString(string strColorName)
         {
             Color color;
