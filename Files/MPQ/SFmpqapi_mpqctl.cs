@@ -1,3 +1,23 @@
+/*
+ * Copyright (c) 2006-2014 Michal Kuncl <michal.kuncl@gmail.com> http://www.pavucina.info
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
+ * is furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+ * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * Original (Visual Basic) version and ArachNGIN.Files.MPQ.ocx file by ShadowFlare
+ */
+
 using System.Runtime.InteropServices;
 using Microsoft.VisualBasic;
 
@@ -5,6 +25,10 @@ using Microsoft.VisualBasic;
 
 namespace ArachNGIN.Files.MPQ
 {
+
+    /// <summary>
+    /// ShadowFlare MPQ API
+    /// </summary>
     internal static class SFmpqapi
     {
 //  ShadowFlare MPQ API Library. (c) ShadowFlare Software 2002
@@ -130,54 +154,136 @@ namespace ArachNGIN.Files.MPQ
 // SFMpqGetVersionString2's return value is the required length of the buffer plus
 // the terminating null, so use SFMpqGetVersionString2(ByVal 0&, 0) to get the length.
 
-// General error codes
+// General error codes        
+        /// <summary>
+        /// General error codes: Invalid MPQ file
+        /// </summary>
         public const uint MpqErrorMpqInvalid = 0x85200065;
+        /// <summary>
+        /// General error codes: file not found
+        /// </summary>
         public const uint MpqErrorFileNotFound = 0x85200066;
-        //Physical write file to MPQ failed. Not sure of exact meaning
+        /// <summary>
+        /// General error codes:
+        /// Physical write file to MPQ failed. Not sure of exact meaning
+        /// </summary>
         public const uint MpqErrorDiskFull = 0x85200068;
+        /// <summary>
+        /// General error codes: hash table full
+        /// </summary>
         public const uint MpqErrorHashTableFull = 0x85200069;
+        /// <summary>
+        /// General error codes: already exists
+        /// </summary>
         public const uint MpqErrorAlreadyExists = 0x8520006a;
-        //When MOAU_READ_ONLY is used without MOAU_OPEN_EXISTING
+        /// <summary>
+        /// General error codes:
+        /// When MOAU_READ_ONLY is used without MOAU_OPEN_EXISTING
+        /// </summary>
         public const uint MpqErrorBadOpenMode = 0x8520006c;
-
+        /// <summary>
+        /// General error codes: compact error
+        /// </summary>
         public const uint MpqErrorCompactError = 0x85300001;
 
-// MpqOpenArchiveForUpdate flags
+// MpqOpenArchiveForUpdate flags        
+        /// <summary>
+        /// MpqOpenArchiveForUpdate flags: create new
+        /// </summary>
         public const int MoauCreateNew = 0x0;
-        //Was wrongly named MOAU_CREATE_NEW
+        /// <summary>
+        /// MpqOpenArchiveForUpdate flags: create always
+        /// Was wrongly named MOAU_CREATE_NEW
+        /// </summary>
         public const int MoauCreateAlways = 0x8;
+        /// <summary>
+        /// MpqOpenArchiveForUpdate flags: open existing
+        /// </summary>
         public const int MoauOpenExisting = 0x4;
+        /// <summary>
+        /// MpqOpenArchiveForUpdate flags: open always
+        /// </summary>
         public const int MoauOpenAlways = 0x20;
-        //Must be used with MOAU_OPEN_EXISTING
+        /// <summary>
+        /// MpqOpenArchiveForUpdate flags: read only
+        /// Must be used with MOAU_OPEN_EXISTING
+        /// </summary>
         public const int MoauReadOnly = 0x10;
+        /// <summary>
+        /// MpqOpenArchiveForUpdate flags: maintain listfile
+        /// </summary>
         public const int MoauMaintainListfile = 0x1;
 
 // MpqAddFileToArchive flags
-        //Will be added if not present
+        /// <summary>
+        /// MpqAddFileToArchive flags: exists
+        /// Will be added if not present
+        /// </summary>
         public const uint MafaExists = 0x80000000;
+        /// <summary>
+        /// MpqAddFileToArchive flags: unknown40000000
+        /// (as in nobody knows what this does)
+        /// </summary>
         public const int MafaUnknown40000000 = 0x40000000;
+        /// <summary>
+        /// MpqAddFileToArchive flags: modcryptkey
+        /// </summary>
         public const int MafaModcryptkey = 0x20000;
+        /// <summary>
+        /// MpqAddFileToArchive flags: encrypt
+        /// </summary>
         public const int MafaEncrypt = 0x10000;
+        /// <summary>
+        /// MpqAddFileToArchive flags: compress
+        /// </summary>
         public const int MafaCompress = 0x200;
+        /// <summary>
+        /// MpqAddFileToArchive flags: compress2
+        /// </summary>
         public const int MafaCompress2 = 0x100;
+        /// <summary>
+        /// MpqAddFileToArchive flags: replace existing
+        /// </summary>
         public const int MafaReplaceExisting = 0x1;
 
 // MpqAddFileToArchiveEx compression flags
-        //Standard PKWare DCL compression
-        public const int MafaCompressStandard = 0x8;
-        //ZLib's deflate compression
+        /// <summary>
+        /// MpqAddFileToArchiveEx compression flags: compress standard
+        /// Standard PKWare DCL compression
+        /// </summary>
+        public const int MafaCompressStandard = 0x8;      
+        /// <summary>
+        /// MpqAddFileToArchiveEx compression flags: compress deflate
+        /// ZLib's deflate compression
+        /// </summary>
         public const int MafaCompressDeflate = 0x2;
-        //Standard wave compression
-        public const int MafaCompressWave = 0x81;
-        //Unused wave compression
+        /// <summary>
+        /// MpqAddFileToArchiveEx compression flags: compress wave
+        /// Standard wave compression
+        /// </summary>
+        public const int MafaCompressWave = 0x81;      
+        /// <summary>
+        /// MpqAddFileToArchiveEx compression flags: compress wave2
+        /// Unused wave compression
+        /// </summary>
         public const int MafaCompressWave2 = 0x41;
 
 // Flags for individual compression types used for wave compression
-        //Main compressor for standard wave compression
-        public const int MafaCompressWavecomp1 = 0x80;
-        //Main compressor for unused wave compression
-        public const int MafaCompressWavecomp2 = 0x40;
-        //Secondary compressor for wave compression
+        
+        /// <summary>
+        /// Flags for individual compression types used for wave compression: wavecomp1
+        /// Main compressor for standard wave compression
+        /// </summary>
+        public const int MafaCompressWavecomp1 = 0x80;      
+        /// <summary>
+        /// Flags for individual compression types used for wave compression: wavecomp2
+        /// Main compressor for unused wave compression
+        /// </summary>
+        public const int MafaCompressWavecomp2 = 0x40;      
+        /// <summary>
+        /// Flags for individual compression types used for wave compression: wavecomp3
+        /// Secondary compressor for wave compression
+        /// </summary>
         public const int MafaCompressWavecomp3 = 0x1;
 
 // ZLib deflate compression level constants (used with MpqAddFileToArchiveEx and MpqAddFileFromBufferEx)
@@ -440,6 +546,10 @@ namespace ArachNGIN.Files.MPQ
 
         #region Nested type: FileListEntry
 
+
+        /// <summary>
+        /// Filelist entry
+        /// </summary>
         public struct FileListEntry
         {
             // Nonzero if this entry is used
@@ -464,8 +574,13 @@ namespace ArachNGIN.Files.MPQ
 
         #region Nested type: SfMpqVersion
 
+
+        /// <summary>
+        /// Mpq dll/ocx version
+        /// </summary>
         public struct SfMpqVersion
         {
+
             public short Major;
             public short Minor;
             public short Revision;

@@ -15,24 +15,19 @@
  * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-/*
- * Created by SharpDevelop.
- * User: Takeru
- * Date: 19.3.2006
- * Time: 11:05
- * 
- * To change this template use Tools | Options | Coding | Edit Standard Headers.
- */
 
 using System.Windows.Forms;
 
 namespace ArachNGIN.Components.Console.Forms
 {
     /// <summary>
-    /// Okno konzole
+    /// Console window class
     /// </summary>
     internal partial class ConsoleForm
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConsoleForm"/> class.
+        /// </summary>
         public ConsoleForm()
         {
             //

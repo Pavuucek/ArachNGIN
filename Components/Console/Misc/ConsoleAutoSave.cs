@@ -1,20 +1,22 @@
 namespace ArachNGIN.Components.Console.Misc
 {
     /// <summary>
-    /// Výčet vlastností jak ukládat log
+    ///     Enum for saving console log
     /// </summary>
     public enum ConsoleAutoSave
     {
         /// <summary>
-        /// Pouze manuální ukládání (default)
+        ///     Manual only
         /// </summary>
         ManualOnly,
+
         /// <summary>
-        /// Uložit log při každém přidání textu
+        ///     On line add
         /// </summary>
         OnLineAdd,
+
         /// <summary>
-        /// Uložit log při ukončení programu
+        ///     On program exit
         /// </summary>
         OnProgramExit
     }

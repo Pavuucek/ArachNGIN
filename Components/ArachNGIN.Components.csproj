@@ -92,8 +92,14 @@
     <EmbeddedResource Include="ColorComboBox\ColorComboBox.resx">
       <DependentUpon>ColorComboBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormHeader\ColorSlideFormHeader.resx">
+      <DependentUpon>ColorSlideFormHeader.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormHeader\FormHeader.resx">
       <DependentUpon>FormHeader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormHeader\ImageFormHeader.resx">
+      <DependentUpon>ImageFormHeader.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProgressTaskList\ProgressTaskList.resx">
       <DependentUpon>ProgressTaskList.cs</DependentUpon>

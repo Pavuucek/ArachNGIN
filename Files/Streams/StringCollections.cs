@@ -25,15 +25,15 @@ using System.Windows.Forms;
 namespace ArachNGIN.Files.Streams
 {
     /// <summary>
-    /// Třída pro práci se StringCollection (aka TStrings)
+    ///     Class for working with StringCollections
     /// </summary>
     public static class StringCollections
     {
         /// <summary>
-        /// Převede StringCollection na jeden string
+        ///     Converts a StringCollection to string
         /// </summary>
-        /// <param name="stringCollection">Vstupní StringCollection</param>
-        /// <returns>Výstupní string</returns>
+        /// <param name="stringCollection">The string collection.</param>
+        /// <returns></returns>
         public static string StringCollectionToString(StringCollection stringCollection)
         {
             string outputString = "";
@@ -48,10 +48,10 @@ namespace ArachNGIN.Files.Streams
 
 
         /// <summary>
-        /// Uloží obsah StringCollection do souboru
+        ///     Saves StringCollection to a file
         /// </summary>
-        /// <param name="sFile">název souboru</param>
-        /// <param name="sCollection">StringCollection</param>
+        /// <param name="sFile">The file.</param>
+        /// <param name="sCollection">The StringCollection.</param>
         public static void SaveToFile(string sFile, StringCollection sCollection)
         {
             var fi = new FileInfo(sFile);
@@ -65,10 +65,10 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Uloží obsah StringCollection do proudu
+        ///     Saves a StringCollection to stream.
         /// </summary>
-        /// <param name="sOutput">proud</param>
-        /// <param name="sCollection">obsah</param>
+        /// <param name="sOutput">The output stream.</param>
+        /// <param name="sCollection">The StringCollection.</param>
         public static void SaveToStream(Stream sOutput, StringCollection sCollection)
         {
             var writer = new StreamWriter(sOutput);
@@ -83,10 +83,10 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Uloží StringCollection do souboru.
+        ///     Saves StringCollection to a file.
         /// </summary>
-        /// <param name="sFile">soubor</param>
-        /// <param name="sCollection">kolekce</param>
+        /// <param name="sFile">The file.</param>
+        /// <param name="sCollection">The StringCollection.</param>
         public static void SaveToFile(string sFile, ListView.ListViewItemCollection sCollection)
         {
             var fi = new FileInfo(sFile);
@@ -110,11 +110,11 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Načte soubor (textový) do StringCollection
+        ///     Loads StringCollection from file.
         /// </summary>
-        /// <param name="sFile">název souboru</param>
-        /// <param name="sCollection">StringCollection do které se bude načítat</param>
-        /// <param name="bAppend">připojit k existujícím prvkům v kolekci</param>
+        /// <param name="sFile">The file.</param>
+        /// <param name="sCollection">The StringCollection.</param>
+        /// <param name="bAppend">if set to <c>true</c> [b append].</param>
         public static void LoadFromFile(string sFile, StringCollection sCollection, bool bAppend)
         {
             var souborInfo = new FileInfo(sFile);
@@ -132,11 +132,11 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Načte proud do StringCollection
+        ///     Loads a StringCollection from a stream.
         /// </summary>
-        /// <param name="sInput">proud</param>
-        /// <param name="sCollection">výstup</param>
-        /// <param name="bAppend">připojit k existujícím prvkům v kolekci</param>
+        /// <param name="sInput">The input stream.</param>
+        /// <param name="sCollection">The StringCollection.</param>
+        /// <param name="bAppend">if set to <c>true</c> [b append].</param>
         public static void LoadFromStream(Stream sInput, StringCollection sCollection, bool bAppend)
         {
             var reader = new StreamReader(sInput);
@@ -150,30 +150,30 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Načte proud do StringCollection
+        ///     Loads a StringCollection from a stream.
         /// </summary>
-        /// <param name="sInput">proud</param>
-        /// <param name="sCollection">výstup</param>
+        /// <param name="sInput">The input stream.</param>
+        /// <param name="sCollection">The StringCollection.</param>
         public static void LoadFromStream(Stream sInput, StringCollection sCollection)
         {
             LoadFromStream(sInput, sCollection, false);
         }
 
         /// <summary>
-        /// Načte soubor (textový) do StringCollection
+        ///     Loads a StringCollection from a file.
         /// </summary>
-        /// <param name="sFile">název souboru</param>
-        /// <param name="sCollection">StringCollection do které se bude načítat</param>
+        /// <param name="sFile">The input file.</param>
+        /// <param name="sCollection">The StringCollection.</param>
         public static void LoadFromFile(string sFile, StringCollection sCollection)
         {
             LoadFromFile(sFile, sCollection, false);
         }
 
         /// <summary>
-        /// Uloží ListView do souboru.
+        ///     Saves a ListView to a file
         /// </summary>
-        /// <param name="sFile">soubor</param>
-        /// <param name="list">ListView</param>
+        /// <param name="sFile">The file.</param>
+        /// <param name="list">The listview.</param>
         public static void SaveToFile(string sFile, ListView list)
         {
             var listViewContent = new StringBuilder();

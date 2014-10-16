@@ -24,7 +24,7 @@ using ArachNGIN.Files.Streams;
 namespace ArachNGIN.Files.QuakePak
 {
     /// <summary>
-    /// Souborový systém Quake paků
+    ///     Class representing a Quake PAK file system
     /// </summary>
     public class QuakePakFileSystem : IDisposable
     {
@@ -38,12 +38,11 @@ namespace ArachNGIN.Files.QuakePak
         private StringCollection[] _indexFat;
         private StringCollection[] _pakFat;
 
-
         /// <summary>
-        /// Konstruktor <see cref="QuakePakFileSystem"/> class.
+        ///     Initializes a new instance of the <see cref="QuakePakFileSystem" /> class.
         /// </summary>
-        /// <param name="appDir">Startovní adresář ze kterého se budou načítat pak soubory, nejlépe ten s aplikací</param>
-        /// <param name="tempDir">Adresář aplikace v tempu</param>
+        /// <param name="appDir">The application dir.</param>
+        /// <param name="tempDir">The temporary dir.</param>
         public QuakePakFileSystem(string appDir, string tempDir)
         {
             _sDir = StringUtils.StrAddSlash(appDir);
@@ -68,7 +67,7 @@ namespace ArachNGIN.Files.QuakePak
         #region IDisposable Members
 
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        ///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose()
         {
@@ -77,6 +76,9 @@ namespace ArachNGIN.Files.QuakePak
 
         #endregion
 
+        /// <summary>
+        ///     Reads the pak files.
+        /// </summary>
         private void ReadPakFiles()
         {
             if (_iPakCount == 0) return;
@@ -104,9 +106,9 @@ namespace ArachNGIN.Files.QuakePak
         }
 
         /// <summary>
-        /// prevede lomitka na unixovy tvar
+        ///     Replaces slashes in a file name to unix format
         /// </summary>
-        /// <param name="sInput">cesta</param>
+        /// <param name="sInput">The input.</param>
         /// <returns></returns>
         private static string ReplaceSlashesIn(string sInput)
         {
@@ -114,9 +116,9 @@ namespace ArachNGIN.Files.QuakePak
         }
 
         /// <summary>
-        /// prevede lomitka na widelni tvar
+        ///     Replaces slashes in a filename back to windows format.
         /// </summary>
-        /// <param name="sInput"></param>
+        /// <param name="sInput">The input.</param>
         /// <returns></returns>
         private static string ReplaceSlashesOut(string sInput)
         {
@@ -124,15 +126,14 @@ namespace ArachNGIN.Files.QuakePak
         }
 
         /// <summary>
-        /// Vyžádá soubor a umístí ho do tempu.
-        /// Soubor může být buď:
-        /// - už v tempu -> neudělá se nic
-        /// - v adresáři programu -> zkopíruje se do tempu
-        /// - v jednom z pak souborů -> rozbalí se do tempu.
-        /// V tomto pořadí.
+        ///     Asks for a file and places it in a temp directory
+        ///     - if it already is in temp dir it does nothing
+        ///     - if it exists in program dir it gets copied to temp dir
+        ///     - if it exists in one of PAK files it gets extracted to temp dir
+        ///     In this order.
         /// </summary>
-        /// <param name="sFile">název souboru</param>
-        /// <returns>jestli se zadaří tak true</returns>
+        /// <param name="sFile">The file name.</param>
+        /// <returns>true or false</returns>
         public bool AskFile(string sFile)
         {
             bool r = false;

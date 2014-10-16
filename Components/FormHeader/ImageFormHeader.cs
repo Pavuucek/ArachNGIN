@@ -3,11 +3,21 @@ using System.Windows.Forms;
 
 namespace ArachNGIN.Components.FormHeader
 {
+    /// <summary>
+    ///     Class for drawing Form Header Image
+    /// </summary>
     public class ImageFormHeader : FormHeader
     {
         private Image _backgroundImage;
 
-
+        /// <summary>
+        ///     Gets or sets the background image displayed in the control.
+        /// </summary>
+        /// <PermissionSet>
+        ///     <IPermission
+        ///         class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+        ///         version="1" Unrestricted="true" />
+        /// </PermissionSet>
         public new Image BackgroundImage
         {
             get { return _backgroundImage; }
@@ -18,6 +28,10 @@ namespace ArachNGIN.Components.FormHeader
             }
         }
 
+        /// <summary>
+        ///     Draws the background image.
+        /// </summary>
+        /// <param name="g">The g.</param>
         protected void DrawBackgroundImage(Graphics g)
         {
             if (_backgroundImage == null)
@@ -25,6 +39,10 @@ namespace ArachNGIN.Components.FormHeader
             g.DrawImage(_backgroundImage, 0, 0);
         }
 
+        /// <summary>
+        ///     Raises the <see cref="E:System.Windows.Forms.Control.Paint" /> event.
+        /// </summary>
+        /// <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs" /> that contains the event data.</param>
         protected override void OnPaint(PaintEventArgs e)
         {
             DrawBackground(e.Graphics);
@@ -37,6 +55,21 @@ namespace ArachNGIN.Components.FormHeader
                 DrawIcon(e.Graphics);
             else if (Image != null)
                 DrawImage(e.Graphics);
+        }
+
+        /// <summary>
+        ///     Initializes the component.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // ImageFormHeader
+            // 
+            this.Name = "ImageFormHeader";
+            this.Size = new System.Drawing.Size(1502, 70);
+            this.ResumeLayout(false);
+
         }
     }
 }

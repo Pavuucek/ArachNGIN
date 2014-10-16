@@ -15,14 +15,6 @@
  * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-/*
- * Created by SharpDevelop.
- * User: Takeru
- * Date: 19.3.2006
- * Time: 15:11
- * 
- * To change this template use Tools | Options | Coding | Edit Standard Headers.
- */
 
 using System;
 using System.Collections.Generic;
@@ -33,15 +25,15 @@ using System.Windows.Forms;
 namespace ArachNGIN.Files.Streams
 {
     /// <summary>
-    /// Třída plná statických funkcí pro práci s řetězci
+    ///     Class for working with Strings
     /// </summary>
     public static class StringUtils
     {
         /// <summary>
-        /// Funkce pro rozdělení řetězce na jednotlivá slova
+        ///     Splits a string.
         /// </summary>
-        /// <param name="wholeString">celý řetězec</param>
-        /// <param name="delimiter">oddělovač (nejspíš mezera)</param>
+        /// <param name="wholeString">The whole string.</param>
+        /// <param name="delimiter">The delimiter.</param>
         /// <returns></returns>
         public static string[] StringSplit(string wholeString, string delimiter)
         {
@@ -62,74 +54,74 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Přidá na konec stringu lomítko, když už tam není
+        ///     Adds a slasho to the end of a string (if it's not already there)
         /// </summary>
-        /// <param name="strString">nejlépe cesta např. c:\\abcd</param>
-        /// <returns>cesta s lomítkem na konci např. c:\\abcd\\</returns>
+        /// <param name="strString">The string.</param>
+        /// <returns></returns>
         public static string StrAddSlash(string strString)
         {
             // zapamatovat si: lomítko je 0x5C!
-            var s = strString;
+            string s = strString;
             if (s[s.Length - 1] != (char) 0x5C) return s + (char) 0x5C;
             return s;
         }
 
         /// <summary>
-        /// Zkontroluje jestli řetězec začíná lomítkem a případně ho odřízne
+        ///     Checks if a string starts with a slash. If it does it removes it.
         /// </summary>
-        /// <param name="strString">řetězec</param>
-        /// <returns>řetězec bez lomítka na začátku</returns>
+        /// <param name="strString">The string.</param>
+        /// <returns></returns>
         public static string NoStartingSlash(string strString)
         {
-            if(string.IsNullOrEmpty(strString)) return string.Empty;
+            if (string.IsNullOrEmpty(strString)) return string.Empty;
             if (strString[0] == '\\') return strString.Substring(1);
             return strString;
         }
 
         /// <summary>
-        /// Zkontroluje jestli řetězec končí lomítkem a případně ho odřízne
+        ///     Checks if a string ends with a slash. if it does it removes it.
         /// </summary>
-        /// <param name="strString">řetězec</param>
-        /// <returns>řetězec bez lomítka na konci</returns>
+        /// <param name="strString">The string.</param>
+        /// <returns></returns>
         public static string NoEndingSlash(string strString)
         {
-            if(string.IsNullOrEmpty(strString)) return string.Empty;
-            var r = strString;
+            if (string.IsNullOrEmpty(strString)) return string.Empty;
+            string r = strString;
             if (strString[strString.Length - 1] == '\\') r = strString.Substring(0, strString.Length - 1);
             return r;
         }
 
         /// <summary>
-        /// Odřízne lomítka na obou koncích řetězce
+        ///     Deletes slashes on both ends of a string
         /// </summary>
-        /// <param name="strString">retězec</param>
-        /// <returns>řetězec bez lomítek</returns>
+        /// <param name="strString">The string.</param>
+        /// <returns></returns>
         public static string NoSlashesOnEnds(string strString)
         {
             return NoEndingSlash(NoStartingSlash(strString));
         }
 
-    /// <summary>
-        /// Převede číslo na pole bytů
+        /// <summary>
+        ///     Converts an integer to big endian byte array
         /// </summary>
-        /// <param name="x">číslo.</param>
-        /// <returns>pole bytů</returns>
+        /// <param name="x">The integer</param>
+        /// <returns></returns>
         public static byte[] UInt32ToBigEndianBytes(UInt32 x)
         {
             return new[]
-                       {
-                           (byte) ((x >> 24) & 0xff),
-                           (byte) ((x >> 16) & 0xff),
-                           (byte) ((x >> 8) & 0xff),
-                           (byte) (x & 0xff)
-                       };
+            {
+                (byte) ((x >> 24) & 0xff),
+                (byte) ((x >> 16) & 0xff),
+                (byte) ((x >> 8) & 0xff),
+                (byte) (x & 0xff)
+            };
         }
 
         /// <summary>
-        /// Převede číslo na řetězec v hex formátu
+        ///     Converts an integer to byte string
         /// </summary>
-        /// <param name="x">číslo</param>
-        /// <returns>řetězec v hex formátu</returns>
+        /// <param name="x">The integer</param>
+        /// <returns></returns>
         public static string UInt32ToByteString(UInt32 x)
         {
             byte[] tmp = UInt32ToBigEndianBytes(x);
@@ -138,12 +130,11 @@ namespace ArachNGIN.Files.Streams
             return s;
         }
 
-
         /// <summary>
-        /// Převede pole bytů na řetězec v hex formátu
+        ///     Converts a byte array to string
         /// </summary>
-        /// <param name="x">číslo</param>
-        /// <returns>řetězec v hex formátu</returns>
+        /// <param name="x">The byte array</param>
+        /// <returns></returns>
         public static string ByteArrayToString(byte[] x)
         {
             string s = string.Empty;
@@ -155,15 +146,14 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Převede číslo na řetězec s příslušnou délkou,
-        /// případně doplní na začátek nuly.
+        ///     Converts a number to a string of specified length. Pads the rest with zeroes.
         /// </summary>
-        /// <param name="number">číslo</param>
-        /// <param name="length">délka požadovaného řetězce</param>
-        /// <returns>řetězec, např. 000000123</returns>
+        /// <param name="number">The number.</param>
+        /// <param name="length">The length.</param>
+        /// <returns></returns>
         public static string PadNumToLength(int number, int length)
         {
-            var result = number.ToString(CultureInfo.InvariantCulture);
+            string result = number.ToString(CultureInfo.InvariantCulture);
             while (result.Length < length)
             {
                 result = "0" + result;
@@ -172,12 +162,10 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Vloží do Treeview názvy souborů strukturované podle adresářů
+        ///     Populates the TreeView by files.
         /// </summary>
-        /// <param name="treeView">komponenta TreeView.</param>
-        /// <param name="paths">pole s cestama. 
-        /// new List&lt;string&gt; {"jedna cesta", "druha cesta"}
-        /// </param>
+        /// <param name="treeView">The tree view.</param>
+        /// <param name="paths">The paths.</param>
         /// <param name="pathSeparator">The path separator.</param>
         public static void PopulateTreeViewByFiles(TreeView treeView, IEnumerable<string> paths, char pathSeparator)
         {
@@ -187,6 +175,7 @@ namespace ArachNGIN.Files.Streams
                 lastNode = LastNode(treeView, pathSeparator, path, null);
             }
         }
+
 
         private static TreeNode LastNode(TreeView treeView, char pathSeparator, string path, TreeNode lastNode)
         {

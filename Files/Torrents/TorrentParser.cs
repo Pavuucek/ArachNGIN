@@ -1,40 +1,60 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Security.Cryptography;
 
 namespace ArachNGIN.Files.Torrents
 {
+    /// <summary>
+    ///     Class for parsing torrent files
+    /// </summary>
     public class TorrentParser
     {
-        private stFile infoFile;
+        private StFile _infoFile;
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="TorrentParser" /> class.
+        /// </summary>
+        /// <param name="torrentFile">The torrent file.</param>
+        /// <exception cref="System.Exception">Torrent File invalid (null)</exception>
         public TorrentParser(BinaryReader torrentFile)
         {
-            if (torrentFile == null)
-            {
-                throw new Exception("Torrent File invalid (null)");
-            }
-            else
+            if (torrentFile != null)
             {
                 ProcessFile(torrentFile);
             }
+            else
+            {
+                throw new Exception("Torrent File invalid (null)");
+            }
         }
 
+        /// <summary>
+        ///     Processes the file.
+        /// </summary>
+        /// <param name="torrentFile">The torrent file.</param>
+        /// <exception cref="System.Exception">Torrent file invalid (character 'd' expected)</exception>
         private void ProcessFile(BinaryReader torrentFile)
         {
             do
             {
-                if (torrentFile.ReadChar().ToString() == "d")
+                if (torrentFile.ReadChar().ToString(CultureInfo.InvariantCulture) == "d")
                 {
-                    processDictionary(torrentFile, false, false);
+                    ProcessDictionary(torrentFile, false, false);
                 }
                 else
                 {
                     throw new Exception("Torrent file invalid (character 'd' expected)");
                 }
-            } while (torrentFile.ReadChar().ToString() != "e");
+            } while (torrentFile.ReadChar().ToString(CultureInfo.InvariantCulture) != "e");
         }
 
+        /// <summary>
+        ///     Gets the length of the string.
+        /// </summary>
+        /// <param name="torrentFile">The torrent file.</param>
+        /// <returns></returns>
+        /// <exception cref="System.Exception">Invalid character. expecting ':'</exception>
         private int getStringLength(BinaryReader torrentFile)
         {
             int stringLength = 0;
@@ -43,65 +63,88 @@ namespace ArachNGIN.Files.Torrents
                 stringLength = stringLength*10;
                 stringLength += Convert.ToInt32(torrentFile.ReadChar()) - Convert.ToInt32("0");
             }
-            if (torrentFile.ReadChar().ToString() == ":")
+            if (torrentFile.ReadChar().ToString(CultureInfo.InvariantCulture) == ":")
             {
                 return stringLength;
             }
-            else
-            {
-                throw new Exception("Invalid character. expecting ':'");
-            }
+            throw new Exception("Invalid character. expecting ':'");
         }
 
+        /// <summary>
+        ///     Gets the item value.
+        /// </summary>
+        /// <param name="torrentFile">The torrent file.</param>
+        /// <param name="stringLength">Length of the string.</param>
+        /// <returns></returns>
         private string getItemValue(BinaryReader torrentFile, int stringLength)
         {
             return torrentFile.ReadChars(stringLength).ToString();
         }
 
+        /// <summary>
+        ///     Gets the item value byte.
+        /// </summary>
+        /// <param name="torrentFile">The torrent file.</param>
+        /// <param name="stringLength">Length of the string.</param>
+        /// <returns></returns>
         private byte[] getItemValueByte(BinaryReader torrentFile, int stringLength)
         {
             return torrentFile.ReadBytes(stringLength);
         }
 
+        /// <summary>
+        ///     Gets the name of the item.
+        /// </summary>
+        /// <param name="torrentFile">The torrent file.</param>
+        /// <param name="stringLength">Length of the string.</param>
+        /// <returns></returns>
         private string getItemName(BinaryReader torrentFile, int stringLength)
         {
             return torrentFile.ReadChars(stringLength).ToString();
         }
 
+        /// <summary>
+        ///     Gets the integer number.
+        /// </summary>
+        /// <param name="torrentFile">The torrent file.</param>
+        /// <returns></returns>
+        /// <exception cref="System.Exception">
+        ///     -0 not allowed!
+        ///     or
+        ///     expected 'e'
+        /// </exception>
         private long getIntegerNumber(BinaryReader torrentFile)
         {
             torrentFile.ReadChar();
-            bool IsNegative = (torrentFile.PeekChar().ToString() == "-");
-            long IntegerNumber = 0;
+            bool isNegative = (torrentFile.PeekChar().ToString() == "-");
+            long integerNumber = 0;
             while (char.IsDigit((char) torrentFile.PeekChar()))
             {
-                IntegerNumber *= 10;
-                IntegerNumber = Convert.ToInt32(torrentFile.ReadChar()) - Convert.ToInt32("0");
+                integerNumber *= 10;
+                integerNumber = Convert.ToInt32(torrentFile.ReadChar()) - Convert.ToInt32("0");
             }
-            if (torrentFile.ReadChar().ToString() == "e")
+            if (torrentFile.ReadChar().ToString(CultureInfo.InvariantCulture) == "e")
             {
-                if (IsNegative)
+                if (isNegative)
                 {
-                    if (IntegerNumber > 0)
+                    if (integerNumber > 0)
                     {
-                        return -IntegerNumber;
+                        return -integerNumber;
                     }
-                    else
-                    {
-                        throw new Exception("-0 not allowed!");
-                    }
+                    throw new Exception("-0 not allowed!");
                 }
-                else
-                {
-                    return IntegerNumber;
-                }
+                return integerNumber;
             }
-            else
-            {
-                throw new Exception("expected 'e'");
-            }
+            throw new Exception("expected 'e'");
         }
 
+        /// <summary>
+        ///     Gets the hash information.
+        /// </summary>
+        /// <param name="torrentFile">The torrent file.</param>
+        /// <param name="infoStart">The information start.</param>
+        /// <param name="infoLength">Length of the information.</param>
+        /// <returns></returns>
         private string getHashInfo(BinaryReader torrentFile, int infoStart, int infoLength)
         {
             var sha1 = new SHA1Managed();
@@ -111,7 +154,18 @@ namespace ArachNGIN.Files.Torrents
             return BitConverter.ToString(sha1.ComputeHash(infoValueBytes)).Replace("-", "").ToLower();
         }
 
-        private void processDictionary(BinaryReader torrentFile, bool isInfo, bool isFiles)
+        /// <summary>
+        ///     Processes the dictionary.
+        /// </summary>
+        /// <param name="torrentFile">The torrent file.</param>
+        /// <param name="isInfo">if set to <c>true</c> [is information].</param>
+        /// <param name="isFiles">if set to <c>true</c> [is files].</param>
+        /// <exception cref="System.Exception">
+        ///     character invalid. expected 'd'
+        ///     or
+        ///     expected number, 'd' or 'l'
+        /// </exception>
+        private void ProcessDictionary(BinaryReader torrentFile, bool isInfo, bool isFiles)
         {
             int stringLength = 0;
             string itemName = "";
@@ -119,7 +173,7 @@ namespace ArachNGIN.Files.Torrents
             long itemValueInteger = 0;
             var itemValueByte = new byte[0];
 
-            while (Convert.ToChar(torrentFile.PeekChar()).ToString() != "e")
+            while (Convert.ToChar(torrentFile.PeekChar()).ToString(CultureInfo.InvariantCulture) != "e")
             {
                 if (char.IsDigit(Convert.ToChar(torrentFile.PeekChar())))
                 {
@@ -128,35 +182,35 @@ namespace ArachNGIN.Files.Torrents
                     if (itemName == "info")
                     {
                         var infoPositionStart = (int) torrentFile.BaseStream.Position;
-                        if (torrentFile.ReadChar().ToString() == "d")
+                        if (torrentFile.ReadChar().ToString(CultureInfo.InvariantCulture) == "d")
                         {
-                            processDictionary(torrentFile, true, false);
+                            ProcessDictionary(torrentFile, true, false);
                         }
                         else
                         {
                             throw new Exception("character invalid. expected 'd'");
                         }
                         var infoPositionEnd = (int) torrentFile.BaseStream.Position;
-                        p_InfoHash = getHashInfo(torrentFile, infoPositionStart, infoPositionEnd - infoPositionStart - 1);
-                        if (p_IsSingleFile)
+                        PInfoHash = getHashInfo(torrentFile, infoPositionStart, infoPositionEnd - infoPositionStart - 1);
+                        if (PIsSingleFile)
                         {
                             InsertNewFile();
                         }
                     }
                     else
                     {
-                        if (Convert.ToChar(torrentFile.PeekChar()).ToString() == "i")
+                        if (Convert.ToChar(torrentFile.PeekChar()).ToString(CultureInfo.InvariantCulture) == "i")
                         {
                             itemValueInteger = getIntegerNumber(torrentFile);
                         }
-                        else if (Convert.ToChar(torrentFile.PeekChar()).ToString() == "l")
+                        else if (Convert.ToChar(torrentFile.PeekChar()).ToString(CultureInfo.InvariantCulture) == "l")
                         {
                             ProcessList(torrentFile, itemName, itemName == "path");
                             torrentFile.ReadChar();
                         }
-                        else if (Convert.ToChar(torrentFile.PeekChar()).ToString() == "d")
+                        else if (Convert.ToChar(torrentFile.PeekChar()).ToString(CultureInfo.InvariantCulture) == "d")
                         {
-                            processDictionary(torrentFile, false, false);
+                            ProcessDictionary(torrentFile, false, false);
                             torrentFile.ReadChar();
                         }
                         else
@@ -174,68 +228,61 @@ namespace ArachNGIN.Files.Torrents
 
                         if (isInfo || isFiles)
                         {
-                            if (itemName == "length")
+                            switch (itemName)
                             {
-                                infoFile.Length = itemValueInteger;
-                            }
-                            else if (itemName == "name")
-                            {
-                                infoFile.Name = itemValueString;
-                            }
-                            else if (itemName == "piece length")
-                            {
-                                infoFile.PieceLength = itemValueInteger;
-                            }
-                            else if (itemName == "pieces")
-                            {
-                                infoFile.PieceLength = itemValueInteger;
-                            }
-                            else if (itemName == "md5sum")
-                            {
-                                infoFile.md5sum = itemValueString;
-                            }
-                            else if (itemName == "ed2k")
-                            {
-                                infoFile.ed2k = itemValueByte;
-                            }
-                            else if (itemName == "sha1")
-                            {
-                                infoFile.sha1 = itemValueByte;
-                            }
-                            else
-                            {
+                                case "length":
+                                    _infoFile.Length = itemValueInteger;
+                                    break;
+                                case "name":
+                                    _infoFile.Name = itemValueString;
+                                    break;
+                                case "piece length":
+                                    _infoFile.PieceLength = itemValueInteger;
+                                    break;
+                                case "pieces":
+                                    _infoFile.PieceLength = itemValueInteger;
+                                    break;
+                                case "md5sum":
+                                    _infoFile.Md5Sum = itemValueString;
+                                    break;
+                                case "ed2k":
+                                    _infoFile.Ed2K = itemValueByte;
+                                    break;
+                                case "sha1":
+                                    _infoFile.Sha1 = itemValueByte;
+                                    break;
+                                default:
+                                    break;
                             }
                         }
                         else
                         {
-                            if (itemName == "announce")
+                            switch (itemName)
                             {
-                                p_Anounce = itemValueString;
-                            }
-                            else if (itemName == "comment")
-                            {
-                                p_Comment = itemValueString;
-                            }
-                            else if (itemName == "creation date")
-                            {
-                                p_CreationDate = new DateTime(1970, 1, 1).AddSeconds(itemValueInteger);
-                            }
-                            else if (itemName == "encoding")
-                            {
-                                p_Encoding = itemValueString;
-                            }
-                            else
-                            {
+                                case "announce":
+                                    _pAnounce = itemValueString;
+                                    break;
+                                case "comment":
+                                    _pComment = itemValueString;
+                                    break;
+                                case "creation date":
+                                    _pCreationDate = new DateTime(1970, 1, 1).AddSeconds(itemValueInteger);
+                                    break;
+                                case "encoding":
+                                    _pEncoding = itemValueString;
+                                    break;
+                                default:
+                                    break;
                             }
                         }
                     }
                 }
-                else if (Convert.ToChar(torrentFile.PeekChar()).ToString() == "d")
+                else if (Convert.ToChar(torrentFile.PeekChar()).ToString(CultureInfo.InvariantCulture) == "d")
                 {
                     torrentFile.ReadChar();
-                    processDictionary(torrentFile, isInfo, isFiles);
+                    ProcessDictionary(torrentFile, isInfo, isFiles);
                 }
-                else if (Convert.ToChar(torrentFile.PeekChar()).ToString() == "e")
+                else if (Convert.ToChar(torrentFile.PeekChar()).ToString(CultureInfo.InvariantCulture) == "e")
                 {
                     break;
                 }
@@ -246,68 +293,78 @@ namespace ArachNGIN.Files.Torrents
             }
         }
 
+        /// <summary>
+        ///     Inserts the new file.
+        /// </summary>
         private void InsertNewFile()
         {
-            if (p_Files == null)
+            if (PFiles == null)
             {
-                p_Files = new stFile[0];
+                PFiles = new StFile[0];
             }
             else
             {
-                var oldArray = new stFile[p_Files.Length - 1];
-                p_Files.CopyTo(oldArray, 0);
-                p_Files = new stFile[p_Files.Length];
-                oldArray.CopyTo(p_Files, 0);
+                var oldArray = new StFile[PFiles.Length - 1];
+                PFiles.CopyTo(oldArray, 0);
+                PFiles = new StFile[PFiles.Length];
+                oldArray.CopyTo(PFiles, 0);
             }
-            if (!p_IsSingleFile)
+            if (!PIsSingleFile)
             {
-                infoFile.Path = infoFile.Path.Substring(1);
+                _infoFile.Path = _infoFile.Path.Substring(1);
             }
-            p_Files[p_Files.Length - 1] = infoFile;
+            PFiles[PFiles.Length - 1] = _infoFile;
             //infoFile = null;
         }
 
-        private void ProcessList(BinaryReader torrentFile, string itemName, bool IsPath)
+        /// <summary>
+        ///     Processes the list.
+        /// </summary>
+        /// <param name="torrentFile">The torrent file.</param>
+        /// <param name="itemName">Name of the item.</param>
+        /// <param name="isPath">if set to <c>true</c> [is path].</param>
+        private void ProcessList(BinaryReader torrentFile, string itemName, bool isPath)
         {
             bool IsFiles = false;
             if (itemName == "files")
             {
                 IsFiles = true;
-                p_IsSingleFile = false;
+                PIsSingleFile = false;
             }
-            bool IsFirstTime = true;
-            while (Convert.ToChar(torrentFile.PeekChar()).ToString() != "e")
+            bool isFirstTime = true;
+            while (Convert.ToChar(torrentFile.PeekChar()).ToString(CultureInfo.InvariantCulture) != "e")
             {
-                if (IsFirstTime && (Convert.ToChar(torrentFile.PeekChar()).ToString() == "l"))
+                if (isFirstTime &&
+                    (Convert.ToChar(torrentFile.PeekChar()).ToString(CultureInfo.InvariantCulture) == "l"))
                 {
                     torrentFile.ReadChar();
                 }
-                if (IsPath)
+                if (isPath)
                 {
-                    while (Convert.ToChar(torrentFile.PeekChar()).ToString() != "e")
+                    while (Convert.ToChar(torrentFile.PeekChar()).ToString(CultureInfo.InvariantCulture) != "e")
                     {
                         int stringLength = getStringLength(torrentFile);
                         string itemValue = getItemName(torrentFile, stringLength);
-                        infoFile.Path += "\\" + itemValue;
+                        _infoFile.Path += "\\" + itemValue;
                     }
                     InsertNewFile();
                     break;
                 }
-                else if (Convert.ToChar(torrentFile.PeekChar()).ToString() == "d")
+                if (Convert.ToChar(torrentFile.PeekChar()).ToString(CultureInfo.InvariantCulture) == "d")
                 {
                     torrentFile.ReadChar();
-                    processDictionary(torrentFile, true, true);
+                    ProcessDictionary(torrentFile, true, true);
                     torrentFile.ReadChar();
                 }
-                else if (Convert.ToChar(torrentFile.PeekChar()).ToString() == "l")
+                else if (Convert.ToChar(torrentFile.PeekChar()).ToString(CultureInfo.InvariantCulture) == "l")
                 {
-                    ProcessList(torrentFile, itemName, IsPath);
+                    ProcessList(torrentFile, itemName, isPath);
                 }
                 else
                 {
                     int stringLength;
                     string itemValue = "";
-                    while ((Convert.ToChar(torrentFile.PeekChar()).ToString() != "e"))
+                    while ((Convert.ToChar(torrentFile.PeekChar()).ToString(CultureInfo.InvariantCulture) != "e"))
                     {
                         stringLength = getStringLength(torrentFile);
                         itemValue = getItemValue(torrentFile, stringLength);
@@ -318,52 +375,121 @@ namespace ArachNGIN.Files.Torrents
                     }
                     break;
                 }
-                IsFirstTime = false;
+                isFirstTime = false;
             }
         }
 
+        /// <summary>
+        ///     Inserts the new announce.
+        /// </summary>
+        /// <param name="newAnnounce">The new announce.</param>
         private void InsertNewAnnounce(string newAnnounce)
         {
-            if (p_AnnounceList == null)
+            if (PAnnounceList == null)
             {
-                p_AnnounceList = new string[0];
+                PAnnounceList = new string[0];
             }
             else
             {
-                var oldArray = new string[p_AnnounceList.Length - 1];
-                p_AnnounceList.CopyTo(oldArray, 0);
-                p_AnnounceList = new string[p_AnnounceList.Length];
-                oldArray.CopyTo(p_AnnounceList, 0);
+                var oldArray = new string[PAnnounceList.Length - 1];
+                PAnnounceList.CopyTo(oldArray, 0);
+                PAnnounceList = new string[PAnnounceList.Length];
+                oldArray.CopyTo(PAnnounceList, 0);
             }
-            p_AnnounceList[p_AnnounceList.Length - 1] = newAnnounce;
+            PAnnounceList[PAnnounceList.Length - 1] = newAnnounce;
         }
 
         #region Nested type: stFile
 
-        public struct stFile
+        /// <summary>
+        ///     StFile structure
+        /// </summary>
+        public struct StFile
         {
+            /// <summary>
+            ///     The ed2k
+            /// </summary>
+            public byte[] Ed2K;
+
+            /// <summary>
+            ///     The length
+            /// </summary>
             public long Length;
+
+            /// <summary>
+            ///     The md5sum
+            /// </summary>
+            public string Md5Sum;
+
+            /// <summary>
+            ///     The name
+            /// </summary>
             public string Name;
+
+            /// <summary>
+            ///     The path
+            /// </summary>
             public string Path;
+
+            /// <summary>
+            ///     The piece length
+            /// </summary>
             public long PieceLength;
+
+            /// <summary>
+            ///     The pieces
+            /// </summary>
             public byte[] Pieces;
-            public byte[] ed2k;
-            public string md5sum;
-            public byte[] sha1;
+
+            /// <summary>
+            ///     The sha1
+            /// </summary>
+            public byte[] Sha1;
         }
 
         #endregion
 
         #region Privátní variábly
 
-        public string[] p_AnnounceList;
-        private string p_Anounce;
-        private string p_Comment;
-        private DateTime p_CreationDate;
-        private string p_Encoding;
-        public stFile[] p_Files;
-        public string p_InfoHash;
-        public Boolean p_IsSingleFile = true;
+        /// <summary>
+        ///     The announce list
+        /// </summary>
+        public string[] PAnnounceList;
+
+        /// <summary>
+        ///     The files
+        /// </summary>
+        public StFile[] PFiles;
+
+        /// <summary>
+        ///     The information hash
+        /// </summary>
+        public string PInfoHash;
+
+        /// <summary>
+        ///     Is single file
+        /// </summary>
+        public Boolean PIsSingleFile = true;
+
+        /// <summary>
+        ///     The anounce
+        /// </summary>
+        private string _pAnounce;
+
+        /// <summary>
+        ///     The comment
+        /// </summary>
+        private string _pComment;
+
+        /// <summary>
+        ///     The creation date
+        /// </summary>
+        private DateTime _pCreationDate;
+
+        /// <summary>
+        ///     The encoding
+        /// </summary>
+        private string _pEncoding;
 
         #endregion
     }
