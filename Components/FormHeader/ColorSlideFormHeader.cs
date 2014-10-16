@@ -127,13 +127,14 @@ namespace ArachNGIN.Components.FormHeader
         /// </summary>
         private void InitializeComponent()
         {
-            SuspendLayout();
+            this.SuspendLayout();
             // 
             // ColorSlideFormHeader
             // 
-            Name = "ColorSlideFormHeader";
-            Size = new Size(1502, 70);
-            ResumeLayout(false);
+            this.Name = "ColorSlideFormHeader";
+            this.Size = new System.Drawing.Size(1502, 70);
+            this.ResumeLayout(false);
+
         }
     }
 }
