@@ -6,7 +6,7 @@ using ArachNGIN.Files.Streams;
 namespace ArachNGIN.Files.TempDir
 {
     /// <summary>
-    /// Třída pro obstarávání temp adresáře a podobné věci
+    ///     Class for handling Temp directory
     /// </summary>
     public class TempManager : IDisposable
     {
@@ -15,10 +15,8 @@ namespace ArachNGIN.Files.TempDir
         private readonly string _sTempDir;
 
         /// <summary>
-        /// Konstruktor třídy
-        /// vytvoří adresář v tempu
+        ///     Initializes a new instance of the <see cref="TempManager" /> class.
         /// </summary>
-        /// <returns>instance třídy</returns>
         public TempManager()
         {
             Guid gGuid = Guid.NewGuid();
@@ -28,7 +26,7 @@ namespace ArachNGIN.Files.TempDir
             {
                 string str = fileName.ToLower();
                 str = str.Replace(@".", @"_");
-                str = str + @"_" + gGuid.ToString();
+                str = str + @"_" + gGuid;
                 _sAppTempDir = StringUtils.StrAddSlash(_sTempDir + str.ToLower());
             }
             _sAppDir = StringUtils.StrAddSlash(Path.GetDirectoryName(Application.ExecutablePath));
@@ -36,28 +34,33 @@ namespace ArachNGIN.Files.TempDir
         }
 
         /// <summary>
-        /// property vracející adresář aplikace
+        ///     Gets the application dir.
         /// </summary>
+        /// <value>
+        ///     The application dir.
+        /// </value>
         public string AppDir
         {
             get { return _sAppDir; }
         }
 
         /// <summary>
-        /// property vracející adresář aplikace v tempu
-        /// (např. c:\windows\temp\aplikace_035521152515)
-        /// poslední část je guid (aby se 2 instance aplikace/této třídy
-        /// nehádaly o 1 adresář)
+        ///     Gets the application temporary dir.
         /// </summary>
+        /// <value>
+        ///     The application temporary dir.
+        /// </value>
         public string AppTempDir
         {
             get { return _sAppTempDir; }
         }
 
         /// <summary>
-        /// property vracející tempový adresář
-        /// (např. c:\windows\temp)
+        ///     Gets the default temporary dir.
         /// </summary>
+        /// <value>
+        ///     The temporary dir.
+        /// </value>
         public string TempDir
         {
             get { return _sTempDir; }
@@ -66,7 +69,7 @@ namespace ArachNGIN.Files.TempDir
         #region IDisposable Members
 
         /// <summary>
-        /// Destruktor třídy vyvolá fci Close(); a potlačuje výjimky
+        ///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose()
         {
@@ -76,7 +79,7 @@ namespace ArachNGIN.Files.TempDir
         #endregion
 
         /// <summary>
-        /// Smaže adresář v tempu
+        ///     Closes this instance.
         /// </summary>
         public void Close()
         {
