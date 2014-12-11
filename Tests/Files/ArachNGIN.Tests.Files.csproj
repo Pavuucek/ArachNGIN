@@ -57,7 +57,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CRC\AnimeCrcTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Files\ArachNGIN.Files.csproj">
+      <Project>{21fe4ec9-b716-43ba-9124-08439ac740ab}</Project>
+      <Name>ArachNGIN.Files</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
