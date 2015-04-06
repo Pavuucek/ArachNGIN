@@ -8,6 +8,7 @@
   <param name="ignoreKnownHosts" value="true" />
   <param name="reportTagRevisions" value="true" />
   <param name="secure:password" value="zxx6e1e9802cd9b51b9775d03cbe80d301b" />
+  <param name="serverSideAutoCrlf" value="true" />
   <param name="submoduleCheckout" value="CHECKOUT" />
   <param name="teamcity:branchSpec"><![CDATA[-:refs/heads/gh-pages
 +:refs/(pull/*)
