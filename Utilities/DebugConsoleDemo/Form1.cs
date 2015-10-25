@@ -24,9 +24,25 @@ namespace DebugConsoleDemo
         private void Form1_Load(object sender, EventArgs e)
         {
             DC.AutoSave = ConsoleAutoSave.OnLineAdd;
+            DC.ScreenLocation = ConsoleLocation.TopRight;
             Debug.WriteLine("Debug start");
             Trace.WriteLine("Trace Start");
             DC.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Trace.WriteLine(textBox1.Text.ToString());
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            Trace.Write(trackBar1.Value.ToString());
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            Trace.WriteLine("Event : textBox1_TextChanged ");
         }
     }
 }
