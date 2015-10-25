@@ -18,10 +18,11 @@
 
 using System;
 using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Security;
+using System.Text;
 using System.Windows.Forms;
 using ArachNGIN.Components.Console.Forms;
 using ArachNGIN.Components.Console.Misc;
@@ -41,7 +42,9 @@ namespace ArachNGIN.Components.Console
                                                .Replace(@"/", "-")
                                                .Replace(":", "-") + ".log";
 
-        private bool _usePlainView = true;
+        private StringBuilder _buffer = new StringBuilder();
+        private int _eventCounter;
+        private ListViewItem.ListViewSubItem _currentMsgItem;
 
         /// <summary>
         ///     The automatic save
@@ -49,15 +52,12 @@ namespace ArachNGIN.Components.Console
         public ConsoleAutoSave AutoSave = ConsoleAutoSave.ManualOnly;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DebugConsole" /> class.
+        ///     Initializes a new instance of the <see cref="DebugConsole" /> class.
         /// </summary>
         /// <param name="useDebug">if set to <c>true</c> [use debug].</param>
         public DebugConsole(bool useDebug)
         {
             _consoleForm = new ConsoleForm();
-            _consoleForm.lstLogPlain.Size = _consoleForm.lstLogSeparate.Size;
-            _consoleForm.lstLogPlain.Location = _consoleForm.lstLogSeparate.Location;
-            _consoleForm.lstLogPlain.Dock = _consoleForm.lstLogSeparate.Dock;
             // připíchneme na txtCommand event pro zpracování zmáčknutí klávesy
             _consoleForm.txtCommand.KeyPress += TxtCommandKeyPress;
             // připíchneme ještě event interních příkazů
@@ -66,14 +66,30 @@ namespace ArachNGIN.Components.Console
             else Trace.Listeners.Add(this);
         }
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="DebugConsole" /> class.
+        /// </summary>
         public DebugConsole() : this(true)
         {
-            
         }
-        
 
+
+        /// <summary>
+        /// Writes the line.
+        /// </summary>
+        /// <param name="message">The message.</param>
         public override void WriteLine(string message)
         {
+            CreateEventRow();
+            _buffer = new StringBuilder();
+            _buffer.Append(message);
+            UpdateCurrentRow(true);
+            _buffer = new StringBuilder();
+            if (AutoSave == ConsoleAutoSave.OnLineAdd)
+            {
+                SaveLog();
+            }
+            Application.DoEvents();
         }
 
         #region Veřejné vlastnosti
@@ -95,23 +111,6 @@ namespace ArachNGIN.Components.Console
         {
             get { return _consoleForm.Text; }
             set { _consoleForm.Text = value; }
-        }
-
-        /// <summary>
-        ///     Gets or sets a value indicating whether [use plain view].
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if [use plain view]; otherwise, <c>false</c>.
-        /// </value>
-        public bool UsePlainView
-        {
-            get { return _usePlainView; }
-            set
-            {
-                _usePlainView = value;
-                _consoleForm.lstLogPlain.Visible = value;
-                _consoleForm.lstLogSeparate.Visible = !value;
-            }
         }
 
         /// <summary>
@@ -227,65 +226,53 @@ namespace ArachNGIN.Components.Console
             _consoleForm.Close();
         }
 
-        /// <summary>
-        ///     Writes a message to console.
-        /// </summary>
-        /// <param name="t">The time.</param>
-        /// <param name="message">The message.</param>
-        /// <exception cref="SystemException">There is insufficient space available to add the new item to the list. </exception>
-        public void Write(DateTime t, string message)
-        {
-            var item = new ListViewItem(t.ToLongTimeString());
-            item.SubItems.Add(message);
-            _consoleForm.lstLogSeparate.Items.Add(item);
-            _consoleForm.lstLogPlain.Items.Add(t.ToLongTimeString() + " --> " + message);
-            _consoleForm.lstLogSeparate.EnsureVisible(_consoleForm.lstLogSeparate.Items.Count - 1);
-            _consoleForm.lstLogPlain.SelectedIndex = _consoleForm.lstLogPlain.Items.Count - 1;
-            if (AutoSave == ConsoleAutoSave.OnLineAdd)
-            {
-                SaveLog();
-            }
-            Application.DoEvents();
-        }
 
         /// <summary>
         ///     Writes the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
-        /// <exception cref="SystemException">There is insufficient space available to add the new item to the list. </exception>
         public override void Write(string message)
         {
-            Write(DateTime.Now, message);
+            _buffer.Append(message);
+            UpdateCurrentRow(false);
+            if (AutoSave == ConsoleAutoSave.OnLineAdd)
+            {
+                SaveLog();
+            }
+            Application.DoEvents();
         }
 
 
         /// <summary>
         ///     Saves the log.
         /// </summary>
+        /// <exception cref="UnauthorizedAccessException">Access to <paramref name="fileName" /> is denied. </exception>
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="IOException">The disk is read-only. </exception>
+        /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
+        /// <exception cref="ObjectDisposedException">The <see cref="T:System.IO.TextWriter" /> is closed. </exception>
+        /// <exception cref="EncoderFallbackException">The current encoding does not support displaying half of a Unicode surrogate pair.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="fileName" /> contains a colon (:) in the middle of the string. </exception>
+        /// <exception cref="ArgumentException">The file name is empty, contains only white spaces, or contains invalid characters. </exception>
+        /// <exception cref="PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters. </exception>
+        /// <exception cref="ArgumentNullException"><paramref name="fileName" /> is null. </exception>
         public void SaveLog()
         {
-            StringCollections.SaveToFile(_logName, _consoleForm.lstLogSeparate.Items);
+            var f = new FileInfo(_logName);
+            var s = f.CreateText();
+            for (var i = 0; i < _consoleForm.lstLogSeparate.Items.Count; i++)
+            {
+                var sb = new StringBuilder();
+                sb.Append(_consoleForm.lstLogSeparate.Items[i].SubItems[0].Text);
+                sb.Append("\t");
+                sb.Append(_consoleForm.lstLogSeparate.Items[i].SubItems[1].Text);
+                sb.Append("\t");
+                sb.Append(_consoleForm.lstLogSeparate.Items[i].SubItems[2].Text);
+                s.WriteLine(sb.ToString());
+            }
+            s.Close();
         }
 
-        /// <summary>
-        ///     Writes a message to console without time.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <exception cref="SystemException">There is insufficient space available to add the new item to the list. </exception>
-        public void WriteNoTime(string message)
-        {
-            var item = new ListViewItem("");
-            item.SubItems.Add(message);
-            _consoleForm.lstLogSeparate.Items.Add(item);
-            _consoleForm.lstLogPlain.Items.Add(message);
-            _consoleForm.lstLogSeparate.EnsureVisible(_consoleForm.lstLogSeparate.Items.Count - 1);
-            _consoleForm.lstLogPlain.SelectedIndex = _consoleForm.lstLogPlain.Items.Count - 1;
-            if (AutoSave == ConsoleAutoSave.OnLineAdd)
-            {
-                SaveLog();
-            }
-            Application.DoEvents();
-        }
 
         /// <summary>
         ///     Performs a console command.
@@ -362,13 +349,12 @@ namespace ArachNGIN.Components.Console
                 {
                     case "cls":
                         _consoleForm.lstLogSeparate.Items.Clear();
-                        _consoleForm.lstLogPlain.Items.Clear();
                         break;
                     case "echot":
                         Write(DateTime.Now, e.ParamString);
                         break;
                     case "echo":
-                        WriteNoTime(e.ParamString);
+                        //WriteNoTime(e.ParamString);
                         break;
                     case "savelog":
                         if (string.IsNullOrEmpty(e.ParamString)) break;
@@ -383,6 +369,33 @@ namespace ArachNGIN.Components.Console
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        ///     Updates the current row.
+        /// </summary>
+        /// <param name="createRowNextTime">if set to <c>true</c> [creates row next time].</param>
+        private void UpdateCurrentRow(bool createRowNextTime)
+        {
+            if (_currentMsgItem == null) CreateEventRow();
+            _currentMsgItem.Text = _buffer.ToString();
+            if (createRowNextTime) _currentMsgItem = null;
+            _consoleForm.lstLogSeparate.EnsureVisible(_consoleForm.lstLogSeparate.Items.Count - 1);
+        }
+
+        /// <summary>
+        ///     Creates the event row.
+        /// </summary>
+        private void CreateEventRow()
+        {
+            var d = DateTime.Now;
+            var msg1 = (++_eventCounter).ToString();
+            var msg2 = d.ToLongTimeString();
+            var elem = new ListViewItem(msg1);
+            elem.SubItems.Add(msg2);
+            elem.SubItems.Add("");
+            _consoleForm.lstLogSeparate.Items.Add(elem);
+            _currentMsgItem = elem.SubItems[2];
         }
 
         #endregion

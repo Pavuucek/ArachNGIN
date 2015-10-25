@@ -44,9 +44,6 @@ namespace ArachNGIN.Components.Console.Forms
 
         private void LstLogSeparateSizeChanged(object sender, System.EventArgs e)
         {
-            lstLogPlain.Size = lstLogSeparate.Size;
-            lstLogPlain.Location = lstLogSeparate.Location;
-            lstLogPlain.Dock = lstLogSeparate.Dock;
         }
     }
 }
