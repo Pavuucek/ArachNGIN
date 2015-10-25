@@ -212,6 +212,7 @@ namespace ArachNGIN.Components.Console
         /// </summary>
         /// <param name="t">The time.</param>
         /// <param name="message">The message.</param>
+        /// <exception cref="SystemException">There is insufficient space available to add the new item to the list. </exception>
         public void Write(DateTime t, string message)
         {
             var item = new ListViewItem(t.ToLongTimeString());
@@ -231,6 +232,7 @@ namespace ArachNGIN.Components.Console
         ///     Writes the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
+        /// <exception cref="SystemException">There is insufficient space available to add the new item to the list. </exception>
         public void Write(string message)
         {
             Write(DateTime.Now, message);
@@ -249,6 +251,7 @@ namespace ArachNGIN.Components.Console
         ///     Writes a message to console without time.
         /// </summary>
         /// <param name="message">The message.</param>
+        /// <exception cref="SystemException">There is insufficient space available to add the new item to the list. </exception>
         public void WriteNoTime(string message)
         {
             var item = new ListViewItem("");
@@ -268,6 +271,8 @@ namespace ArachNGIN.Components.Console
         ///     Performs a console command.
         /// </summary>
         /// <param name="command">The command.</param>
+        /// <exception cref="SystemException">There is insufficient space available to add the new item to the list. </exception>
+        /// <exception cref="Exception">A delegate callback throws an exception.</exception>
         public void DoCommand(string command)
         {
             string[] strCmdLine = StringUtils.StringSplit(command, " "); // cely prikaz
