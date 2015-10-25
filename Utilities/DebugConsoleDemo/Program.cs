@@ -5,13 +5,13 @@ using System.Windows.Forms;
 
 namespace DebugConsoleDemo
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// Hlavní vstupní bod aplikace.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

@@ -5,10 +5,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
  * is furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
  * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
  * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
@@ -16,6 +16,9 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+using ArachNGIN.Components.Console.Forms;
+using ArachNGIN.Components.Console.Misc;
+using ArachNGIN.Files.Streams;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -24,9 +27,6 @@ using System.IO;
 using System.Security;
 using System.Text;
 using System.Windows.Forms;
-using ArachNGIN.Components.Console.Forms;
-using ArachNGIN.Components.Console.Misc;
-using ArachNGIN.Files.Streams;
 
 namespace ArachNGIN.Components.Console
 {
@@ -43,8 +43,8 @@ namespace ArachNGIN.Components.Console
                                                .Replace(":", "-") + ".log";
 
         private StringBuilder _buffer = new StringBuilder();
-        private int _eventCounter;
         private ListViewItem.ListViewSubItem _currentMsgItem;
+        private int _eventCounter;
 
         /// <summary>
         ///     The automatic save
@@ -73,9 +73,8 @@ namespace ArachNGIN.Components.Console
         {
         }
 
-
         /// <summary>
-        /// Writes the line.
+        ///     Writes the line.
         /// </summary>
         /// <param name="message">The message.</param>
         public override void WriteLine(string message)
@@ -130,18 +129,22 @@ namespace ArachNGIN.Components.Console
                         _consoleForm.Left = 0;
                         _consoleForm.Top = 0;
                         break;
+
                     case ConsoleLocation.TopRight:
                         _consoleForm.Left = Screen.PrimaryScreen.WorkingArea.Width - _consoleForm.Width;
                         _consoleForm.Top = 0;
                         break;
+
                     case ConsoleLocation.BottomLeft:
                         _consoleForm.Left = 0;
                         _consoleForm.Top = Screen.PrimaryScreen.WorkingArea.Height - _consoleForm.Height;
                         break;
+
                     case ConsoleLocation.BottomRight:
                         _consoleForm.Top = Screen.PrimaryScreen.WorkingArea.Height - _consoleForm.Height;
                         _consoleForm.Left = Screen.PrimaryScreen.WorkingArea.Width - _consoleForm.Width;
                         break;
+
                     case ConsoleLocation.ScreenCenter:
                         _consoleForm.StartPosition = FormStartPosition.CenterScreen;
                         break;
@@ -206,9 +209,9 @@ namespace ArachNGIN.Components.Console
         /// </summary>
         public event CommandEnteredEvent OnCommandEntered;
 
-        #endregion
+        #endregion Veřejné vlastnosti
 
-        #region Veřejné procedury        
+        #region Veřejné procedury
 
         /// <summary>
         ///     Shows the console.
@@ -226,7 +229,6 @@ namespace ArachNGIN.Components.Console
             _consoleForm.Close();
         }
 
-
         /// <summary>
         ///     Writes the specified message.
         /// </summary>
@@ -242,6 +244,10 @@ namespace ArachNGIN.Components.Console
             Application.DoEvents();
         }
 
+        /// <summary>
+        ///     Writes the line without date and number (does not increase line number).
+        /// </summary>
+        /// <param name="message">The message.</param>
         public void WriteLinePlain(string message)
         {
             CreateEventRow(false, false);
@@ -262,12 +268,22 @@ namespace ArachNGIN.Components.Console
         /// <exception cref="UnauthorizedAccessException">Access to <paramref name="fileName" /> is denied. </exception>
         /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
         /// <exception cref="IOException">The disk is read-only. </exception>
-        /// <exception cref="ArgumentOutOfRangeException">Enlarging the value of this instance would exceed <see cref="P:System.Text.StringBuilder.MaxCapacity" />. </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     Enlarging the value of this instance would exceed
+        ///     <see cref="P:System.Text.StringBuilder.MaxCapacity" />.
+        /// </exception>
         /// <exception cref="ObjectDisposedException">The <see cref="T:System.IO.TextWriter" /> is closed. </exception>
-        /// <exception cref="EncoderFallbackException">The current encoding does not support displaying half of a Unicode surrogate pair.</exception>
+        /// <exception cref="EncoderFallbackException">
+        ///     The current encoding does not support displaying half of a Unicode surrogate
+        ///     pair.
+        /// </exception>
         /// <exception cref="NotSupportedException"><paramref name="fileName" /> contains a colon (:) in the middle of the string. </exception>
         /// <exception cref="ArgumentException">The file name is empty, contains only white spaces, or contains invalid characters. </exception>
-        /// <exception cref="PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters. </exception>
+        /// <exception cref="PathTooLongException">
+        ///     The specified path, file name, or both exceed the system-defined maximum length.
+        ///     For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than
+        ///     260 characters.
+        /// </exception>
         /// <exception cref="ArgumentNullException"><paramref name="fileName" /> is null. </exception>
         public void SaveLog()
         {
@@ -285,7 +301,6 @@ namespace ArachNGIN.Components.Console
             }
             s.Close();
         }
-
 
         /// <summary>
         ///     Performs a console command.
@@ -327,7 +342,7 @@ namespace ArachNGIN.Components.Console
             }
         }
 
-        #endregion
+        #endregion Veřejné procedury
 
         #region Eventy
 
@@ -339,7 +354,7 @@ namespace ArachNGIN.Components.Console
         private void TxtCommandKeyPress(object sender, KeyPressEventArgs e)
         {
             // kdyz user zmackne enter a prikaz neni prazdny...
-            if ((e.KeyChar == (char) Keys.Enter) && (_consoleForm.txtCommand.Text.Length > 0))
+            if ((e.KeyChar == (char)Keys.Enter) && (_consoleForm.txtCommand.Text.Length > 0))
             {
                 //... poklada se obsah textboxu za prikaz
                 e.Handled = true;
@@ -363,22 +378,17 @@ namespace ArachNGIN.Components.Console
                     case "cls":
                         _consoleForm.lstLogSeparate.Items.Clear();
                         break;
+
                     case "echop":
                         WriteLinePlain(e.ParamString);
                         break;
+
                     case "echo":
                         WriteLine(e.ParamString);
                         break;
+
                     case "savelog":
-                        if (string.IsNullOrEmpty(e.ParamString)) break;
-                        try
-                        {
-                            StringCollections.SaveToFile(e.ParamString, _consoleForm.lstLogSeparate.Items);
-                        }
-                        catch (Exception)
-                        {
-                            Write("Unable to save to file! " + e.ParamString);
-                        }
+                        SaveLog();
                         break;
                 }
             }
@@ -393,11 +403,12 @@ namespace ArachNGIN.Components.Console
             if (_currentMsgItem == null) CreateEventRow();
             _currentMsgItem.Text = _buffer.ToString();
             if (createRowNextTime) _currentMsgItem = null;
-            _consoleForm.lstLogSeparate.EnsureVisible(_consoleForm.lstLogSeparate.Items.Count - 1);
+            if (_consoleForm.lstLogSeparate.Items.Count > 0)
+                _consoleForm.lstLogSeparate.EnsureVisible(_consoleForm.lstLogSeparate.Items.Count - 1);
         }
 
         /// <summary>
-        /// Creates the event row.
+        ///     Creates the event row.
         /// </summary>
         /// <param name="addEventNumber">if set to <c>true</c> [add event number].</param>
         /// <param name="addTimeStamp">if set to <c>true</c> [add time stamp].</param>
@@ -414,6 +425,6 @@ namespace ArachNGIN.Components.Console
             _currentMsgItem = elem.SubItems[2];
         }
 
-        #endregion
+        #endregion Eventy
     }
 }
