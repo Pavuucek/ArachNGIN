@@ -42,7 +42,13 @@ namespace DebugConsoleDemo
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+            Trace.Indent();
             Trace.WriteLine("Event : textBox1_TextChanged ");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DC.WriteLinePlain(textBox1.Text.ToString());
         }
     }
 }

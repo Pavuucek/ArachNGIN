@@ -242,6 +242,19 @@ namespace ArachNGIN.Components.Console
             Application.DoEvents();
         }
 
+        public void WriteLinePlain(string message)
+        {
+            CreateEventRow(false, false);
+            _buffer = new StringBuilder();
+            _buffer.Append(message);
+            UpdateCurrentRow(true);
+            _buffer = new StringBuilder();
+            if (AutoSave == ConsoleAutoSave.OnLineAdd)
+            {
+                SaveLog();
+            }
+            Application.DoEvents();
+        }
 
         /// <summary>
         ///     Saves the log.
@@ -350,11 +363,11 @@ namespace ArachNGIN.Components.Console
                     case "cls":
                         _consoleForm.lstLogSeparate.Items.Clear();
                         break;
-                    case "echot":
-                        Write(DateTime.Now, e.ParamString);
+                    case "echop":
+                        WriteLinePlain(e.ParamString);
                         break;
                     case "echo":
-                        //WriteNoTime(e.ParamString);
+                        WriteLine(e.ParamString);
                         break;
                     case "savelog":
                         if (string.IsNullOrEmpty(e.ParamString)) break;
@@ -384,16 +397,19 @@ namespace ArachNGIN.Components.Console
         }
 
         /// <summary>
-        ///     Creates the event row.
+        /// Creates the event row.
         /// </summary>
-        private void CreateEventRow()
+        /// <param name="addEventNumber">if set to <c>true</c> [add event number].</param>
+        /// <param name="addTimeStamp">if set to <c>true</c> [add time stamp].</param>
+        private void CreateEventRow(bool addEventNumber = true, bool addTimeStamp = true)
         {
-            var d = DateTime.Now;
-            var msg1 = (++_eventCounter).ToString();
-            var msg2 = d.ToLongTimeString();
-            var elem = new ListViewItem(msg1);
-            elem.SubItems.Add(msg2);
-            elem.SubItems.Add("");
+            var timestamp = string.Empty;
+            var number = string.Empty;
+            if (addEventNumber) number = (++_eventCounter).ToString();
+            if (addTimeStamp) timestamp = DateTime.Now.ToLongTimeString();
+            var elem = new ListViewItem(number);
+            elem.SubItems.Add(timestamp);
+            elem.SubItems.Add(string.Empty);
             _consoleForm.lstLogSeparate.Items.Add(elem);
             _currentMsgItem = elem.SubItems[2];
         }
