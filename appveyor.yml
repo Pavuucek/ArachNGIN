@@ -6,6 +6,9 @@ build:
   project: ArachNGIN.sln
   parallel: true
   verbosity: normal
+configuration:
+- Debug
+- Release
 artifacts:
 - path: ArachNGIN_release*.zip
   name: Release
