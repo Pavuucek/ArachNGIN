@@ -1,0 +1,21 @@
+version: '{branch}-{build}'
+branches:
+  except:
+  - gh-pages
+build:
+  project: ArachNGIN.sln
+  parallel: true
+  verbosity: normal
+artifacts:
+- path: ArachNGIN_release*.zip
+  name: Release
+- path: ArachNGIN_debug*.zip
+  name: Debug
+deploy: off
+after_build:
+- cmd: >-
+    GitVersioner.exe w zip.bat
+
+    call zip.bat
+
+    GitVersioner.exe r zip.bat
