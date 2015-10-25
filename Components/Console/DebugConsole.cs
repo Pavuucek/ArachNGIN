@@ -17,6 +17,8 @@
  */
 
 using System;
+using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -30,7 +32,7 @@ namespace ArachNGIN.Components.Console
     /// <summary>
     ///     A Debug / Command console class
     /// </summary>
-    public class DebugConsole
+    public class DebugConsole : TraceListener
     {
         private readonly ConsoleForm _consoleForm;
 
@@ -39,14 +41,40 @@ namespace ArachNGIN.Components.Console
                                                .Replace(@"/", "-")
                                                .Replace(":", "-") + ".log";
 
+        private bool _usePlainView = true;
+
         /// <summary>
         ///     The automatic save
         /// </summary>
         public ConsoleAutoSave AutoSave = ConsoleAutoSave.ManualOnly;
 
-        private bool _echoCommands = true;
-        private bool _processInternalCommands = true;
-        private bool _usePlainView = true;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DebugConsole" /> class.
+        /// </summary>
+        /// <param name="useDebug">if set to <c>true</c> [use debug].</param>
+        public DebugConsole(bool useDebug)
+        {
+            _consoleForm = new ConsoleForm();
+            _consoleForm.lstLogPlain.Size = _consoleForm.lstLogSeparate.Size;
+            _consoleForm.lstLogPlain.Location = _consoleForm.lstLogSeparate.Location;
+            _consoleForm.lstLogPlain.Dock = _consoleForm.lstLogSeparate.Dock;
+            // připíchneme na txtCommand event pro zpracování zmáčknutí klávesy
+            _consoleForm.txtCommand.KeyPress += TxtCommandKeyPress;
+            // připíchneme ještě event interních příkazů
+            OnCommandEntered += InitInternalCommands;
+            if (useDebug) Debug.Listeners.Add(this);
+            else Trace.Listeners.Add(this);
+        }
+
+        public DebugConsole() : this(true)
+        {
+            
+        }
+        
+
+        public override void WriteLine(string message)
+        {
+        }
 
         #region Veřejné vlastnosti
 
@@ -164,11 +192,7 @@ namespace ArachNGIN.Components.Console
         /// <value>
         ///     <c>true</c> if [echo commands]; otherwise, <c>false</c>.
         /// </value>
-        public bool EchoCommands
-        {
-            get { return _echoCommands; }
-            set { _echoCommands = value; }
-        }
+        public bool EchoCommands { get; set; } = true;
 
         /// <summary>
         ///     Gets or sets a value indicating whether [process internal commands].
@@ -176,11 +200,7 @@ namespace ArachNGIN.Components.Console
         /// <value>
         ///     <c>true</c> if [process internal commands]; otherwise, <c>false</c>.
         /// </value>
-        public bool ProcessInternalCommands
-        {
-            get { return _processInternalCommands; }
-            set { _processInternalCommands = value; }
-        }
+        public bool ProcessInternalCommands { get; set; } = true;
 
         /// <summary>
         ///     Occurs when [on command entered].
@@ -233,7 +253,7 @@ namespace ArachNGIN.Components.Console
         /// </summary>
         /// <param name="message">The message.</param>
         /// <exception cref="SystemException">There is insufficient space available to add the new item to the list. </exception>
-        public void Write(string message)
+        public override void Write(string message)
         {
             Write(DateTime.Now, message);
         }
@@ -275,8 +295,8 @@ namespace ArachNGIN.Components.Console
         /// <exception cref="Exception">A delegate callback throws an exception.</exception>
         public void DoCommand(string command)
         {
-            string[] strCmdLine = StringUtils.StringSplit(command, " "); // cely prikaz
-            string cmd = strCmdLine[0];
+            var strCmdLine = StringUtils.StringSplit(command, " "); // cely prikaz
+            var cmd = strCmdLine[0];
             string[] parArray;
             string parStr;
             if (strCmdLine.Length == 1)
@@ -289,7 +309,7 @@ namespace ArachNGIN.Components.Console
             {
                 parArray = new string[strCmdLine.Length - 1];
                 parStr = "";
-                for (int i = 1; i <= strCmdLine.Length - 1; i++)
+                for (var i = 1; i <= strCmdLine.Length - 1; i++)
                 {
                     parArray[i - 1] = strCmdLine[i];
                     parStr += strCmdLine[i] + " ";
@@ -297,7 +317,7 @@ namespace ArachNGIN.Components.Console
             }
 
             // zapiseme do outputu
-            if (_echoCommands) Write("Command: " + command);
+            if (EchoCommands) Write("Command: " + command);
 
             // vyvolame event
             if (OnCommandEntered != null)
@@ -336,7 +356,7 @@ namespace ArachNGIN.Components.Console
         /// <param name="e">The <see cref="CommandEnteredEventArgs" /> instance containing the event data.</param>
         private void InitInternalCommands(object sender, CommandEnteredEventArgs e)
         {
-            if (_processInternalCommands)
+            if (ProcessInternalCommands)
             {
                 switch (e.Command.ToLower())
                 {
@@ -366,20 +386,5 @@ namespace ArachNGIN.Components.Console
         }
 
         #endregion
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="DebugConsole" /> class.
-        /// </summary>
-        public DebugConsole()
-        {
-            _consoleForm = new ConsoleForm();
-            _consoleForm.lstLogPlain.Size = _consoleForm.lstLogSeparate.Size;
-            _consoleForm.lstLogPlain.Location = _consoleForm.lstLogSeparate.Location;
-            _consoleForm.lstLogPlain.Dock = _consoleForm.lstLogSeparate.Dock;
-            // připíchneme na txtCommand event pro zpracování zmáčknutí klávesy
-            _consoleForm.txtCommand.KeyPress += TxtCommandKeyPress;
-            // připíchneme ještě event interních příkazů
-            OnCommandEntered += InitInternalCommands;
-        }
     }
 }
