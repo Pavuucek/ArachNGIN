@@ -1,7 +1,8 @@
 var searchData=
 [
   ['settings_2ecs',['Settings.cs',['../_settings_8cs.html',1,'']]],
-  ['settings_2edesigner_2ecs',['Settings.Designer.cs',['../_settings_8_designer_8cs.html',1,'']]],
+  ['settings_2edesigner_2ecs',['Settings.Designer.cs',['../_debug_console_demo_2_properties_2_settings_8_designer_8cs.html',1,'']]],
+  ['settings_2edesigner_2ecs',['Settings.Designer.cs',['../_pak_creator_2_properties_2_settings_8_designer_8cs.html',1,'']]],
   ['sfmpqapi_5fmpqctl_2ecs',['SFmpqapi_mpqctl.cs',['../_s_fmpqapi__mpqctl_8cs.html',1,'']]],
   ['splashform_2ecs',['SplashForm.cs',['../_splash_form_8cs.html',1,'']]],
   ['streamhandling_2ecs',['StreamHandling.cs',['../_stream_handling_8cs.html',1,'']]],

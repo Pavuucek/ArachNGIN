@@ -16,7 +16,7 @@ var searchData=
   ['reset',['Reset',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_portable_settings_provider.html#a4949c97725a0d5d09411b7a17c4ad1d5',1,'ArachNGIN::Files::Settings::PortableSettingsProvider']]],
   ['resetcrc',['ResetCrc',['../class_arach_n_g_i_n_1_1_files_1_1_c_r_c_1_1_anime_crc.html#af6836b3d307dc6549a9212b96eb9ef23',1,'ArachNGIN::Files::CRC::AnimeCrc']]],
   ['resizeimage',['ResizeImage',['../class_arach_n_g_i_n_1_1_files_1_1_graphics_1_1_image_resizer.html#a251c9d2cb5a62309fddd8f507763143f',1,'ArachNGIN::Files::Graphics::ImageResizer']]],
-  ['resources',['Resources',['../class_pak_creator_1_1_properties_1_1_resources.html#ab5618c47e7586ebcb68681d5dcf874ae',1,'PakCreator::Properties::Resources']]],
+  ['resources',['Resources',['../class_debug_console_demo_1_1_properties_1_1_resources.html#a9f5c06a54c261857e6e27a598c65075b',1,'DebugConsoleDemo.Properties.Resources.Resources()'],['../class_pak_creator_1_1_properties_1_1_resources.html#ab5618c47e7586ebcb68681d5dcf874ae',1,'PakCreator.Properties.Resources.Resources()']]],
   ['restorebackup',['RestoreBackup',['../class_git_versioner_1_1_program.html#af4da6d0d49388df79d535cbc3726cbf3',1,'GitVersioner::Program']]],
   ['reversion',['Reversion',['../class_p_i_e_b_a_l_d_1_1_versioner_1_1_versioner.html#a2eed5ac8ff13043566460fedb873598f',1,'PIEBALD::Versioner::Versioner']]]
 ];

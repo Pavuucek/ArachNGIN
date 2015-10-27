@@ -1,10 +1,11 @@
 var searchData=
 [
+  ['dc',['DC',['../class_debug_console_demo_1_1_form1.html#a5272fa2dd8e6a633d5148c4681f12c6e',1,'DebugConsoleDemo::Form1']]],
   ['defaultboundrysize',['DefaultBoundrySize',['../class_arach_n_g_i_n_1_1_components_1_1_form_header_1_1_form_header.html#afc6736355201b0064c7161e9f4a624c7',1,'ArachNGIN::Components::FormHeader::FormHeader']]],
   ['defaultcolor1',['DefaultColor1',['../class_arach_n_g_i_n_1_1_components_1_1_form_header_1_1_color_slide_form_header.html#a6fcf832fa2af8d46047d77270f9a9784',1,'ArachNGIN::Components::FormHeader::ColorSlideFormHeader']]],
   ['defaultcolor2',['DefaultColor2',['../class_arach_n_g_i_n_1_1_components_1_1_form_header_1_1_color_slide_form_header.html#a0b941b3f00c1b64d25ab64cc4ee063bc',1,'ArachNGIN::Components::FormHeader::ColorSlideFormHeader']]],
-  ['defaultfilename',['DefaultFilename',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_json_settings1_3_01_t_01_4.html#a22ecff482b0f0d5838aae97f8171126a',1,'ArachNGIN::Files::Settings::JsonSettings1&lt; T &gt;']]],
-  ['defaultinstance',['defaultInstance',['../class_pak_creator_1_1_properties_1_1_settings.html#a12581d661200df6adb29e66aab6b011f',1,'PakCreator::Properties::Settings']]],
+  ['defaultfilename',['DefaultFilename',['../class_arach_n_g_i_n_1_1_files_1_1_settings_1_1_json_settings1.html#a22ecff482b0f0d5838aae97f8171126a',1,'ArachNGIN::Files::Settings::JsonSettings1']]],
+  ['defaultinstance',['defaultInstance',['../class_debug_console_demo_1_1_properties_1_1_settings.html#aa7b278fbb5e98f4791fd497b724cd222',1,'DebugConsoleDemo.Properties.Settings.defaultInstance()'],['../class_pak_creator_1_1_properties_1_1_settings.html#a12581d661200df6adb29e66aab6b011f',1,'PakCreator.Properties.Settings.defaultInstance()']]],
   ['defaultmessagefontstyle',['DefaultMessageFontStyle',['../class_arach_n_g_i_n_1_1_components_1_1_form_header_1_1_form_header.html#ab1174350a9945f3a358f344fbd711fde',1,'ArachNGIN::Components::FormHeader::FormHeader']]],
   ['defaulttitlefontstyle',['DefaultTitleFontStyle',['../class_arach_n_g_i_n_1_1_components_1_1_form_header_1_1_form_header.html#a50c8e01328e26d5ba5ad20cd80a7b12b',1,'ArachNGIN::Components::FormHeader::FormHeader']]],
   ['doc',['Doc',['../class_arach_n_g_i_n_1_1_files_1_1_mime_1_1_get_mime_type_from_content.html#a57f558a8322111b171a71595dcc75ee1',1,'ArachNGIN::Files::Mime::GetMimeTypeFromContent']]],
