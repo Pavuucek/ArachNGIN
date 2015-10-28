@@ -45,6 +45,8 @@ namespace ArachNGIN.Components.Console
         private StringBuilder _buffer = new StringBuilder();
         private ListViewItem.ListViewSubItem _currentMsgItem;
         private int _eventCounter;
+        private bool _echoCommands = true;
+        private bool _processInternalCommands = true;
 
         /// <summary>
         ///     The automatic save
@@ -194,7 +196,11 @@ namespace ArachNGIN.Components.Console
         /// <value>
         ///     <c>true</c> if [echo commands]; otherwise, <c>false</c>.
         /// </value>
-        public bool EchoCommands { get; set; } = true;
+        public bool EchoCommands
+        {
+            get { return _echoCommands; }
+            set { _echoCommands = value; }
+        }
 
         /// <summary>
         ///     Gets or sets a value indicating whether [process internal commands].
@@ -202,7 +208,11 @@ namespace ArachNGIN.Components.Console
         /// <value>
         ///     <c>true</c> if [process internal commands]; otherwise, <c>false</c>.
         /// </value>
-        public bool ProcessInternalCommands { get; set; } = true;
+        public bool ProcessInternalCommands
+        {
+            get { return _processInternalCommands; }
+            set { _processInternalCommands = value; }
+        }
 
         /// <summary>
         ///     Occurs when [on command entered].
