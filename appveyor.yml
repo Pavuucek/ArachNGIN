@@ -17,6 +17,8 @@ artifacts:
 deploy: off
 after_build:
 - cmd: >-
+    GitVersioner.exe ba
+    
     GitVersioner.exe w zip.bat
 
     call zip.bat
