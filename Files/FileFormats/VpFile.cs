@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArachNGIN.Files.Streams;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -54,6 +55,8 @@ namespace ArachNGIN.Files.FileFormats
 
         private Stream ReadStream;
 
+        public List<VpDirEntry> Files = new List<VpDirEntry>();
+
         /// <exception cref="IOException">An I/O error occurs. </exception>
         /// <exception cref="ObjectDisposedException">Methods were called after the stream was closed. </exception>
         /// <exception cref="OverflowException">The array is multidimensional and contains more than <see cref="F:System.Int32.MaxValue" /> elements.</exception>
@@ -61,6 +64,7 @@ namespace ArachNGIN.Files.FileFormats
         /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
         /// <exception cref="DirectoryNotFoundException">The specified path is invalid, such as being on an unmapped drive. </exception>
         /// <exception cref="UnauthorizedAccessException">The <paramref name="access" /> requested is not permitted by the operating system for the specified <paramref name="path" />, such as when <paramref name="access" /> is Write or ReadWrite and the file or directory is set for read-only access. </exception>
+        /// <exception cref="EndOfStreamException">The end of the stream is reached. </exception>
         public VpFile(string fileName)
         {
             if (string.IsNullOrEmpty(fileName) || File.Exists(fileName) == false) return;
@@ -69,6 +73,42 @@ namespace ArachNGIN.Files.FileFormats
             var reader = new BinaryReader(ReadStream, Encoding.ASCII);
             var header = reader.ReadBytes(4);
             if (!CompareHeader(header, _vpHeaderStandard)) return;
+            if (reader.ReadInt32() != 2) return;
+            var headerOffset = reader.ReadInt32();
+            var headerEntries = reader.ReadInt32();
+            reader.BaseStream.Position = headerOffset;
+            var currentPath = string.Empty;
+            for (int i = 0; i < headerEntries; i++)
+            {
+                VpDirEntry entry;
+                entry.Offset = reader.ReadInt32();
+                entry.Size = reader.ReadInt32();
+                entry.FileName = StreamHandling.PCharToString(reader.ReadChars(32));
+                entry.Timestamp = reader.ReadInt32();
+                entry.Date = UnixTimestampToDateTime(Convert.ToDouble(entry.Timestamp));
+                var isDir = (entry.Timestamp == 0) && (entry.Size == 0);
+                if (isDir)
+                {
+                    if (entry.FileName != "..") currentPath += entry.FileName + Path.DirectorySeparatorChar;
+                    else currentPath = RemoveLastPartOfPath(currentPath);
+                }
+                else
+                {
+                    entry.FileName = currentPath + entry.FileName;
+                    Files.Add(entry);
+                }
+            }
+        }
+
+        private string RemoveLastPartOfPath(string path)
+        {
+            var result = string.Empty;
+            var separated = path.Split(Path.DirectorySeparatorChar);
+            for (int i = 0; i < separated.Length - 2; i++)
+            {
+                result += separated[i] + Path.DirectorySeparatorChar;
+            }
+            return result;
         }
 
         private bool CompareHeader(byte[] fileHeader, char[] desiredHeader)
@@ -80,6 +120,29 @@ namespace ArachNGIN.Files.FileFormats
                 if (Convert.ToChar(fileHeader[i]) != desiredHeader[i]) result = false;
             }
             return result;
+        }
+
+        public struct VpDirEntry
+        {
+            public int Offset;
+            public int Size;
+            public int Timestamp;
+            public DateTime Date;
+            public string FileName;
+        }
+
+        public static double DateTimeToUnixTimestamp(DateTime dateTime)
+        {
+            return (TimeZoneInfo.ConvertTimeToUtc(dateTime) -
+                   new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)).TotalSeconds;
+        }
+
+        public static DateTime UnixTimestampToDateTime(double unixTimeStamp)
+        {
+            // Unix timestamp is seconds past epoch
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            return dtDateTime;
         }
     }
 }
