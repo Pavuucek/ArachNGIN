@@ -5,10 +5,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
  * is furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
  * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
  * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
@@ -16,20 +16,20 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+using ArachNGIN.Files.Streams;
 using System;
 using System.Collections.Specialized;
 using System.IO;
 using System.Text;
-using ArachNGIN.Files.Streams;
 
-namespace ArachNGIN.Files.QuakePak
+namespace ArachNGIN.Files.FileFormats
 {
     /// <summary>
     ///     Class for reading Quake PAK files
     /// </summary>
     public class QuakePakFile : IDisposable
     {
-        private static readonly char[] PakId = {'P', 'A', 'C', 'K'};
+        private static readonly char[] PakId = { 'P', 'A', 'C', 'K' };
         private readonly BinaryReader _pakReader;
         private readonly FileStream _pakStream;
 
@@ -98,7 +98,7 @@ namespace ArachNGIN.Files.QuakePak
             Close();
         }
 
-        #endregion
+        #endregion IDisposable Members
 
         /// <summary>
         ///     Closes this instance.
@@ -123,7 +123,7 @@ namespace ArachNGIN.Files.QuakePak
                 // hned za hlavickou je pozice zacatku fatky
                 _pFatstart = _pakReader.ReadInt32();
                 // a pak je pocet souboru * 64
-                _pFilecount = _pakReader.ReadInt32()/64;
+                _pFilecount = _pakReader.ReadInt32() / 64;
                 //
                 // presuneme se na pozici fatky a nacteme ji
                 _pakStream.Position = _pFatstart;
@@ -219,8 +219,8 @@ namespace ArachNGIN.Files.QuakePak
             var bw = new BinaryWriter(fs, Encoding.GetEncoding("Windows-1250"));
             bw.Write(PakId);
             int pFatstart = PakId.Length;
-            pFatstart += sizeof (Int32); // offset
-            pFatstart += sizeof (Int32); // length
+            pFatstart += sizeof(Int32); // offset
+            pFatstart += sizeof(Int32); // length
             const Int32 pFilecount = 0;
             bw.Write(pFatstart);
             bw.Write(pFilecount);
@@ -267,8 +267,8 @@ namespace ArachNGIN.Files.QuakePak
                 bw.Write(item.FileLength);
             }
             // naseekovat na pocet souboru a zapsat
-            _pakStream.Seek(PakId.Length + sizeof (Int32), SeekOrigin.Begin);
-            bw.Write(_pFilecount*64); // krat 64. z neznamych duvodu
+            _pakStream.Seek(PakId.Length + sizeof(Int32), SeekOrigin.Begin);
+            bw.Write(_pFilecount * 64); // krat 64. z neznamych duvodu
             // bw.Close();
         }
 
@@ -291,13 +291,13 @@ namespace ArachNGIN.Files.QuakePak
             _pakFat = new PakFat[_pFilecount];
             oldPakFat.CopyTo(_pakFat, 0);
             _pakFat[_pFilecount - 1].FileName = pakFileName;
-            _pakFat[_pFilecount - 1].FileLength = (int) stream.Length;
+            _pakFat[_pFilecount - 1].FileLength = (int)stream.Length;
             _pakFat[_pFilecount - 1].FileStart = _pFatstart;
             // zapsat soubor
             StreamHandling.StreamCopy(stream, _pakStream, 0, _pakStream.Position);
             //StreamHandling.StreamCopyAsync(stream, PakStream);
             // po dokonceni zapisovani zjistit pozici streamu
-            _pFatstart = (int) _pakStream.Position;
+            _pFatstart = (int)_pakStream.Position;
             //bw.Close();
             // zapsat fatku
             if (writeFat)
@@ -370,6 +370,6 @@ namespace ArachNGIN.Files.QuakePak
             public int FileStart;
         }
 
-        #endregion
+        #endregion Nested type: PakFat
     }
 }

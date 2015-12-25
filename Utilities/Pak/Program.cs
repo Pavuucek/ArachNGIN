@@ -5,10 +5,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
  * is furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
  * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
  * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
@@ -16,13 +16,13 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+using ArachNGIN.Files.FileFormats;
+using ArachNGIN.Files.Streams;
 using System;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
-using ArachNGIN.Files.QuakePak;
-using ArachNGIN.Files.Streams;
 
 namespace Pak
 {
@@ -36,12 +36,10 @@ namespace Pak
         /// </summary>
         private static readonly StringCollection PakIndex = new StringCollection();
 
-
         /// <summary>
         ///     The executable name
         /// </summary>
         private static readonly string ExeName = Path.GetFileName(Assembly.GetExecutingAssembly().CodeBase);
-
 
         /// <summary>
         ///     Displays the header.
@@ -52,7 +50,6 @@ namespace Pak
             Console.WriteLine();
             Console.WriteLine();
         }
-
 
         /// <summary>
         ///     Displays the help.
@@ -75,7 +72,6 @@ namespace Pak
             Console.WriteLine("{0} x [název_archivu] [výstupní_cesta]", ExeName);
         }
 
-
         /// <summary>
         ///     Prints a message when more command line arguments are expected.
         /// </summary>
@@ -85,7 +81,6 @@ namespace Pak
             Console.WriteLine();
             DisplayHelp();
         }
-
 
         /// <summary>
         ///     Main function of Pak program.
@@ -113,6 +108,7 @@ namespace Pak
                         return;
                     }
                     break;
+
                 case "d":
                     if (!AddDirectory(args, pak))
                     {
@@ -120,6 +116,7 @@ namespace Pak
                         return;
                     }
                     break;
+
                 case "e":
                     if (!ExtractSingleFile(args, pak))
                     {
@@ -127,6 +124,7 @@ namespace Pak
                         return;
                     }
                     break;
+
                 case "x":
                     if (!ExtractAllFiles(args, pak))
                     {
@@ -134,7 +132,7 @@ namespace Pak
                         return;
                     }
                     break;
-                    // pridat a indexovat
+                // pridat a indexovat
                 case "ia":
                     if (args.Length < 3)
                     {
@@ -169,7 +167,6 @@ namespace Pak
             pak.Close();
         }
 
-
         /// <summary>
         ///     Extracts all files.
         /// </summary>
@@ -199,7 +196,6 @@ namespace Pak
             }
             return true;
         }
-
 
         /// <summary>
         ///     Extracts a single file.
@@ -231,7 +227,6 @@ namespace Pak
 
             return true;
         }
-
 
         /// <summary>
         ///     Adds a directory to pak file.
@@ -268,7 +263,6 @@ namespace Pak
             return true;
         }
 
-
         /// <summary>
         ///     Adds a single file.
         /// </summary>
@@ -295,7 +289,6 @@ namespace Pak
             return true;
         }
 
-
         /// <summary>
         ///     Adds an indexed file.
         /// </summary>
@@ -307,7 +300,6 @@ namespace Pak
             PakIndex.Add(file + "=" + g.ToString().ToLower());
             return g.ToString().ToLower();
         }
-
 
         /// <summary>
         ///     Finishes the index.
@@ -328,7 +320,6 @@ namespace Pak
             // TODO: dopsat nahrazovani souboru do quakepakfile.
         }
 
-
         /// <summary>
         ///     Cleans the index.
         /// </summary>
@@ -345,7 +336,6 @@ namespace Pak
                     PakIndex.Add(line.ToLower());
             }
         }
-
 
         /// <summary>
         ///     Replaces a file in index.
@@ -372,7 +362,6 @@ namespace Pak
             }
         }
 
-
         /// <summary>
         ///     Loads the index.
         /// </summary>
@@ -388,7 +377,6 @@ namespace Pak
             //
             CleanIndex();
         }
-
 
         /// <summary>
         ///     Checks if file exists in index.
