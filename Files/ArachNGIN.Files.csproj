@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CRC\AnimeCrc.cs" />
+    <Compile Include="FileFormats\VpFile.cs" />
     <Compile Include="Graphics\ByteArrayConverters.cs" />
     <Compile Include="Graphics\ImageResizer.cs" />
     <Compile Include="Mime\GetMimeTypeFromContent.cs" />
