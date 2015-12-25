@@ -35,3 +35,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("$MajorVersion$.$MinorVersion$.$Revision$.$Commit$")]
 [assembly: AssemblyFileVersion("$MajorVersion$.$MinorVersion$.$Revision$.$Commit$")]
 [assembly: AssemblyInformationalVersion("$Branch$:$MajorVersion$.$MinorVersion$.$Revision$-$Commit$-$ShortHash$")]
+[assembly: InternalsVisibleTo("ArachNGIN.Files.Tests")]
+[assembly: InternalsVisibleTo("ArachNGIN.Files.Explorables")]
+

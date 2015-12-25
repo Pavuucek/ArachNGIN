@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArachNGIN.Components", "Components\ArachNGIN.Components.csproj", "{CD82B8C3-BD15-4185-867D-E7EF915464F5}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitVersioner", "Utilities\GitVersioner\GitVersioner.csproj", "{18399E70-DD0E-4C52-A6C2-DF7F6E102E57}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebugConsoleDemo", "Utilities\DebugConsoleDemo\DebugConsoleDemo.csproj", "{FF862298-78C1-43B5-8B35-AB6DED1D8F52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArachNGIN.Files.Tests", "ArachNGIN.Files.Tests\ArachNGIN.Files.Tests.csproj", "{D1AE51B5-71BD-45A9-82FE-4AFA026C0FC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{FF862298-78C1-43B5-8B35-AB6DED1D8F52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF862298-78C1-43B5-8B35-AB6DED1D8F52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF862298-78C1-43B5-8B35-AB6DED1D8F52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1AE51B5-71BD-45A9-82FE-4AFA026C0FC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1AE51B5-71BD-45A9-82FE-4AFA026C0FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1AE51B5-71BD-45A9-82FE-4AFA026C0FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1AE51B5-71BD-45A9-82FE-4AFA026C0FC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

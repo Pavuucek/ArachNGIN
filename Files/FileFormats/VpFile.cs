@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security;
 using System.Text;
 
 namespace ArachNGIN.Files.FileFormats
@@ -40,5 +42,44 @@ namespace ArachNGIN.Files.FileFormats
     /// </summary>
     public class VpFile
     {
+        /// <summary>
+        /// Standard VP header (VPVP)
+        /// </summary>
+        private readonly char[] _vpHeaderStandard = { 'V', 'P', 'V', 'P' };
+
+        /// <summary>
+        /// Non-Standard VP header (VPFS) reserved for further ArachNGIN versions
+        /// </summary>
+        private readonly char[] _vpHeaderCustom = { 'V', 'P', 'F', 'S' };
+
+        private Stream ReadStream;
+
+        /// <exception cref="IOException">An I/O error occurs. </exception>
+        /// <exception cref="ObjectDisposedException">Methods were called after the stream was closed. </exception>
+        /// <exception cref="OverflowException">The array is multidimensional and contains more than <see cref="F:System.Int32.MaxValue" /> elements.</exception>
+        /// <exception cref="FileNotFoundException">The file cannot be found, such as when <paramref name="mode" /> is FileMode.Truncate or FileMode.Open, and the file specified by <paramref name="path" /> does not exist. The file must already exist in these modes. </exception>
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="DirectoryNotFoundException">The specified path is invalid, such as being on an unmapped drive. </exception>
+        /// <exception cref="UnauthorizedAccessException">The <paramref name="access" /> requested is not permitted by the operating system for the specified <paramref name="path" />, such as when <paramref name="access" /> is Write or ReadWrite and the file or directory is set for read-only access. </exception>
+        public VpFile(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName) || File.Exists(fileName) == false) return;
+            ReadStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            // read header
+            var reader = new BinaryReader(ReadStream, Encoding.ASCII);
+            var header = reader.ReadBytes(4);
+            if (!CompareHeader(header, _vpHeaderStandard)) return;
+        }
+
+        private bool CompareHeader(byte[] fileHeader, char[] desiredHeader)
+        {
+            var result = true;
+            if (fileHeader.Length != desiredHeader.Length) return false;
+            for (int i = 0; i < fileHeader.Length; i++)
+            {
+                if (Convert.ToChar(fileHeader[i]) != desiredHeader[i]) result = false;
+            }
+            return result;
+        }
     }
 }
