@@ -1,8 +1,10 @@
-﻿using ArachNGIN.Files.Streams;
+﻿using ArachNGIN.Files.ClassExtensions;
+using ArachNGIN.Files.Streams;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Security;
 using System.Text;
 
@@ -53,50 +55,84 @@ namespace ArachNGIN.Files.FileFormats
         /// </summary>
         private readonly char[] _vpHeaderCustom = { 'V', 'P', 'F', 'S' };
 
-        private Stream ReadStream;
+        /// <summary>
+        /// Name of currently opened file including full path
+        /// </summary>
+        /// <value>
+        /// When is empty file wasn't opened properly.
+        /// </value>
+        public string FileName { get; }
 
+        /// <summary>
+        /// The list of files inside VP archive
+        /// </summary>
         public List<VpDirEntry> Files = new List<VpDirEntry>();
 
-        /// <exception cref="IOException">An I/O error occurs. </exception>
-        /// <exception cref="ObjectDisposedException">Methods were called after the stream was closed. </exception>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VpFile"/> class.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <exception cref="IOException">An I/O error occurs.</exception>
+        /// <exception cref="ObjectDisposedException">Methods were called after the stream was closed.</exception>
         /// <exception cref="OverflowException">The array is multidimensional and contains more than <see cref="F:System.Int32.MaxValue" /> elements.</exception>
-        /// <exception cref="FileNotFoundException">The file cannot be found, such as when <paramref name="mode" /> is FileMode.Truncate or FileMode.Open, and the file specified by <paramref name="path" /> does not exist. The file must already exist in these modes. </exception>
-        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
-        /// <exception cref="DirectoryNotFoundException">The specified path is invalid, such as being on an unmapped drive. </exception>
-        /// <exception cref="UnauthorizedAccessException">The <paramref name="access" /> requested is not permitted by the operating system for the specified <paramref name="path" />, such as when <paramref name="access" /> is Write or ReadWrite and the file or directory is set for read-only access. </exception>
-        /// <exception cref="EndOfStreamException">The end of the stream is reached. </exception>
+        /// <exception cref="FileNotFoundException">The file cannot be found, such as when <paramref name="mode" /> is FileMode.Truncate or FileMode.Open, and the file specified by <paramref name="path" /> does not exist. The file must already exist in these modes.</exception>
+        /// <exception cref="SecurityException">The caller does not have the required permission.</exception>
+        /// <exception cref="DirectoryNotFoundException">The specified path is invalid, such as being on an unmapped drive.</exception>
+        /// <exception cref="UnauthorizedAccessException">The <paramref name="access" /> requested is not permitted by the operating system for the specified <paramref name="path" />, such as when <paramref name="access" /> is Write or ReadWrite and the file or directory is set for read-only access.</exception>
+        /// <exception cref="EndOfStreamException">The end of the stream is reached.</exception>
         public VpFile(string fileName)
         {
-            if (string.IsNullOrEmpty(fileName) || File.Exists(fileName) == false) return;
-            ReadStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-            // read header
-            var reader = new BinaryReader(ReadStream, Encoding.ASCII);
-            var header = reader.ReadBytes(4);
-            if (!CompareHeader(header, _vpHeaderStandard)) return;
-            if (reader.ReadInt32() != 2) return;
-            var headerOffset = reader.ReadInt32();
-            var headerEntries = reader.ReadInt32();
-            reader.BaseStream.Position = headerOffset;
-            var currentPath = string.Empty;
-            for (int i = 0; i < headerEntries; i++)
+            FileName = string.Empty;
+            var result = true;
+            if (string.IsNullOrEmpty(fileName) || File.Exists(fileName) == false)
             {
-                VpDirEntry entry;
-                entry.Offset = reader.ReadInt32();
-                entry.Size = reader.ReadInt32();
-                entry.FileName = StreamHandling.PCharToString(reader.ReadChars(32));
-                entry.Timestamp = reader.ReadInt32();
-                entry.Date = UnixTimestampToDateTime(Convert.ToDouble(entry.Timestamp));
-                var isDir = (entry.Timestamp == 0) && (entry.Size == 0);
-                if (isDir)
+                result = false;
+                return;
+            }
+
+            using (var readStream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+            {
+                // read header
+                using (var reader = new BinaryReader(readStream, Encoding.ASCII))
                 {
-                    if (entry.FileName != "..") currentPath += entry.FileName + Path.DirectorySeparatorChar;
-                    else currentPath = RemoveLastPartOfPath(currentPath);
+                    var header = reader.ReadBytes(4);
+                    if (!CompareHeader(header, _vpHeaderStandard))
+                    {
+                        result = false;
+                        return;
+                    }
+                    if (reader.ReadInt32() != 2)
+                    {
+                        result = false;
+                        return;
+                    }
+                    var headerOffset = reader.ReadInt32();
+                    var headerEntries = reader.ReadInt32();
+                    reader.BaseStream.Position = headerOffset;
+                    var currentPath = string.Empty;
+                    for (int i = 0; i < headerEntries; i++)
+                    {
+                        VpDirEntry entry;
+                        entry.Offset = reader.ReadInt32();
+                        entry.Size = reader.ReadInt32();
+                        entry.FileName = StreamHandling.PCharToString(reader.ReadChars(32));
+                        entry.Timestamp = reader.ReadInt32();
+                        entry.Date = entry.Timestamp.UnixTimestampToDateTime();
+                        var isDir = (entry.Timestamp == 0) && (entry.Size == 0);
+                        if (isDir)
+                        {
+                            if (entry.FileName != "..") currentPath += entry.FileName + Path.DirectorySeparatorChar;
+                            else currentPath = RemoveLastPartOfPath(currentPath);
+                        }
+                        else
+                        {
+                            entry.FileName = currentPath + entry.FileName;
+                            Files.Add(entry);
+                        }
+                    }
+                    if (Files.Count <= 0) result = false;
                 }
-                else
-                {
-                    entry.FileName = currentPath + entry.FileName;
-                    Files.Add(entry);
-                }
+                if (result) FileName = Path.GetFullPath(fileName);
             }
         }
 
@@ -122,27 +158,51 @@ namespace ArachNGIN.Files.FileFormats
             return result;
         }
 
+        /// <summary>
+        /// Checks if file exists in archive
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns></returns>
+        public bool Exists(string fileName)
+        {
+            return Files.Any(entry => entry.FileName == fileName);
+        }
+
+        /// <summary>
+        /// Structure of directory entries in VP archive
+        /// </summary>
         public struct VpDirEntry
         {
+            /// <summary>
+            /// Starting position
+            /// </summary>
             public int Offset;
+
+            /// <summary>
+            /// Size of the file
+            /// </summary>
             public int Size;
+
+            /// <summary>
+            /// Unix timestamp
+            /// </summary>
             public int Timestamp;
+
+            /// <summary>
+            /// Timestamp converted to datetime
+            /// </summary>
             public DateTime Date;
+
+            /// <summary>
+            /// Full name of the file with path
+            /// </summary>
             public string FileName;
-        }
 
-        public static double DateTimeToUnixTimestamp(DateTime dateTime)
-        {
-            return (TimeZoneInfo.ConvertTimeToUtc(dateTime) -
-                   new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)).TotalSeconds;
-        }
-
-        public static DateTime UnixTimestampToDateTime(double unixTimeStamp)
-        {
-            // Unix timestamp is seconds past epoch
-            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
-            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
-            return dtDateTime;
+            public override string ToString()
+            {
+                return string.Format("[FileName: {0}, Offset: {1}, Size: {2}, Timestamp: {3}, Date: {4}]", FileName,
+                    Offset, Size, Timestamp, Date);
+            }
         }
     }
 }
