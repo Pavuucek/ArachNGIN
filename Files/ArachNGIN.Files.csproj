@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassExtensions\UnixTimeStampExtension.cs" />
     <Compile Include="CRC\AnimeCrc.cs" />
     <Compile Include="FileFormats\VpFile.cs" />
     <Compile Include="Graphics\ByteArrayConverters.cs" />
