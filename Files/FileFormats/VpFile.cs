@@ -168,6 +168,19 @@ namespace ArachNGIN.Files.FileFormats
             return Files.Any(entry => entry.FileName == fileName);
         }
 
+        public Stream GetStream(string fileName)
+        {
+            var result = new MemoryStream();
+            if (!Exists(fileName)) return result;
+            var entry = Files.FirstOrDefault(dirEntry => dirEntry.FileName == fileName);
+            using (var stream = new FileStream(FileName, FileMode.Open, FileAccess.Read))
+            {
+                stream.Seek(entry.Offset, SeekOrigin.Begin);
+                StreamHandling.StreamCopy(stream, result, entry.Size);
+            }
+            return result;
+        }
+
         /// <summary>
         /// Structure of directory entries in VP archive
         /// </summary>
