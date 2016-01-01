@@ -24,7 +24,7 @@ namespace ArachNGIN.Components.ProgressTaskList
         /// </summary>
         public string this[int index]
         {
-            get { return ((string) List[index]); }
+            get { return ((string)List[index]); }
             set { List[index] = value; }
         }
 
@@ -36,7 +36,6 @@ namespace ArachNGIN.Components.ProgressTaskList
             get { return _parent; }
         }
 
-
         /// <summary>
         ///     Adds a string into the Collection
         /// </summary>
@@ -47,7 +46,6 @@ namespace ArachNGIN.Components.ProgressTaskList
             int result = List.Add(value);
             return result;
         }
-
 
         /// <summary>
         ///     Adds an array of strings into the collection. Used by the Studio Designer generated code
@@ -82,7 +80,6 @@ namespace ArachNGIN.Components.ProgressTaskList
             List.Insert(index, value);
         }
 
-
         /// <summary>
         ///     Removes the given string from the collection
         /// </summary>
@@ -104,7 +101,11 @@ namespace ArachNGIN.Components.ProgressTaskList
             return (List.Contains(value));
         }
 
-
+        /// <summary>
+        /// Called when [insert complete].
+        /// </summary>
+        /// <param name="index">The index.</param>
+        /// <param name="value">The value.</param>
         protected override void OnInsertComplete(int index, object value)
         {
             base.OnInsertComplete(index, value);
