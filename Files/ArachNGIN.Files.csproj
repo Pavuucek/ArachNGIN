@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="ClassExtensions\UnixTimeStampExtension.cs" />
     <Compile Include="CRC\AnimeCrc.cs" />
+    <Compile Include="FileFormats\VpDirEntry.cs" />
     <Compile Include="FileFormats\VpFile.cs" />
     <Compile Include="Graphics\ByteArrayConverters.cs" />
     <Compile Include="Graphics\ImageResizer.cs" />
