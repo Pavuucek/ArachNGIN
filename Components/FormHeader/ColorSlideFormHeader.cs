@@ -26,6 +26,8 @@ namespace ArachNGIN.Components.FormHeader
         /// <summary>
         ///     Initializes a new instance of the <see cref="ColorSlideFormHeader" /> class.
         /// </summary>
+        /// <exception cref="Exception">image has an indexed pixel format or its format is undefined.</exception>
+        /// <exception cref="ArgumentNullException">image is null.</exception>
         public ColorSlideFormHeader()
         {
             CreateBackgroundPicture();
@@ -68,6 +70,8 @@ namespace ArachNGIN.Components.FormHeader
         /// <summary>
         ///     Creates the background picture.
         /// </summary>
+        /// <exception cref="ArgumentNullException">image is null.</exception>
+        /// <exception cref="Exception">image has an indexed pixel format or its format is undefined.</exception>
         protected virtual void CreateBackgroundPicture()
         {
             try
@@ -79,7 +83,7 @@ namespace ArachNGIN.Components.FormHeader
                 return;
             }
 
-            Graphics gfx = Graphics.FromImage(_image);
+            var gfx = Graphics.FromImage(_image);
 
             if (_color1.Equals(_color2)) //check if we need to calc the color slide
             {
@@ -87,15 +91,15 @@ namespace ArachNGIN.Components.FormHeader
             }
             else
             {
-                for (int i = 0; i < _image.Width; i++)
+                for (var i = 0; i < _image.Width; i++)
                 {
                     //
                     // calculate the new color to use (linear color mix)
                     //
-                    int colorR = ((Color2.R - Color1.R))*i/_image.Width;
-                    int colorG = ((Color2.G - Color1.G))*i/_image.Width;
-                    int colorB = ((Color2.B - Color1.B))*i/_image.Width;
-                    Color color = Color.FromArgb(Color1.R + colorR, Color1.G + colorG, Color1.B + colorB);
+                    var colorR = (Color2.R - Color1.R) * i / _image.Width;
+                    var colorG = (Color2.G - Color1.G) * i / _image.Width;
+                    var colorB = (Color2.B - Color1.B) * i / _image.Width;
+                    var color = Color.FromArgb(Color1.R + colorR, Color1.G + colorG, Color1.B + colorB);
 
                     gfx.DrawLine(new Pen(new SolidBrush(color)), i, 0, i, Height);
                 }
@@ -115,6 +119,8 @@ namespace ArachNGIN.Components.FormHeader
         ///     Raises the <see cref="E:System.Windows.Forms.Control.SizeChanged" /> event.
         /// </summary>
         /// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
+        /// <exception cref="ArgumentNullException">image is null.</exception>
+        /// <exception cref="Exception">image has an indexed pixel format or its format is undefined.</exception>
         protected override void OnSizeChanged(EventArgs e)
         {
             CreateBackgroundPicture();
@@ -127,14 +133,13 @@ namespace ArachNGIN.Components.FormHeader
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
+            SuspendLayout();
+            //
             // ColorSlideFormHeader
-            // 
-            this.Name = "ColorSlideFormHeader";
-            this.Size = new System.Drawing.Size(1502, 70);
-            this.ResumeLayout(false);
-
+            //
+            Name = "ColorSlideFormHeader";
+            Size = new Size(1502, 70);
+            ResumeLayout(false);
         }
     }
 }
