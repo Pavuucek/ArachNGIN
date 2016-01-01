@@ -79,6 +79,13 @@ namespace ArachNGIN.Components.Console
         ///     Writes the line.
         /// </summary>
         /// <param name="message">The message.</param>
+        /// <exception cref="UnauthorizedAccessException">Access to fileName is denied. </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     Enlarging the value of this instance would exceed
+        ///     <see cref="P:System.Text.StringBuilder.MaxCapacity" />.
+        /// </exception>
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="IOException">The disk is read-only. </exception>
         public override void WriteLine(string message)
         {
             CreateEventRow();
@@ -234,15 +241,19 @@ namespace ArachNGIN.Components.Console
         /// <summary>
         ///     Closes the console.
         /// </summary>
-        public void Close()
+        public override void Close()
         {
             _consoleForm.Close();
+            base.Close();
         }
 
         /// <summary>
         ///     Writes the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
+        /// <exception cref="UnauthorizedAccessException">Access to fileName is denied. </exception>
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="IOException">The disk is read-only. </exception>
         public override void Write(string message)
         {
             _buffer.Append(message);
@@ -258,6 +269,9 @@ namespace ArachNGIN.Components.Console
         ///     Writes the line without date and number (does not increase line number).
         /// </summary>
         /// <param name="message">The message.</param>
+        /// <exception cref="UnauthorizedAccessException">Access to fileName is denied. </exception>
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="IOException">The disk is read-only. </exception>
         public void WriteLinePlain(string message)
         {
             CreateEventRow(false, false);
@@ -275,26 +289,9 @@ namespace ArachNGIN.Components.Console
         /// <summary>
         ///     Saves the log.
         /// </summary>
-        /// <exception cref="UnauthorizedAccessException">Access to <paramref name="fileName" /> is denied. </exception>
         /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="UnauthorizedAccessException">Access to fileName is denied. </exception>
         /// <exception cref="IOException">The disk is read-only. </exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        ///     Enlarging the value of this instance would exceed
-        ///     <see cref="P:System.Text.StringBuilder.MaxCapacity" />.
-        /// </exception>
-        /// <exception cref="ObjectDisposedException">The <see cref="T:System.IO.TextWriter" /> is closed. </exception>
-        /// <exception cref="EncoderFallbackException">
-        ///     The current encoding does not support displaying half of a Unicode surrogate
-        ///     pair.
-        /// </exception>
-        /// <exception cref="NotSupportedException"><paramref name="fileName" /> contains a colon (:) in the middle of the string. </exception>
-        /// <exception cref="ArgumentException">The file name is empty, contains only white spaces, or contains invalid characters. </exception>
-        /// <exception cref="PathTooLongException">
-        ///     The specified path, file name, or both exceed the system-defined maximum length.
-        ///     For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than
-        ///     260 characters.
-        /// </exception>
-        /// <exception cref="ArgumentNullException"><paramref name="fileName" /> is null. </exception>
         public void SaveLog()
         {
             var f = new FileInfo(_logName);
@@ -316,8 +313,10 @@ namespace ArachNGIN.Components.Console
         ///     Performs a console command.
         /// </summary>
         /// <param name="command">The command.</param>
-        /// <exception cref="SystemException">There is insufficient space available to add the new item to the list. </exception>
         /// <exception cref="Exception">A delegate callback throws an exception.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to fileName is denied. </exception>
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="IOException">The disk is read-only. </exception>
         public void DoCommand(string command)
         {
             var strCmdLine = StringUtils.StringSplit(command, " "); // cely prikaz
