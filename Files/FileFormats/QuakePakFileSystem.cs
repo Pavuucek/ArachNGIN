@@ -5,10 +5,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
  * is furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
  * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
  * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
@@ -16,12 +16,12 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+using ArachNGIN.Files.Streams;
 using System;
 using System.Collections.Specialized;
 using System.IO;
-using ArachNGIN.Files.Streams;
 
-namespace ArachNGIN.Files.QuakePak
+namespace ArachNGIN.Files.FileFormats
 {
     /// <summary>
     ///     Class representing a Quake PAK file system
@@ -74,7 +74,7 @@ namespace ArachNGIN.Files.QuakePak
             // nothing :-)
         }
 
-        #endregion
+        #endregion IDisposable Members
 
         /// <summary>
         ///     Reads the pak files.
@@ -174,7 +174,7 @@ namespace ArachNGIN.Files.QuakePak
                     }
                     //s_file=s_indexline.Substring(s_indexline.IndexOf("=")+1);
                     // rozdelit radku indexu na fajl jmeno souboru v paku a skutecne jmeno
-                    string[] aIndexline = sIndexline.Split(new[] {'='});
+                    string[] aIndexline = sIndexline.Split(new[] { '=' });
                     if (aIndexline.Length > 1)
                     {
                         sIndexfile = aIndexline[0];

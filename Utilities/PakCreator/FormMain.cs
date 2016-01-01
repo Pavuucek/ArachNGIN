@@ -1,10 +1,10 @@
-﻿using System;
+﻿using ArachNGIN.Files.FileFormats;
+using ArachNGIN.Files.Streams;
+using PakCreator.Properties;
+using System;
 using System.Collections.Specialized;
 using System.IO;
 using System.Windows.Forms;
-using ArachNGIN.Files.QuakePak;
-using ArachNGIN.Files.Streams;
-using PakCreator.Properties;
 
 namespace PakCreator
 {
@@ -144,7 +144,6 @@ namespace PakCreator
         {
             Settings.Default.Save();
         }
-
 
         private void button1_Click(object sender, EventArgs e)
         {

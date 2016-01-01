@@ -5,10 +5,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
  * is furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
  * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
  * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
@@ -18,6 +18,8 @@
 
 using System;
 using System.IO;
+using System.Text;
+using System.Threading;
 
 namespace ArachNGIN.Files.Streams
 {
@@ -33,6 +35,7 @@ namespace ArachNGIN.Files.Streams
         /// <param name="sDest">The destination stream.</param>
         /// <param name="iCount">Bytes to copy.</param>
         /// <returns></returns>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
         public static long StreamCopy(Stream sSource, Stream sDest, long iCount)
         {
             const int maxBufSize = 0xF000;
@@ -47,7 +50,7 @@ namespace ArachNGIN.Files.Streams
             }
             long result = iCount;
             if (iCount > maxBufSize) bufSize = maxBufSize;
-            else bufSize = (int) iCount;
+            else bufSize = (int)iCount;
 
             try
             {
@@ -57,7 +60,7 @@ namespace ArachNGIN.Files.Streams
                 {
                     int n;
                     if (iCount > bufSize) n = bufSize;
-                    else n = (int) iCount;
+                    else n = (int)iCount;
                     byte[] buffer = rInput.ReadBytes(n);
                     wOutput.Write(buffer);
                     iCount = iCount - n;
@@ -79,6 +82,7 @@ namespace ArachNGIN.Files.Streams
         /// <param name="iCount">Bytes to copy.</param>
         /// <param name="iStartposition">Starting position.</param>
         /// <returns></returns>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
         public static long StreamCopy(Stream sSource, Stream sDest, long iCount, long iStartposition)
         {
             const int maxBufSize = 0xF000;
@@ -93,17 +97,17 @@ namespace ArachNGIN.Files.Streams
             }
             long result = iCount;
             if (iCount > maxBufSize) bufSize = maxBufSize;
-            else bufSize = (int) iCount;
+            else bufSize = (int)iCount;
 
             try
             {
                 // naseekujeme zapisovaci pozici
-                wOutput.Seek((int) iStartposition, SeekOrigin.Begin);
+                wOutput.Seek((int)iStartposition, SeekOrigin.Begin);
                 while (iCount != 0)
                 {
                     int n;
                     if (iCount > bufSize) n = bufSize;
-                    else n = (int) iCount;
+                    else n = (int)iCount;
                     byte[] buffer = rInput.ReadBytes(n);
                     wOutput.Write(buffer);
                     iCount = iCount - n;
@@ -128,6 +132,10 @@ namespace ArachNGIN.Files.Streams
         ///     Read and write are performed simultaneously to improve throughput.<br />
         ///     If no data can be read for 60 seconds, the copy will time-out.
         /// </remarks>
+        /// <exception cref="ArgumentException">The sum of offset and count is larger than the buffer length. </exception>
+        /// <exception cref="IOException">Stream write failed.</exception>
+        /// <exception cref="AbandonedMutexException">The wait completed because a thread exited without releasing a mutex. This exception is not thrown on Windows 98 or Windows Millennium Edition.</exception>
+        /// <exception cref="OverflowException">The array is multidimensional and contains more than <see cref="F:System.Int32.MaxValue" /> elements.</exception>
         public static void StreamCopyAsync(Stream source, Stream target)
         {
             // This stream copy supports a source-read happening at the same time
@@ -185,6 +193,33 @@ namespace ArachNGIN.Files.Streams
                 result = result + c;
             }
             return result;
+        }
+
+        /// <summary>
+        /// Converts stream to string
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <returns></returns>
+        /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string. </exception>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
+        public static string StreamToString(Stream stream)
+        {
+            stream.Position = 0;
+            using (var reader = new StreamReader(stream, Encoding.UTF8))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+
+        /// <summary>
+        /// Converts string to stream
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <returns></returns>
+        public static Stream StringToStream(string source)
+        {
+            var byteArray = Encoding.UTF8.GetBytes(source);
+            return new MemoryStream(byteArray);
         }
     }
 }

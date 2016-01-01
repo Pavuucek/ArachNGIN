@@ -35,3 +35,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.1.29")]
 [assembly: AssemblyFileVersion("1.0.1.29")]
 [assembly: AssemblyInformationalVersion("Proper_documentation_and_minor_refactorings:1.0.1-29-gc1c8dff")]
+[assembly: InternalsVisibleTo("ArachNGIN.Files.Tests")]
+[assembly: InternalsVisibleTo("ArachNGIN.Files.Explorables")]

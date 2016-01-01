@@ -15,6 +15,10 @@ artifacts:
 - path: ArachNGIN_debug*.zip
   name: Debug
 deploy: off
+before_build:
+- cmd: >-
+    nuget restore
+
 after_build:
 - cmd: >-
     GitVersioner.exe ba
