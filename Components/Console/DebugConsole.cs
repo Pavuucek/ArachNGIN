@@ -16,6 +16,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+using ArachNGIN.ClassExtensions;
 using ArachNGIN.Components.Console.Forms;
 using ArachNGIN.Components.Console.Misc;
 using ArachNGIN.Files.Streams;
@@ -37,7 +38,7 @@ namespace ArachNGIN.Components.Console
     {
         private readonly ConsoleForm _consoleForm;
 
-        private readonly string _logName = StringUtils.StrAddSlash(Path.GetDirectoryName(Application.ExecutablePath)) +
+        private readonly string _logName = Path.GetDirectoryName(Application.ExecutablePath).AddSlash() +
                                            DateTime.Now.ToString(CultureInfo.InvariantCulture)
                                                .Replace(@"/", "-")
                                                .Replace(":", "-") + ".log";

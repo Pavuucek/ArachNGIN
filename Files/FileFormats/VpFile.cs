@@ -1,4 +1,4 @@
-﻿using ArachNGIN.Files.ClassExtensions;
+﻿using ArachNGIN.ClassExtensions;
 using ArachNGIN.Files.Streams;
 using System;
 using System.Collections.Generic;

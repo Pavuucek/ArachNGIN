@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebugConsoleDemo", "Utiliti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArachNGIN.Files.Tests", "ArachNGIN.Files.Tests\ArachNGIN.Files.Tests.csproj", "{D1AE51B5-71BD-45A9-82FE-4AFA026C0FC8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArachNGIN.ClassExtensions", "ClassExtensions\ArachNGIN.ClassExtensions.csproj", "{0C62509F-6707-4ACE-B644-2A029C1FD942}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{D1AE51B5-71BD-45A9-82FE-4AFA026C0FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1AE51B5-71BD-45A9-82FE-4AFA026C0FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1AE51B5-71BD-45A9-82FE-4AFA026C0FC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C62509F-6707-4ACE-B644-2A029C1FD942}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C62509F-6707-4ACE-B644-2A029C1FD942}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C62509F-6707-4ACE-B644-2A029C1FD942}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C62509F-6707-4ACE-B644-2A029C1FD942}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

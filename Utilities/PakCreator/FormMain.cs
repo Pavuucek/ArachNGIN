@@ -1,4 +1,5 @@
-﻿using ArachNGIN.Files.FileFormats;
+﻿using ArachNGIN.ClassExtensions;
+using ArachNGIN.Files.FileFormats;
 using ArachNGIN.Files.Streams;
 using PakCreator.Properties;
 using System;
@@ -39,7 +40,7 @@ namespace PakCreator
                 MessageBox.Show("Zadaný název PAK souboru není platný!");
                 return;
             }
-            txtDir.Text = StringUtils.StrAddSlash(txtDir.Text);
+            txtDir.Text = txtDir.Text.AddSlash();
             string startpath = txtDir.Text;
             string pakFile = txtPak.Text;
             // mru
@@ -89,7 +90,7 @@ namespace PakCreator
             }
             Log("Writing Index file");
             Stream idx = new MemoryStream();
-            StringCollections.SaveToStream(idx, fileIndex);
+            fileIndex.SaveToStream(idx);
             newPak.AddStream(idx, "(pak-index)", true);
             idx.Close();
             Log("Closing PAK file");
@@ -107,7 +108,7 @@ namespace PakCreator
         {
             if (browseDir.ShowDialog() == DialogResult.OK)
             {
-                txtDir.Text = StringUtils.StrAddSlash(browseDir.SelectedPath);
+                txtDir.Text = browseDir.SelectedPath.AddSlash();
             }
         }
 

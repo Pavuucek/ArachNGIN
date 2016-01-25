@@ -67,7 +67,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassExtensions\UnixTimeStampExtension.cs" />
     <Compile Include="CRC\AnimeCrc.cs" />
     <Compile Include="FileFormats\VpDirEntry.cs" />
     <Compile Include="FileFormats\VpFile.cs" />
@@ -84,7 +83,6 @@
     <Compile Include="Settings\PortableSettingsProvider.cs" />
     <Compile Include="Streams\MultimaskFileSearcher.cs" />
     <Compile Include="Streams\StreamHandling.cs" />
-    <Compile Include="Streams\StringCollections.cs" />
     <Compile Include="Streams\StringUtils.cs" />
     <Compile Include="Streams\XmlSettings.cs" />
     <Compile Include="TempDir\TempManager.cs" />
@@ -107,7 +105,12 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ClassExtensions\ArachNGIN.ClassExtensions.csproj">
+      <Project>{0c62509f-6707-4ace-b644-2a029c1fd942}</Project>
+      <Name>ArachNGIN.ClassExtensions</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>"$(ProjectDir)..\GitVersioner.exe" a "$(ProjectDir)Properties\AssemblyInfo.cs"</PreBuildEvent>
