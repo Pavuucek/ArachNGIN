@@ -16,6 +16,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+using ArachNGIN.ClassExtensions;
 using ArachNGIN.Files.FileFormats;
 using ArachNGIN.Files.Streams;
 using System;
@@ -186,7 +187,7 @@ namespace Pak
                 Console.WriteLine("Chyba: Výstupní adresář neexistuje!");
             }
 
-            string path = StringUtils.StrAddSlash(args[2]); // +Path.GetDirectoryName(args[1]);
+            string path = args[2].AddSlash(); // +Path.GetDirectoryName(args[1]);
             foreach (string file in pak.PakFileList)
             {
                 Console.WriteLine("Rozbaluji {0}", file);
@@ -220,9 +221,9 @@ namespace Pak
                 Console.WriteLine("Chyba: Výstupní adresář neexistuje!");
             }
             Console.WriteLine("Rozbaluji {0}", args[2]);
-            string path = StringUtils.StrAddSlash(args[3]) + Path.GetDirectoryName(args[2]);
+            string path = args[3].AddSlash() + Path.GetDirectoryName(args[2]);
             Directory.CreateDirectory(path);
-            path = StringUtils.StrAddSlash(path) + Path.GetFileName(args[2]);
+            path = path.AddSlash() + Path.GetFileName(args[2]);
             pak.ExtractFile(args[2], path);
 
             return true;
@@ -246,7 +247,7 @@ namespace Pak
                 Console.WriteLine("Chyba: Adresář {0} neexistuje!", args[2]);
                 return false;
             }
-            string path = StringUtils.StrAddSlash(args[2]);
+            string path = args[2].AddSlash();
             string[] filenames = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
             if (filenames.Length == 0)
             {

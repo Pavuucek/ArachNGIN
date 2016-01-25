@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ArachNGIN.Files.ClassExtensions
+namespace ArachNGIN.ClassExtensions
 {
     /// <summary>
     ///     Extension class for converting Unix Timestamps to double and back

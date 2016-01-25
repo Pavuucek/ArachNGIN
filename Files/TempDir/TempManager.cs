@@ -1,7 +1,8 @@
+using ArachNGIN.ClassExtensions;
+using ArachNGIN.Files.Streams;
 using System;
 using System.IO;
 using System.Windows.Forms;
-using ArachNGIN.Files.Streams;
 
 namespace ArachNGIN.Files.TempDir
 {
@@ -20,16 +21,16 @@ namespace ArachNGIN.Files.TempDir
         public TempManager()
         {
             Guid gGuid = Guid.NewGuid();
-            _sTempDir = StringUtils.StrAddSlash(Environment.GetEnvironmentVariable("TEMP"));
+            _sTempDir = Environment.GetEnvironmentVariable("TEMP").AddSlash();
             string fileName = Path.GetFileName(Application.ExecutablePath);
             if (fileName != null)
             {
                 string str = fileName.ToLower();
                 str = str.Replace(@".", @"_");
                 str = str + @"_" + gGuid;
-                _sAppTempDir = StringUtils.StrAddSlash(_sTempDir + str.ToLower());
+                _sAppTempDir = (_sTempDir + str.ToLower()).AddSlash();
             }
-            _sAppDir = StringUtils.StrAddSlash(Path.GetDirectoryName(Application.ExecutablePath));
+            _sAppDir = Path.GetDirectoryName(Application.ExecutablePath).AddSlash();
             Directory.CreateDirectory(_sAppTempDir);
         }
 
@@ -76,7 +77,7 @@ namespace ArachNGIN.Files.TempDir
             Close();
         }
 
-        #endregion
+        #endregion IDisposable Members
 
         /// <summary>
         ///     Closes this instance.

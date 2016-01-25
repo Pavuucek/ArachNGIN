@@ -102,6 +102,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ClassExtensions\ArachNGIN.ClassExtensions.csproj">
+      <Project>{0c62509f-6707-4ace-b644-2a029c1fd942}</Project>
+      <Name>ArachNGIN.ClassExtensions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Files\ArachNGIN.Files.csproj">
       <Project>{21fe4ec9-b716-43ba-9124-08439ac740ab}</Project>
       <Name>ArachNGIN.Files</Name>

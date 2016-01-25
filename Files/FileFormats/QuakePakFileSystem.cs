@@ -16,6 +16,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+using ArachNGIN.ClassExtensions;
 using ArachNGIN.Files.Streams;
 using System;
 using System.Collections.Specialized;
@@ -45,8 +46,8 @@ namespace ArachNGIN.Files.FileFormats
         /// <param name="tempDir">The temporary dir.</param>
         public QuakePakFileSystem(string appDir, string tempDir)
         {
-            _sDir = StringUtils.StrAddSlash(appDir);
-            _sTemp = StringUtils.StrAddSlash(tempDir);
+            _sDir = appDir.AddSlash();
+            _sTemp = tempDir.AddSlash();
             var di = new DirectoryInfo(_sDir);
             FileInfo[] fi = di.GetFiles("*." + PakExtension);
             _iPakCount = fi.LongLength;

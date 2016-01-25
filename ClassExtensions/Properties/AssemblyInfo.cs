@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // Obecné informace o sestavení se řídí přes následující 
 // sadu atributů. Změnou hodnot těchto atributů se upraví informace
 // přidružené k sestavení.
-[assembly: AssemblyTitle("DebugConsoleDemo")]
+[assembly: AssemblyTitle("ClassExtensions")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DebugConsoleDemo")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyProduct("ClassExtensions")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Následující GUID se používá pro ID knihovny typů, pokud je tento projekt vystavený pro COM.
-[assembly: Guid("ff862298-78c1-43b5-8b35-ab6ded1d8f52")]
+[assembly: Guid("0c62509f-6707-4ace-b644-2a029c1fd942")]
 
 // Informace o verzi sestavení se skládá z těchto čtyř hodnot:
 //

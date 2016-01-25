@@ -1,4 +1,4 @@
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -31,7 +31,7 @@ using System.Runtime.InteropServices;
 //
 // Lze zadat všechny hodnoty nebo nechat hodnoty Čísel Sestavení a Revize ve výchozím nastavení 
 // použitím '*' jak je ukázáno dále:
-// [assembly: AssemblyVersion("1.0.1.29")]
-[assembly: AssemblyVersion("1.0.1.29")]
-[assembly: AssemblyFileVersion("1.0.1.29")]
-[assembly: AssemblyInformationalVersion("Proper_documentation_and_minor_refactorings:1.0.1-29-gc1c8dff")]
+// [assembly: AssemblyVersion("1.0.1.49")]
+[assembly: AssemblyVersion("1.0.1.49")]
+[assembly: AssemblyFileVersion("1.0.1.49")]
+[assembly: AssemblyInformationalVersion("Class_Extensions:1.0.1-49-gbd3234f")]

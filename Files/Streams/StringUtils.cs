@@ -5,10 +5,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
  * is furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
  * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
  * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
@@ -39,7 +39,7 @@ namespace ArachNGIN.Files.Streams
         {
             var r = new Regex("(" + delimiter + ")");
             string[] s = r.Split(wholeString);
-            int iHalf = Convert.ToInt16((s.GetUpperBound(0)/2) + 1);
+            int iHalf = Convert.ToInt16((s.GetUpperBound(0) / 2) + 1);
             var res = new string[iHalf];
             int j = 0;
             for (int i = 0; i <= s.GetUpperBound(0); i++)
@@ -51,54 +51,6 @@ namespace ArachNGIN.Files.Streams
                 }
             }
             return res;
-        }
-
-        /// <summary>
-        ///     Adds a slasho to the end of a string (if it's not already there)
-        /// </summary>
-        /// <param name="strString">The string.</param>
-        /// <returns></returns>
-        public static string StrAddSlash(string strString)
-        {
-            // zapamatovat si: lomítko je 0x5C!
-            string s = strString;
-            if (s[s.Length - 1] != (char) 0x5C) return s + (char) 0x5C;
-            return s;
-        }
-
-        /// <summary>
-        ///     Checks if a string starts with a slash. If it does it removes it.
-        /// </summary>
-        /// <param name="strString">The string.</param>
-        /// <returns></returns>
-        public static string NoStartingSlash(string strString)
-        {
-            if (string.IsNullOrEmpty(strString)) return string.Empty;
-            if (strString[0] == '\\') return strString.Substring(1);
-            return strString;
-        }
-
-        /// <summary>
-        ///     Checks if a string ends with a slash. if it does it removes it.
-        /// </summary>
-        /// <param name="strString">The string.</param>
-        /// <returns></returns>
-        public static string NoEndingSlash(string strString)
-        {
-            if (string.IsNullOrEmpty(strString)) return string.Empty;
-            string r = strString;
-            if (strString[strString.Length - 1] == '\\') r = strString.Substring(0, strString.Length - 1);
-            return r;
-        }
-
-        /// <summary>
-        ///     Deletes slashes on both ends of a string
-        /// </summary>
-        /// <param name="strString">The string.</param>
-        /// <returns></returns>
-        public static string NoSlashesOnEnds(string strString)
-        {
-            return NoEndingSlash(NoStartingSlash(strString));
         }
 
         /// <summary>
@@ -127,21 +79,6 @@ namespace ArachNGIN.Files.Streams
             byte[] tmp = UInt32ToBigEndianBytes(x);
             string s = string.Empty;
             foreach (byte b in tmp) s += b.ToString("x2");
-            return s;
-        }
-
-        /// <summary>
-        ///     Converts a byte array to string
-        /// </summary>
-        /// <param name="x">The byte array</param>
-        /// <returns></returns>
-        public static string ByteArrayToString(byte[] x)
-        {
-            string s = string.Empty;
-            if ((x != null) && (x.Length > 0))
-            {
-                foreach (byte b in x) s += b.ToString("x2");
-            }
             return s;
         }
 
@@ -175,7 +112,6 @@ namespace ArachNGIN.Files.Streams
                 lastNode = LastNode(treeView, pathSeparator, path, null);
             }
         }
-
 
         private static TreeNode LastNode(TreeView treeView, char pathSeparator, string path, TreeNode lastNode)
         {
