@@ -157,7 +157,7 @@ namespace Pak
                     //
                     FinishIndex();
                     Stream ms = new MemoryStream();
-                    StringCollections.SaveToStream(ms, PakIndex);
+                    PakIndex.SaveToStream(ms);
                     ms.Seek(0, SeekOrigin.Begin);
                     pak.AddStream(ms, "(pak-index)", true);
                     ms.Close();
@@ -373,7 +373,7 @@ namespace Pak
             var ms = new MemoryStream();
             pak.ExtractStream("(pak-index)", ms);
             ms.Seek(0, SeekOrigin.Begin);
-            StringCollections.LoadFromStream(ms, PakIndex);
+            StringCollections.LoadFromStream(PakIndex, ms);
             ms.Close();
             //
             CleanIndex();

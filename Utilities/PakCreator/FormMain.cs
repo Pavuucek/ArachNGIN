@@ -90,7 +90,7 @@ namespace PakCreator
             }
             Log("Writing Index file");
             Stream idx = new MemoryStream();
-            StringCollections.SaveToStream(idx, fileIndex);
+            fileIndex.SaveToStream(idx);
             newPak.AddStream(idx, "(pak-index)", true);
             idx.Close();
             Log("Closing PAK file");

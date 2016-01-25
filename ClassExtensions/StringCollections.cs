@@ -5,10 +5,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
  * is furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
  * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
  * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
@@ -19,10 +19,11 @@
 using System;
 using System.Collections.Specialized;
 using System.IO;
+using System.Security;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ArachNGIN.Files.Streams
+namespace ArachNGIN.ClassExtensions
 {
     /// <summary>
     ///     Class for working with StringCollections
@@ -34,7 +35,7 @@ namespace ArachNGIN.Files.Streams
         /// </summary>
         /// <param name="stringCollection">The string collection.</param>
         /// <returns></returns>
-        public static string StringCollectionToString(StringCollection stringCollection)
+        public static string StringCollectionToString(this StringCollection stringCollection)
         {
             string outputString = "";
             if (stringCollection != null && stringCollection.Count > 0)
@@ -46,13 +47,15 @@ namespace ArachNGIN.Files.Streams
             return outputString;
         }
 
-
         /// <summary>
         ///     Saves StringCollection to a file
         /// </summary>
         /// <param name="sFile">The file.</param>
         /// <param name="sCollection">The StringCollection.</param>
-        public static void SaveToFile(string sFile, StringCollection sCollection)
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="UnauthorizedAccessException">Access to fileName is denied. </exception>
+        /// <exception cref="IOException">The disk is read-only. </exception>
+        public static void SaveToFile(this StringCollection sCollection, string sFile)
         {
             var fi = new FileInfo(sFile);
             TextWriter writer = fi.CreateText();
@@ -69,7 +72,8 @@ namespace ArachNGIN.Files.Streams
         /// </summary>
         /// <param name="sOutput">The output stream.</param>
         /// <param name="sCollection">The StringCollection.</param>
-        public static void SaveToStream(Stream sOutput, StringCollection sCollection)
+        /// <exception cref="IOException">An I/O error occurs. </exception>
+        public static void SaveToStream(this StringCollection sCollection, Stream sOutput)
         {
             var writer = new StreamWriter(sOutput);
             writer.AutoFlush = true;
@@ -85,9 +89,12 @@ namespace ArachNGIN.Files.Streams
         /// <summary>
         ///     Saves StringCollection to a file.
         /// </summary>
-        /// <param name="sFile">The file.</param>
         /// <param name="sCollection">The StringCollection.</param>
-        public static void SaveToFile(string sFile, ListView.ListViewItemCollection sCollection)
+        /// <param name="sFile">The file.</param>
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="UnauthorizedAccessException">Access to fileName is denied. </exception>
+        /// <exception cref="IOException">The disk is read-only. </exception>
+        public static void SaveToFile(this ListView.ListViewItemCollection sCollection, string sFile)
         {
             var fi = new FileInfo(sFile);
             TextWriter writer = fi.CreateText();
@@ -112,10 +119,16 @@ namespace ArachNGIN.Files.Streams
         /// <summary>
         ///     Loads StringCollection from file.
         /// </summary>
-        /// <param name="sFile">The file.</param>
         /// <param name="sCollection">The StringCollection.</param>
+        /// <param name="sFile">The file.</param>
         /// <param name="bAppend">if set to <c>true</c> [b append].</param>
-        public static void LoadFromFile(string sFile, StringCollection sCollection, bool bAppend)
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="UnauthorizedAccessException">Access to fileName is denied. </exception>
+        /// <exception cref="FileNotFoundException">The file is not found. </exception>
+        /// <exception cref="DirectoryNotFoundException">The specified path is invalid, such as being on an unmapped drive. </exception>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
+        /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string. </exception>
+        public static void LoadFromFile(StringCollection sCollection, string sFile, bool bAppend)
         {
             var souborInfo = new FileInfo(sFile);
             string s;
@@ -127,17 +140,19 @@ namespace ArachNGIN.Files.Streams
             {
                 sCollection.Add(s);
             }
-            // načteno	
+            // načteno
             reader.Close();
         }
 
         /// <summary>
         ///     Loads a StringCollection from a stream.
         /// </summary>
-        /// <param name="sInput">The input stream.</param>
         /// <param name="sCollection">The StringCollection.</param>
+        /// <param name="sInput">The input stream.</param>
         /// <param name="bAppend">if set to <c>true</c> [b append].</param>
-        public static void LoadFromStream(Stream sInput, StringCollection sCollection, bool bAppend)
+        /// <exception cref="IOException">An I/O error occurs. </exception>
+        /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string. </exception>
+        public static void LoadFromStream(this StringCollection sCollection, Stream sInput, bool bAppend = false)
         {
             var reader = new StreamReader(sInput);
             string s;
@@ -150,31 +165,31 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        ///     Loads a StringCollection from a stream.
-        /// </summary>
-        /// <param name="sInput">The input stream.</param>
-        /// <param name="sCollection">The StringCollection.</param>
-        public static void LoadFromStream(Stream sInput, StringCollection sCollection)
-        {
-            LoadFromStream(sInput, sCollection, false);
-        }
-
-        /// <summary>
         ///     Loads a StringCollection from a file.
         /// </summary>
-        /// <param name="sFile">The input file.</param>
         /// <param name="sCollection">The StringCollection.</param>
-        public static void LoadFromFile(string sFile, StringCollection sCollection)
+        /// <param name="sFile">The input file.</param>
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="UnauthorizedAccessException">Access to fileName is denied. </exception>
+        /// <exception cref="FileNotFoundException">The file is not found. </exception>
+        /// <exception cref="DirectoryNotFoundException">The specified path is invalid, such as being on an unmapped drive. </exception>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
+        /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string. </exception>
+        public static void LoadFromFile(this StringCollection sCollection, string sFile)
         {
-            LoadFromFile(sFile, sCollection, false);
+            LoadFromFile(sCollection, sFile, false);
         }
 
         /// <summary>
         ///     Saves a ListView to a file
         /// </summary>
-        /// <param name="sFile">The file.</param>
         /// <param name="list">The listview.</param>
-        public static void SaveToFile(string sFile, ListView list)
+        /// <param name="sFile">The file.</param>
+        /// <exception cref="UnauthorizedAccessException">Access is denied. </exception>
+        /// <exception cref="DirectoryNotFoundException">The specified path is invalid, such as being on an unmapped drive. </exception>
+        /// <exception cref="IOException">path includes an incorrect or invalid syntax for file name, directory name, or volume label syntax. </exception>
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        public static void SaveToFile(this ListView list, string sFile)
         {
             var listViewContent = new StringBuilder();
 

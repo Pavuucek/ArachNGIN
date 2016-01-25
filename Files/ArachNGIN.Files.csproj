@@ -83,7 +83,6 @@
     <Compile Include="Settings\PortableSettingsProvider.cs" />
     <Compile Include="Streams\MultimaskFileSearcher.cs" />
     <Compile Include="Streams\StreamHandling.cs" />
-    <Compile Include="Streams\StringCollections.cs" />
     <Compile Include="Streams\StringUtils.cs" />
     <Compile Include="Streams\XmlSettings.cs" />
     <Compile Include="TempDir\TempManager.cs" />

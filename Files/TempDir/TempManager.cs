@@ -1,8 +1,7 @@
-using ArachNGIN.ClassExtensions;
-using ArachNGIN.Files.Streams;
 using System;
 using System.IO;
 using System.Windows.Forms;
+using ArachNGIN.ClassExtensions;
 
 namespace ArachNGIN.Files.TempDir
 {
@@ -11,27 +10,23 @@ namespace ArachNGIN.Files.TempDir
     /// </summary>
     public class TempManager : IDisposable
     {
-        private readonly string _sAppDir;
-        private readonly string _sAppTempDir;
-        private readonly string _sTempDir;
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="TempManager" /> class.
         /// </summary>
         public TempManager()
         {
-            Guid gGuid = Guid.NewGuid();
-            _sTempDir = Environment.GetEnvironmentVariable("TEMP").AddSlash();
-            string fileName = Path.GetFileName(Application.ExecutablePath);
+            var gGuid = Guid.NewGuid();
+            TempDir = Environment.GetEnvironmentVariable("TEMP").AddSlash();
+            var fileName = Path.GetFileName(Application.ExecutablePath);
             if (fileName != null)
             {
-                string str = fileName.ToLower();
+                var str = fileName.ToLower();
                 str = str.Replace(@".", @"_");
                 str = str + @"_" + gGuid;
-                _sAppTempDir = (_sTempDir + str.ToLower()).AddSlash();
+                AppTempDir = (TempDir + str.ToLower()).AddSlash();
             }
-            _sAppDir = Path.GetDirectoryName(Application.ExecutablePath).AddSlash();
-            Directory.CreateDirectory(_sAppTempDir);
+            AppDir = Path.GetDirectoryName(Application.ExecutablePath).AddSlash();
+            Directory.CreateDirectory(AppTempDir);
         }
 
         /// <summary>
@@ -40,10 +35,7 @@ namespace ArachNGIN.Files.TempDir
         /// <value>
         ///     The application dir.
         /// </value>
-        public string AppDir
-        {
-            get { return _sAppDir; }
-        }
+        public string AppDir { get; }
 
         /// <summary>
         ///     Gets the application temporary dir.
@@ -51,10 +43,7 @@ namespace ArachNGIN.Files.TempDir
         /// <value>
         ///     The application temporary dir.
         /// </value>
-        public string AppTempDir
-        {
-            get { return _sAppTempDir; }
-        }
+        public string AppTempDir { get; }
 
         /// <summary>
         ///     Gets the default temporary dir.
@@ -62,10 +51,7 @@ namespace ArachNGIN.Files.TempDir
         /// <value>
         ///     The temporary dir.
         /// </value>
-        public string TempDir
-        {
-            get { return _sTempDir; }
-        }
+        public string TempDir { get; }
 
         #region IDisposable Members
 
@@ -84,7 +70,7 @@ namespace ArachNGIN.Files.TempDir
         /// </summary>
         public void Close()
         {
-            Directory.Delete(_sAppTempDir, true);
+            Directory.Delete(AppTempDir, true);
         }
     }
 }

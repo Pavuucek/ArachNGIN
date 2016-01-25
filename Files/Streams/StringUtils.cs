@@ -38,11 +38,11 @@ namespace ArachNGIN.Files.Streams
         public static string[] StringSplit(string wholeString, string delimiter)
         {
             var r = new Regex("(" + delimiter + ")");
-            string[] s = r.Split(wholeString);
-            int iHalf = Convert.ToInt16((s.GetUpperBound(0) / 2) + 1);
+            var s = r.Split(wholeString);
+            int iHalf = Convert.ToInt16(s.GetUpperBound(0) / 2 + 1);
             var res = new string[iHalf];
-            int j = 0;
-            for (int i = 0; i <= s.GetUpperBound(0); i++)
+            var j = 0;
+            for (var i = 0; i <= s.GetUpperBound(0); i++)
             {
                 if (s[i] != delimiter)
                 {
@@ -58,7 +58,7 @@ namespace ArachNGIN.Files.Streams
         /// </summary>
         /// <param name="x">The integer</param>
         /// <returns></returns>
-        public static byte[] UInt32ToBigEndianBytes(UInt32 x)
+        public static byte[] UInt32ToBigEndianBytes(uint x)
         {
             return new[]
             {
@@ -74,11 +74,11 @@ namespace ArachNGIN.Files.Streams
         /// </summary>
         /// <param name="x">The integer</param>
         /// <returns></returns>
-        public static string UInt32ToByteString(UInt32 x)
+        public static string UInt32ToByteString(uint x)
         {
-            byte[] tmp = UInt32ToBigEndianBytes(x);
-            string s = string.Empty;
-            foreach (byte b in tmp) s += b.ToString("x2");
+            var tmp = UInt32ToBigEndianBytes(x);
+            var s = string.Empty;
+            foreach (var b in tmp) s += b.ToString("x2");
             return s;
         }
 
@@ -90,7 +90,7 @@ namespace ArachNGIN.Files.Streams
         /// <returns></returns>
         public static string PadNumToLength(int number, int length)
         {
-            string result = number.ToString(CultureInfo.InvariantCulture);
+            var result = number.ToString(CultureInfo.InvariantCulture);
             while (result.Length < length)
             {
                 result = "0" + result;
@@ -107,7 +107,7 @@ namespace ArachNGIN.Files.Streams
         public static void PopulateTreeViewByFiles(TreeView treeView, IEnumerable<string> paths, char pathSeparator)
         {
             TreeNode lastNode = null;
-            foreach (string path in paths)
+            foreach (var path in paths)
             {
                 lastNode = LastNode(treeView, pathSeparator, path, null);
             }
@@ -115,11 +115,11 @@ namespace ArachNGIN.Files.Streams
 
         private static TreeNode LastNode(TreeView treeView, char pathSeparator, string path, TreeNode lastNode)
         {
-            string subPathAgg = string.Empty;
-            foreach (string subPath in path.Split(pathSeparator))
+            var subPathAgg = string.Empty;
+            foreach (var subPath in path.Split(pathSeparator))
             {
                 subPathAgg += subPath + pathSeparator;
-                TreeNode[] nodes = treeView.Nodes.Find(subPathAgg, true);
+                var nodes = treeView.Nodes.Find(subPathAgg, true);
                 if (nodes.Length == 0)
                     if (lastNode == null)
                         lastNode = treeView.Nodes.Add(subPathAgg, subPath);
