@@ -2,7 +2,7 @@
 {
     public enum TracerLevel
     {
-        All,
+        Trace,
         Debug,
         Info,
         Warning,
