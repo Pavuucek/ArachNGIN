@@ -84,7 +84,7 @@
     <Compile Include="Streams\MultimaskFileSearcher.cs" />
     <Compile Include="Streams\StreamHandling.cs" />
     <Compile Include="Streams\StringUtils.cs" />
-    <Compile Include="Streams\XmlSettings.cs" />
+    <Compile Include="Settings\XmlSettings.cs" />
     <Compile Include="TempDir\TempManager.cs" />
     <Compile Include="Torrents\TorrentParser.cs" />
   </ItemGroup>

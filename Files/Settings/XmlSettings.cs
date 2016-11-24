@@ -5,10 +5,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
  * is furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
  * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
  * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
@@ -26,60 +26,41 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace ArachNGIN.Files.Streams
+namespace ArachNGIN.Files.Settings
 {
     /// <summary>
-    /// Třída pro ukládání nastavení do xml souboru
+    ///     Třída pro ukládání nastavení do xml souboru
     /// </summary>
     [XmlRoot("xml_def")]
     public class XmlSettings
     {
-        [XmlAttribute("AssemblyName")] private string _mAsm = string.Empty;
-        [XmlAttribute("CreationDate")] private DateTime _mCreationdate = DateTime.Now;
-        [XmlAttribute("fileName")] private string _mFile; //= "conf.xml";
-        [XmlElement("Settings")] private Hashtable _mSettingstable;
+        [XmlAttribute("AssemblyName")]
+        private string _mAsm;
 
-        #region  privátní podpůrné fce 
+        [XmlAttribute("CreationDate")]
+        private DateTime _mCreationdate = DateTime.Now;
 
-        /// <summary>
-        /// fce na zjištění cesty k aplikaci
-        /// </summary>
-        /// <returns>cesta k aplikaci</returns>
-        private string GetAppPath()
-        {
-            return StrAddSlash(Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName));
-        }
+        [XmlAttribute("fileName")]
+        private string _mFile; //= "conf.xml";
+
+        [XmlElement("Settings")]
+        private Hashtable _mSettingstable;
 
         /// <summary>
-        /// Zjistí jestli cesta končí lomítkem, když ne, tak ho přidá
-        /// </summary>
-        /// <param name="strString">cesta</param>
-        /// <returns>cesta s lomítkem</returns>
-        private string StrAddSlash(string strString)
-        {
-            // zapamatovat si: lomítko je 0x5C!
-            string s = strString;
-            if (s[s.Length - 1] != (char) 0x5C) return s + (char) 0x5C;
-            return s;
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Konstruktor - bez jména souboru
+        ///     Konstruktor - bez jména souboru
         /// </summary>
         public XmlSettings()
         {
             _mSettingstable = new Hashtable();
-            Assembly asm = Assembly.GetExecutingAssembly();
+            var asm = Assembly.GetExecutingAssembly();
             _mAsm = asm.GetName().ToString();
 
-            int indexOf = _mAsm.IndexOf(",", StringComparison.Ordinal);
+            var indexOf = _mAsm.IndexOf(",", StringComparison.Ordinal);
             _mAsm = _mAsm.Substring(0, indexOf);
             _mFile = /*Path.ChangeExtension(m_asm,".conf")*/ _mAsm + ".conf";
 
             var dir = new DirectoryInfo(".");
-            foreach (FileInfo f in dir.GetFiles(_mFile))
+            foreach (var f in dir.GetFiles(_mFile))
             {
                 _mFile = f.FullName;
                 _mCreationdate = f.CreationTime;
@@ -90,15 +71,15 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Konstruktor, se specifikováním jména souboru
+        ///     Konstruktor, se specifikováním jména souboru
         /// </summary>
         /// <param name="strFileName">jméno souboru</param>
         public XmlSettings(string strFileName)
         {
             _mSettingstable = new Hashtable();
-            Assembly asm = Assembly.GetExecutingAssembly();
+            var asm = Assembly.GetExecutingAssembly();
             _mAsm = asm.GetName().ToString();
-            int indexOf = _mAsm.IndexOf(",", StringComparison.Ordinal);
+            var indexOf = _mAsm.IndexOf(",", StringComparison.Ordinal);
             _mAsm = _mAsm.Substring(0, indexOf);
 
             _mFile = strFileName;
@@ -107,7 +88,7 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Vlastnost udávající jméno souboru
+        ///     Vlastnost udávající jméno souboru
         /// </summary>
         public string FileName
         {
@@ -116,31 +97,25 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Načtě xml nastavení ze souboru
+        ///     Načtě xml nastavení ze souboru
         /// </summary>
         public void LoadFromFile()
         {
-            XmlTextReader reader = null;
-            try
+            using (var reader = new XmlTextReader(_mFile))
             {
-                reader = new XmlTextReader(_mFile);
-                FormatXml(reader, _mFile);
-            }
-            catch (Exception e)
-            {
-                var str = e.Message;
-            }
-            finally
-            {
-                if (reader != null)
+                try
                 {
-                    reader.Close();
+                    FormatXml(reader, _mFile);
+                }
+                catch (Exception e)
+                {
+                    // ignored
                 }
             }
         }
 
         /// <summary>
-        /// Uloží xml nastavení do souboru
+        ///     Uloží xml nastavení do souboru
         /// </summary>
         public void SaveToFile()
         {
@@ -148,26 +123,27 @@ namespace ArachNGIN.Files.Streams
             //if(!info.Exists) info.Create();
             try
             {
-                var writer = new XmlTextWriter(_mFile, Encoding.UTF8);
-                writer.WriteStartDocument();
-                //
-                writer.WriteStartElement("xml_def");
-                //
-                writer.WriteAttributeString("", "AssemblyName", "", _mAsm);
-                writer.WriteAttributeString("", "fileName", "", Path.GetFileName(_mFile));
-                writer.WriteAttributeString("", "CreationDate", "", _mCreationdate.ToString(CultureInfo.InvariantCulture));
-                //
-                foreach (string line in _mSettingstable.Keys)
+                using (var writer = new XmlTextWriter(_mFile, Encoding.UTF8))
                 {
-                    writer.WriteStartElement("Item");
-                    writer.WriteAttributeString("", "Name", "", line);
-                    writer.WriteAttributeString("", "Value", "", _mSettingstable[line].ToString());
+                    writer.WriteStartDocument();
+                    //
+                    writer.WriteStartElement("xml_def");
+                    //
+                    writer.WriteAttributeString("", "AssemblyName", "", _mAsm);
+                    writer.WriteAttributeString("", "fileName", "", Path.GetFileName(_mFile));
+                    writer.WriteAttributeString("", "CreationDate", "",
+                        _mCreationdate.ToString(CultureInfo.InvariantCulture));
+                    //
+                    foreach (string line in _mSettingstable.Keys)
+                    {
+                        writer.WriteStartElement("Item");
+                        writer.WriteAttributeString("", "Name", "", line);
+                        writer.WriteAttributeString("", "Value", "", _mSettingstable[line].ToString());
+                        writer.WriteEndElement();
+                    }
                     writer.WriteEndElement();
+                    writer.WriteEndDocument();
                 }
-                writer.WriteEndElement();
-                writer.WriteEndDocument();
-                writer.Flush();
-                writer.Close();
             }
             catch (Exception e)
             {
@@ -178,35 +154,25 @@ namespace ArachNGIN.Files.Streams
         private void FormatXml(XmlReader reader, string fileName)
         {
             while (reader.Read())
-            {
                 if (reader.NodeType == XmlNodeType.Element)
                 {
-                    string sName = "";
-                    string sValue = "";
+                    var sName = "";
+                    var sValue = "";
                     if (reader.Name == "Item")
                     {
                         if (reader.HasAttributes)
-                        {
                             while (reader.MoveToNextAttribute())
-                            {
                                 if (reader.Name == "Name")
-                                {
                                     sName = reader.Value;
-                                }
                                 else if (reader.Name == "Value")
-                                {
                                     sValue = reader.Value;
-                                }
-                            }
-                        }
                         if (sName != "") _mSettingstable.Add(sName, sValue);
                     }
                 }
-            }
         }
 
         /// <summary>
-        /// Načte nastavení zadaného jména
+        ///     Načte nastavení zadaného jména
         /// </summary>
         /// <param name="mName">jméno nastavení</param>
         /// <param name="strDefault">defaultní hodnota</param>
@@ -214,15 +180,13 @@ namespace ArachNGIN.Files.Streams
         public string GetSetting(string mName, string strDefault)
         {
             if (_mSettingstable.ContainsKey(mName))
-            {
-                return (string) _mSettingstable[mName];
-            }
+                return (string)_mSettingstable[mName];
             SetSetting(mName, strDefault);
             return strDefault;
         }
 
         /// <summary>
-        /// Načte nastavení zadaného jména
+        ///     Načte nastavení zadaného jména
         /// </summary>
         /// <param name="mName">jméno nastavení</param>
         /// <returns>hodnota nastavení, nebo prázdný řetězec když není nalezeno</returns>
@@ -232,24 +196,20 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Uloží nastavení zadaného jména a hodnoty
+        ///     Uloží nastavení zadaného jména a hodnoty
         /// </summary>
         /// <param name="mName">jméno nastavení</param>
         /// <param name="mValue">hodnota nastavení</param>
         public void SetSetting(string mName, string mValue)
         {
             if (_mSettingstable.ContainsKey(mName))
-            {
                 _mSettingstable[mName] = mValue;
-            }
             else
-            {
                 _mSettingstable.Add(mName, mValue);
-            }
         }
 
         /// <summary>
-        /// Uloží řetězec zadaného jména a hodnoty
+        ///     Uloží řetězec zadaného jména a hodnoty
         /// </summary>
         /// <param name="mName">jméno nastavení</param>
         /// <param name="mValue">hodnota nastavení</param>
@@ -259,7 +219,7 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Uloží číslo zadaného jména a hodnoty
+        ///     Uloží číslo zadaného jména a hodnoty
         /// </summary>
         /// <param name="mName">jméno nastavení</param>
         /// <param name="mValue">hodnota nastavení</param>
@@ -269,7 +229,7 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Uloží hodnotu ano/ne zadaného jména a hodnoty
+        ///     Uloží hodnotu ano/ne zadaného jména a hodnoty
         /// </summary>
         /// <param name="mName">jméno nastavení</param>
         /// <param name="mValue">hodnota nastavení</param>
@@ -279,7 +239,7 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Načte řetězec z nastavení
+        ///     Načte řetězec z nastavení
         /// </summary>
         /// <param name="mName">jméno nastavení</param>
         /// <param name="strDefault">defaultní hodnota</param>
@@ -290,14 +250,14 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Načte číslo z nastavení
+        ///     Načte číslo z nastavení
         /// </summary>
         /// <param name="mName">jméno nastavení</param>
         /// <param name="intDefault">defaultní hodnota</param>
         /// <returns>hodnota nebo defaultní hodnota</returns>
         public int GetInt(string mName, int intDefault)
         {
-            string str = GetSetting(mName, intDefault.ToString(CultureInfo.InvariantCulture));
+            var str = GetSetting(mName, intDefault.ToString(CultureInfo.InvariantCulture));
             int r;
             try
             {
@@ -311,7 +271,7 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Načte číslo z nastavení
+        ///     Načte číslo z nastavení
         /// </summary>
         /// <param name="mName">jméno nastavení</param>
         /// <returns>hodnota</returns>
@@ -321,14 +281,14 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Načte hodnotu ano/ne z nastavení
+        ///     Načte hodnotu ano/ne z nastavení
         /// </summary>
         /// <param name="mName">jméno nastavení</param>
         /// <param name="boolDefault">defaultní hodnota</param>
         /// <returns>hodnota nebo defaultní hodnota</returns>
         public bool GetBool(string mName, bool boolDefault)
         {
-            string str = GetSetting(mName, boolDefault.ToString());
+            var str = GetSetting(mName, boolDefault.ToString());
             bool r;
             try
             {
@@ -342,7 +302,7 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Načte hodnotu ano/ne z nastavení
+        ///     Načte hodnotu ano/ne z nastavení
         /// </summary>
         /// <param name="mName">jméno nastavení</param>
         /// <returns>hodnota</returns>
@@ -350,5 +310,31 @@ namespace ArachNGIN.Files.Streams
         {
             return GetBool(mName, true);
         }
+
+        #region privátní podpůrné fce
+
+        /// <summary>
+        ///     fce na zjištění cesty k aplikaci
+        /// </summary>
+        /// <returns>cesta k aplikaci</returns>
+        private string GetAppPath()
+        {
+            return StrAddSlash(Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName));
+        }
+
+        /// <summary>
+        ///     Zjistí jestli cesta končí lomítkem, když ne, tak ho přidá
+        /// </summary>
+        /// <param name="strString">cesta</param>
+        /// <returns>cesta s lomítkem</returns>
+        private string StrAddSlash(string strString)
+        {
+            // zapamatovat si: lomítko je 0x5C!
+            var s = strString;
+            if (s[s.Length - 1] != (char)0x5C) return s + (char)0x5C;
+            return s;
+        }
+
+        #endregion privátní podpůrné fce
     }
 }
