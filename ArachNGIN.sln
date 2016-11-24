@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArachNGIN.ClassExtensions",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArachNGIN.Tracer", "Tracer\ArachNGIN.Tracer.csproj", "{40643838-E640-4902-87D8-3E3160679F4C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TracerTestDemo", "Utilities\TracerTestDemo\TracerTestDemo.csproj", "{624F02D6-0CCE-4679-979C-88602B3DD631}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{40643838-E640-4902-87D8-3E3160679F4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40643838-E640-4902-87D8-3E3160679F4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40643838-E640-4902-87D8-3E3160679F4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{624F02D6-0CCE-4679-979C-88602B3DD631}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{624F02D6-0CCE-4679-979C-88602B3DD631}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{624F02D6-0CCE-4679-979C-88602B3DD631}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{624F02D6-0CCE-4679-979C-88602B3DD631}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
