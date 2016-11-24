@@ -29,5 +29,20 @@ namespace ArachNGIN.Tracer
         {
             get { return _TracerMessages; }
         }
+
+        public bool AddHandler(ITracerHandler tracerHandler)
+        {
+            if (tracerHandler != null)
+            {
+                _TracerHandlers.Add(tracerHandler);
+                return true;
+            }
+            return false;
+        }
+
+        public bool RemoveHandler(ITracerHandler tracerHandler)
+        {
+            return _TracerHandlers.Remove(tracerHandler);
+        }
     }
 }
