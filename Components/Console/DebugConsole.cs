@@ -296,18 +296,19 @@ namespace ArachNGIN.Components.Console
         public void SaveLog()
         {
             var f = new FileInfo(_logName);
-            var s = f.CreateText();
-            for (var i = 0; i < _consoleForm.lstLogSeparate.Items.Count; i++)
+            using (var s = f.CreateText())
             {
-                var sb = new StringBuilder();
-                sb.Append(_consoleForm.lstLogSeparate.Items[i].SubItems[0].Text);
-                sb.Append("\t");
-                sb.Append(_consoleForm.lstLogSeparate.Items[i].SubItems[1].Text);
-                sb.Append("\t");
-                sb.Append(_consoleForm.lstLogSeparate.Items[i].SubItems[2].Text);
-                s.WriteLine(sb.ToString());
+                for (var i = 0; i < _consoleForm.lstLogSeparate.Items.Count; i++)
+                {
+                    var sb = new StringBuilder();
+                    sb.Append(_consoleForm.lstLogSeparate.Items[i].SubItems[0].Text);
+                    sb.Append("\t");
+                    sb.Append(_consoleForm.lstLogSeparate.Items[i].SubItems[1].Text);
+                    sb.Append("\t");
+                    sb.Append(_consoleForm.lstLogSeparate.Items[i].SubItems[2].Text);
+                    s.WriteLine(sb.ToString());
+                }
             }
-            s.Close();
         }
 
         /// <summary>
