@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Handlers\ConsoleHandler.cs" />
+    <Compile Include="Handlers\DebugHandler.cs" />
     <Compile Include="ITracerHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tracer.cs" />
