@@ -1,7 +1,9 @@
-﻿using ArachNGIN.Files.CRC;
+﻿using ArachNGIN.ClassExtensions;
+using ArachNGIN.Files.CRC;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
 using System;
+using System.Collections.Specialized;
 
 namespace ArachNGIN.Files.Tests
 {
@@ -11,6 +13,11 @@ namespace ArachNGIN.Files.Tests
         [TestMethod]
         public void TestTestTextFileCrc()
         {
+            var sc = new StringCollection();
+            sc.LoadFromFile("simple-crc-test.7763A7AE.cmd");
+            var s = sc.StringCollectionToString();
+            Console.WriteLine(s);
+
             AnimeCrc.GetCrcFromFile("simple-crc-test.7763A7AE.cmd").ToUpper().ShouldBe("7763A7AE");
         }
 
