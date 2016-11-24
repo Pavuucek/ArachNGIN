@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Handlers\ConsoleHandler.cs" />
     <Compile Include="Handlers\DebugHandler.cs" />
+    <Compile Include="Handlers\FileHandler.cs" />
     <Compile Include="Helpers\HelperMethods.cs" />
     <Compile Include="ITracerHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -31,6 +31,6 @@ using System.Runtime.InteropServices;
 //
 // Můžete zadat všechny hodnoty nebo nechat nastavená výchozí čísla sestavení a revize 
 // pomocí zástupného znaku * takto:
-// [assembly: AssemblyVersion("1.0.1.64")]
-[assembly: AssemblyVersion("1.0.1.64")]
-[assembly: AssemblyFileVersion("1.0.1.64")]
+// [assembly: AssemblyVersion("1.0.1.68")]
+[assembly: AssemblyVersion("1.0.1.68")]
+[assembly: AssemblyFileVersion("1.0.1.68")]

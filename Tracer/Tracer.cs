@@ -54,8 +54,17 @@ namespace ArachNGIN.Tracer
         /// </summary>
         public static void InitDefault()
         {
+            TracerPublisher.AddHandler(new FileHandler());
             TracerPublisher.AddHandler(new ConsoleHandler());
             TracerPublisher.AddHandler(new DebugHandler());
+        }
+
+        /// <summary>
+        /// Posts an introduction message to trace.
+        /// </summary>
+        public static void TraceIntroMessage()
+        {
+            Trace(string.Format("Starting {0}...", HelperMethods.GetAppExeName()));
         }
 
         /// <summary>
@@ -152,6 +161,26 @@ namespace ArachNGIN.Tracer
         public static void Trace()
         {
             Trace("Trace test!");
+        }
+
+        /// <summary>
+        ///     Adds the handler.
+        /// </summary>
+        /// <param name="handler">The handler.</param>
+        /// <returns></returns>
+        public static bool AddHandler(ITracerHandler handler)
+        {
+            return TracerPublisher.AddHandler(handler);
+        }
+
+        /// <summary>
+        ///     Removes the handler.
+        /// </summary>
+        /// <param name="handler">The handler.</param>
+        /// <returns></returns>
+        public static bool RemoveHandler(ITracerHandler handler)
+        {
+            return TracerPublisher.RemoveHandler(handler);
         }
     }
 }

@@ -17,6 +17,7 @@
  */
 
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -51,6 +52,33 @@ namespace ArachNGIN.Tracer.Helpers
                     return new StackFrame(i, true);
             }
             return null;
+        }
+
+        /// <summary>
+        /// Gets the full name of the application.
+        /// </summary>
+        /// <returns></returns>
+        internal static string GetAppFullName()
+        {
+            return Assembly.GetEntryAssembly().Location;
+        }
+
+        /// <summary>
+        /// Gets the name of the application executable.
+        /// </summary>
+        /// <returns></returns>
+        internal static string GetAppExeName()
+        {
+            return Path.GetFileName(GetAppFullName());
+        }
+
+        /// <summary>
+        /// Gets the application executable name without extension.
+        /// </summary>
+        /// <returns></returns>
+        internal static string GetAppExeNameWithoutExtension()
+        {
+            return Path.GetFileNameWithoutExtension(GetAppFullName());
         }
     }
 }

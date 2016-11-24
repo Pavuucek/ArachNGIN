@@ -17,8 +17,10 @@
  */
 
 using ArachNGIN.Tracer;
+using ArachNGIN.Tracer.Handlers;
 using ArachNGIN.Tracer.Helpers;
 using System;
+using System.Reflection;
 
 namespace TracerTestDemo
 {
@@ -35,6 +37,7 @@ namespace TracerTestDemo
         private static void Main(string[] args)
         {
             Tracer.InitDefault();
+            Tracer.TraceIntroMessage();
             Tracer.Trace();
             Tracer.Trace("Simple message test");
             Tracer.Trace(TracerLevel.Warning, "Warning test");
