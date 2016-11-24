@@ -33,7 +33,7 @@ namespace ArachNGIN.Tracer
         public static void Trace(TracerLevel messageLevel, string originClass, string originMethod, int line,
             string message)
         {
-            if (messageLevel <= Level) return; // do nothing if we're at lesser level
+            if (messageLevel < Level) return; // do nothing if we're at lesser level
             var tracerMessage = new TracerMessage(DateTime.Now, messageLevel, originClass, originMethod, line, message);
             tracerPublisher.Trace(tracerMessage);
         }
