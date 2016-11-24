@@ -10,7 +10,7 @@ namespace ArachNGIN.Files.Tests
     [TestClass]
     public class AnimeCrcTest
     {
-        [TestMethod]
+        /*[TestMethod]
         public void TestTestTextFileCrc()
         {
             var sc = new StringCollection();
@@ -19,7 +19,7 @@ namespace ArachNGIN.Files.Tests
             Console.WriteLine(s);
 
             AnimeCrc.GetCrcFromFile("simple-crc-test.7763A7AE.cmd").ToUpper().ShouldBe("7763A7AE");
-        }
+        }*/
 
         [TestMethod]
         public void TestBinaryFileCrc()
