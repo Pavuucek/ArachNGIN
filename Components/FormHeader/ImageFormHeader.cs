@@ -55,6 +55,7 @@ namespace ArachNGIN.Components.FormHeader
                 DrawIcon(e.Graphics);
             else if (Image != null)
                 DrawImage(e.Graphics);
+            base.OnPaint(e);
         }
 
         /// <summary>
@@ -62,14 +63,13 @@ namespace ArachNGIN.Components.FormHeader
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
+            SuspendLayout();
+            //
             // ImageFormHeader
-            // 
-            this.Name = "ImageFormHeader";
-            this.Size = new System.Drawing.Size(1502, 70);
-            this.ResumeLayout(false);
-
+            //
+            Name = "ImageFormHeader";
+            Size = new Size(1502, 70);
+            ResumeLayout(false);
         }
     }
 }

@@ -83,26 +83,23 @@ namespace ArachNGIN.Components.FormHeader
                 return;
             }
 
-            var gfx = Graphics.FromImage(_image);
-
-            if (_color1.Equals(_color2)) //check if we need to calc the color slide
+            using (var gfx = Graphics.FromImage(_image))
             {
-                gfx.FillRectangle(new SolidBrush(_color1), 0, 0, Width, Height);
-            }
-            else
-            {
-                for (var i = 0; i < _image.Width; i++)
-                {
-                    //
-                    // calculate the new color to use (linear color mix)
-                    //
-                    var colorR = (Color2.R - Color1.R) * i / _image.Width;
-                    var colorG = (Color2.G - Color1.G) * i / _image.Width;
-                    var colorB = (Color2.B - Color1.B) * i / _image.Width;
-                    var color = Color.FromArgb(Color1.R + colorR, Color1.G + colorG, Color1.B + colorB);
+                if (_color1.Equals(_color2)) //check if we need to calc the color slide
+                    gfx.FillRectangle(new SolidBrush(_color1), 0, 0, Width, Height);
+                else
+                    for (var i = 0; i < _image.Width; i++)
+                    {
+                        //
+                        // calculate the new color to use (linear color mix)
+                        //
+                        var colorR = (Color2.R - Color1.R) * i / _image.Width;
+                        var colorG = (Color2.G - Color1.G) * i / _image.Width;
+                        var colorB = (Color2.B - Color1.B) * i / _image.Width;
+                        var color = Color.FromArgb(Color1.R + colorR, Color1.G + colorG, Color1.B + colorB);
 
-                    gfx.DrawLine(new Pen(new SolidBrush(color)), i, 0, i, Height);
-                }
+                        gfx.DrawLine(new Pen(new SolidBrush(color)), i, 0, i, Height);
+                    }
             }
         }
 
