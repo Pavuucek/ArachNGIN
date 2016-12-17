@@ -17,7 +17,6 @@
  */
 
 using ArachNGIN.ClassExtensions;
-using ArachNGIN.Files.Streams;
 using System;
 using System.Collections.Specialized;
 using System.IO;
@@ -32,7 +31,7 @@ namespace ArachNGIN.Files.FileFormats
         private const string PakExtension = "pak"; // bez tecky
         private const string PakIndexFileName = "(pak-index)";
         private readonly string[] _aPathfiles;
-        private readonly Int64 _iPakCount;
+        private readonly long _iPakCount;
         private readonly string[] _lPakFiles;
         private readonly string _sDir;
         private readonly string _sTemp;
@@ -49,19 +48,15 @@ namespace ArachNGIN.Files.FileFormats
             _sDir = appDir.AddSlash();
             _sTemp = tempDir.AddSlash();
             var di = new DirectoryInfo(_sDir);
-            FileInfo[] fi = di.GetFiles("*." + PakExtension);
+            var fi = di.GetFiles("*." + PakExtension);
             _iPakCount = fi.LongLength;
             _lPakFiles = new string[fi.LongLength];
-            for (int i = 0; i < _lPakFiles.LongLength; i++)
-            {
+            for (var i = 0; i < _lPakFiles.LongLength; i++)
                 _lPakFiles[i] = fi[i].Name;
-            }
-            FileInfo[] fi2 = di.GetFiles("*.*", SearchOption.AllDirectories);
+            var fi2 = di.GetFiles("*.*", SearchOption.AllDirectories);
             _aPathfiles = new string[fi2.LongLength];
-            for (int i = 0; i < fi2.LongLength; i++)
-            {
+            for (var i = 0; i < fi2.LongLength; i++)
                 _aPathfiles[i] = fi2[i].FullName.Replace(_sDir, "");
-            }
             ReadPakFiles();
         }
 
@@ -85,25 +80,22 @@ namespace ArachNGIN.Files.FileFormats
             if (_iPakCount == 0) return;
             _pakFat = new StringCollection[_iPakCount];
             _indexFat = new StringCollection[_iPakCount];
-            for (int i = 0; i < _iPakCount; i++)
-            {
-                var q = new QuakePakFile(_sDir + _lPakFiles[i], false);
-                _pakFat[i] = q.PakFileList;
-                _indexFat[i] = new StringCollection();
-                if (q.PakFileExists(PakIndexFileName))
+            for (var i = 0; i < _iPakCount; i++)
+                using (var q = new QuakePakFile(_sDir + _lPakFiles[i], false))
                 {
-                    Stream st = new MemoryStream();
-                    q.ExtractStream(PakIndexFileName, st);
-                    st.Position = 0;
-                    var tr = new StreamReader(st);
-                    string line;
-                    while ((line = tr.ReadLine()) != null)
+                    _pakFat[i] = q.PakFileList;
+                    _indexFat[i] = new StringCollection();
+                    if (!q.PakFileExists(PakIndexFileName)) continue;
+                    using (var st = new MemoryStream())
                     {
-                        _indexFat[i].Add(line);
+                        q.ExtractStream(PakIndexFileName, st);
+                        st.Position = 0;
+                        var tr = new StreamReader(st);
+                        string line;
+                        while ((line = tr.ReadLine()) != null)
+                            _indexFat[i].Add(line);
                     }
-                    st.Close();
                 }
-            }
         }
 
         /// <summary>
@@ -137,73 +129,62 @@ namespace ArachNGIN.Files.FileFormats
         /// <returns>true or false</returns>
         public bool AskFile(string sFile)
         {
-            bool r = false;
-            string sIndexfile = string.Empty;
+            var sIndexfile = string.Empty;
             sFile = ReplaceSlashesOut(sFile); // jen pro jistotu
             if (File.Exists(_sTemp + sFile))
             {
                 // fajl uz je v tempu, tak ho tam nechame
                 // obsah nas nezaujma
-                r = true;
-                return r;
+                return true;
             }
             // soubor v adresari ma prioritu
             if (File.Exists(_sDir + sFile))
             {
-                string sFullpath = _sTemp + sFile;
+                var sFullpath = _sTemp + sFile;
                 Directory.CreateDirectory(Path.GetDirectoryName(sFullpath));
                 File.Copy(_sDir + sFile, sFullpath, true);
-                r = true;
-                return r;
+                return true;
             }
 
             // ted uz pracujeme s pakem, takze lomitka do unixovyho tvaru :-)
             sFile = ReplaceSlashesIn(sFile);
             // soubor musime najit v paku
-            if ((_pakFat != null) && (_indexFat != null))
+            if (_pakFat != null && _indexFat != null)
             {
-                for (int i = 0; i < _indexFat.Length; i++)
+                for (var i = 0; i < _indexFat.Length; i++)
                 {
-                    string sIndexline = "";
+                    var sIndexline = "";
                     // prohledame fat index
-                    foreach (string sLine in _indexFat[i])
-                    {
+                    foreach (var sLine in _indexFat[i])
                         if (sLine.ToLower().Contains(sFile.ToLower() + "="))
-                        {
                             sIndexline = sLine;
-                        }
-                    }
                     //s_file=s_indexline.Substring(s_indexline.IndexOf("=")+1);
                     // rozdelit radku indexu na fajl jmeno souboru v paku a skutecne jmeno
-                    string[] aIndexline = sIndexline.Split(new[] { '=' });
+                    var aIndexline = sIndexline.Split('=');
                     if (aIndexline.Length > 1)
                     {
                         sIndexfile = aIndexline[0];
                         sFile = aIndexline[1];
                     }
                 }
-                for (int i = 0; i < _pakFat.LongLength; i++)
-                {
-                    // nejdriv se podivame do indexu
-
+                for (var i = 0; i < _pakFat.LongLength; i++)
                     if (_pakFat[i].Contains(sFile))
                     {
-                        string sFullpath = _sTemp;
+                        var sFullpath = _sTemp;
                         if (sIndexfile != string.Empty) sFullpath += sIndexfile;
                         else sFullpath += sFile;
                         // prevest lomitka :-)
                         sFullpath = ReplaceSlashesOut(sFullpath);
                         Directory.CreateDirectory(Path.GetDirectoryName(sFullpath));
-                        var q = new QuakePakFile(_sDir + _lPakFiles[i], false);
-                        q.ExtractFile(sFile, sFullpath);
-                        if (File.Exists(sFullpath))
+                        using (var q = new QuakePakFile(_sDir + _lPakFiles[i], false))
                         {
-                            return true;
+                            q.ExtractFile(sFile, sFullpath);
                         }
+                        if (File.Exists(sFullpath))
+                            return true;
                     }
-                }
             }
-            return r;
+            return false;
         }
     }
 }

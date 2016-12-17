@@ -5,10 +5,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
  * is furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
  * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
  * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
@@ -41,8 +41,8 @@ namespace ArachNGIN.Files.Settings
         {
             get
             {
-                return Path.Combine(Path.GetDirectoryName(Application.ExecutablePath),
-                    string.Format("{0}.settings", ApplicationName));
+                var appname = Path.GetDirectoryName(Application.ExecutablePath) ?? string.Empty;
+                return Path.Combine(appname, string.Format("{0}.settings", ApplicationName));
             }
         }
 
@@ -50,8 +50,8 @@ namespace ArachNGIN.Files.Settings
         {
             get
             {
-                XmlNode settingsNode = GetSettingsNode(LocalSettingsNodeName);
-                XmlNode machineNode = settingsNode.SelectSingleNode(Environment.MachineName.ToLowerInvariant());
+                var settingsNode = GetSettingsNode(LocalSettingsNodeName);
+                var machineNode = settingsNode.SelectSingleNode(Environment.MachineName.ToLowerInvariant());
                 if (machineNode == null)
                 {
                     machineNode = RootDocument.CreateElement(Environment.MachineName.ToLowerInvariant());
@@ -84,6 +84,7 @@ namespace ArachNGIN.Files.Settings
                     }
                     catch (Exception)
                     {
+                        // ignored
                     }
                     if (_xmlDocument != null && _xmlDocument.SelectSingleNode(RootNodeName) != null)
                         return _xmlDocument;
@@ -108,6 +109,139 @@ namespace ArachNGIN.Files.Settings
         public override string Name
         {
             get { return ClassName; }
+        }
+
+        /// <summary>
+        ///     Initializes the provider.
+        /// </summary>
+        /// <param name="name">The friendly name of the provider.</param>
+        /// <param name="config">
+        ///     A collection of the name/value pairs representing the provider-specific attributes specified in
+        ///     the configuration for this provider.
+        /// </param>
+        public override void Initialize(string name, NameValueCollection config)
+        {
+            base.Initialize(Name, config);
+        }
+
+        /// <summary>
+        ///     Sets the values of the specified group of property settings.
+        /// </summary>
+        /// <param name="context">A <see cref="T:System.Configuration.SettingsContext" /> describing the current application usage.</param>
+        /// <param name="collection">
+        ///     A <see cref="T:System.Configuration.SettingsPropertyValueCollection" /> representing the group
+        ///     of property settings to set.
+        /// </param>
+        public override void SetPropertyValues(SettingsContext context, SettingsPropertyValueCollection collection)
+        {
+            foreach (SettingsPropertyValue propertyValue in collection)
+                SetValue(propertyValue);
+            try
+            {
+                RootDocument.Save(FilePath);
+            }
+            catch (Exception)
+            {
+                /*
+                 * If this is a portable application and the device has been
+                 * removed then this will fail, so don't do anything. It's
+                 * probably better for the application to stop saving settings
+                 * rather than just crashing outright. Probably.
+                 */
+            }
+        }
+
+        /// <summary>
+        ///     Returns the collection of settings property values for the specified application instance and settings property
+        ///     group.
+        /// </summary>
+        /// <param name="context">A <see cref="T:System.Configuration.SettingsContext" /> describing the current application use.</param>
+        /// <param name="collection">
+        ///     A <see cref="T:System.Configuration.SettingsPropertyCollection" /> containing the settings
+        ///     property group whose values are to be retrieved.
+        /// </param>
+        /// <returns>
+        ///     A <see cref="T:System.Configuration.SettingsPropertyValueCollection" /> containing the values for the specified
+        ///     settings property group.
+        /// </returns>
+        public override SettingsPropertyValueCollection GetPropertyValues(SettingsContext context,
+            SettingsPropertyCollection collection)
+        {
+            var values = new SettingsPropertyValueCollection();
+            foreach (SettingsProperty property in collection)
+                values.Add(new SettingsPropertyValue(property)
+                {
+                    SerializedValue = GetValue(property)
+                });
+            return values;
+        }
+
+        /// <summary>
+        ///     Sets the value.
+        /// </summary>
+        /// <param name="propertyValue">The property value.</param>
+        private void SetValue(SettingsPropertyValue propertyValue)
+        {
+            var targetNode = IsGlobal(propertyValue.Property)
+                ? GlobalSettingsNode
+                : LocalSettingsNode;
+            var settingNode = targetNode.SelectSingleNode(string.Format("setting[@name='{0}']", propertyValue.Name));
+            if (settingNode != null)
+                settingNode.InnerText = propertyValue.SerializedValue.ToString();
+            else
+            {
+                settingNode = RootDocument.CreateElement("setting");
+                var nameAttribute = RootDocument.CreateAttribute("name");
+                nameAttribute.Value = propertyValue.Name;
+                if (settingNode.Attributes != null) settingNode.Attributes.Append(nameAttribute);
+                settingNode.InnerText = propertyValue.SerializedValue.ToString();
+                targetNode.AppendChild(settingNode);
+            }
+        }
+
+        /// <summary>
+        ///     Gets the value.
+        /// </summary>
+        /// <param name="property">The property.</param>
+        /// <returns></returns>
+        private string GetValue(SettingsProperty property)
+        {
+            var targetNode = IsGlobal(property) ? GlobalSettingsNode : LocalSettingsNode;
+            var settingNode = targetNode.SelectSingleNode(string.Format("setting[@name='{0}']", property.Name));
+            if (settingNode == null)
+                return property.DefaultValue != null ? property.DefaultValue.ToString() : string.Empty;
+            return settingNode.InnerText;
+        }
+
+        private bool IsGlobal(SettingsProperty property)
+        {
+            foreach (DictionaryEntry attribute in property.Attributes)
+                if ((Attribute)attribute.Value is SettingsManageabilityAttribute)
+                    return true;
+            return false;
+        }
+
+        private XmlNode GetSettingsNode(string name)
+        {
+            var settingsNode = RootNode.SelectSingleNode(name);
+            if (settingsNode == null)
+            {
+                settingsNode = RootDocument.CreateElement(name);
+                RootNode.AppendChild(settingsNode);
+            }
+            return settingsNode;
+        }
+
+        /// <summary>
+        ///     Gets the blank XML document.
+        /// </summary>
+        /// <returns></returns>
+        public XmlDocument GetBlankXmlDocument()
+        {
+            var blankXmlDocument = new XmlDocument();
+            blankXmlDocument.AppendChild(blankXmlDocument.CreateXmlDeclaration("1.0", "utf-8", string.Empty));
+            blankXmlDocument.AppendChild(blankXmlDocument.CreateElement(RootNodeName));
+            return blankXmlDocument;
         }
 
         #region IApplicationSettingsProvider Members
@@ -151,143 +285,6 @@ namespace ArachNGIN.Files.Settings
         {
         }
 
-        #endregion
-
-        /// <summary>
-        ///     Initializes the provider.
-        /// </summary>
-        /// <param name="name">The friendly name of the provider.</param>
-        /// <param name="config">
-        ///     A collection of the name/value pairs representing the provider-specific attributes specified in
-        ///     the configuration for this provider.
-        /// </param>
-        public override void Initialize(string name, NameValueCollection config)
-        {
-            base.Initialize(Name, config);
-        }
-
-        /// <summary>
-        ///     Sets the values of the specified group of property settings.
-        /// </summary>
-        /// <param name="context">A <see cref="T:System.Configuration.SettingsContext" /> describing the current application usage.</param>
-        /// <param name="collection">
-        ///     A <see cref="T:System.Configuration.SettingsPropertyValueCollection" /> representing the group
-        ///     of property settings to set.
-        /// </param>
-        public override void SetPropertyValues(SettingsContext context, SettingsPropertyValueCollection collection)
-        {
-            foreach (SettingsPropertyValue propertyValue in collection)
-                SetValue(propertyValue);
-            try
-            {
-                RootDocument.Save(FilePath);
-            }
-            catch (Exception)
-            {
-                /*
-                 * If this is a portable application and the device has been
-                 * removed then this will fail, so don't do anything. It's
-                 * probably better for the application to stop saving settings 
-                 * rather than just crashing outright. Probably.
-                 */
-            }
-        }
-
-        /// <summary>
-        ///     Returns the collection of settings property values for the specified application instance and settings property
-        ///     group.
-        /// </summary>
-        /// <param name="context">A <see cref="T:System.Configuration.SettingsContext" /> describing the current application use.</param>
-        /// <param name="collection">
-        ///     A <see cref="T:System.Configuration.SettingsPropertyCollection" /> containing the settings
-        ///     property group whose values are to be retrieved.
-        /// </param>
-        /// <returns>
-        ///     A <see cref="T:System.Configuration.SettingsPropertyValueCollection" /> containing the values for the specified
-        ///     settings property group.
-        /// </returns>
-        public override SettingsPropertyValueCollection GetPropertyValues(SettingsContext context,
-            SettingsPropertyCollection collection)
-        {
-            var values = new SettingsPropertyValueCollection();
-            foreach (SettingsProperty property in collection)
-            {
-                values.Add(new SettingsPropertyValue(property)
-                {
-                    SerializedValue = GetValue(property)
-                });
-            }
-            return values;
-        }
-
-        /// <summary>
-        ///     Sets the value.
-        /// </summary>
-        /// <param name="propertyValue">The property value.</param>
-        private void SetValue(SettingsPropertyValue propertyValue)
-        {
-            XmlNode targetNode = IsGlobal(propertyValue.Property)
-                ? GlobalSettingsNode
-                : LocalSettingsNode;
-            XmlNode settingNode = targetNode.SelectSingleNode(string.Format("setting[@name='{0}']", propertyValue.Name));
-            if (settingNode != null)
-                settingNode.InnerText = propertyValue.SerializedValue.ToString();
-            else
-            {
-                settingNode = RootDocument.CreateElement("setting");
-                XmlAttribute nameAttribute = RootDocument.CreateAttribute("name");
-                nameAttribute.Value = propertyValue.Name;
-                if (settingNode.Attributes != null) settingNode.Attributes.Append(nameAttribute);
-                settingNode.InnerText = propertyValue.SerializedValue.ToString();
-                targetNode.AppendChild(settingNode);
-            }
-        }
-
-        /// <summary>
-        ///     Gets the value.
-        /// </summary>
-        /// <param name="property">The property.</param>
-        /// <returns></returns>
-        private string GetValue(SettingsProperty property)
-        {
-            XmlNode targetNode = IsGlobal(property) ? GlobalSettingsNode : LocalSettingsNode;
-            XmlNode settingNode = targetNode.SelectSingleNode(string.Format("setting[@name='{0}']", property.Name));
-            if (settingNode == null)
-                return property.DefaultValue != null ? property.DefaultValue.ToString() : string.Empty;
-            return settingNode.InnerText;
-        }
-
-        private bool IsGlobal(SettingsProperty property)
-        {
-            foreach (DictionaryEntry attribute in property.Attributes)
-            {
-                if ((Attribute) attribute.Value is SettingsManageabilityAttribute)
-                    return true;
-            }
-            return false;
-        }
-
-        private XmlNode GetSettingsNode(string name)
-        {
-            XmlNode settingsNode = RootNode.SelectSingleNode(name);
-            if (settingsNode == null)
-            {
-                settingsNode = RootDocument.CreateElement(name);
-                RootNode.AppendChild(settingsNode);
-            }
-            return settingsNode;
-        }
-
-        /// <summary>
-        ///     Gets the blank XML document.
-        /// </summary>
-        /// <returns></returns>
-        public XmlDocument GetBlankXmlDocument()
-        {
-            var blankXmlDocument = new XmlDocument();
-            blankXmlDocument.AppendChild(blankXmlDocument.CreateXmlDeclaration("1.0", "utf-8", string.Empty));
-            blankXmlDocument.AppendChild(blankXmlDocument.CreateElement(RootNodeName));
-            return blankXmlDocument;
-        }
+        #endregion IApplicationSettingsProvider Members
     }
 }

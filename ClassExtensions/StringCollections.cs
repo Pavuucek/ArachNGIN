@@ -37,7 +37,7 @@ namespace ArachNGIN.ClassExtensions
         /// <returns></returns>
         public static string StringCollectionToString(this StringCollection stringCollection)
         {
-            string outputString = "";
+            var outputString = "";
             if (stringCollection != null && stringCollection.Count > 0)
             {
                 foreach (string inputString in stringCollection)
@@ -58,13 +58,14 @@ namespace ArachNGIN.ClassExtensions
         public static void SaveToFile(this StringCollection sCollection, string sFile)
         {
             var fi = new FileInfo(sFile);
-            TextWriter writer = fi.CreateText();
-            StringEnumerator enu = sCollection.GetEnumerator();
-            while (enu.MoveNext())
+            using (var writer = fi.CreateText())
             {
-                writer.WriteLine(enu.Current);
+                var enu = sCollection.GetEnumerator();
+                while (enu.MoveNext())
+                {
+                    writer.WriteLine(enu.Current);
+                }
             }
-            writer.Close();
         }
 
         /// <summary>
@@ -75,14 +76,16 @@ namespace ArachNGIN.ClassExtensions
         /// <exception cref="IOException">An I/O error occurs. </exception>
         public static void SaveToStream(this StringCollection sCollection, Stream sOutput)
         {
-            var writer = new StreamWriter(sOutput);
-            writer.AutoFlush = true;
-            StringEnumerator enu = sCollection.GetEnumerator();
-            while (enu.MoveNext())
+            using (var writer = new StreamWriter(sOutput))
             {
-                writer.WriteLine(enu.Current);
+                writer.AutoFlush = true;
+                var enu = sCollection.GetEnumerator();
+                while (enu.MoveNext())
+                {
+                    writer.WriteLine(enu.Current);
+                }
+                writer.Flush();
             }
-            writer.Flush();
             //writer.Close(); // nezavirat!
         }
 
@@ -97,23 +100,24 @@ namespace ArachNGIN.ClassExtensions
         public static void SaveToFile(this ListView.ListViewItemCollection sCollection, string sFile)
         {
             var fi = new FileInfo(sFile);
-            TextWriter writer = fi.CreateText();
-            foreach (ListViewItem item in sCollection)
+            using (var writer = fi.CreateText())
             {
-                string s = "";
-                for (int i = 0; i < item.SubItems.Count; i++)
+                foreach (ListViewItem item in sCollection)
                 {
-                    s = s + item.SubItems[i];
-                    if (i < item.SubItems.Count - 1) s = s + " -> ";
-                    s = s.Replace("ListViewSubItem:", "");
-                    s = s.Replace("}", "");
-                    s = s.Replace("{", "");
+                    var s = "";
+                    for (var i = 0; i < item.SubItems.Count; i++)
+                    {
+                        s = s + item.SubItems[i];
+                        if (i < item.SubItems.Count - 1) s = s + " -> ";
+                        s = s.Replace("ListViewSubItem:", "");
+                        s = s.Replace("}", "");
+                        s = s.Replace("{", "");
+                    }
+                    //ListViewItemConverter k = new ListViewItemConverter();
+                    //string s = k.ConvertToString(item);
+                    writer.WriteLine(s);
                 }
-                //ListViewItemConverter k = new ListViewItemConverter();
-                //string s = k.ConvertToString(item);
-                writer.WriteLine(s);
             }
-            writer.Close();
         }
 
         /// <summary>
@@ -134,14 +138,15 @@ namespace ArachNGIN.ClassExtensions
             string s;
             if (!souborInfo.Exists) return;
             // načíty načíty :-)
-            TextReader reader = souborInfo.OpenText();
-            if (!bAppend) sCollection.Clear();
-            while ((s = reader.ReadLine()) != null)
+            using (var reader = souborInfo.OpenText())
             {
-                sCollection.Add(s);
+                if (!bAppend) sCollection.Clear();
+                while ((s = reader.ReadLine()) != null)
+                {
+                    sCollection.Add(s);
+                }
+                // načteno
             }
-            // načteno
-            reader.Close();
         }
 
         /// <summary>
@@ -154,12 +159,14 @@ namespace ArachNGIN.ClassExtensions
         /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string. </exception>
         public static void LoadFromStream(this StringCollection sCollection, Stream sInput, bool bAppend = false)
         {
-            var reader = new StreamReader(sInput);
-            string s;
-            if (!bAppend) sCollection.Clear();
-            while ((s = reader.ReadLine()) != null)
+            using (var reader = new StreamReader(sInput))
             {
-                sCollection.Add(s);
+                string s;
+                if (!bAppend) sCollection.Clear();
+                while ((s = reader.ReadLine()) != null)
+                {
+                    sCollection.Add(s);
+                }
             }
             // reader.Close(); // nezavirat!
         }
@@ -198,12 +205,10 @@ namespace ArachNGIN.ClassExtensions
                 listViewContent.Append(item.Text);
                 listViewContent.Append(Environment.NewLine);
             }
-
-            TextWriter tw = new StreamWriter(sFile);
-
-            tw.WriteLine(listViewContent.ToString());
-
-            tw.Close();
+            using (var tw = new StreamWriter(sFile))
+            {
+                tw.WriteLine(listViewContent.ToString());
+            }
         }
     }
 }
