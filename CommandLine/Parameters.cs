@@ -1,17 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 
 namespace ArachNGIN.CommandLine
 {
+    /// <summary>
+    ///     Parses command line arguments.
+    /// </summary>
     public class Parameters
     {
+        /// <summary>
+        ///     Collection of parameters in key value format
+        /// </summary>
         private readonly StringDictionary _dict = new StringDictionary();
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="Parameters" /> class and parses command line arguments
+        /// </summary>
+        /// <param name="args">The arguments.</param>
         public Parameters(IEnumerable<string> args)
         {
             var splitter = new Regex(@"^-{1,2}|^/|=|:(?!\\)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
@@ -45,17 +51,13 @@ namespace ArachNGIN.CommandLine
 
                     case 2:
                         if (currentParameter != null)
-                        {
                             if (!_dict.ContainsKey(currentParameter)) _dict.Add(currentParameter, "true");
-                        }
                         currentParameter = parts[1];
                         break;
 
                     case 3:
                         if (currentParameter != null)
-                        {
                             if (!_dict.ContainsKey(currentParameter)) _dict.Add(currentParameter, "true");
-                        }
                         currentParameter = parts[1];
                         if (!_dict.ContainsKey(currentParameter))
                         {
@@ -67,11 +69,17 @@ namespace ArachNGIN.CommandLine
                 }
             }
             if (currentParameter != null)
-            {
                 if (!_dict.ContainsKey(currentParameter)) _dict.Add(currentParameter, "true");
-            }
         }
 
+        /// <summary>
+        ///     Gets the <see cref="System.String" /> with the specified parameter.
+        /// </summary>
+        /// <value>
+        ///     The <see cref="System.String" />.
+        /// </value>
+        /// <param name="param">The parameter.</param>
+        /// <returns></returns>
         public string this[string param]
         {
             get { return _dict[param]; }
