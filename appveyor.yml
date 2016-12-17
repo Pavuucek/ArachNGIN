@@ -28,3 +28,5 @@ after_build:
     call zip.bat
 
     call GitVersioner.bat r zip.bat
+test_script:
+- cmd: vstest.console /logger:Appveyor _bin\$(configuration).Tests\ArachNGIN.Tests.dll
