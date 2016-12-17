@@ -31,7 +31,7 @@ using System.Runtime.InteropServices;
 //
 // Lze zadat všechny hodnoty nebo nechat hodnoty Čísel Sestavení a Revize ve výchozím nastavení 
 // použitím '*' jak je ukázáno dále:
-// [assembly: AssemblyVersion("1.0.1.51")]
-[assembly: AssemblyVersion("1.0.1.51")]
-[assembly: AssemblyFileVersion("1.0.1.51")]
-[assembly: AssemblyInformationalVersion("Class_Extensions:1.0.1-51-g34137ba")]
+// [assembly: AssemblyVersion("1.0.1.91")]
+[assembly: AssemblyVersion("1.0.1.91")]
+[assembly: AssemblyFileVersion("1.0.1.91")]
+[assembly: AssemblyInformationalVersion("master:1.0.1-91-gb3d7f7f")]
