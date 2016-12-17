@@ -6,6 +6,6 @@ rem call version.bat
 
 if ERRORLEVEL 1 pause
 
-gitversioner.exe w zip.bat
+call gitversioner.bat w zip.bat
 call zip.bat
-gitversioner r zip.bat
+call gitversioner.bat r zip.bat

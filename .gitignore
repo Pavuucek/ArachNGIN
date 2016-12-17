@@ -6,6 +6,7 @@
 
 # Build and Object Folders
 bin/
+_bin/
 obj/
 
 #User Specific Files

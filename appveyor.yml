@@ -21,10 +21,10 @@ before_build:
 
 after_build:
 - cmd: >-
-    GitVersioner.exe ba
+    call GitVersioner.bat ba
     
-    GitVersioner.exe w zip.bat
+    call GitVersioner.bat w zip.bat
 
     call zip.bat
 
-    GitVersioner.exe r zip.bat
+    call GitVersioner.bat r zip.bat
