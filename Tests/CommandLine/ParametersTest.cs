@@ -1,9 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using ArachNGIN.CommandLine;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
-using System;
-using System.Collections;
 
-namespace ArachNGIN.CommandLine.Tests
+namespace ArachNGIN.Tests.CommandLine
 {
     [TestClass]
     public class ParametersTest
