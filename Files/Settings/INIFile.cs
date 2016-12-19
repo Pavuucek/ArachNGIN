@@ -22,6 +22,7 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Text;
 
 namespace ArachNGIN.Files.Settings
 {
@@ -241,7 +242,6 @@ namespace ArachNGIN.Files.Settings
         public ArrayList SectionNames()
         {
             var ret = new ArrayList();
-            //System.Data.DataTable table;
             foreach (DataTable table in DataStorage.Tables)
                 ret.Add(table.TableName);
             return ret;
@@ -351,10 +351,10 @@ namespace ArachNGIN.Files.Settings
         public string ReadSection(string section)
         {
             var sc = ReadSectionToArray(section);
-            var result = "";
+            var result = new StringBuilder();
             foreach (var s in sc)
-                result += s + "\n";
-            return result;
+                result.AppendLine(s);
+            return result.ToString();
         }
 
         /// <summary>
@@ -455,12 +455,11 @@ namespace ArachNGIN.Files.Settings
                 while (readLine != null)
                 {
                     readLine = readLine.Trim();
-                    if ((readLine != "") & !readLine.StartsWith(";"))
+                    if (readLine != "" && !readLine.StartsWith(";"))
+                        // section marker
                         if (readLine.StartsWith("[") && readLine.EndsWith("]"))
                         {
-                            if (addRow)
-                                table.Rows.Add(row);
-
+                            // table.rows.add moved from here
                             readLine = readLine.TrimStart('[');
                             readLine = readLine.TrimEnd(']');
                             skipSection = true;
@@ -474,7 +473,7 @@ namespace ArachNGIN.Files.Settings
                             }
                             addRow = false;
                         }
-                        else
+                        else // normal line
                         {
                             if (!skipSection)
                             {
@@ -490,10 +489,10 @@ namespace ArachNGIN.Files.Settings
                                 }
                             }
                         }
+                    if (addRow) table.Rows.Add(row); //... to here
                     readLine = fileStream.ReadLine();
                 }
-                if (addRow)
-                    table.Rows.Add(row);
+                // ... and here deleted
             }
         }
 
@@ -506,8 +505,6 @@ namespace ArachNGIN.Files.Settings
                 File.Delete(_mFileName);
             using (var file = File.CreateText(_mFileName))
             {
-                //System.Data.DataTable table;
-                //System.Data.DataColumn col;
                 foreach (DataTable table in DataStorage.Tables)
                 {
                     file.WriteLine("[" + table.TableName + "]");
@@ -843,8 +840,6 @@ namespace ArachNGIN.Files.Settings
                 color = Color.Beige;
             else if (strColorName == "Bisque")
                 color = Color.Bisque;
-            else if (strColorName == "Black")
-                color = Color.Black;
             else if (strColorName == "Blanched Almond")
                 color = Color.BlanchedAlmond;
             else if (strColorName == "Blue")
