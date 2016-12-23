@@ -94,7 +94,6 @@ namespace PakCreator
             newPak.AddStream(idx, "(pak-index)", true);
             idx.Close();
             Log("Closing PAK file");
-            newPak.Close();
             DateTime endtime = DateTime.Now;
             Log("Start: " + starttime);
             Log("End: " + endtime);

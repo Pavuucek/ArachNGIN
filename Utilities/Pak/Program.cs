@@ -98,56 +98,55 @@ namespace Pak
             }
 
             if (!File.Exists(args[1])) QuakePakFile.CreateNewPak(args[1]);
-            using (var pak = new QuakePakFile(args[1], true))
+            var pak = new QuakePakFile(args[1], true);
+
+            switch (args[0])
             {
-                switch (args[0])
-                {
-                    case "a":
-                        if (!AddSingleFile(args, pak)) return;
-                        break;
+                case "a":
+                    if (!AddSingleFile(args, pak)) return;
+                    break;
 
-                    case "d":
-                        if (!AddDirectory(args, pak)) return;
-                        break;
+                case "d":
+                    if (!AddDirectory(args, pak)) return;
+                    break;
 
-                    case "e":
-                        if (!ExtractSingleFile(args, pak)) return;
-                        break;
+                case "e":
+                    if (!ExtractSingleFile(args, pak)) return;
+                    break;
 
-                    case "x":
-                        if (!ExtractAllFiles(args, pak)) return;
-                        break;
-                    // pridat a indexovat
-                    case "ia":
-                        if (args.Length < 3)
-                        {
-                            NotEnoughArgs();
-                            return;
-                        }
-                        LoadIndex(pak);
+                case "x":
+                    if (!ExtractAllFiles(args, pak)) return;
+                    break;
+                // pridat a indexovat
+                case "ia":
+                    if (args.Length < 3)
+                    {
+                        NotEnoughArgs();
+                        return;
+                    }
+                    LoadIndex(pak);
 
-                        if (ExistsInIndex(args[2]))
-                        {
-                            var g = Guid.NewGuid();
-                            ReplaceInIndex(args[2], g.ToString());
-                            pak.AddFile(args[2], g.ToString());
-                        }
-                        else
-                        {
-                            var s = AddIndexedFile(args[2]);
-                            // TODO: tohle neudělá nic. AddFile neumí nahrazovat :-)
-                            pak.AddFile(args[2], s);
-                        }
-                        //
-                        FinishIndex();
-                        using (Stream ms = new MemoryStream())
-                        {
-                            PakIndex.SaveToStream(ms);
-                            ms.Seek(0, SeekOrigin.Begin);
-                            pak.AddStream(ms, "(pak-index)", true);
-                        }
-                        break;
-                }
+                    if (ExistsInIndex(args[2]))
+                    {
+                        var g = Guid.NewGuid();
+                        ReplaceInIndex(args[2], g.ToString());
+                        pak.AddFile(args[2], g.ToString());
+                    }
+                    else
+                    {
+                        var s = AddIndexedFile(args[2]);
+                        // TODO: tohle neudělá nic. AddFile neumí nahrazovat :-)
+                        pak.AddFile(args[2], s);
+                    }
+                    //
+                    FinishIndex();
+                    using (Stream ms = new MemoryStream())
+                    {
+                        PakIndex.SaveToStream(ms);
+                        ms.Seek(0, SeekOrigin.Begin);
+                        pak.AddStream(ms, "(pak-index)", true);
+                    }
+                    break;
             }
             Console.WriteLine();
             Console.WriteLine("Hotovo!");
