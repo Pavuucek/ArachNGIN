@@ -27,7 +27,7 @@ namespace ArachNGIN.Files.FileFormats
     /// <summary>
     ///     Class for reading Quake PAK files
     /// </summary>
-    public class QuakePakFile : IDisposable
+    public partial class QuakePakFile : IDisposable
     {
         private static readonly char[] PakId = { 'P', 'A', 'C', 'K' };
         private readonly BinaryReader _pakReader;
@@ -346,30 +346,5 @@ namespace ArachNGIN.Files.FileFormats
         {
             return AddFile(fileName, pakFileName, true);
         }
-
-        #region Nested type: PakFat
-
-        /// <summary>
-        ///     PAK File Allocation Table
-        /// </summary>
-        private struct PakFat
-        {
-            /// <summary>
-            ///     The file length
-            /// </summary>
-            public int FileLength;
-
-            /// <summary>
-            ///     The file name
-            /// </summary>
-            public string FileName;
-
-            /// <summary>
-            ///     The starting offset of a file
-            /// </summary>
-            public int FileStart;
-        }
-
-        #endregion Nested type: PakFat
     }
 }

@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CRC\AnimeCrc.cs" />
+    <Compile Include="FileFormats\QuakePakFile.PakFat.cs" />
     <Compile Include="FileFormats\VpDirEntry.cs" />
     <Compile Include="FileFormats\VpFile.cs" />
     <Compile Include="Graphics\ByteArrayConverters.cs" />
