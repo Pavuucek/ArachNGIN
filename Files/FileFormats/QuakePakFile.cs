@@ -17,7 +17,9 @@
  */
 
 using ArachNGIN.Files.Streams;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 
@@ -121,7 +123,8 @@ namespace ArachNGIN.Files.FileFormats
                 for (var i = 0; i < _pFilecount; i++)
                 {
                     // my radi lowercase. v tom se lip hleda ;-)
-                    var sfile = StreamHandling.PCharToString(pakReader.ReadChars(56)).ToLower();
+                    var sfile =
+                        StreamHandling.PCharToString(pakReader.ReadChars(56)).ToLower(CultureInfo.InvariantCulture);
                     sfile = sfile.Replace("/", "\\"); // unixovy lomitka my neradi.
                     // pridame soubor do filelistu a do PakFATky
                     PakFileList.Add(sfile);
@@ -155,7 +158,7 @@ namespace ArachNGIN.Files.FileFormats
         private int GetFileIndex(string strFileInPak)
         {
             for (var i = 0; i < _pakFat.Length; i++)
-                if (_pakFat[i].FileName.ToLower() == strFileInPak.ToLower())
+                if (string.Equals(_pakFat[i].FileName, strFileInPak, StringComparison.CurrentCultureIgnoreCase))
                     return i;
             // soubor nenalezen
             return -1;

@@ -17,9 +17,7 @@
  */
 
 using ArachNGIN.ClassExtensions;
-using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
 
@@ -121,11 +119,7 @@ namespace ArachNGIN.Files.FileFormats
             var sIndexfile = string.Empty;
             sFile = ReplaceSlashesOut(sFile); // jen pro jistotu
             if (File.Exists(_sTemp + sFile))
-            {
-                // fajl uz je v tempu, tak ho tam nechame
-                // obsah nas nezaujma
                 return true;
-            }
             // soubor v adresari ma prioritu
             if (File.Exists(_sDir + sFile))
             {
@@ -138,37 +132,37 @@ namespace ArachNGIN.Files.FileFormats
             // ted uz pracujeme s pakem, takze lomitka do unixovyho tvaru :-)
             sFile = ReplaceSlashesIn(sFile);
             // soubor musime najit v paku
-            if (_pakFat != null && _indexFat != null)
+            if (_pakFat == null || _indexFat == null) return false;
+
+            foreach (var indexItem in _indexFat)
             {
-                foreach (List<string> indexItem in _indexFat)
-                {
-                    var sIndexline = "";
-                    // prohledame fat index
-                    foreach (var sLine in indexItem)
-                        if (
-                            sLine.ToLower(CultureInfo.InvariantCulture)
-                                .Contains(sFile.ToLower(CultureInfo.InvariantCulture) + "="))
-                            sIndexline = sLine;
-                    // rozdelit radku indexu na fajl jmeno souboru v paku a skutecne jmeno
-                    var aIndexline = sIndexline.Split('=');
-                    if (aIndexline.Length <= 1) continue;
-                    sIndexfile = aIndexline[0];
-                    sFile = aIndexline[1];
-                }
-                for (var i = 0; i < _pakFat.Count; i++)
-                {
-                    if (!_pakFat[i].Contains(sFile)) continue;
-                    var sFullpath = _sTemp;
-                    if (sIndexfile != string.Empty) sFullpath += sIndexfile;
-                    else sFullpath += sFile;
-                    // prevest lomitka :-)
-                    sFullpath = ReplaceSlashesOut(sFullpath);
-                    Directory.CreateDirectory(Path.GetDirectoryName(sFullpath));
-                    var q = new QuakePakFile(_sDir + _lPakFiles[i], false);
-                    q.ExtractFile(sFile, sFullpath);
-                    if (File.Exists(sFullpath)) return true;
-                }
+                var sIndexline = "";
+                // prohledame fat index
+                foreach (var sLine in indexItem)
+                    if (
+                        sLine.ToLower(CultureInfo.InvariantCulture)
+                            .Contains(sFile.ToLower(CultureInfo.InvariantCulture) + "="))
+                        sIndexline = sLine;
+                // rozdelit radku indexu na fajl jmeno souboru v paku a skutecne jmeno
+                var aIndexline = sIndexline.Split('=');
+                if (aIndexline.Length <= 1) continue;
+                sIndexfile = aIndexline[0];
+                sFile = aIndexline[1];
             }
+            for (var i = 0; i < _pakFat.Count; i++)
+            {
+                if (!_pakFat[i].Contains(sFile)) continue;
+                var sFullpath = _sTemp;
+                if (sIndexfile != string.Empty) sFullpath += sIndexfile;
+                else sFullpath += sFile;
+                // prevest lomitka :-)
+                sFullpath = ReplaceSlashesOut(sFullpath);
+                Directory.CreateDirectory(Path.GetDirectoryName(sFullpath));
+                var q = new QuakePakFile(_sDir + _lPakFiles[i], false);
+                q.ExtractFile(sFile, sFullpath);
+                if (File.Exists(sFullpath)) return true;
+            }
+
             return false;
         }
     }
