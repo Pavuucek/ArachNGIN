@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
 using System;
 using System.Collections.Specialized;
+using System.IO;
 
 namespace ArachNGIN.Tests.Files.Crc
 {
@@ -11,20 +12,33 @@ namespace ArachNGIN.Tests.Files.Crc
     public class AnimeCrcTest
     {
         [TestMethod]
-        public void TestTestTextFileCrc()
+        public void CalculateTextFileCrcFromFile()
         {
-            var sc = new StringCollection();
-            sc.LoadFromFile("simple-crc-test.7763A7AE.cmd");
-            var s = sc.StringCollectionToString();
-            Console.WriteLine(s);
-
-            AnimeCrc.GetCrcFromFile("simple-crc-test.7763A7AE.cmd").ToUpper().ShouldBe("7763A7AE");
+            AnimeCrc.GetCrcFromFile("simple-crc-test.7763A7AE.cmd").ToUpperInvariant().ShouldBe("7763A7AE");
         }
 
         [TestMethod]
-        public void TestBinaryFileCrc()
+        public void CalculateTextFileCrcFromStream()
         {
-            AnimeCrc.GetCrcFromFile("MV_Root.3612.vp").ToUpper().ShouldBe("F8905EDF");
+            using (var stream = new FileStream("simple-crc-test.7763A7AE.cmd", FileMode.Open, FileAccess.Read))
+            {
+                AnimeCrc.GetCrcFromStream(stream).ToUpperInvariant().ShouldBe("7763A7AE");
+            }
+        }
+
+        [TestMethod]
+        public void CalculateBinaryFileCrcFromFile()
+        {
+            AnimeCrc.GetCrcFromFile("MV_Root.3612.vp").ToUpperInvariant().ShouldBe("F8905EDF");
+        }
+
+        [TestMethod]
+        public void CalculateBinaryFileCrcFromStream()
+        {
+            using (var stream = new FileStream("MV_Root.3612.vp", FileMode.Open, FileAccess.Read))
+            {
+                AnimeCrc.GetCrcFromStream(stream).ToUpperInvariant().ShouldBe("F8905EDF");
+            }
         }
     }
 }
