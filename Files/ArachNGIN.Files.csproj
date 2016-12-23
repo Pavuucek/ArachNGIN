@@ -71,7 +71,6 @@
     <Compile Include="FileFormats\QuakePakFile.PakFat.cs" />
     <Compile Include="FileFormats\VpDirEntry.cs" />
     <Compile Include="FileFormats\VpFile.cs" />
-    <Compile Include="Graphics\ByteArrayConverters.cs" />
     <Compile Include="Graphics\ImageResizer.cs" />
     <Compile Include="Mime\GetMimeTypeFromContent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

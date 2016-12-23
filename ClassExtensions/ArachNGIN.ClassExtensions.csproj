@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ByteArrayConverters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringCollections.cs" />
     <Compile Include="StringColors.cs" />

@@ -5,10 +5,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
  * is furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
  * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
  * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
@@ -20,7 +20,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
-namespace ArachNGIN.Files.Graphics
+namespace ArachNGIN.ClassExtensions
 {
     /// <summary>
     ///     Converts images from byte arrays and back
@@ -33,11 +33,13 @@ namespace ArachNGIN.Files.Graphics
         /// <param name="imageIn">input image</param>
         /// <param name="imageFormat">output image format</param>
         /// <returns>byte array</returns>
-        public static byte[] ImageToByteArray(Image imageIn, ImageFormat imageFormat)
+        public static byte[] ImageToByteArray(this Image imageIn, ImageFormat imageFormat)
         {
-            var ms = new MemoryStream();
-            imageIn.Save(ms, imageFormat);
-            return ms.ToArray();
+            using (var ms = new MemoryStream())
+            {
+                imageIn.Save(ms, imageFormat);
+                return ms.ToArray();
+            }
         }
 
         /// <summary>
@@ -45,10 +47,13 @@ namespace ArachNGIN.Files.Graphics
         /// </summary>
         /// <param name="byteArrayIn">byte array</param>
         /// <returns>image</returns>
-        public static Image ByteArrayToImage(byte[] byteArrayIn)
+        public static Image ByteArrayToImage(this byte[] byteArrayIn)
         {
-            var ms = new MemoryStream(byteArrayIn);
-            Image returnImage = Image.FromStream(ms);
+            Image returnImage;
+            using (var ms = new MemoryStream(byteArrayIn))
+            {
+                returnImage = Image.FromStream(ms);
+            }
             return returnImage;
         }
     }
