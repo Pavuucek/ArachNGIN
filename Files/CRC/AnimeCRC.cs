@@ -5,7 +5,7 @@ using ArachNGIN.Files.Streams;
 using System.Collections.Generic;
 using System.IO;
 
-namespace ArachNGIN.Files.CRC
+namespace ArachNGIN.Files.Crc
 {
     /// <summary>
     ///     Class for generating file CRC like those found on anime releases (probably a MD5 or something)

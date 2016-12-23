@@ -1,4 +1,4 @@
-﻿using ArachNGIN.Files.CRC;
+﻿using ArachNGIN.Files.Crc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
 using System.IO;
