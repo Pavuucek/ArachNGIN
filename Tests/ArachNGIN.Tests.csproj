@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="CommandLine\ParametersTest.cs" />
     <Compile Include="Files\Crc\AnimeCrcTest.cs" />
+    <Compile Include="Files\FileFormats\QuakePakFileTests.cs" />
     <Compile Include="Files\FileFormats\VpFileTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -68,6 +69,9 @@
     </None>
     <None Include="packages.config" />
     <None Include="simple-crc-test.7763A7AE.cmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="simple.pak">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
