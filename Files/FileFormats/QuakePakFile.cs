@@ -81,6 +81,14 @@ namespace ArachNGIN.Files.FileFormats
         }
 
         /// <summary>
+        ///     Initializes a new instance of the <see cref="QuakePakFile" /> class.
+        /// </summary>
+        /// <param name="fileName">Name of the PAK file.</param>
+        public QuakePakFile(string fileName) : this(fileName, false)
+        {
+        }
+
+        /// <summary>
         ///     Gets the name of the file.
         /// </summary>
         /// <value>
@@ -203,13 +211,14 @@ namespace ArachNGIN.Files.FileFormats
         /// <returns>true or false</returns>
         public static bool CreateNewPak(string strFileName)
         {
-            using (
-                var fs = new FileStream(strFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite))
+            try
             {
-                fs.Position = 0;
-                using (var bw = new BinaryWriter(fs, Encoding.ASCII))
+                using (
+                    var fs = new FileStream(strFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite,
+                        FileShare.ReadWrite))
                 {
-                    try
+                    fs.Position = 0;
+                    using (var bw = new BinaryWriter(fs, Encoding.ASCII))
                     {
                         bw.Write(PakId);
                         var pFatstart = PakId.Length;
@@ -218,13 +227,14 @@ namespace ArachNGIN.Files.FileFormats
                         const int pFilecount = 0;
                         bw.Write(pFatstart);
                         bw.Write(pFilecount);
+
+                        return true;
                     }
-                    catch
-                    {
-                        return false;
-                    }
-                    return true;
                 }
+            }
+            catch
+            {
+                return false;
             }
         }
 
