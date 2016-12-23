@@ -1,10 +1,8 @@
-﻿using ArachNGIN.Files.FileFormats;
+﻿using ArachNGIN.Files.CRC;
+using ArachNGIN.Files.FileFormats;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace ArachNGIN.Tests.Files.FileFormats
@@ -84,7 +82,7 @@ namespace ArachNGIN.Tests.Files.FileFormats
             using (var stream = new MemoryStream())
             {
                 q.ExtractStream("simple-crc-test.7763A7AE.cmd", stream);
-                ArachNGIN.Files.CRC.AnimeCrc.GetCrcFromStream(stream).ToUpperInvariant().ShouldBe("7763A7AE");
+                AnimeCrc.GetCrcFromStream(stream).ToUpperInvariant().ShouldBe("7763A7AE");
             }
         }
 
@@ -92,7 +90,7 @@ namespace ArachNGIN.Tests.Files.FileFormats
         public void AttemptToCreatePakFileAndFail()
         {
             // open file handle
-            using (var stream = new FileStream("file.pak", FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
+            using (new FileStream("file.pak", FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
             {
                 QuakePakFile.CreateNewPak("file.pak").ShouldBeFalse();
             }

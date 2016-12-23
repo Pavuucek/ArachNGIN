@@ -1,9 +1,6 @@
-﻿using ArachNGIN.ClassExtensions;
-using ArachNGIN.Files.CRC;
+﻿using ArachNGIN.Files.CRC;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
-using System;
-using System.Collections.Specialized;
 using System.IO;
 
 namespace ArachNGIN.Tests.Files.Crc
