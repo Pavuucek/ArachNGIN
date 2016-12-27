@@ -15,7 +15,7 @@ namespace ArachNGIN.Tests.Files.Settings
         private Ini ini = new Ini("inifile.ini");
 
         [TestMethod]
-        private void IniFileNameMatchesPreset()
+        public void IniFileNameMatchesPreset()
         {
             ini.FileName.ShouldBe("inifile.ini");
         }
