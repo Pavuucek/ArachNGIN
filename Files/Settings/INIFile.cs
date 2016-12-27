@@ -208,7 +208,7 @@ namespace ArachNGIN.Files.Settings
         /// <returns></returns>
         public Color ReadColor(string section, string key, Color defaultValue)
         {
-            return ReadString(section, key, defaultValue.NamedColorToString()).NamedColorToString();
+            return ReadString(section, key, defaultValue.NamedColorToString()).NamedColorStringToColor();
         }
 
         /// <summary>

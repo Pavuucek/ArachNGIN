@@ -206,7 +206,7 @@ namespace ArachNGIN.Components.ColorComboBox
         private void OnDrawItem(object sender, DrawItemEventArgs e)
         {
             var grfx = e.Graphics;
-            var brushColor = (Items[e.Index] as string).NamedColorToString();
+            var brushColor = (Items[e.Index] as string).NamedColorStringToColor();
             var brush = new SolidBrush(brushColor);
 
             grfx.FillRectangle(brush, e.Bounds);
@@ -227,7 +227,7 @@ namespace ArachNGIN.Components.ColorComboBox
             else
             {
                 grfx.DrawString((string)Items[e.Index], e.Font,
-                    new SolidBrush((Items[e.Index] as string).NamedColorToString()), e.Bounds);
+                    new SolidBrush((Items[e.Index] as string).NamedColorStringToColor()), e.Bounds);
             }
         }
 
@@ -238,7 +238,7 @@ namespace ArachNGIN.Components.ColorComboBox
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            BackColor = (SelectedItem as string).NamedColorToString();
+            BackColor = (SelectedItem as string).NamedColorStringToColor();
 
             if (!_bHideText) return;
             ForeColor = BackColor;
@@ -253,7 +253,7 @@ namespace ArachNGIN.Components.ColorComboBox
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void OnDropDown(object sender, EventArgs e)
         {
-            BackColor = (SelectedItem as string).NamedColorToString();
+            BackColor = (SelectedItem as string).NamedColorStringToColor();
 
             if (!_bHideText) return;
             ForeColor = BackColor;

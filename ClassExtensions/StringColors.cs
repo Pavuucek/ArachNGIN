@@ -16,7 +16,7 @@ namespace ArachNGIN.ClassExtensions
         /// </summary>
         /// <param name="strColorName">Name of the color.</param>
         /// <returns></returns>
-        public static Color NamedColorToString(this string strColorName)
+        public static Color NamedColorStringToColor(this string strColorName)
         {
             Color color;
 
