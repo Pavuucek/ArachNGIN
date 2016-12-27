@@ -17,6 +17,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -48,7 +49,7 @@ namespace ArachNGIN.Files.Streams
                 sSource.Position = 0;
                 iCount = sSource.Length;
             }
-            long result = iCount;
+            var result = iCount;
             if (iCount > maxBufSize) bufSize = maxBufSize;
             else bufSize = (int)iCount;
 
@@ -61,7 +62,7 @@ namespace ArachNGIN.Files.Streams
                     int n;
                     if (iCount > bufSize) n = bufSize;
                     else n = (int)iCount;
-                    byte[] buffer = rInput.ReadBytes(n);
+                    var buffer = rInput.ReadBytes(n);
                     wOutput.Write(buffer);
                     iCount = iCount - n;
                 }
@@ -95,7 +96,7 @@ namespace ArachNGIN.Files.Streams
                 sSource.Position = 0;
                 iCount = sSource.Length;
             }
-            long result = iCount;
+            var result = iCount;
             if (iCount > maxBufSize) bufSize = maxBufSize;
             else bufSize = (int)iCount;
 
@@ -108,7 +109,7 @@ namespace ArachNGIN.Files.Streams
                     int n;
                     if (iCount > bufSize) n = bufSize;
                     else n = (int)iCount;
-                    byte[] buffer = rInput.ReadBytes(n);
+                    var buffer = rInput.ReadBytes(n);
                     wOutput.Write(buffer);
                     iCount = iCount - n;
                 }
@@ -134,8 +135,14 @@ namespace ArachNGIN.Files.Streams
         /// </remarks>
         /// <exception cref="ArgumentException">The sum of offset and count is larger than the buffer length. </exception>
         /// <exception cref="IOException">Stream write failed.</exception>
-        /// <exception cref="AbandonedMutexException">The wait completed because a thread exited without releasing a mutex. This exception is not thrown on Windows 98 or Windows Millennium Edition.</exception>
-        /// <exception cref="OverflowException">The array is multidimensional and contains more than <see cref="F:System.Int32.MaxValue" /> elements.</exception>
+        /// <exception cref="AbandonedMutexException">
+        ///     The wait completed because a thread exited without releasing a mutex. This
+        ///     exception is not thrown on Windows 98 or Windows Millennium Edition.
+        /// </exception>
+        /// <exception cref="OverflowException">
+        ///     The array is multidimensional and contains more than
+        ///     <see cref="F:System.Int32.MaxValue" /> elements.
+        /// </exception>
         public static void StreamCopyAsync(Stream source, Stream target)
         {
             // This stream copy supports a source-read happening at the same time
@@ -150,7 +157,7 @@ namespace ArachNGIN.Files.Streams
             {
                 // Read data into the readbuffer.  The previous call to BeginWrite, if any,
                 //  is executing in the background..
-                int read = source.Read(readbuffer, 0, readbuffer.Length);
+                var read = source.Read(readbuffer, 0, readbuffer.Length);
 
                 // Ok, we have read some data and we're ready to write it, so wait here
                 //  to make sure that the previous write is done before we write again.
@@ -168,7 +175,7 @@ namespace ArachNGIN.Files.Streams
 
                 // Swap the read and write buffers so we can write what we read, and we can
                 //  use the then use the other buffer for our next read.
-                byte[] tbuf = writebuffer;
+                var tbuf = writebuffer;
                 writebuffer = readbuffer;
                 readbuffer = tbuf;
 
@@ -183,20 +190,20 @@ namespace ArachNGIN.Files.Streams
         /// </summary>
         /// <param name="cInput">The char array input.</param>
         /// <returns></returns>
-        public static string PCharToString(char[] cInput)
+        public static string PCharToString(IEnumerable<char> cInput)
         {
             // TODO: ODDELIT DO ArachNGIN.Strings! (az bude)
-            string result = "";
-            foreach (char c in cInput)
+            var result = new StringBuilder();
+            foreach (var c in cInput)
             {
-                if (c == 0x0) break; // pcharovej konec retezce;
-                result = result + c;
+                if (c == 0x0) break; // pcharovej konec retezce
+                result.Append(c);
             }
-            return result;
+            return result.ToString();
         }
 
         /// <summary>
-        /// Converts stream to string
+        ///     Converts stream to string
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <returns></returns>
@@ -212,7 +219,7 @@ namespace ArachNGIN.Files.Streams
         }
 
         /// <summary>
-        /// Converts string to stream
+        ///     Converts string to stream
         /// </summary>
         /// <param name="source">The source.</param>
         /// <returns></returns>
