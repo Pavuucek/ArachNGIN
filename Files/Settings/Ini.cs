@@ -66,7 +66,7 @@ namespace ArachNGIN.Files.Settings
         /// <value>
         ///     The data storage.
         /// </value>
-        public DataSet DataStorage { get; private set; }
+        private DataSet DataStorage { get; set; }
 
         /// <summary>
         ///     Reads the string.
@@ -89,20 +89,6 @@ namespace ArachNGIN.Files.Settings
         public string ReadString(string section, string key, string defaultValue)
         {
             return Read(section, key, defaultValue);
-        }
-
-        /// <summary>
-        ///     Reads the string.
-        /// </summary>
-        /// <param name="section">The section.</param>
-        /// <param name="key">The key.</param>
-        /// <param name="defaultValue">The default value.</param>
-        /// <param name="iniFileName">Name of the ini file.</param>
-        /// <returns></returns>
-        public string ReadString(string section, string key, string defaultValue, string iniFileName)
-        {
-            FileName = iniFileName;
-            return ReadString(section, key, defaultValue);
         }
 
         /// <summary>
@@ -172,34 +158,6 @@ namespace ArachNGIN.Files.Settings
         }
 
         /// <summary>
-        ///     Reads the integer.
-        /// </summary>
-        /// <param name="section">The section.</param>
-        /// <param name="key">The key.</param>
-        /// <param name="defaultValue">The default value.</param>
-        /// <param name="iniFileName">Name of the ini file.</param>
-        /// <returns></returns>
-        public int ReadInteger(string section, string key, int defaultValue, string iniFileName)
-        {
-            FileName = iniFileName;
-            return ReadInteger(section, key, defaultValue);
-        }
-
-        /// <summary>
-        ///     Reads the bool.
-        /// </summary>
-        /// <param name="section">The section.</param>
-        /// <param name="key">The key.</param>
-        /// <param name="defaultValue">if set to <c>true</c> [default value].</param>
-        /// <param name="iniFileName">Name of the ini file.</param>
-        /// <returns></returns>
-        public bool ReadBool(string section, string key, bool defaultValue, string iniFileName)
-        {
-            FileName = iniFileName;
-            return ReadBool(section, key, defaultValue);
-        }
-
-        /// <summary>
         ///     Reads the color.
         /// </summary>
         /// <param name="section">The section.</param>
@@ -220,20 +178,6 @@ namespace ArachNGIN.Files.Settings
         public Color ReadColor(string section, string key)
         {
             return ReadColor(section, key, Color.Black);
-        }
-
-        /// <summary>
-        ///     Reads the color.
-        /// </summary>
-        /// <param name="section">The section.</param>
-        /// <param name="key">The key.</param>
-        /// <param name="defaultValue">The default value.</param>
-        /// <param name="iniFileName">Name of the ini file.</param>
-        /// <returns></returns>
-        public Color ReadColor(string section, string key, Color defaultValue, string iniFileName)
-        {
-            FileName = iniFileName;
-            return ReadColor(section, key, defaultValue);
         }
 
         /// <summary>
@@ -261,19 +205,6 @@ namespace ArachNGIN.Files.Settings
         }
 
         /// <summary>
-        ///     Writes the string.
-        /// </summary>
-        /// <param name="section">The section.</param>
-        /// <param name="key">The key.</param>
-        /// <param name="value">The value.</param>
-        /// <param name="iniFileName">Name of the ini file.</param>
-        public void WriteString(string section, string key, string value, string iniFileName)
-        {
-            FileName = iniFileName;
-            WriteString(section, key, value);
-        }
-
-        /// <summary>
         ///     Writes the integer.
         /// </summary>
         /// <param name="section">The section.</param>
@@ -293,42 +224,6 @@ namespace ArachNGIN.Files.Settings
         public void WriteBool(string section, string key, bool value)
         {
             WriteString(section, key, value.ToString());
-        }
-
-        /// <summary>
-        ///     Writes the integer.
-        /// </summary>
-        /// <param name="section">The section.</param>
-        /// <param name="key">The key.</param>
-        /// <param name="value">The value.</param>
-        /// <param name="iniFileName">Name of the ini file.</param>
-        public void WriteInteger(string section, string key, int value, string iniFileName)
-        {
-            WriteString(section, key, value.ToString(CultureInfo.InvariantCulture), iniFileName);
-        }
-
-        /// <summary>
-        ///     Writes the bool.
-        /// </summary>
-        /// <param name="section">The section.</param>
-        /// <param name="key">The key.</param>
-        /// <param name="value">if set to <c>true</c> [value].</param>
-        /// <param name="iniFileName">Name of the ini file.</param>
-        public void WriteBool(string section, string key, bool value, string iniFileName)
-        {
-            WriteString(section, key, value.ToString(), iniFileName);
-        }
-
-        /// <summary>
-        ///     Writes the color.
-        /// </summary>
-        /// <param name="section">The section.</param>
-        /// <param name="key">The key.</param>
-        /// <param name="value">The value.</param>
-        /// <param name="iniFileName">Name of the ini file.</param>
-        public void WriteColor(string section, string key, Color value, string iniFileName)
-        {
-            WriteString(section, key, value.Name, iniFileName);
         }
 
         /// <summary>
@@ -378,17 +273,6 @@ namespace ArachNGIN.Files.Settings
             if (DataStorage.Tables[section] == null) return;
             DataStorage.Tables.Remove(section);
             DumpDatasetToIni();
-        }
-
-        /// <summary>
-        ///     Deletes a section.
-        /// </summary>
-        /// <param name="section">The section.</param>
-        /// <param name="iniFileName">Name of the ini file.</param>
-        public void DeleteSection(string section, string iniFileName)
-        {
-            FileName = iniFileName;
-            DeleteSection(section);
         }
 
         /// <summary>
@@ -461,6 +345,7 @@ namespace ArachNGIN.Files.Settings
                         if (readLine.StartsWith("[") && readLine.EndsWith("]"))
                         {
                             // table.rows.add moved from here
+                            if (addRow) table.Rows.Add(row);
                             readLine = readLine.TrimStart('[');
                             readLine = readLine.TrimEnd(']');
                             skipSection = true;
@@ -490,10 +375,11 @@ namespace ArachNGIN.Files.Settings
                                 }
                             }
                         }
-                    if (addRow) table.Rows.Add(row); //... to here
+                    // if (addRow) table.Rows.Add(row); //... to here
                     readLine = fileStream.ReadLine();
                 }
                 // ... and here deleted
+                if (addRow) table.Rows.Add(row);
             }
         }
 
