@@ -29,6 +29,9 @@ namespace ArachNGIN.Tests.Files.Settings
             ini.WriteBool("section 2", "bool 2", true);
             ini.ReadBool("section 2", "bool 2").ShouldBeTrue();
             ini.ReadBool("section 2", "bool 1", true).ShouldBeFalse();
+            ini.ReadBool("section 2", "Bool that should not exist", true).ShouldBeTrue();
+            ini.WriteString("section 2", "string 1", "not a bool");
+            ini.ReadBool("section 2", "string 1", false).ShouldBe(false);
         }
 
         [TestMethod]
@@ -42,6 +45,9 @@ namespace ArachNGIN.Tests.Files.Settings
             {
                 ini.ReadInteger("section 3", "integer " + i).ShouldBe(i);
             }
+            ini.ReadInteger("section 3", "Integer that should not exist", 100).ShouldBe(100);
+            ini.WriteString("section 3", "string 1", "not an integer");
+            ini.ReadInteger("section 3", "string 1", 9).ShouldBe(9);
         }
 
         [TestMethod]
@@ -58,6 +64,9 @@ namespace ArachNGIN.Tests.Files.Settings
             ini.WriteColor("section 4", "color 0", c);
             Console.WriteLine(ColorTranslator.ToHtml(c));
             ini.ReadColor("section 4", "color 0", Color.Black).ShouldBe(c);
+            ini.ReadColor("section 4", "Color that should not exist", Color.Red).ShouldBe(Color.Red);
+            ini.WriteString("section 4", "string 1", "not a color");
+            ini.ReadColor("section 4", "string 1", Color.Blue).ShouldBe(Color.Black);
         }
 
         [TestMethod]
@@ -84,6 +93,7 @@ namespace ArachNGIN.Tests.Files.Settings
             ini.WriteString("section 7", "string 1", "valueeeee");
             ini.SectionNames().Contains("section 7").ShouldBeTrue();
             ini.DeleteSection("section 7");
+            ini.DeleteSection("this section should not exist");
             ini.SectionNames().Contains("section 7").ShouldBeFalse();
         }
     }
