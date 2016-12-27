@@ -15,6 +15,12 @@ namespace ArachNGIN.Tests.Files.Settings
         private Ini ini = new Ini("inifile.ini");
 
         [TestMethod]
+        private void IniFileNameMatchesPreset()
+        {
+            ini.FileName.ShouldBe("inifile.ini");
+        }
+
+        [TestMethod]
         public void WriteAndReadString()
         {
             ini.WriteString("section 1", "string 1", "value 1");

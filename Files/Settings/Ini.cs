@@ -52,7 +52,7 @@ namespace ArachNGIN.Files.Settings
         public string FileName
         {
             get { return _mFileName; }
-            set
+            private set
             {
                 if (value.Trim() == _mFileName) return;
                 _mFileName = value;
@@ -375,7 +375,7 @@ namespace ArachNGIN.Files.Settings
                                 }
                             }
                         }
-                    // if (addRow) table.Rows.Add(row); //... to here
+                    //... to here
                     readLine = fileStream.ReadLine();
                 }
                 // ... and here deleted
