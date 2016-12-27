@@ -23,7 +23,14 @@ namespace ArachNGIN.ClassExtensions
             if (Enum.TryParse(strColorName, out knownColor))
                 return Color.FromKnownColor(knownColor);
 
-            return ColorTranslator.FromHtml("#" + strColorName);
+            try
+            {
+                return ColorTranslator.FromHtml("#" + strColorName);
+            }
+            catch
+            {
+                return Color.Black;
+            }
         }
     }
 }
