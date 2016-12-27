@@ -16,10 +16,9 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text.RegularExpressions;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ArachNGIN.Files.Streams
@@ -53,9 +52,9 @@ namespace ArachNGIN.Files.Streams
         public static string UInt32ToByteString(uint x)
         {
             var tmp = UInt32ToBigEndianBytes(x);
-            var s = string.Empty;
-            foreach (var b in tmp) s += b.ToString("x2");
-            return s;
+            var s = new StringBuilder();
+            foreach (var b in tmp) s.Append(b.ToString("x2"));
+            return s.ToString();
         }
 
         /// <summary>
@@ -68,9 +67,7 @@ namespace ArachNGIN.Files.Streams
         {
             var result = number.ToString(CultureInfo.InvariantCulture);
             while (result.Length < length)
-            {
                 result = "0" + result;
-            }
             return result;
         }
 
@@ -82,25 +79,22 @@ namespace ArachNGIN.Files.Streams
         /// <param name="pathSeparator">The path separator.</param>
         public static void PopulateTreeViewByFiles(TreeView treeView, IEnumerable<string> paths, char pathSeparator)
         {
-            TreeNode lastNode = null;
             foreach (var path in paths)
-            {
-                lastNode = LastNode(treeView, pathSeparator, path, null);
-            }
+                LastNode(treeView, pathSeparator, path, null);
         }
 
         private static TreeNode LastNode(TreeView treeView, char pathSeparator, string path, TreeNode lastNode)
         {
-            var subPathAgg = string.Empty;
+            var subPathAgg = new StringBuilder();
             foreach (var subPath in path.Split(pathSeparator))
             {
-                subPathAgg += subPath + pathSeparator;
-                var nodes = treeView.Nodes.Find(subPathAgg, true);
+                subPathAgg.Append(subPath + pathSeparator);
+                var nodes = treeView.Nodes.Find(subPathAgg.ToString(), true);
                 if (nodes.Length == 0)
                     if (lastNode == null)
-                        lastNode = treeView.Nodes.Add(subPathAgg, subPath);
+                        lastNode = treeView.Nodes.Add(subPathAgg.ToString(), subPath);
                     else
-                        lastNode = lastNode.Nodes.Add(subPathAgg, subPath);
+                        lastNode = lastNode.Nodes.Add(subPathAgg.ToString(), subPath);
                 else
                     lastNode = nodes[0];
             }
