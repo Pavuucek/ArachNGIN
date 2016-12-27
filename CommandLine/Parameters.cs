@@ -29,7 +29,7 @@ namespace ArachNGIN.CommandLine
                 string[] parts;
                 if (isParam.IsMatch(s)) parts = splitter.Split(s, 3);
                 else parts = new[] { s };
-                //var parts = splitter.Split(s, 3);
+                //var parts = splitter.Split(s, 3)
                 switch (parts.Length)
                 {
                     case 1:
@@ -50,14 +50,14 @@ namespace ArachNGIN.CommandLine
                         break;
 
                     case 2:
-                        if (currentParameter != null)
-                            if (!_dict.ContainsKey(currentParameter)) _dict.Add(currentParameter, "true");
+                        if (currentParameter != null && !_dict.ContainsKey(currentParameter))
+                            _dict.Add(currentParameter, "true");
                         currentParameter = parts[1];
                         break;
 
                     case 3:
-                        if (currentParameter != null)
-                            if (!_dict.ContainsKey(currentParameter)) _dict.Add(currentParameter, "true");
+                        if (currentParameter != null && !_dict.ContainsKey(currentParameter))
+                            _dict.Add(currentParameter, "true");
                         currentParameter = parts[1];
                         if (!_dict.ContainsKey(currentParameter))
                         {
@@ -68,8 +68,7 @@ namespace ArachNGIN.CommandLine
                         break;
                 }
             }
-            if (currentParameter != null)
-                if (!_dict.ContainsKey(currentParameter)) _dict.Add(currentParameter, "true");
+            if (currentParameter != null && !_dict.ContainsKey(currentParameter)) _dict.Add(currentParameter, "true");
         }
 
         /// <summary>
