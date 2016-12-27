@@ -163,6 +163,18 @@ namespace ArachNGIN.ClassExtensions
         }
 
         /// <summary>
+        ///     Loads a StringCollection from a stream.
+        /// </summary>
+        /// <param name="sCollection">The StringCollection.</param>
+        /// <param name="sInput">The input stream.</param>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
+        /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string. </exception>
+        public static void LoadFromStream(this StringCollection sCollection, Stream sInput)
+        {
+            LoadFromStream(sCollection, sInput, false);
+        }
+
+        /// <summary>
         ///     Loads a StringCollection from a file.
         /// </summary>
         /// <param name="sCollection">The StringCollection.</param>
