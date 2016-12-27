@@ -1,10 +1,8 @@
 ﻿using ArachNGIN.ClassExtensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Shouldly;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 
 namespace ArachNGIN.Tests.ClassExtensions
 {
@@ -16,12 +14,13 @@ namespace ArachNGIN.Tests.ClassExtensions
         {
             foreach (KnownColor knownColor in Enum.GetValues(typeof(KnownColor)))
             {
-                var s = Color.FromKnownColor(knownColor).NamedColorToString();
+                var s = Color.FromKnownColor(knownColor).Name;
                 Console.Write(s);
-                var c = s.NamedColorStringToColor();
+                var c = s.FromString();
                 Console.Write(" => ");
                 Console.Write(c.ToString());
                 Console.WriteLine();
+                c.Name.ShouldBe(s);
             }
         }
     }

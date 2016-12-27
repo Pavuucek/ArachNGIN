@@ -208,7 +208,7 @@ namespace ArachNGIN.Files.Settings
         /// <returns></returns>
         public Color ReadColor(string section, string key, Color defaultValue)
         {
-            return ReadString(section, key, defaultValue.NamedColorToString()).NamedColorStringToColor();
+            return ReadString(section, key, defaultValue.Name).FromString();
         }
 
         /// <summary>
@@ -328,7 +328,7 @@ namespace ArachNGIN.Files.Settings
         /// <param name="iniFileName">Name of the ini file.</param>
         public void WriteColor(string section, string key, Color value, string iniFileName)
         {
-            WriteString(section, key, value.NamedColorToString(), iniFileName);
+            WriteString(section, key, value.Name, iniFileName);
         }
 
         /// <summary>
@@ -366,7 +366,7 @@ namespace ArachNGIN.Files.Settings
         /// <param name="value">The value.</param>
         public void WriteColor(string section, string key, Color value)
         {
-            WriteString(section, key, value.NamedColorToString());
+            WriteString(section, key, value.Name);
         }
 
         /// <summary>
