@@ -30,15 +30,15 @@ namespace ArachNGIN.Files.Settings
     /// <summary>
     ///     Class for accessing INI files
     /// </summary>
-    public class IniFile
+    public class Ini
     {
         private string _mFileName = "";
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="IniFile" /> class.
+        ///     Initializes a new instance of the <see cref="Ini" /> class.
         /// </summary>
         /// <param name="iniFileName">Name of the ini file.</param>
-        public IniFile(string iniFileName)
+        public Ini(string iniFileName)
         {
             FileName = iniFileName;
         }
