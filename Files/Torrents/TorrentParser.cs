@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -35,11 +34,11 @@ namespace ArachNGIN.Files.Torrents
         {
             do
             {
-                if (torrentFile.ReadChar().ToString(CultureInfo.InvariantCulture) == "d")
+                if (torrentFile.ReadChar() == 'd')
                     ProcessDictionary(torrentFile, false, false);
                 else
                     throw new Exception("Torrent file invalid (character 'd' expected)");
-            } while (torrentFile.ReadChar().ToString(CultureInfo.InvariantCulture) != "e");
+            } while (torrentFile.ReadChar() != 'e');
         }
 
         /// <summary>
@@ -56,7 +55,7 @@ namespace ArachNGIN.Files.Torrents
                 stringLength = stringLength * 10;
                 stringLength += Convert.ToInt32(torrentFile.ReadChar()) - Convert.ToInt32("0");
             }
-            if (torrentFile.ReadChar().ToString(CultureInfo.InvariantCulture) == ":")
+            if (torrentFile.ReadChar() == ':')
                 return stringLength;
             throw new Exception("Invalid character. expecting ':'");
         }
@@ -67,7 +66,7 @@ namespace ArachNGIN.Files.Torrents
         /// <param name="torrentFile">The torrent file.</param>
         /// <param name="stringLength">Length of the string.</param>
         /// <returns></returns>
-        private string GetItemValue(BinaryReader torrentFile, int stringLength)
+        private static string GetItemValue(BinaryReader torrentFile, int stringLength)
         {
             return torrentFile.ReadChars(stringLength).ToString();
         }
@@ -78,7 +77,7 @@ namespace ArachNGIN.Files.Torrents
         /// <param name="torrentFile">The torrent file.</param>
         /// <param name="stringLength">Length of the string.</param>
         /// <returns></returns>
-        private byte[] GetItemValueByte(BinaryReader torrentFile, int stringLength)
+        private static byte[] GetItemValueByte(BinaryReader torrentFile, int stringLength)
         {
             return torrentFile.ReadBytes(stringLength);
         }
@@ -89,7 +88,7 @@ namespace ArachNGIN.Files.Torrents
         /// <param name="torrentFile">The torrent file.</param>
         /// <param name="stringLength">Length of the string.</param>
         /// <returns></returns>
-        private string GetItemName(BinaryReader torrentFile, int stringLength)
+        private static string GetItemName(BinaryReader torrentFile, int stringLength)
         {
             return torrentFile.ReadChars(stringLength).ToString();
         }
@@ -104,14 +103,14 @@ namespace ArachNGIN.Files.Torrents
         ///     or
         ///     expected 'e'
         /// </exception>
-        private long GetIntegerNumber(BinaryReader torrentFile)
+        private static long GetIntegerNumber(BinaryReader torrentFile)
         {
             torrentFile.ReadChar();
             var isNegative = torrentFile.PeekChar().ToString() == "-";
             long integerNumber = 0;
             while (char.IsDigit((char)torrentFile.PeekChar()))
                 integerNumber = Convert.ToInt32(torrentFile.ReadChar()) - Convert.ToInt32("0");
-            if (torrentFile.ReadChar().ToString(CultureInfo.InvariantCulture) != "e")
+            if (torrentFile.ReadChar() != 'e')
                 throw new Exception("expected 'e'");
             if (!isNegative) return integerNumber;
             if (integerNumber > 0)
@@ -126,15 +125,12 @@ namespace ArachNGIN.Files.Torrents
         /// <param name="infoStart">The information start.</param>
         /// <param name="infoLength">Length of the information.</param>
         /// <returns></returns>
-        private string GetHashInfo(BinaryReader torrentFile, int infoStart, int infoLength)
+        private static string GetHashInfo(BinaryReader torrentFile, int infoStart, int infoLength)
         {
             var sha1 = new SHA1Managed();
             torrentFile.BaseStream.Position = infoStart;
             var infoValueBytes = torrentFile.ReadBytes(infoLength);
-            return
-                BitConverter.ToString(sha1.ComputeHash(infoValueBytes))
-                    .Replace("-", "")
-                    .ToLower(CultureInfo.InvariantCulture);
+            return BitConverter.ToString(sha1.ComputeHash(infoValueBytes)).Replace("-", string.Empty).ToLowerInvariant();
         }
 
         /// <summary>
@@ -150,7 +146,7 @@ namespace ArachNGIN.Files.Torrents
         /// </exception>
         private void ProcessDictionary(BinaryReader torrentFile, bool isInfo, bool isFiles)
         {
-            var itemValueString = "";
+            var itemValueString = string.Empty;
             long itemValueInteger = 0;
             var itemValueByte = new byte[0];
 
@@ -357,56 +353,6 @@ namespace ArachNGIN.Files.Torrents
             }
             PAnnounceList[PAnnounceList.Length - 1] = newAnnounce;
         }
-
-        #region Nested type: stFile
-
-        /// <summary>
-        ///     StFile structure
-        /// </summary>
-        public struct StFile
-        {
-            /// <summary>
-            ///     The ed2k
-            /// </summary>
-            public byte[] Ed2K;
-
-            /// <summary>
-            ///     The length
-            /// </summary>
-            public long Length;
-
-            /// <summary>
-            ///     The md5sum
-            /// </summary>
-            public string Md5Sum;
-
-            /// <summary>
-            ///     The name
-            /// </summary>
-            public string Name;
-
-            /// <summary>
-            ///     The path
-            /// </summary>
-            public string Path;
-
-            /// <summary>
-            ///     The piece length
-            /// </summary>
-            public long PieceLength;
-
-            /// <summary>
-            ///     The pieces
-            /// </summary>
-            public byte[] Pieces;
-
-            /// <summary>
-            ///     The sha1
-            /// </summary>
-            public byte[] Sha1;
-        }
-
-        #endregion Nested type: stFile
 
         #region Privátní variábly
 
