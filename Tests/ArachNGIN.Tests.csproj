@@ -63,6 +63,7 @@
     <Compile Include="Files\Crc\AnimeCrcTest.cs" />
     <Compile Include="Files\FileFormats\QuakePakFileTests.cs" />
     <Compile Include="Files\FileFormats\VpFileTest.cs" />
+    <Compile Include="Files\Settings\IniTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
