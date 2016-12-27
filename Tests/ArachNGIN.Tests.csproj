@@ -58,6 +58,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="ClassExtensions\StringColorsTests.cs" />
     <Compile Include="CommandLine\ParametersTest.cs" />
     <Compile Include="Files\Crc\AnimeCrcTest.cs" />

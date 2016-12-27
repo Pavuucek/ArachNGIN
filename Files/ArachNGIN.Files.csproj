@@ -67,6 +67,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Crc\AnimeCrc.cs" />
     <Compile Include="FileFormats\QuakePakFile.PakFat.cs" />
     <Compile Include="FileFormats\VpDirEntry.cs" />
@@ -115,7 +118,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)..\GitVersioner.bat" a "$(ProjectDir)Properties\AssemblyInfo.cs"</PreBuildEvent>
+    <PreBuildEvent>rem "$(SolutionDir)GitVersioner.bat" a "$(SolutionDir)SharedAssemblyInfo.cs"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>
