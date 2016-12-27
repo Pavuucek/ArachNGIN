@@ -30,30 +30,6 @@ namespace ArachNGIN.Files.Streams
     public static class StringUtils
     {
         /// <summary>
-        ///     Splits a string.
-        /// </summary>
-        /// <param name="wholeString">The whole string.</param>
-        /// <param name="delimiter">The delimiter.</param>
-        /// <returns></returns>
-        public static string[] StringSplit(string wholeString, string delimiter)
-        {
-            var r = new Regex("(" + delimiter + ")");
-            var s = r.Split(wholeString);
-            int iHalf = Convert.ToInt16(s.GetUpperBound(0) / 2 + 1);
-            var res = new string[iHalf];
-            var j = 0;
-            for (var i = 0; i <= s.GetUpperBound(0); i++)
-            {
-                if (s[i] != delimiter)
-                {
-                    res[j] = s[i];
-                    j++;
-                }
-            }
-            return res;
-        }
-
-        /// <summary>
         ///     Converts an integer to big endian byte array
         /// </summary>
         /// <param name="x">The integer</param>

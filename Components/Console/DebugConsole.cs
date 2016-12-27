@@ -321,7 +321,7 @@ namespace ArachNGIN.Components.Console
         /// <exception cref="IOException">The disk is read-only. </exception>
         public void DoCommand(string command)
         {
-            var strCmdLine = StringUtils.StringSplit(command, " "); // cely prikaz
+            var strCmdLine = command.Split(' '); // cely prikaz
             var cmd = strCmdLine[0];
             string[] parArray;
             string parStr;
