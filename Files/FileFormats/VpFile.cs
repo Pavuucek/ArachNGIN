@@ -94,8 +94,7 @@ namespace ArachNGIN.Files.FileFormats
                 using (var reader = new BinaryReader(readStream, Encoding.ASCII))
                 {
                     var header = reader.ReadBytes(4);
-                    if (!CompareHeader(header, _vpHeaderStandard) || !CompareHeader(header, _vpHeaderCustom))
-                        return false;
+                    if (!CompareHeader(header, _vpHeaderStandard)) return false;
                     if (reader.ReadInt32() != 2) return false;
                     var headerOffset = reader.ReadInt32();
                     var headerEntries = reader.ReadInt32();
