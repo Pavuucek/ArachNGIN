@@ -62,6 +62,7 @@
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ClassExtensions\StringColorsTests.cs" />
+    <Compile Include="ClassExtensions\StringsTests.cs" />
     <Compile Include="CommandLine\ParametersTest.cs" />
     <Compile Include="Files\Crc\AnimeCrcTest.cs" />
     <Compile Include="Files\FileFormats\QuakePakFileTests.cs" />
