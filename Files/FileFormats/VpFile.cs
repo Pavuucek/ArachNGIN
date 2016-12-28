@@ -60,9 +60,17 @@ namespace ArachNGIN.Files.FileFormats
         public VpFile(string fileName)
         {
             FileName = string.Empty;
-            if (string.IsNullOrEmpty(fileName) || File.Exists(fileName) == false) return;
-            ReadHeader(fileName);
+            if (string.IsNullOrEmpty(fileName) || !File.Exists(fileName)) return;
+            ValidFile = ReadHeader(fileName);
         }
+
+        /// <summary>
+        ///     Indicates successfully opened non-empty VP file.
+        /// </summary>
+        /// <value>
+        ///     <c>true</c> if file is valid and not empty otherwise, <c>false</c>.
+        /// </value>
+        public bool ValidFile { get; private set; }
 
         /// <summary>
         ///     Name of currently opened file including full path
@@ -86,7 +94,8 @@ namespace ArachNGIN.Files.FileFormats
                 using (var reader = new BinaryReader(readStream, Encoding.ASCII))
                 {
                     var header = reader.ReadBytes(4);
-                    if (!CompareHeader(header, _vpHeaderStandard)) return false;
+                    if (!CompareHeader(header, _vpHeaderStandard) || !CompareHeader(header, _vpHeaderCustom))
+                        return false;
                     if (reader.ReadInt32() != 2) return false;
                     var headerOffset = reader.ReadInt32();
                     var headerEntries = reader.ReadInt32();
@@ -100,10 +109,11 @@ namespace ArachNGIN.Files.FileFormats
                         entry.FileName = StreamHandling.PCharToString(reader.ReadChars(32));
                         entry.Timestamp = reader.ReadInt32();
                         entry.Date = entry.Timestamp.UnixTimestampToDateTime();
-                        var isDir = (entry.Timestamp == 0) && (entry.Size == 0);
+                        var isDir = entry.Timestamp == 0 && entry.Size == 0;
                         if (isDir)
                         {
-                            if (entry.FileName != "..") currentPath += entry.FileName + Path.DirectorySeparatorChar;
+                            if (entry.FileName != "..")
+                                currentPath = currentPath.Append(entry.FileName).Append(Path.DirectorySeparatorChar);
                             else currentPath = RemoveLastPartOfPath(currentPath);
                         }
                         else
@@ -119,25 +129,22 @@ namespace ArachNGIN.Files.FileFormats
             return result;
         }
 
-        private string RemoveLastPartOfPath(string path)
+        private static string RemoveLastPartOfPath(string path)
         {
             var result = string.Empty;
             var separated = path.Split(Path.DirectorySeparatorChar);
             for (var i = 0; i < separated.Length - 2; i++)
-            {
-                result += separated[i] + Path.DirectorySeparatorChar;
-            }
+                result = result.Append(separated[i]).Append(Path.DirectorySeparatorChar);
             return result;
         }
 
-        private bool CompareHeader(byte[] fileHeader, char[] desiredHeader)
+        private static bool CompareHeader(byte[] fileHeader, IList<char> desiredHeader)
         {
+            if (fileHeader == null) return false;
             var result = true;
-            if (fileHeader.Length != desiredHeader.Length) return false;
+            if (fileHeader.Length != desiredHeader.Count) return false;
             for (var i = 0; i < fileHeader.Length; i++)
-            {
                 if (Convert.ToChar(fileHeader[i]) != desiredHeader[i]) result = false;
-            }
             return result;
         }
 
