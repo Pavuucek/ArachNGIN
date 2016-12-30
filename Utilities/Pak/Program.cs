@@ -169,7 +169,7 @@ namespace Pak
             if (!Directory.Exists(args[2]))
                 Console.WriteLine("Chyba: Výstupní adresář neexistuje!");
 
-            var path = args[2].AddSlash(); // +Path.GetDirectoryName(args[1]);
+            var path = args[2].AddSlash(); // +Path.GetDirectoryName(args[1])
             foreach (var file in pak.PakFileList)
             {
                 Console.WriteLine("Rozbaluji {0}", file);
@@ -278,8 +278,8 @@ namespace Pak
         private static string AddIndexedFile(string file)
         {
             var g = Guid.NewGuid();
-            PakIndex.Add(file + "=" + g.ToString().ToLower());
-            return g.ToString().ToLower();
+            PakIndex.Add(file + "=" + g.ToString().ToLowerInvariant());
+            return g.ToString().ToLowerInvariant();
         }
 
         /// <summary>
@@ -313,8 +313,8 @@ namespace Pak
             {
                 var split = line.Split('=');
                 // vic jak 1 -> radka je v ini formatu, tj ok a neobsahuje 'filecount' a neni prazdny
-                if (split.Length > 1 && !line.ToLower().Contains("filecount") && !string.IsNullOrEmpty(line))
-                    PakIndex.Add(line.ToLower());
+                if (split.Length > 1 && !line.ToLowerInvariant().Contains("filecount") && !string.IsNullOrEmpty(line))
+                    PakIndex.Add(line.ToLowerInvariant());
             }
         }
 
@@ -329,11 +329,11 @@ namespace Pak
             PakIndex.CopyTo(tempIndex, 0);
             PakIndex.Clear();
             foreach (var line in tempIndex)
-                if (line.Contains(oldFile.ToLower()))
+                if (line.Contains(oldFile.ToLowerInvariant()))
                 {
                     var linesplit = line.Split('=');
                     if (linesplit.Length != 2) PakIndex.Add(line);
-                    else PakIndex.Add(linesplit[0] + "=" + newFile.ToLower());
+                    else PakIndex.Add(linesplit[0] + "=" + newFile.ToLowerInvariant());
                 }
                 else
                 {
@@ -370,7 +370,7 @@ namespace Pak
                 var split = s.Split('=');
                 if (split.Length > 1) sd.Add(split[0], split[1]);
             }
-            return sd.ContainsKey(filename.ToLower());
+            return sd.ContainsKey(filename.ToLowerInvariant());
         }
     }
 }
