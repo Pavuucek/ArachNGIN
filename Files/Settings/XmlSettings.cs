@@ -35,16 +35,16 @@ namespace ArachNGIN.Files.Settings
     public class XmlSettings
     {
         [XmlAttribute("AssemblyName")]
-        private string _mAsm;
+        private readonly string _mAsm;
 
         [XmlAttribute("CreationDate")]
-        private DateTime _mCreationdate = DateTime.Now;
-
-        [XmlAttribute("fileName")]
-        private string _mFile; //= "conf.xml";
+        private readonly DateTime _mCreationdate = DateTime.Now;
 
         [XmlElement("Settings")]
-        private Hashtable _mSettingstable;
+        private readonly Hashtable _mSettingstable;
+
+        [XmlAttribute("fileName")]
+        private string _mFile; //= "conf.xml"
 
         /// <summary>
         ///     Konstruktor - bez jména souboru
@@ -105,9 +105,9 @@ namespace ArachNGIN.Files.Settings
             {
                 try
                 {
-                    FormatXml(reader, _mFile);
+                    FormatXml(reader);
                 }
-                catch (Exception e)
+                catch
                 {
                     // ignored
                 }
@@ -119,8 +119,8 @@ namespace ArachNGIN.Files.Settings
         /// </summary>
         public void SaveToFile()
         {
-            //var info = new FileInfo(_mFile);
-            //if(!info.Exists) info.Create();
+            //var info = new FileInfo(_mFile)
+            //if(!info.Exists) info.Create()
             try
             {
                 using (var writer = new XmlTextWriter(_mFile, Encoding.UTF8))
@@ -151,7 +151,7 @@ namespace ArachNGIN.Files.Settings
             }
         }
 
-        private void FormatXml(XmlReader reader, string fileName)
+        private void FormatXml(XmlReader reader)
         {
             while (reader.Read())
                 if (reader.NodeType == XmlNodeType.Element)
