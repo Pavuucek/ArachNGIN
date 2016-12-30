@@ -19,7 +19,6 @@
 using ArachNGIN.ClassExtensions;
 using ArachNGIN.Components.Console.Forms;
 using ArachNGIN.Components.Console.Misc;
-using ArachNGIN.Files.Streams;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -46,8 +45,6 @@ namespace ArachNGIN.Components.Console
         private StringBuilder _buffer = new StringBuilder();
         private ListViewItem.ListViewSubItem _currentMsgItem;
         private int _eventCounter;
-        private bool _echoCommands = true;
-        private bool _processInternalCommands = true;
 
         /// <summary>
         ///     The automatic save
@@ -95,9 +92,7 @@ namespace ArachNGIN.Components.Console
             UpdateCurrentRow(true);
             _buffer = new StringBuilder();
             if (AutoSave == ConsoleAutoSave.OnLineAdd)
-            {
                 SaveLog();
-            }
             Application.DoEvents();
         }
 
@@ -130,6 +125,7 @@ namespace ArachNGIN.Components.Console
         /// </value>
         public ConsoleLocation ScreenLocation
         {
+            get { return ConsoleLocation.SomeWhereElse; }
             set
             {
                 _consoleForm.StartPosition = FormStartPosition.Manual;
@@ -204,11 +200,7 @@ namespace ArachNGIN.Components.Console
         /// <value>
         ///     <c>true</c> if [echo commands]; otherwise, <c>false</c>.
         /// </value>
-        public bool EchoCommands
-        {
-            get { return _echoCommands; }
-            set { _echoCommands = value; }
-        }
+        public bool EchoCommands { get; set; } = true;
 
         /// <summary>
         ///     Gets or sets a value indicating whether [process internal commands].
@@ -216,11 +208,7 @@ namespace ArachNGIN.Components.Console
         /// <value>
         ///     <c>true</c> if [process internal commands]; otherwise, <c>false</c>.
         /// </value>
-        public bool ProcessInternalCommands
-        {
-            get { return _processInternalCommands; }
-            set { _processInternalCommands = value; }
-        }
+        public bool ProcessInternalCommands { get; set; } = true;
 
         /// <summary>
         ///     Occurs when [on command entered].
@@ -260,9 +248,7 @@ namespace ArachNGIN.Components.Console
             _buffer.Append(message);
             UpdateCurrentRow(false);
             if (AutoSave == ConsoleAutoSave.OnLineAdd)
-            {
                 SaveLog();
-            }
             Application.DoEvents();
         }
 
@@ -281,9 +267,7 @@ namespace ArachNGIN.Components.Console
             UpdateCurrentRow(true);
             _buffer = new StringBuilder();
             if (AutoSave == ConsoleAutoSave.OnLineAdd)
-            {
                 SaveLog();
-            }
             Application.DoEvents();
         }
 
@@ -338,7 +322,7 @@ namespace ArachNGIN.Components.Console
                 for (var i = 1; i <= strCmdLine.Length - 1; i++)
                 {
                     parArray[i - 1] = strCmdLine[i];
-                    parStr += strCmdLine[i] + " ";
+                    parStr.Append(strCmdLine[i]).Append(' ');
                 }
             }
 
@@ -346,11 +330,9 @@ namespace ArachNGIN.Components.Console
             if (EchoCommands) Write("Command: " + command);
 
             // vyvolame event
-            if (OnCommandEntered != null)
-            {
-                var ea = new CommandEnteredEventArgs(cmd, parArray, parStr.Trim());
-                OnCommandEntered(this, ea);
-            }
+            if (OnCommandEntered == null) return;
+            var ea = new CommandEnteredEventArgs(cmd, parArray, parStr.Trim());
+            OnCommandEntered(this, ea);
         }
 
         #endregion Veřejné procedury
@@ -365,14 +347,12 @@ namespace ArachNGIN.Components.Console
         private void TxtCommandKeyPress(object sender, KeyPressEventArgs e)
         {
             // kdyz user zmackne enter a prikaz neni prazdny...
-            if ((e.KeyChar == (char)Keys.Enter) && (_consoleForm.txtCommand.Text.Length > 0))
-            {
-                //... poklada se obsah textboxu za prikaz
-                e.Handled = true;
-                DoCommand(_consoleForm.txtCommand.Text);
-                // smazeme txtCommand
-                _consoleForm.txtCommand.Text = "";
-            }
+            if (e.KeyChar != (char)Keys.Enter || _consoleForm.txtCommand.Text.Length <= 0) return;
+            //... poklada se obsah textboxu za prikaz
+            e.Handled = true;
+            DoCommand(_consoleForm.txtCommand.Text);
+            // smazeme txtCommand
+            _consoleForm.txtCommand.Text = "";
         }
 
         /// <summary>
@@ -382,26 +362,24 @@ namespace ArachNGIN.Components.Console
         /// <param name="e">The <see cref="CommandEnteredEventArgs" /> instance containing the event data.</param>
         private void InitInternalCommands(object sender, CommandEnteredEventArgs e)
         {
-            if (ProcessInternalCommands)
+            if (!ProcessInternalCommands) return;
+            switch (e.Command.ToLowerInvariant())
             {
-                switch (e.Command.ToLower())
-                {
-                    case "cls":
-                        _consoleForm.lstLogSeparate.Items.Clear();
-                        break;
+                case "cls":
+                    _consoleForm.lstLogSeparate.Items.Clear();
+                    break;
 
-                    case "echop":
-                        WriteLinePlain(e.ParamString);
-                        break;
+                case "echop":
+                    WriteLinePlain(e.ParamString);
+                    break;
 
-                    case "echo":
-                        WriteLine(e.ParamString);
-                        break;
+                case "echo":
+                    WriteLine(e.ParamString);
+                    break;
 
-                    case "savelog":
-                        SaveLog();
-                        break;
-                }
+                case "savelog":
+                    SaveLog();
+                    break;
             }
         }
 

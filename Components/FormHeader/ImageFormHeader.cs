@@ -63,13 +63,14 @@ namespace ArachNGIN.Components.FormHeader
         /// </summary>
         private void InitializeComponent()
         {
-            SuspendLayout();
-            //
+            this.SuspendLayout();
+            // 
             // ImageFormHeader
-            //
-            Name = "ImageFormHeader";
-            Size = new Size(1502, 70);
-            ResumeLayout(false);
+            // 
+            this.Name = "ImageFormHeader";
+            this.Size = new System.Drawing.Size(1502, 70);
+            this.ResumeLayout(false);
+
         }
     }
 }

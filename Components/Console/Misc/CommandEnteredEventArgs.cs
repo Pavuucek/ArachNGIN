@@ -7,10 +7,6 @@ namespace ArachNGIN.Components.Console.Misc
     /// </summary>
     public class CommandEnteredEventArgs : EventArgs
     {
-        private readonly string[] _parametry;
-        private readonly string _parametryStr;
-        private readonly string _prikaz;
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="CommandEnteredEventArgs" /> class.
         /// </summary>
@@ -19,9 +15,9 @@ namespace ArachNGIN.Components.Console.Misc
         /// <param name="parString">The parameter string.</param>
         public CommandEnteredEventArgs(string cmd, string[] parArray, string parString)
         {
-            _parametry = parArray;
-            _prikaz = cmd;
-            _parametryStr = parString;
+            ParamArray = parArray;
+            Command = cmd;
+            ParamString = parString;
         }
 
         /// <summary>
@@ -30,10 +26,7 @@ namespace ArachNGIN.Components.Console.Misc
         /// <value>
         ///     The command.
         /// </value>
-        public string Command
-        {
-            get { return _prikaz; }
-        }
+        public string Command { get; }
 
         /// <summary>
         ///     Gets the parameter array.
@@ -41,10 +34,7 @@ namespace ArachNGIN.Components.Console.Misc
         /// <value>
         ///     The parameter array.
         /// </value>
-        public string[] ParamArray
-        {
-            get { return _parametry; }
-        }
+        public string[] ParamArray { get; }
 
         /// <summary>
         ///     Gets the parameter string.
@@ -52,9 +42,6 @@ namespace ArachNGIN.Components.Console.Misc
         /// <value>
         ///     The parameter string.
         /// </value>
-        public string ParamString
-        {
-            get { return _parametryStr; }
-        }
+        public string ParamString { get; }
     }
 }
