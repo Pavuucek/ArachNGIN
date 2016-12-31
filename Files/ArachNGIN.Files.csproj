@@ -41,7 +41,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>..\_bin\Debug\ArachNGIN.Files.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -67,17 +67,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CRC\AnimeCrc.cs" />
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Crc\AnimeCrc.cs" />
+    <Compile Include="FileFormats\QuakePakFile.PakFat.cs" />
     <Compile Include="FileFormats\VpDirEntry.cs" />
     <Compile Include="FileFormats\VpFile.cs" />
-    <Compile Include="Graphics\ByteArrayConverters.cs" />
     <Compile Include="Graphics\ImageResizer.cs" />
     <Compile Include="Mime\GetMimeTypeFromContent.cs" />
-    <Compile Include="Mime\GetMimeTypeFromExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FileFormats\QuakePakFile.cs" />
     <Compile Include="FileFormats\QuakePakFileSystem.cs" />
-    <Compile Include="Settings\INIFile.cs" />
+    <Compile Include="Settings\Ini.cs" />
     <Compile Include="Settings\JSONSettings1.cs" />
     <Compile Include="Settings\JSONSettings2.cs" />
     <Compile Include="Settings\PortableSettingsProvider.cs" />
@@ -87,6 +89,7 @@
     <Compile Include="Settings\XmlSettings.cs" />
     <Compile Include="TempDir\TempManager.cs" />
     <Compile Include="Torrents\TorrentParser.cs" />
+    <Compile Include="Torrents\TorrentParser.StFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -116,7 +119,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)..\GitVersioner.bat" a "$(ProjectDir)Properties\AssemblyInfo.cs"</PreBuildEvent>
+    <PreBuildEvent>rem "$(SolutionDir)GitVersioner.bat" a "$(SolutionDir)SharedAssemblyInfo.cs"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>

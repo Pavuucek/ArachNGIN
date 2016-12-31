@@ -355,17 +355,6 @@ namespace ArachNGIN.Components.FormHeader
         }
 
         /// <summary>
-        ///     Paints the background of the control.
-        /// </summary>
-        /// <param name="pevent">
-        ///     A <see cref="T:System.Windows.Forms.PaintEventArgs" /> that contains information about the control
-        ///     to paint.
-        /// </param>
-        protected override void OnPaintBackground(PaintEventArgs pevent)
-        {
-        }
-
-        /// <summary>
         ///     Raises the <see cref="E:System.Windows.Forms.Control.Paint" /> event.
         /// </summary>
         /// <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs" /> that contains the event data.</param>

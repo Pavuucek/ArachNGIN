@@ -21,12 +21,12 @@ using System.Windows.Forms;
 namespace ArachNGIN.Components.Console.Forms
 {
     /// <summary>
-    /// Console window class
+    ///     Console window class
     /// </summary>
     internal partial class ConsoleForm
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConsoleForm"/> class.
+        ///     Initializes a new instance of the <see cref="ConsoleForm" /> class.
         /// </summary>
         public ConsoleForm()
         {
@@ -40,10 +40,6 @@ namespace ArachNGIN.Components.Console.Forms
         {
             Hide();
             e.Cancel = true;
-        }
-
-        private void LstLogSeparateSizeChanged(object sender, System.EventArgs e)
-        {
         }
     }
 }

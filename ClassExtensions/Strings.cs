@@ -16,6 +16,8 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+using System.Text;
+
 namespace ArachNGIN.ClassExtensions
 {
     /// <summary>
@@ -69,6 +71,32 @@ namespace ArachNGIN.ClassExtensions
         public static string NoSlashesOnEnds(this string strString)
         {
             return strString.NoEndingSlash().NoStartingSlash();
+        }
+
+        /// <summary>
+        ///     Appends a character to a string.
+        /// </summary>
+        /// <param name="strString">The base string.</param>
+        /// <param name="appendChar">The character to append.</param>
+        /// <returns></returns>
+        public static string Append(this string strString, char appendChar)
+        {
+            var b = new StringBuilder();
+            b.Append(strString).Append(appendChar);
+            return b.ToString();
+        }
+
+        /// <summary>
+        ///     Appends a string to a base string.
+        /// </summary>
+        /// <param name="strString">The base string.</param>
+        /// <param name="appendString">The string to append.</param>
+        /// <returns></returns>
+        public static string Append(this string strString, string appendString)
+        {
+            var b = new StringBuilder();
+            b.Append(strString).Append(appendString);
+            return b.ToString();
         }
     }
 }

@@ -37,14 +37,13 @@ namespace ArachNGIN.ClassExtensions
         /// <returns></returns>
         public static string StringCollectionToString(this StringCollection stringCollection)
         {
-            var outputString = "";
-            if (stringCollection != null && stringCollection.Count > 0)
-            {
-                foreach (string inputString in stringCollection)
-                    outputString += inputString + "\r\n";
-                outputString = outputString.Substring(0, outputString.Length - 1);
-            }
-            return outputString;
+            var outputBuilder = new StringBuilder();
+            var outputString = string.Empty;
+            if (stringCollection == null || stringCollection.Count <= 0) return outputString;
+            foreach (var inputString in stringCollection)
+                outputBuilder.Append(inputString + "\r\n");
+            outputString = outputBuilder.ToString();
+            return outputString.Substring(0, outputString.Length - 1);
         }
 
         /// <summary>
@@ -62,9 +61,7 @@ namespace ArachNGIN.ClassExtensions
             {
                 var enu = sCollection.GetEnumerator();
                 while (enu.MoveNext())
-                {
                     writer.WriteLine(enu.Current);
-                }
             }
         }
 
@@ -81,9 +78,7 @@ namespace ArachNGIN.ClassExtensions
                 writer.AutoFlush = true;
                 var enu = sCollection.GetEnumerator();
                 while (enu.MoveNext())
-                {
                     writer.WriteLine(enu.Current);
-                }
                 writer.Flush();
             }
             //writer.Close(); // nezavirat!
@@ -104,18 +99,18 @@ namespace ArachNGIN.ClassExtensions
             {
                 foreach (ListViewItem item in sCollection)
                 {
-                    var s = "";
+                    var s = new StringBuilder();
                     for (var i = 0; i < item.SubItems.Count; i++)
                     {
-                        s = s + item.SubItems[i];
-                        if (i < item.SubItems.Count - 1) s = s + " -> ";
+                        s.Append(item.SubItems[i]);
+                        if (i < item.SubItems.Count - 1) s.Append(" -> ");
                         s = s.Replace("ListViewSubItem:", "");
                         s = s.Replace("}", "");
                         s = s.Replace("{", "");
                     }
-                    //ListViewItemConverter k = new ListViewItemConverter();
-                    //string s = k.ConvertToString(item);
-                    writer.WriteLine(s);
+                    //ListViewItemConverter k = new ListViewItemConverter()
+                    //string s = k.ConvertToString(item)
+                    writer.WriteLine(s.ToString());
                 }
             }
         }
@@ -142,9 +137,7 @@ namespace ArachNGIN.ClassExtensions
             {
                 if (!bAppend) sCollection.Clear();
                 while ((s = reader.ReadLine()) != null)
-                {
                     sCollection.Add(s);
-                }
                 // načteno
             }
         }
@@ -157,18 +150,28 @@ namespace ArachNGIN.ClassExtensions
         /// <param name="bAppend">if set to <c>true</c> [b append].</param>
         /// <exception cref="IOException">An I/O error occurs. </exception>
         /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string. </exception>
-        public static void LoadFromStream(this StringCollection sCollection, Stream sInput, bool bAppend = false)
+        public static void LoadFromStream(this StringCollection sCollection, Stream sInput, bool bAppend)
         {
             using (var reader = new StreamReader(sInput))
             {
                 string s;
                 if (!bAppend) sCollection.Clear();
                 while ((s = reader.ReadLine()) != null)
-                {
                     sCollection.Add(s);
-                }
             }
             // reader.Close(); // nezavirat!
+        }
+
+        /// <summary>
+        ///     Loads a StringCollection from a stream.
+        /// </summary>
+        /// <param name="sCollection">The StringCollection.</param>
+        /// <param name="sInput">The input stream.</param>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
+        /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string. </exception>
+        public static void LoadFromStream(this StringCollection sCollection, Stream sInput)
+        {
+            LoadFromStream(sCollection, sInput, false);
         }
 
         /// <summary>
@@ -194,7 +197,10 @@ namespace ArachNGIN.ClassExtensions
         /// <param name="sFile">The file.</param>
         /// <exception cref="UnauthorizedAccessException">Access is denied. </exception>
         /// <exception cref="DirectoryNotFoundException">The specified path is invalid, such as being on an unmapped drive. </exception>
-        /// <exception cref="IOException">path includes an incorrect or invalid syntax for file name, directory name, or volume label syntax. </exception>
+        /// <exception cref="IOException">
+        ///     path includes an incorrect or invalid syntax for file name, directory name, or volume
+        ///     label syntax.
+        /// </exception>
         /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
         public static void SaveToFile(this ListView list, string sFile)
         {

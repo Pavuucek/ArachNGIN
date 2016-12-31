@@ -18,7 +18,8 @@
 
 using ArachNGIN.Files.Streams;
 using System;
-using System.Collections.Specialized;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 
@@ -27,16 +28,19 @@ namespace ArachNGIN.Files.FileFormats
     /// <summary>
     ///     Class for reading Quake PAK files
     /// </summary>
-    public class QuakePakFile : IDisposable
+    public partial class QuakePakFile
     {
         private static readonly char[] PakId = { 'P', 'A', 'C', 'K' };
-        private readonly BinaryReader _pakReader;
-        private readonly FileStream _pakStream;
 
         /// <summary>
         ///     The pak file list
         /// </summary>
-        public StringCollection PakFileList = new StringCollection();
+        public readonly List<string> PakFileList = new List<string>();
+
+        /// <summary>
+        ///     The PAK File Allocation Table
+        /// </summary>
+        private PakFat[] _pakFat;
 
         /// <summary>
         ///     The position of start of FAT
@@ -49,103 +53,98 @@ namespace ArachNGIN.Files.FileFormats
         private int _pFilecount;
 
         /// <summary>
-        ///     The PAK File Allocation Table
+        ///     Initializes a new instance of the <see cref="QuakePakFile" /> class.
         /// </summary>
-        private PakFat[] _pakFat;
+        /// <param name="fileName">Name of the PAK file.</param>
+        /// <param name="writeAccess">if set to <c>true</c> allows writing to file.</param>
+        /// <exception cref="System.IO.FileNotFoundException">
+        ///     Can''t open  + fileName
+        ///     or
+        ///     File  + fileName +  has unsupported format
+        /// </exception>
+        public QuakePakFile(string fileName, bool writeAccess)
+        {
+            WriteAccess = writeAccess;
+            FileName = fileName;
+            var info = new FileInfo(fileName);
+            if (!info.Exists)
+                throw new FileNotFoundException("Can''t open " + fileName);
+            // soubor existuje
+            using (var pakStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                using (var pakReader = new BinaryReader(pakStream, Encoding.ASCII))
+                {
+                    if (!ReadHeader(pakStream, pakReader))
+                        throw new FileNotFoundException("File " + fileName + " has unsupported format");
+                }
+            }
+        }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="QuakePakFile" /> class.
         /// </summary>
-        /// <param name="strFileName">Name of the PAK file.</param>
-        /// <param name="bAllowWrite">if set to <c>true</c> [b allow write].</param>
-        /// <exception cref="System.IO.FileNotFoundException">
-        ///     Can''t open  + strFileName
-        ///     or
-        ///     File  + strFileName +  has unsupported format
-        /// </exception>
-        public QuakePakFile(string strFileName, bool bAllowWrite)
+        /// <param name="fileName">Name of the PAK file.</param>
+        public QuakePakFile(string fileName) : this(fileName, false)
         {
-            var info = new FileInfo(strFileName);
-            if (info.Exists == false)
-            {
-                throw new FileNotFoundException("Can''t open " + strFileName);
-            }
-            // soubor existuje
-            if (bAllowWrite)
-            {
-                _pakStream = new FileStream(strFileName, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
-            }
-            else
-            {
-                _pakStream = new FileStream(strFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            }
-            _pakReader = new BinaryReader(_pakStream, Encoding.GetEncoding("Windows-1250"));
-            //
-            if (!ReadHeader())
-            {
-                _pakStream.Close();
-                throw new FileNotFoundException("File " + strFileName + " has unsupported format");
-            }
         }
-
-        #region IDisposable Members
 
         /// <summary>
-        ///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        ///     Gets the name of the file.
         /// </summary>
-        public void Dispose()
-        {
-            Close();
-        }
-
-        #endregion IDisposable Members
+        /// <value>
+        ///     The name of the file.
+        /// </value>
+        public string FileName { get; }
 
         /// <summary>
-        ///     Closes this instance.
+        ///     Gets or sets a value indicating whether class instance can write to a pak file.
         /// </summary>
-        public void Close()
-        {
-            _pakReader.Close();
-            _pakStream.Close();
-            _pakStream.Dispose();
-        }
+        /// <value>
+        ///     <c>true</c> if [write access]; otherwise, <c>false</c>.
+        /// </value>
+        public bool WriteAccess { get; set; }
 
         /// <summary>
         ///     Reads the PAK file header.
         /// </summary>
-        /// <returns>true or false</returns>
-        private bool ReadHeader()
+        /// <param name="pakStream">The pak stream.</param>
+        /// <param name="pakReader">The pak reader.</param>
+        /// <returns>
+        ///     true or false
+        /// </returns>
+        private bool ReadHeader(Stream pakStream, BinaryReader pakReader)
         {
-            _pakStream.Position = 0;
-            string pHeader = StreamHandling.PCharToString(_pakReader.ReadChars(PakId.Length));
+            pakStream.Position = 0;
+            var pHeader = StreamHandling.PCharToString(pakReader.ReadChars(PakId.Length));
             if (pHeader == StreamHandling.PCharToString(PakId))
             {
                 // hned za hlavickou je pozice zacatku fatky
-                _pFatstart = _pakReader.ReadInt32();
+                _pFatstart = pakReader.ReadInt32();
                 // a pak je pocet souboru * 64
-                _pFilecount = _pakReader.ReadInt32() / 64;
+                _pFilecount = pakReader.ReadInt32() / 64;
                 //
                 // presuneme se na pozici fatky a nacteme ji
-                _pakStream.Position = _pFatstart;
+                pakStream.Position = _pFatstart;
                 _pakFat = new PakFat[_pFilecount];
                 // vymazneme filelist
                 PakFileList.Clear();
-                for (int i = 0; i < _pFilecount; i++)
+                for (var i = 0; i < _pFilecount; i++)
                 {
                     // my radi lowercase. v tom se lip hleda ;-)
-                    string sfile = StreamHandling.PCharToString(_pakReader.ReadChars(56)).ToLower();
+                    var sfile =
+                        StreamHandling.PCharToString(pakReader.ReadChars(56)).ToLower(CultureInfo.InvariantCulture);
                     sfile = sfile.Replace("/", "\\"); // unixovy lomitka my neradi.
                     // pridame soubor do filelistu a do PakFATky
                     PakFileList.Add(sfile);
                     _pakFat[i].FileName = sfile;
-                    _pakFat[i].FileStart = _pakReader.ReadInt32();
-                    _pakFat[i].FileLength = _pakReader.ReadInt32();
+                    _pakFat[i].FileStart = pakReader.ReadInt32();
+                    _pakFat[i].FileLength = pakReader.ReadInt32();
                 }
-                _pakStream.Position = 0;
+                pakStream.Position = 0;
                 //
                 return true;
             }
-            _pakStream.Position = 0;
+            pakStream.Position = 0;
             return false;
         }
 
@@ -166,14 +165,9 @@ namespace ArachNGIN.Files.FileFormats
         /// <returns>-1 if not found</returns>
         private int GetFileIndex(string strFileInPak)
         {
-            for (int i = 0; i < _pakFat.Length; i++)
-            {
-                if (_pakFat[i].FileName.ToLower() == strFileInPak.ToLower())
-                {
-                    // soubor nalezen, vracime jeho cislo
+            for (var i = 0; i < _pakFat.Length; i++)
+                if (string.Equals(_pakFat[i].FileName, strFileInPak, StringComparison.CurrentCultureIgnoreCase))
                     return i;
-                }
-            }
             // soubor nenalezen
             return -1;
         }
@@ -185,11 +179,14 @@ namespace ArachNGIN.Files.FileFormats
         /// <param name="sOutput">The stream to output.</param>
         public void ExtractStream(string strFileInPak, Stream sOutput)
         {
-            int fIndex = GetFileIndex(strFileInPak);
+            var fIndex = GetFileIndex(strFileInPak);
             if (fIndex == -1) return; // soubor v paku neni, tudiz konec.
             sOutput.SetLength(0);
-            _pakStream.Seek(_pakFat[fIndex].FileStart, SeekOrigin.Begin);
-            StreamHandling.StreamCopy(_pakStream, sOutput, _pakFat[fIndex].FileLength);
+            using (var pakStream = new FileStream(FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                pakStream.Seek(_pakFat[fIndex].FileStart, SeekOrigin.Begin);
+                StreamHandling.StreamCopy(pakStream, sOutput, _pakFat[fIndex].FileLength);
+            }
         }
 
         /// <summary>
@@ -199,10 +196,12 @@ namespace ArachNGIN.Files.FileFormats
         /// <param name="strOutputFile">The output file.</param>
         public void ExtractFile(string strFileInPak, string strOutputFile)
         {
-            Stream fOutput = new FileStream(strOutputFile, FileMode.OpenOrCreate, FileAccess.ReadWrite,
-                FileShare.ReadWrite);
-            ExtractStream(strFileInPak, fOutput);
-            fOutput.Close();
+            using (
+                var fOutput = new FileStream(strOutputFile, FileMode.OpenOrCreate, FileAccess.ReadWrite,
+                    FileShare.ReadWrite))
+            {
+                ExtractStream(strFileInPak, fOutput);
+            }
         }
 
         /// <summary>
@@ -212,21 +211,31 @@ namespace ArachNGIN.Files.FileFormats
         /// <returns>true or false</returns>
         public static bool CreateNewPak(string strFileName)
         {
-            // TODO: taky by to mohlo vracet true podle úspěšnosti :-)
-            bool result = false;
-            var fs = new FileStream(strFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-            fs.Position = 0;
-            var bw = new BinaryWriter(fs, Encoding.GetEncoding("Windows-1250"));
-            bw.Write(PakId);
-            int pFatstart = PakId.Length;
-            pFatstart += sizeof(Int32); // offset
-            pFatstart += sizeof(Int32); // length
-            const Int32 pFilecount = 0;
-            bw.Write(pFatstart);
-            bw.Write(pFilecount);
-            bw.Close();
-            fs.Close();
-            return result;
+            try
+            {
+                using (
+                    var fs = new FileStream(strFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite,
+                        FileShare.ReadWrite))
+                {
+                    fs.Position = 0;
+                    using (var bw = new BinaryWriter(fs, Encoding.ASCII))
+                    {
+                        bw.Write(PakId);
+                        var pFatstart = PakId.Length;
+                        pFatstart += sizeof(int); // offset
+                        pFatstart += sizeof(int); // length
+                        const int pFilecount = 0;
+                        bw.Write(pFatstart);
+                        bw.Write(pFilecount);
+
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -241,35 +250,32 @@ namespace ArachNGIN.Files.FileFormats
             filename = filename.Replace("\\", "/");
             // kdyz to nekdo prepisk s nazvem souboru tak ho seriznout :-)
             if (filename.Length > 56)
-            {
                 filename.CopyTo(0, result, 0, 55);
-            }
             else
-            {
                 filename.CopyTo(0, result, 0, filename.Length);
-            }
             return result;
         }
 
         /// <summary>
         ///     Writes the FAT.
         /// </summary>
-        private void WriteFat()
+        private void WriteFat(Stream pakStream)
         {
             // naseekovat startovní pozici fatky
-            _pakStream.Seek(_pFatstart, SeekOrigin.Begin);
-            var bw = new BinaryWriter(_pakStream, Encoding.GetEncoding("Windows-1250"));
-            foreach (PakFat item in _pakFat)
+            pakStream.Seek(_pFatstart, SeekOrigin.Begin);
+            using (var bw = new BinaryWriter(pakStream, Encoding.ASCII))
             {
-                // nazev souboru
-                bw.Write(PrepFileNameWrite(item.FileName));
-                bw.Write(item.FileStart);
-                bw.Write(item.FileLength);
+                foreach (var item in _pakFat)
+                {
+                    // nazev souboru
+                    bw.Write(PrepFileNameWrite(item.FileName));
+                    bw.Write(item.FileStart);
+                    bw.Write(item.FileLength);
+                }
+                // naseekovat na pocet souboru a zapsat
+                pakStream.Seek(PakId.Length + sizeof(int), SeekOrigin.Begin);
+                bw.Write(_pFilecount * 64); // krat 64. z neznamych duvodu
             }
-            // naseekovat na pocet souboru a zapsat
-            _pakStream.Seek(PakId.Length + sizeof(Int32), SeekOrigin.Begin);
-            bw.Write(_pFilecount * 64); // krat 64. z neznamych duvodu
-            // bw.Close();
         }
 
         /// <summary>
@@ -283,30 +289,35 @@ namespace ArachNGIN.Files.FileFormats
         {
             // soubor uz existuje --> dal se nebavime!
             if (PakFileExists(pakFileName)) return false;
+            // mame zakazany zapis
+            if (!WriteAccess) return false;
             // novy soubor zapisujeme na pozici fatky
-            _pakStream.Seek(_pFatstart, SeekOrigin.Begin);
-            // vytvorit novou fatku a zapsat do ni novy soubor
-            PakFat[] oldPakFat = _pakFat;
-            _pFilecount = oldPakFat.Length + 1;
-            _pakFat = new PakFat[_pFilecount];
-            oldPakFat.CopyTo(_pakFat, 0);
-            _pakFat[_pFilecount - 1].FileName = pakFileName;
-            _pakFat[_pFilecount - 1].FileLength = (int)stream.Length;
-            _pakFat[_pFilecount - 1].FileStart = _pFatstart;
-            // zapsat soubor
-            StreamHandling.StreamCopy(stream, _pakStream, 0, _pakStream.Position);
-            //StreamHandling.StreamCopyAsync(stream, PakStream);
-            // po dokonceni zapisovani zjistit pozici streamu
-            _pFatstart = (int)_pakStream.Position;
-            //bw.Close();
-            // zapsat fatku
-            if (writeFat)
+            using (var pakStream = new FileStream(FileName, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
             {
-                _pakStream.Seek(PakId.Length, SeekOrigin.Begin);
-                var bw = new BinaryWriter(_pakStream);
-                // zapsat startovni pozici fatky
-                bw.Write(_pFatstart);
-                WriteFat();
+                pakStream.Seek(_pFatstart, SeekOrigin.Begin);
+                // vytvorit novou fatku a zapsat do ni novy soubor
+                var oldPakFat = _pakFat;
+                _pFilecount = oldPakFat.Length + 1;
+                _pakFat = new PakFat[_pFilecount];
+                oldPakFat.CopyTo(_pakFat, 0);
+                _pakFat[_pFilecount - 1].FileName = pakFileName;
+                _pakFat[_pFilecount - 1].FileLength = (int)stream.Length;
+                _pakFat[_pFilecount - 1].FileStart = _pFatstart;
+                // zapsat soubor
+                StreamHandling.StreamCopy(stream, pakStream, 0, pakStream.Position);
+                // po dokonceni zapisovani zjistit pozici streamu
+                _pFatstart = (int)pakStream.Position;
+                // zapsat fatku
+                if (writeFat)
+                {
+                    pakStream.Seek(PakId.Length, SeekOrigin.Begin);
+                    using (var bw = new BinaryWriter(pakStream))
+                    {
+                        // zapsat startovni pozici fatky
+                        bw.Write(_pFatstart);
+                        WriteFat(pakStream);
+                    }
+                }
             }
             return true;
         }
@@ -316,18 +327,30 @@ namespace ArachNGIN.Files.FileFormats
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="pakFileName">Name of the file. in a pak</param>
+        /// <returns></returns>
+        public bool AddFile(string fileName, string pakFileName)
+        {
+            return AddFile(fileName, pakFileName, true);
+        }
+
+        /// <summary>
+        ///     Adds the file to a PAK.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="pakFileName">Name of the file. in a pak</param>
         /// <param name="writeFat">if set to <c>true</c> [write fat].</param>
         /// <returns></returns>
-        public bool AddFile(string fileName, string pakFileName, bool writeFat = true)
+        public bool AddFile(string fileName, string pakFileName, bool writeFat)
         {
             if (!File.Exists(fileName)) return false;
+            if (!WriteAccess) return false;
             bool result;
             try
             {
-                Stream fstream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-                result = AddStream(fstream, pakFileName, writeFat);
-                fstream.Close();
-                result = true;
+                using (var fstream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+                {
+                    result = AddStream(fstream, pakFileName, writeFat);
+                }
             }
             catch
             {
@@ -335,41 +358,5 @@ namespace ArachNGIN.Files.FileFormats
             }
             return result;
         }
-
-        /// <summary>
-        ///     Adds the file to a PAK.
-        /// </summary>
-        /// <param name="fileName">Name of the file.</param>
-        /// <param name="pakFileName">Name of the file in a PAK.</param>
-        /// <returns></returns>
-        public bool AddFile(string fileName, string pakFileName)
-        {
-            return AddFile(fileName, pakFileName, true);
-        }
-
-        #region Nested type: PakFat
-
-        /// <summary>
-        ///     PAK File Allocation Table
-        /// </summary>
-        private struct PakFat
-        {
-            /// <summary>
-            ///     The file length
-            /// </summary>
-            public int FileLength;
-
-            /// <summary>
-            ///     The file name
-            /// </summary>
-            public string FileName;
-
-            /// <summary>
-            ///     The starting offset of a file
-            /// </summary>
-            public int FileStart;
-        }
-
-        #endregion Nested type: PakFat
     }
 }

@@ -35,13 +35,15 @@ namespace ArachNGIN.Files.Settings
         private const string LocalSettingsNodeName = "localSettings";
         private const string GlobalSettingsNodeName = "globalSettings";
         private const string ClassName = "PortableSettingsProvider";
+
+        private string _appName;
         private XmlDocument _xmlDocument;
 
         private string FilePath
         {
             get
             {
-                var appname = Path.GetDirectoryName(Application.ExecutablePath) ?? string.Empty;
+                var appname = Path.GetDirectoryName(Application.ExecutablePath);
                 return Path.Combine(appname, string.Format("{0}.settings", ApplicationName));
             }
         }
@@ -52,11 +54,9 @@ namespace ArachNGIN.Files.Settings
             {
                 var settingsNode = GetSettingsNode(LocalSettingsNodeName);
                 var machineNode = settingsNode.SelectSingleNode(Environment.MachineName.ToLowerInvariant());
-                if (machineNode == null)
-                {
-                    machineNode = RootDocument.CreateElement(Environment.MachineName.ToLowerInvariant());
-                    settingsNode.AppendChild(machineNode);
-                }
+                if (machineNode != null) return machineNode;
+                machineNode = RootDocument.CreateElement(Environment.MachineName.ToLowerInvariant());
+                settingsNode.AppendChild(machineNode);
                 return machineNode;
             }
         }
@@ -75,21 +75,19 @@ namespace ArachNGIN.Files.Settings
         {
             get
             {
-                if (_xmlDocument == null)
+                if (_xmlDocument != null) return _xmlDocument;
+                try
                 {
-                    try
-                    {
-                        _xmlDocument = new XmlDocument();
-                        _xmlDocument.Load(FilePath);
-                    }
-                    catch (Exception)
-                    {
-                        // ignored
-                    }
-                    if (_xmlDocument != null && _xmlDocument.SelectSingleNode(RootNodeName) != null)
-                        return _xmlDocument;
-                    _xmlDocument = GetBlankXmlDocument();
+                    _xmlDocument = new XmlDocument();
+                    _xmlDocument.Load(FilePath);
                 }
+                catch (Exception)
+                {
+                    // ignored
+                }
+                if (_xmlDocument != null && _xmlDocument.SelectSingleNode(RootNodeName) != null)
+                    return _xmlDocument;
+                _xmlDocument = GetBlankXmlDocument();
                 return _xmlDocument;
             }
         }
@@ -100,7 +98,7 @@ namespace ArachNGIN.Files.Settings
         public override string ApplicationName
         {
             get { return Path.GetFileNameWithoutExtension(Application.ExecutablePath); }
-            set { }
+            set { _appName = value; }
         }
 
         /// <summary>
@@ -187,7 +185,9 @@ namespace ArachNGIN.Files.Settings
                 : LocalSettingsNode;
             var settingNode = targetNode.SelectSingleNode(string.Format("setting[@name='{0}']", propertyValue.Name));
             if (settingNode != null)
+            {
                 settingNode.InnerText = propertyValue.SerializedValue.ToString();
+            }
             else
             {
                 settingNode = RootDocument.CreateElement("setting");
@@ -213,7 +213,7 @@ namespace ArachNGIN.Files.Settings
             return settingNode.InnerText;
         }
 
-        private bool IsGlobal(SettingsProperty property)
+        private static bool IsGlobal(SettingsProperty property)
         {
             foreach (DictionaryEntry attribute in property.Attributes)
                 if ((Attribute)attribute.Value is SettingsManageabilityAttribute)
@@ -224,11 +224,9 @@ namespace ArachNGIN.Files.Settings
         private XmlNode GetSettingsNode(string name)
         {
             var settingsNode = RootNode.SelectSingleNode(name);
-            if (settingsNode == null)
-            {
-                settingsNode = RootDocument.CreateElement(name);
-                RootNode.AppendChild(settingsNode);
-            }
+            if (settingsNode != null) return settingsNode;
+            settingsNode = RootDocument.CreateElement(name);
+            RootNode.AppendChild(settingsNode);
             return settingsNode;
         }
 

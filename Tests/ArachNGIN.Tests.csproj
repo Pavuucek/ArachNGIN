@@ -43,6 +43,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -57,9 +58,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="ClassExtensions\StringColorsTests.cs" />
+    <Compile Include="ClassExtensions\StringsTests.cs" />
     <Compile Include="CommandLine\ParametersTest.cs" />
     <Compile Include="Files\Crc\AnimeCrcTest.cs" />
+    <Compile Include="Files\FileFormats\QuakePakFileTests.cs" />
     <Compile Include="Files\FileFormats\VpFileTest.cs" />
+    <Compile Include="Files\Settings\IniTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +76,9 @@
     </None>
     <None Include="packages.config" />
     <None Include="simple-crc-test.7763A7AE.cmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="simple.pak">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

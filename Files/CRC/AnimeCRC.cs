@@ -2,9 +2,10 @@
  */
 
 using ArachNGIN.Files.Streams;
+using System.Collections.Generic;
 using System.IO;
 
-namespace ArachNGIN.Files.CRC
+namespace ArachNGIN.Files.Crc
 {
     /// <summary>
     ///     Class for generating file CRC like those found on anime releases (probably a MD5 or something)
@@ -112,15 +113,16 @@ namespace ArachNGIN.Files.CRC
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <returns></returns>
-        public static uint GetCrcFromStreamUint(Stream stream)
+        private static uint GetCrcFromStreamUint(Stream stream)
         {
             if (stream == null) return 0;
             if (!stream.CanRead) return 0;
             stream.Position = 0;
             var acrc = new AnimeCrc();
+            acrc.ResetCrc();
             var buffer = new byte[4096];
-            var len = 0;
-            while ((len = stream.Read(buffer, 0, len)) != 0)
+            int len;
+            while ((len = stream.Read(buffer, 0, buffer.Length)) != 0)
                 acrc.Update(buffer, 0, len);
             stream.Position = 0;
             return acrc.Value;
@@ -147,14 +149,13 @@ namespace ArachNGIN.Files.CRC
             if (string.IsNullOrEmpty(filename)) return 0;
             if (!File.Exists(filename)) return 0;
             var acrc = new AnimeCrc();
+            acrc.ResetCrc();
             var buffer = new byte[4096];
-            //uint r = 0;
             using (var fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
             {
-                int le; // = 0;
+                int le;
                 while ((le = fs.Read(buffer, 0, buffer.Length)) != 0)
                     acrc.Update(buffer, 0, le);
-                //r = acrc.Value;
             }
             return acrc.Value;
         }
@@ -173,7 +174,7 @@ namespace ArachNGIN.Files.CRC
         /// <summary>
         ///     Resets the CRC.
         /// </summary>
-        public void ResetCrc()
+        private void ResetCrc()
         {
             Value = 0;
         }
@@ -182,7 +183,7 @@ namespace ArachNGIN.Files.CRC
         ///     Updates the specified bval.
         /// </summary>
         /// <param name="bval">The bval.</param>
-        public void Update(int bval)
+        private void Update(int bval)
         {
             Value ^= CrcSeed;
             Value = CrcTable[Value ^ (bval & 0xff)] ^ (Value >> 8);
@@ -193,9 +194,9 @@ namespace ArachNGIN.Files.CRC
         ///     Updates the specified buffer.
         /// </summary>
         /// <param name="buf">The buffer.</param>
-        public void Update(byte[] buf)
+        private void Update(IList<byte> buf)
         {
-            Update(buf, 0, buf.Length);
+            Update(buf, 0, buf.Count);
         }
 
         /// <summary>
@@ -204,11 +205,10 @@ namespace ArachNGIN.Files.CRC
         /// <param name="b">The b.</param>
         /// <param name="off">The off.</param>
         /// <param name="l">The l.</param>
-        public void Update(byte[] b, int off, int l)
+        private void Update(IList<byte> b, int off, int l)
         {
-            //if ((b == null) && (off < 0 || l < 0 || off + l > b.Length)) return;
             if (b == null) return;
-            if (off < 0 || l < 0 || off + l > b.Length) return;
+            if (off < 0 || l < 0 || off + l > b.Count) return;
             Value ^= CrcSeed;
             while (--l >= 0)
                 Value = CrcTable[(Value ^ b[off++]) & 0xff] ^ (Value >> 8);

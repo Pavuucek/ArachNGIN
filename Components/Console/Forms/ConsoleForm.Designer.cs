@@ -46,6 +46,7 @@ namespace ArachNGIN.Components.Console.Forms
 		private void InitializeComponent()
 		{
             this.lstLogSeparate = new System.Windows.Forms.ListView();
+            this.colNumber = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colMessage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1 = new System.Windows.Forms.Panel();
@@ -53,7 +54,6 @@ namespace ArachNGIN.Components.Console.Forms
             this.txtCommand = new System.Windows.Forms.TextBox();
             this.lblCMD = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
-            this.colNumber = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,7 +71,11 @@ namespace ArachNGIN.Components.Console.Forms
             this.lstLogSeparate.TabIndex = 0;
             this.lstLogSeparate.UseCompatibleStateImageBehavior = false;
             this.lstLogSeparate.View = System.Windows.Forms.View.Details;
-            this.lstLogSeparate.SizeChanged += new System.EventHandler(this.LstLogSeparateSizeChanged);
+            // 
+            // colNumber
+            // 
+            this.colNumber.Text = "#";
+            this.colNumber.Width = 30;
             // 
             // colTime
             // 
@@ -129,11 +133,6 @@ namespace ArachNGIN.Components.Console.Forms
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
-            // 
-            // colNumber
-            // 
-            this.colNumber.Text = "#";
-            this.colNumber.Width = 30;
             // 
             // ConsoleForm
             // 

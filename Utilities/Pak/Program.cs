@@ -98,56 +98,55 @@ namespace Pak
             }
 
             if (!File.Exists(args[1])) QuakePakFile.CreateNewPak(args[1]);
-            using (var pak = new QuakePakFile(args[1], true))
+            var pak = new QuakePakFile(args[1], true);
+
+            switch (args[0])
             {
-                switch (args[0])
-                {
-                    case "a":
-                        if (!AddSingleFile(args, pak)) return;
-                        break;
+                case "a":
+                    if (!AddSingleFile(args, pak)) return;
+                    break;
 
-                    case "d":
-                        if (!AddDirectory(args, pak)) return;
-                        break;
+                case "d":
+                    if (!AddDirectory(args, pak)) return;
+                    break;
 
-                    case "e":
-                        if (!ExtractSingleFile(args, pak)) return;
-                        break;
+                case "e":
+                    if (!ExtractSingleFile(args, pak)) return;
+                    break;
 
-                    case "x":
-                        if (!ExtractAllFiles(args, pak)) return;
-                        break;
-                    // pridat a indexovat
-                    case "ia":
-                        if (args.Length < 3)
-                        {
-                            NotEnoughArgs();
-                            return;
-                        }
-                        LoadIndex(pak);
+                case "x":
+                    if (!ExtractAllFiles(args, pak)) return;
+                    break;
+                // pridat a indexovat
+                case "ia":
+                    if (args.Length < 3)
+                    {
+                        NotEnoughArgs();
+                        return;
+                    }
+                    LoadIndex(pak);
 
-                        if (ExistsInIndex(args[2]))
-                        {
-                            var g = Guid.NewGuid();
-                            ReplaceInIndex(args[2], g.ToString());
-                            pak.AddFile(args[2], g.ToString());
-                        }
-                        else
-                        {
-                            var s = AddIndexedFile(args[2]);
-                            // TODO: tohle neudělá nic. AddFile neumí nahrazovat :-)
-                            pak.AddFile(args[2], s);
-                        }
-                        //
-                        FinishIndex();
-                        using (Stream ms = new MemoryStream())
-                        {
-                            PakIndex.SaveToStream(ms);
-                            ms.Seek(0, SeekOrigin.Begin);
-                            pak.AddStream(ms, "(pak-index)", true);
-                        }
-                        break;
-                }
+                    if (ExistsInIndex(args[2]))
+                    {
+                        var g = Guid.NewGuid();
+                        ReplaceInIndex(args[2], g.ToString());
+                        pak.AddFile(args[2], g.ToString());
+                    }
+                    else
+                    {
+                        var s = AddIndexedFile(args[2]);
+                        // TODO: tohle neudělá nic. AddFile neumí nahrazovat :-)
+                        pak.AddFile(args[2], s);
+                    }
+                    //
+                    FinishIndex();
+                    using (Stream ms = new MemoryStream())
+                    {
+                        PakIndex.SaveToStream(ms);
+                        ms.Seek(0, SeekOrigin.Begin);
+                        pak.AddStream(ms, "(pak-index)", true);
+                    }
+                    break;
             }
             Console.WriteLine();
             Console.WriteLine("Hotovo!");
@@ -170,7 +169,7 @@ namespace Pak
             if (!Directory.Exists(args[2]))
                 Console.WriteLine("Chyba: Výstupní adresář neexistuje!");
 
-            var path = args[2].AddSlash(); // +Path.GetDirectoryName(args[1]);
+            var path = args[2].AddSlash(); // +Path.GetDirectoryName(args[1])
             foreach (var file in pak.PakFileList)
             {
                 Console.WriteLine("Rozbaluji {0}", file);
@@ -279,8 +278,8 @@ namespace Pak
         private static string AddIndexedFile(string file)
         {
             var g = Guid.NewGuid();
-            PakIndex.Add(file + "=" + g.ToString().ToLower());
-            return g.ToString().ToLower();
+            PakIndex.Add(file + "=" + g.ToString().ToLowerInvariant());
+            return g.ToString().ToLowerInvariant();
         }
 
         /// <summary>
@@ -314,8 +313,8 @@ namespace Pak
             {
                 var split = line.Split('=');
                 // vic jak 1 -> radka je v ini formatu, tj ok a neobsahuje 'filecount' a neni prazdny
-                if (split.Length > 1 && !line.ToLower().Contains("filecount") && !string.IsNullOrEmpty(line))
-                    PakIndex.Add(line.ToLower());
+                if (split.Length > 1 && !line.ToLowerInvariant().Contains("filecount") && !string.IsNullOrEmpty(line))
+                    PakIndex.Add(line.ToLowerInvariant());
             }
         }
 
@@ -330,11 +329,11 @@ namespace Pak
             PakIndex.CopyTo(tempIndex, 0);
             PakIndex.Clear();
             foreach (var line in tempIndex)
-                if (line.Contains(oldFile.ToLower()))
+                if (line.Contains(oldFile.ToLowerInvariant()))
                 {
                     var linesplit = line.Split('=');
                     if (linesplit.Length != 2) PakIndex.Add(line);
-                    else PakIndex.Add(linesplit[0] + "=" + newFile.ToLower());
+                    else PakIndex.Add(linesplit[0] + "=" + newFile.ToLowerInvariant());
                 }
                 else
                 {
@@ -371,7 +370,7 @@ namespace Pak
                 var split = s.Split('=');
                 if (split.Length > 1) sd.Add(split[0], split[1]);
             }
-            return sd.ContainsKey(filename.ToLower());
+            return sd.ContainsKey(filename.ToLowerInvariant());
         }
     }
 }
