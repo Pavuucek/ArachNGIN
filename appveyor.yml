@@ -19,6 +19,8 @@ before_build:
 - cmd: >-
     nuget restore
 
+    call GitVersioner.bat a SharedAssemblyInfo.cs
+
 after_build:
 - cmd: >-
     call GitVersioner.bat ba
