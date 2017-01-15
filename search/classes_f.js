@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['xmlsettings',['XmlSettings',['../class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_xml_settings.html',1,'ArachNGIN::Files::Streams']]]
+  ['unixtimestampextension',['UnixTimeStampExtension',['../class_arach_n_g_i_n_1_1_class_extensions_1_1_unix_time_stamp_extension.html',1,'ArachNGIN::ClassExtensions']]]
 ];

@@ -1,22 +1,28 @@
 var searchData=
 [
   ['arachngin',['ArachNGIN',['../namespace_arach_n_g_i_n.html',1,'']]],
+  ['classextensions',['ClassExtensions',['../namespace_arach_n_g_i_n_1_1_class_extensions.html',1,'ArachNGIN.ClassExtensions'],['../namespace_arach_n_g_i_n_1_1_tests_1_1_class_extensions.html',1,'ArachNGIN.Tests.ClassExtensions']]],
   ['colorcombobox',['ColorComboBox',['../namespace_arach_n_g_i_n_1_1_components_1_1_color_combo_box.html',1,'ArachNGIN::Components']]],
+  ['commandline',['CommandLine',['../namespace_arach_n_g_i_n_1_1_command_line.html',1,'ArachNGIN.CommandLine'],['../namespace_arach_n_g_i_n_1_1_tests_1_1_command_line.html',1,'ArachNGIN.Tests.CommandLine']]],
   ['components',['Components',['../namespace_arach_n_g_i_n_1_1_components.html',1,'ArachNGIN']]],
   ['console',['Console',['../namespace_arach_n_g_i_n_1_1_components_1_1_console.html',1,'ArachNGIN::Components']]],
-  ['crc',['CRC',['../namespace_arach_n_g_i_n_1_1_files_1_1_c_r_c.html',1,'ArachNGIN::Files']]],
-  ['files',['Files',['../namespace_arach_n_g_i_n_1_1_files.html',1,'ArachNGIN']]],
+  ['crc',['Crc',['../namespace_arach_n_g_i_n_1_1_files_1_1_crc.html',1,'ArachNGIN.Files.Crc'],['../namespace_arach_n_g_i_n_1_1_tests_1_1_files_1_1_crc.html',1,'ArachNGIN.Tests.Files.Crc']]],
+  ['fileformats',['FileFormats',['../namespace_arach_n_g_i_n_1_1_files_1_1_file_formats.html',1,'ArachNGIN.Files.FileFormats'],['../namespace_arach_n_g_i_n_1_1_tests_1_1_files_1_1_file_formats.html',1,'ArachNGIN.Tests.Files.FileFormats']]],
+  ['files',['Files',['../namespace_arach_n_g_i_n_1_1_files.html',1,'ArachNGIN.Files'],['../namespace_arach_n_g_i_n_1_1_tests_1_1_files.html',1,'ArachNGIN.Tests.Files']]],
   ['formheader',['FormHeader',['../namespace_arach_n_g_i_n_1_1_components_1_1_form_header.html',1,'ArachNGIN::Components']]],
   ['forms',['Forms',['../namespace_arach_n_g_i_n_1_1_components_1_1_console_1_1_forms.html',1,'ArachNGIN::Components::Console']]],
   ['graphics',['Graphics',['../namespace_arach_n_g_i_n_1_1_files_1_1_graphics.html',1,'ArachNGIN::Files']]],
+  ['handlers',['Handlers',['../namespace_arach_n_g_i_n_1_1_tracer_1_1_handlers.html',1,'ArachNGIN::Tracer']]],
+  ['helpers',['Helpers',['../namespace_arach_n_g_i_n_1_1_tracer_1_1_helpers.html',1,'ArachNGIN::Tracer']]],
   ['mime',['Mime',['../namespace_arach_n_g_i_n_1_1_files_1_1_mime.html',1,'ArachNGIN::Files']]],
   ['misc',['Misc',['../namespace_arach_n_g_i_n_1_1_components_1_1_console_1_1_misc.html',1,'ArachNGIN::Components::Console']]],
   ['mpq',['MPQ',['../namespace_arach_n_g_i_n_1_1_files_1_1_m_p_q.html',1,'ArachNGIN::Files']]],
   ['progresstasklist',['ProgressTaskList',['../namespace_arach_n_g_i_n_1_1_components_1_1_progress_task_list.html',1,'ArachNGIN::Components']]],
-  ['quakepak',['QuakePak',['../namespace_arach_n_g_i_n_1_1_files_1_1_quake_pak.html',1,'ArachNGIN::Files']]],
-  ['settings',['Settings',['../namespace_arach_n_g_i_n_1_1_files_1_1_settings.html',1,'ArachNGIN::Files']]],
+  ['settings',['Settings',['../namespace_arach_n_g_i_n_1_1_files_1_1_settings.html',1,'ArachNGIN.Files.Settings'],['../namespace_arach_n_g_i_n_1_1_tests_1_1_files_1_1_settings.html',1,'ArachNGIN.Tests.Files.Settings']]],
   ['splashform',['SplashForm',['../namespace_arach_n_g_i_n_1_1_components_1_1_splash_form.html',1,'ArachNGIN::Components']]],
   ['streams',['Streams',['../namespace_arach_n_g_i_n_1_1_files_1_1_streams.html',1,'ArachNGIN::Files']]],
   ['tempdir',['TempDir',['../namespace_arach_n_g_i_n_1_1_files_1_1_temp_dir.html',1,'ArachNGIN::Files']]],
-  ['torrents',['Torrents',['../namespace_arach_n_g_i_n_1_1_files_1_1_torrents.html',1,'ArachNGIN::Files']]]
+  ['tests',['Tests',['../namespace_arach_n_g_i_n_1_1_tests.html',1,'ArachNGIN']]],
+  ['torrents',['Torrents',['../namespace_arach_n_g_i_n_1_1_files_1_1_torrents.html',1,'ArachNGIN::Files']]],
+  ['tracer',['Tracer',['../namespace_arach_n_g_i_n_1_1_tracer.html',1,'ArachNGIN']]]
 ];

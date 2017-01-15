@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['jsonsettings1_2ecs',['JSONSettings1.cs',['../_j_s_o_n_settings1_8cs.html',1,'']]],
-  ['jsonsettings2_2ecs',['JSONSettings2.cs',['../_j_s_o_n_settings2_8cs.html',1,'']]]
+  ['imageformheader_2ecs',['ImageFormHeader.cs',['../_image_form_header_8cs.html',1,'']]],
+  ['imageresizer_2ecs',['ImageResizer.cs',['../_image_resizer_8cs.html',1,'']]],
+  ['ini_2ecs',['Ini.cs',['../_ini_8cs.html',1,'']]],
+  ['initests_2ecs',['IniTests.cs',['../_ini_tests_8cs.html',1,'']]],
+  ['itracerhandler_2ecs',['ITracerHandler.cs',['../_i_tracer_handler_8cs.html',1,'']]]
 ];

@@ -1,12 +1,11 @@
 var searchData=
 [
-  ['backcolor',['BackColor',['../class_arach_n_g_i_n_1_1_components_1_1_form_header_1_1_form_header.html#a71620452fc0ccc50bc77a2fc9aa69324',1,'ArachNGIN.Components.FormHeader.FormHeader.BackColor()'],['../class_arach_n_g_i_n_1_1_components_1_1_splash_form_1_1_splash_form.html#a055b786da7d571c476f84bd19eab1d97',1,'ArachNGIN.Components.SplashForm.SplashForm.BackColor()']]],
+  ['backcolor',['BackColor',['../class_arach_n_g_i_n_1_1_components_1_1_form_header_1_1_form_header.html#a71620452fc0ccc50bc77a2fc9aa69324',1,'ArachNGIN.Components.FormHeader.FormHeader.BackColor()'],['../class_arach_n_g_i_n_1_1_components_1_1_splash_form_1_1_splash_form.html#ad9406f14383965503de8a6926d603501',1,'ArachNGIN.Components.SplashForm.SplashForm.BackColor()']]],
   ['backgroundimage',['BackgroundImage',['../class_arach_n_g_i_n_1_1_components_1_1_form_header_1_1_form_header.html#a5cb569fb62428e6f55d4c782cdb18798',1,'ArachNGIN.Components.FormHeader.FormHeader.BackgroundImage()'],['../class_arach_n_g_i_n_1_1_components_1_1_form_header_1_1_image_form_header.html#a7294fed1665f9da974eb6c9d264fe965',1,'ArachNGIN.Components.FormHeader.ImageFormHeader.BackgroundImage()']]],
   ['bmp',['Bmp',['../class_arach_n_g_i_n_1_1_files_1_1_mime_1_1_get_mime_type_from_content.html#ac495d7be6881ba0b47146a37f6976c3f',1,'ArachNGIN::Files::Mime::GetMimeTypeFromContent']]],
   ['bottomleft',['BottomLeft',['../namespace_arach_n_g_i_n_1_1_components_1_1_console_1_1_misc.html#a6eb9a9e0166c8b65cfbc7c6602ea5178a98e5a1c44509157ebcaf46c515c78875',1,'ArachNGIN::Components::Console::Misc']]],
   ['bottomright',['BottomRight',['../namespace_arach_n_g_i_n_1_1_components_1_1_console_1_1_misc.html#a6eb9a9e0166c8b65cfbc7c6602ea5178a9146bfc669fddc88db2c4d89297d0e9a',1,'ArachNGIN::Components::Console::Misc']]],
   ['boundrysize',['BoundrySize',['../class_arach_n_g_i_n_1_1_components_1_1_form_header_1_1_form_header.html#aed32dad75889491018b235a693a85a67',1,'ArachNGIN::Components::FormHeader::FormHeader']]],
-  ['branch',['Branch',['../struct_git_versioner_1_1_program_1_1_git_result.html#a7808300b287c6de8ec9f2b925574bf2e',1,'GitVersioner::Program::GitResult']]],
   ['browsedir',['browseDir',['../class_pak_creator_1_1_form_main.html#a532c3f8b50876b8b575695ac5a1ab391',1,'PakCreator::FormMain']]],
   ['btnopendir',['btnOpenDir',['../class_pak_creator_1_1_form_main.html#a1cd0899318e4657482957240149ab8de',1,'PakCreator::FormMain']]],
   ['btnopendir_5fclick',['btnOpenDir_Click',['../class_pak_creator_1_1_form_main.html#adead96e1b7080131a7dc9dd351d9b77a',1,'PakCreator::FormMain']]],
@@ -19,8 +18,7 @@ var searchData=
   ['button1_5fclick',['button1_Click',['../class_debug_console_demo_1_1_form1.html#a1ea9c3b0a3fe15ce6a65ebf49929d029',1,'DebugConsoleDemo.Form1.button1_Click()'],['../class_pak_creator_1_1_form_main.html#a1eae434baca5734dd70a98bd7dc4780c',1,'PakCreator.FormMain.button1_Click()']]],
   ['button2',['button2',['../class_debug_console_demo_1_1_form1.html#a732c02a03663f82b1929cd1452294256',1,'DebugConsoleDemo::Form1']]],
   ['button2_5fclick',['button2_Click',['../class_debug_console_demo_1_1_form1.html#ae10a9cb08661487ba93f9b4c8c67839c',1,'DebugConsoleDemo::Form1']]],
-  ['bytearrayconverters',['ByteArrayConverters',['../class_arach_n_g_i_n_1_1_files_1_1_graphics_1_1_byte_array_converters.html',1,'ArachNGIN::Files::Graphics']]],
+  ['bytearrayconverters',['ByteArrayConverters',['../class_arach_n_g_i_n_1_1_class_extensions_1_1_byte_array_converters.html',1,'ArachNGIN::ClassExtensions']]],
   ['bytearrayconverters_2ecs',['ByteArrayConverters.cs',['../_byte_array_converters_8cs.html',1,'']]],
-  ['bytearraytoimage',['ByteArrayToImage',['../class_arach_n_g_i_n_1_1_files_1_1_graphics_1_1_byte_array_converters.html#afd08f44e0da85515d8b409b8a68130e2',1,'ArachNGIN::Files::Graphics::ByteArrayConverters']]],
-  ['bytearraytostring',['ByteArrayToString',['../class_arach_n_g_i_n_1_1_files_1_1_streams_1_1_string_utils.html#a3d3f5ffb31320615cd260240a475dde3',1,'ArachNGIN::Files::Streams::StringUtils']]]
+  ['bytearraytoimage',['ByteArrayToImage',['../class_arach_n_g_i_n_1_1_class_extensions_1_1_byte_array_converters.html#a781f74e18cd9280f709c8956b7bc145f',1,'ArachNGIN::ClassExtensions::ByteArrayConverters']]]
 ];

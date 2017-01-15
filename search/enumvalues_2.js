@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['onlineadd',['OnLineAdd',['../namespace_arach_n_g_i_n_1_1_components_1_1_console_1_1_misc.html#acd2b8998d1b4b6d4cea20a1d388cbf91a87e89260a2bffaead76007d91baa9398',1,'ArachNGIN::Components::Console::Misc']]],
-  ['onprogramexit',['OnProgramExit',['../namespace_arach_n_g_i_n_1_1_components_1_1_console_1_1_misc.html#acd2b8998d1b4b6d4cea20a1d388cbf91a1a0c10973b4ba0919f40e4bed36cabe2',1,'ArachNGIN::Components::Console::Misc']]]
+  ['error',['Error',['../namespace_arach_n_g_i_n_1_1_tracer_1_1_helpers.html#a9903fa57a9e9ffa7487a6acd935fa725a902b0d55fddef6f8d651fe1035b7d4bd',1,'ArachNGIN::Tracer::Helpers']]]
 ];

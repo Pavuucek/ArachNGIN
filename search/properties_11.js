@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['width',['Width',['../class_arach_n_g_i_n_1_1_components_1_1_console_1_1_debug_console.html#aa42c5076bd6651961694c44b6748b85b',1,'ArachNGIN::Components::Console::DebugConsole']]]
+  ['validfile',['ValidFile',['../class_arach_n_g_i_n_1_1_files_1_1_file_formats_1_1_vp_file.html#a5378f6eb841098abd1799d0789d248f8',1,'ArachNGIN::Files::FileFormats::VpFile']]],
+  ['value',['Value',['../class_arach_n_g_i_n_1_1_files_1_1_crc_1_1_anime_crc.html#a759a25f91b56bee822d7637587e94eca',1,'ArachNGIN::Files::Crc::AnimeCrc']]]
 ];

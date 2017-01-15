@@ -23,9 +23,11 @@ var searchData=
   ['sfilesearchcurrentonly',['SfileSearchCurrentOnly',['../class_arach_n_g_i_n_1_1_files_1_1_m_p_q_1_1_s_fmpqapi.html#a3d5f27228002278452f6512ffc32122c',1,'ArachNGIN::Files::MPQ::SFmpqapi']]],
   ['sfiletypefile',['SfileTypeFile',['../class_arach_n_g_i_n_1_1_files_1_1_m_p_q_1_1_s_fmpqapi.html#a89e6b4b756cae399035ecfc2d6002de9',1,'ArachNGIN::Files::MPQ::SFmpqapi']]],
   ['sfiletypempq',['SfileTypeMpq',['../class_arach_n_g_i_n_1_1_files_1_1_m_p_q_1_1_s_fmpqapi.html#ab4a74c5df0ed8daf4a4a8d1acebecaab',1,'ArachNGIN::Files::MPQ::SFmpqapi']]],
-  ['sha1',['Sha1',['../struct_arach_n_g_i_n_1_1_files_1_1_torrents_1_1_torrent_parser_1_1_st_file.html#a7653de4fd4818365a1daac508cf288a0',1,'ArachNGIN::Files::Torrents::TorrentParser::StFile']]],
-  ['shorthash',['ShortHash',['../struct_git_versioner_1_1_program_1_1_git_result.html#a4a37d89d29db8baa1f17eedf56528da2',1,'GitVersioner::Program::GitResult']]],
+  ['sha1',['Sha1',['../struct_arach_n_g_i_n_1_1_files_1_1_torrents_1_1_st_file.html#a260be83de5d2b198f5f77db1bc196004',1,'ArachNGIN::Files::Torrents::StFile']]],
+  ['simplefile',['SimpleFile',['../class_arach_n_g_i_n_1_1_tests_1_1_files_1_1_file_formats_1_1_quake_pak_file_tests.html#a7810cc92e736cb6b5263b3d795cb419e',1,'ArachNGIN::Tests::Files::FileFormats::QuakePakFileTests']]],
+  ['size',['Size',['../struct_arach_n_g_i_n_1_1_files_1_1_file_formats_1_1_vp_dir_entry.html#ae76da78b1a82f92e75538a5033823d59',1,'ArachNGIN::Files::FileFormats::VpDirEntry']]],
   ['subrevision',['Subrevision',['../struct_arach_n_g_i_n_1_1_files_1_1_m_p_q_1_1_s_fmpqapi_1_1_sf_mpq_version.html#a7401de9b436e135fbe4b1cf386aea0fb',1,'ArachNGIN::Files::MPQ::SFmpqapi::SfMpqVersion']]],
   ['swf',['Swf',['../class_arach_n_g_i_n_1_1_files_1_1_mime_1_1_get_mime_type_from_content.html#abd06f4a5615e56f1e57f6caafe58cb4e',1,'ArachNGIN::Files::Mime::GetMimeTypeFromContent']]],
+  ['synclock',['SyncLock',['../class_arach_n_g_i_n_1_1_tracer_1_1_tracer.html#a6e2c46ac6a155277fdf8943986f851a7',1,'ArachNGIN::Tracer::Tracer']]],
   ['szfilename',['SzFileName',['../struct_arach_n_g_i_n_1_1_files_1_1_m_p_q_1_1_s_fmpqapi_1_1_file_list_entry.html#a19253c2315ebb2df248ae40e0175c642',1,'ArachNGIN::Files::MPQ::SFmpqapi::FileListEntry']]]
 ];

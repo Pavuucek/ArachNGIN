@@ -11,6 +11,6 @@ IF %mnt% LSS 10 SET mnt=0%mnt:~1,1%
 IF %hr% LSS 10 SET hr=0%hr:~1,1%
 IF %min% LSS 10 SET min=0%min:~1,1%
 set committime=%date% - %time%
-"c:\Program Files (x86)\Git\bin\git.exe" add *.*
-"c:\Program Files (x86)\Git\bin\git.exe" commit -m "AutoCommit: %committime%"
-rem "c:\Program Files (x86)\Git\bin\git.exe" push -v --progress "origin" master:master 
+git add *.*
+git commit -m "AutoCommit: %committime%"
+rem git push -v --progress "origin" master:master 

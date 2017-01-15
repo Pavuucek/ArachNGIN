@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['multimaskfilesearcher_2ecs',['MultimaskFileSearcher.cs',['../_multimask_file_searcher_8cs.html',1,'']]]
+  ['jsonsettings1_2ecs',['JSONSettings1.cs',['../_j_s_o_n_settings1_8cs.html',1,'']]],
+  ['jsonsettings2_2ecs',['JSONSettings2.cs',['../_j_s_o_n_settings2_8cs.html',1,'']]]
 ];
