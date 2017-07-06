@@ -116,8 +116,7 @@ namespace ArachNGIN.Tracer
         /// <param name="exception">The exception.</param>
         public static void Trace<TClass>(Exception exception) where TClass : class
         {
-            var msg = string.Format("Exception !\nMessage: {0}\nStackTrace: {1}", exception.Message,
-                exception.StackTrace);
+            var msg = $"Exception !\nMessage:\n{exception.Message}\nStackTrace:\n{exception.StackTrace}";
             Trace<TClass>(TracerLevel.Error, msg);
         }
 

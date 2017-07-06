@@ -100,17 +100,5 @@ namespace ArachNGIN.Tracer
         ///     The message.
         /// </value>
         public string Message { get; set; }
-
-        /// <summary>
-        ///     Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        ///     A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return string.Format("{0:dd.MM.yyyy HH:mm:ss}: {1} [{2}.{3} -> line:{4}()]: {5}", TimeStamp, Level,
-                OriginClass, OriginFunction, OriginLine, Message);
-        }
     }
 }

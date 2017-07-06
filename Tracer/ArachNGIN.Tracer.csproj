@@ -47,11 +47,15 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="MessageFormat\DebugMessageFormat.cs" />
+    <Compile Include="MessageFormat\IMessageFormat.cs" />
     <Compile Include="Handlers\ConsoleHandler.cs" />
     <Compile Include="Handlers\DebugHandler.cs" />
     <Compile Include="Handlers\FileHandler.cs" />
     <Compile Include="Helpers\HelperMethods.cs" />
     <Compile Include="ITracerHandler.cs" />
+    <Compile Include="MessageFormat\DefaultMessageFormat.cs" />
+    <Compile Include="MessageFormat\PlainMessageFormat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tracer.cs" />
     <Compile Include="Helpers\TracerLevel.cs" />

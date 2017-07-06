@@ -17,6 +17,7 @@
  */
 
 using System;
+using ArachNGIN.Tracer.MessageFormat;
 
 namespace ArachNGIN.Tracer.Handlers
 {
@@ -26,13 +27,38 @@ namespace ArachNGIN.Tracer.Handlers
     /// <seealso cref="ArachNGIN.Tracer.ITracerHandler" />
     public class ConsoleHandler : ITracerHandler
     {
+        private readonly IMessageFormat _messageFormat;
+
+
+        /// <summary>
+        /// Creates console handler with default message format
+        /// </summary>
+        public ConsoleHandler() : this(
+#if(DEBUG)
+            new DebugMessageFormat()
+#else
+            new DefaultMessageFormat()
+#endif
+        )
+        {
+        }
+
+        /// <summary>
+        /// Creates console handler with message format
+        /// </summary>
+        /// <param name="messageFormat"></param>
+        public ConsoleHandler(IMessageFormat messageFormat)
+        {
+            _messageFormat = messageFormat;
+        }
+
         /// <summary>
         ///     Trace function with console output.
         /// </summary>
         /// <param name="tracerMessage">The tracer message.</param>
         public void Trace(TracerMessage tracerMessage)
         {
-            Console.WriteLine(tracerMessage.ToString());
+            Console.WriteLine(_messageFormat.Format(tracerMessage));
         }
     }
 }
