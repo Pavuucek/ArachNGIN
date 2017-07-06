@@ -83,9 +83,8 @@ namespace ArachNGIN.Tracer.Handlers
         private static string GetLogFileName()
         {
             var date = DateTime.Now;
-            return string.Format("Log_{0}_{1:0000}{2:00}{3:00}-{4:00}{5:00}_{6}.log",
-                HelperMethods.GetAppExeNameWithoutExtension(), date.Year, date.Month, date.Day, date.Hour, date.Minute,
-                Guid.NewGuid());
+            return
+                $"Log_{HelperMethods.GetAppExeNameWithoutExtension()}_{date.Year:0000}{date.Month:00}{date.Day:00}-{date.Hour:00}{date.Minute:00}.log";
         }
     }
 }
