@@ -64,7 +64,6 @@ namespace ArachNGIN.Files.Settings
             {
                 _mFile = f.FullName;
                 _mCreationdate = f.CreationTime;
-                break;
             }
             _mFile = GetAppPath() + _mFile;
             LoadFromFile();

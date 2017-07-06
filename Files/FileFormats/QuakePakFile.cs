@@ -35,7 +35,7 @@ namespace ArachNGIN.Files.FileFormats
         /// <summary>
         ///     The pak file list
         /// </summary>
-        public readonly List<string> PakFileList = new List<string>();
+        public List<string> PakFileList { get; } = new List<string>();
 
         /// <summary>
         ///     The PAK File Allocation Table

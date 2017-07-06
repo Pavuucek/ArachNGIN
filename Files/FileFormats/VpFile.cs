@@ -51,7 +51,7 @@ namespace ArachNGIN.Files.FileFormats
         /// <summary>
         ///     The list of files inside VP archive
         /// </summary>
-        public readonly List<VpDirEntry> Files = new List<VpDirEntry>();
+        public List<VpDirEntry> Files { get; } = new List<VpDirEntry>();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="VpFile" /> class.
