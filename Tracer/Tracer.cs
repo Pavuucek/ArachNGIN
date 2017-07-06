@@ -37,7 +37,7 @@ namespace ArachNGIN.Tracer
         /// <summary>
         ///     The current tracer level
         /// </summary>
-        public static TracerLevel CurrentLevel = TracerLevel.Info;
+        public static TracerLevel CurrentLevel { get; set; } = TracerLevel.Info;
 
         private static readonly object SyncLock = new object();
 

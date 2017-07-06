@@ -16,9 +16,6 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using ArachNGIN.ClassExtensions;
-using ArachNGIN.Components.Console.Forms;
-using ArachNGIN.Components.Console.Misc;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -27,6 +24,9 @@ using System.IO;
 using System.Security;
 using System.Text;
 using System.Windows.Forms;
+using ArachNGIN.ClassExtensions;
+using ArachNGIN.Components.Console.Forms;
+using ArachNGIN.Components.Console.Misc;
 
 namespace ArachNGIN.Components.Console
 {
@@ -45,11 +45,6 @@ namespace ArachNGIN.Components.Console
         private StringBuilder _buffer = new StringBuilder();
         private ListViewItem.ListViewSubItem _currentMsgItem;
         private int _eventCounter;
-
-        /// <summary>
-        ///     The automatic save
-        /// </summary>
-        public ConsoleAutoSave AutoSave = ConsoleAutoSave.ManualOnly;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="DebugConsole" /> class.
@@ -72,6 +67,11 @@ namespace ArachNGIN.Components.Console
         public DebugConsole() : this(true)
         {
         }
+
+        /// <summary>
+        ///     The automatic save
+        /// </summary>
+        public ConsoleAutoSave AutoSave { get; set; } = ConsoleAutoSave.ManualOnly;
 
         /// <summary>
         ///     Writes the line.
@@ -113,8 +113,8 @@ namespace ArachNGIN.Components.Console
         /// </value>
         public string Caption
         {
-            get { return _consoleForm.Text; }
-            set { _consoleForm.Text = value; }
+            get => _consoleForm.Text;
+            set => _consoleForm.Text = value;
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace ArachNGIN.Components.Console
         /// </value>
         public ConsoleLocation ScreenLocation
         {
-            get { return ConsoleLocation.SomeWhereElse; }
+            get => ConsoleLocation.SomeWhereElse;
             set
             {
                 _consoleForm.StartPosition = FormStartPosition.Manual;
@@ -166,8 +166,8 @@ namespace ArachNGIN.Components.Console
         /// </value>
         public int Height
         {
-            get { return _consoleForm.Height; }
-            set { _consoleForm.Height = value; }
+            get => _consoleForm.Height;
+            set => _consoleForm.Height = value;
         }
 
         /// <summary>
@@ -178,8 +178,8 @@ namespace ArachNGIN.Components.Console
         /// </value>
         public int Width
         {
-            get { return _consoleForm.Width; }
-            set { _consoleForm.Width = value; }
+            get => _consoleForm.Width;
+            set => _consoleForm.Width = value;
         }
 
         /// <summary>
@@ -190,8 +190,8 @@ namespace ArachNGIN.Components.Console
         /// </value>
         public Point Location
         {
-            get { return _consoleForm.Location; }
-            set { _consoleForm.Location = value; }
+            get => _consoleForm.Location;
+            set => _consoleForm.Location = value;
         }
 
         /// <summary>
@@ -347,7 +347,7 @@ namespace ArachNGIN.Components.Console
         private void TxtCommandKeyPress(object sender, KeyPressEventArgs e)
         {
             // kdyz user zmackne enter a prikaz neni prazdny...
-            if (e.KeyChar != (char)Keys.Enter || _consoleForm.txtCommand.Text.Length <= 0) return;
+            if (e.KeyChar != (char) Keys.Enter || _consoleForm.txtCommand.Text.Length <= 0) return;
             //... poklada se obsah textboxu za prikaz
             e.Handled = true;
             DoCommand(_consoleForm.txtCommand.Text);
