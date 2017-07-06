@@ -16,8 +16,8 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using ArachNGIN.Tracer.Helpers;
 using System;
+using ArachNGIN.Tracer.Helpers;
 
 namespace ArachNGIN.Tracer
 {

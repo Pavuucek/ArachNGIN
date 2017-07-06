@@ -16,9 +16,9 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+using System;
 using ArachNGIN.Tracer.Handlers;
 using ArachNGIN.Tracer.Helpers;
-using System;
 
 namespace ArachNGIN.Tracer
 {
@@ -60,11 +60,11 @@ namespace ArachNGIN.Tracer
         }
 
         /// <summary>
-        /// Posts an introduction message to trace.
+        ///     Posts an introduction message to trace.
         /// </summary>
         public static void TraceIntroMessage()
         {
-            Trace(string.Format("Starting {0}...", HelperMethods.GetAppExeName()));
+            Trace($"Starting {HelperMethods.GetAppExeName()}...");
         }
 
         /// <summary>

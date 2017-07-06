@@ -55,7 +55,7 @@ namespace ArachNGIN.Tracer.Helpers
         }
 
         /// <summary>
-        /// Gets the full name of the application.
+        ///     Gets the full name of the application.
         /// </summary>
         /// <returns></returns>
         internal static string GetAppFullName()
@@ -64,7 +64,7 @@ namespace ArachNGIN.Tracer.Helpers
         }
 
         /// <summary>
-        /// Gets the name of the application executable.
+        ///     Gets the name of the application executable.
         /// </summary>
         /// <returns></returns>
         internal static string GetAppExeName()
@@ -73,7 +73,7 @@ namespace ArachNGIN.Tracer.Helpers
         }
 
         /// <summary>
-        /// Gets the application executable name without extension.
+        ///     Gets the application executable name without extension.
         /// </summary>
         /// <returns></returns>
         internal static string GetAppExeNameWithoutExtension()

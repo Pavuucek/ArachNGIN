@@ -43,10 +43,7 @@ namespace ArachNGIN.Tracer
         /// <value>
         ///     The messages.
         /// </value>
-        public IEnumerable<TracerMessage> Messages
-        {
-            get { return _tracerMessages; }
-        }
+        public IEnumerable<TracerMessage> Messages => _tracerMessages;
 
         /// <summary>
         ///     Traces the specified tracer message.
