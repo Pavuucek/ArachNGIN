@@ -129,17 +129,17 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\ClassExtensions\ArachNGIN.ClassExtensions.csproj">
       <Project>{0c62509f-6707-4ace-b644-2a029c1fd942}</Project>
       <Name>ArachNGIN.ClassExtensions</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"$(SolutionDir)GitVersioner.bat" a "$(SolutionDir)SharedAssemblyInfo.cs"</PreBuildEvent>
+    <PreBuildEvent>"$(SolutionDir)GitVersioner.bat" a -f="$(SolutionDir)SharedAssemblyInfo.cs"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>
