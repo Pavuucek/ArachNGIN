@@ -50,7 +50,7 @@ namespace ArachNGIN.Files.Torrents
         private static int GetStringLength(BinaryReader torrentFile)
         {
             var stringLength = 0;
-            while (char.IsDigit((char)torrentFile.PeekChar()))
+            while (char.IsDigit((char) torrentFile.PeekChar()))
             {
                 stringLength = stringLength * 10;
                 stringLength += Convert.ToInt32(torrentFile.ReadChar()) - Convert.ToInt32("0");
@@ -108,7 +108,7 @@ namespace ArachNGIN.Files.Torrents
             torrentFile.ReadChar();
             var isNegative = torrentFile.PeekChar().ToString() == "-";
             long integerNumber = 0;
-            while (char.IsDigit((char)torrentFile.PeekChar()))
+            while (char.IsDigit((char) torrentFile.PeekChar()))
                 integerNumber = Convert.ToInt32(torrentFile.ReadChar()) - Convert.ToInt32("0");
             if (torrentFile.ReadChar() != 'e')
                 throw new Exception("expected 'e'");
@@ -130,7 +130,8 @@ namespace ArachNGIN.Files.Torrents
             var sha1 = new SHA1Managed();
             torrentFile.BaseStream.Position = infoStart;
             var infoValueBytes = torrentFile.ReadBytes(infoLength);
-            return BitConverter.ToString(sha1.ComputeHash(infoValueBytes)).Replace("-", string.Empty).ToLowerInvariant();
+            return BitConverter.ToString(sha1.ComputeHash(infoValueBytes)).Replace("-", string.Empty)
+                .ToLowerInvariant();
         }
 
         /// <summary>
@@ -157,14 +158,15 @@ namespace ArachNGIN.Files.Torrents
                     var itemName = GetItemName(torrentFile, stringLength);
                     if (itemName == "info")
                     {
-                        var infoPositionStart = (int)torrentFile.BaseStream.Position;
+                        var infoPositionStart = (int) torrentFile.BaseStream.Position;
                         if (torrentFile.ReadChar() == 'd')
                             ProcessDictionary(torrentFile, true, false);
                         else
                             throw new Exception("character invalid. expected 'd'");
-                        var infoPositionEnd = (int)torrentFile.BaseStream.Position;
-                        PInfoHash = GetHashInfo(torrentFile, infoPositionStart, infoPositionEnd - infoPositionStart - 1);
-                        if (PIsSingleFile)
+                        var infoPositionEnd = (int) torrentFile.BaseStream.Position;
+                        _infoHash = GetHashInfo(torrentFile, infoPositionStart,
+                            infoPositionEnd - infoPositionStart - 1);
+                        if (_isSingleFile)
                             InsertNewFile();
                     }
                     else
@@ -224,19 +226,19 @@ namespace ArachNGIN.Files.Torrents
                             switch (itemName)
                             {
                                 case "announce":
-                                    _pAnounce = itemValueString;
+                                    _anounce = itemValueString;
                                     break;
 
                                 case "comment":
-                                    _pComment = itemValueString;
+                                    _comment = itemValueString;
                                     break;
 
                                 case "creation date":
-                                    _pCreationDate = new DateTime(1970, 1, 1).AddSeconds(itemValueInteger);
+                                    _creationDate = new DateTime(1970, 1, 1).AddSeconds(itemValueInteger);
                                     break;
 
                                 case "encoding":
-                                    _pEncoding = itemValueString;
+                                    _encoding = itemValueString;
                                     break;
                             }
                     }
@@ -261,20 +263,20 @@ namespace ArachNGIN.Files.Torrents
         /// </summary>
         private void InsertNewFile()
         {
-            if (PFiles == null)
+            if (_files == null)
             {
-                PFiles = new StFile[0];
+                _files = new StFile[0];
             }
             else
             {
-                var oldArray = new StFile[PFiles.Length - 1];
-                PFiles.CopyTo(oldArray, 0);
-                PFiles = new StFile[PFiles.Length];
-                oldArray.CopyTo(PFiles, 0);
+                var oldArray = new StFile[_files.Length - 1];
+                _files.CopyTo(oldArray, 0);
+                _files = new StFile[_files.Length];
+                oldArray.CopyTo(_files, 0);
             }
-            if (!PIsSingleFile)
+            if (!_isSingleFile)
                 _infoFile.Path = _infoFile.Path.Substring(1);
-            PFiles[PFiles.Length - 1] = _infoFile;
+            _files[_files.Length - 1] = _infoFile;
         }
 
         /// <summary>
@@ -286,7 +288,7 @@ namespace ArachNGIN.Files.Torrents
         private void ProcessList(BinaryReader torrentFile, string itemName, bool isPath)
         {
             if (itemName == "files")
-                PIsSingleFile = false;
+                _isSingleFile = false;
             var isFirstTime = true;
             while (Convert.ToChar(torrentFile.PeekChar()) != 'e')
             {
@@ -340,18 +342,18 @@ namespace ArachNGIN.Files.Torrents
         /// <param name="newAnnounce">The new announce.</param>
         private void InsertNewAnnounce(string newAnnounce)
         {
-            if (PAnnounceList == null)
+            if (_announceList == null)
             {
-                PAnnounceList = new string[0];
+                _announceList = new string[0];
             }
             else
             {
-                var oldArray = new string[PAnnounceList.Length - 1];
-                PAnnounceList.CopyTo(oldArray, 0);
-                PAnnounceList = new string[PAnnounceList.Length];
-                oldArray.CopyTo(PAnnounceList, 0);
+                var oldArray = new string[_announceList.Length - 1];
+                _announceList.CopyTo(oldArray, 0);
+                _announceList = new string[_announceList.Length];
+                oldArray.CopyTo(_announceList, 0);
             }
-            PAnnounceList[PAnnounceList.Length - 1] = newAnnounce;
+            _announceList[_announceList.Length - 1] = newAnnounce;
         }
 
         #region Privátní variábly
@@ -359,42 +361,42 @@ namespace ArachNGIN.Files.Torrents
         /// <summary>
         ///     The announce list
         /// </summary>
-        public string[] PAnnounceList;
+        private string[] _announceList;
 
         /// <summary>
         ///     The files
         /// </summary>
-        public StFile[] PFiles;
+        private StFile[] _files;
 
         /// <summary>
         ///     The information hash
         /// </summary>
-        public string PInfoHash;
+        private string _infoHash;
 
         /// <summary>
         ///     Is single file
         /// </summary>
-        public bool PIsSingleFile = true;
+        private bool _isSingleFile = true;
 
         /// <summary>
         ///     The anounce
         /// </summary>
-        private string _pAnounce;
+        private string _anounce;
 
         /// <summary>
         ///     The comment
         /// </summary>
-        private string _pComment;
+        private string _comment;
 
         /// <summary>
         ///     The creation date
         /// </summary>
-        private DateTime _pCreationDate;
+        private DateTime _creationDate;
 
         /// <summary>
         ///     The encoding
         /// </summary>
-        private string _pEncoding;
+        private string _encoding;
 
         #endregion Privátní variábly
     }
