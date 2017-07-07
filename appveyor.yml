@@ -34,11 +34,4 @@ artifacts:
   name: Debug
 - path: ArachNGIN*.nupkg
   name: Nuget
-deploy:
-- provider: GitHub
-  description: Release $(appveyor_build_version)
-  auth_token:
-    secure: jKge4et1WjUOfR6csKy4QDK8NLLTQja2PoHBRRliXs11iFV6op9RHF8mX1/Oocoo
-  artifact: Release, Nuget
-  draft: true
-  force_update: true
+deploy: off
