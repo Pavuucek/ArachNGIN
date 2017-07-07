@@ -7,6 +7,12 @@ msbuild ArachNGIN.sln /m /property:Configuration=Release /property:Platform="Any
 
 if ERRORLEVEL 1 pause
 
+rem build zip package
 call gitversioner.bat w -f=zip.bat --no-utf
 call zip.bat
-call gitversioner.bat r -f=zip.bat --no-utf
+call gitversioner.bat r -f=zip.bat
+
+rem build nuget package
+call gitversioner.bat w -f=Nuget\ArachNGIN.nuspec
+nuget pack Nuget\ArachNGIN.nuspec
+call gitversioner.bat r -f=Nuget\ArachNGIN.nuspec
