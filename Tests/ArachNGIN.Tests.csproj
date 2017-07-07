@@ -102,10 +102,6 @@
       <Project>{21fe4ec9-b716-43ba-9124-08439ac740ab}</Project>
       <Name>ArachNGIN.Files</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Files\MPQ\ArachNGIN.Files.MPQ.csproj">
-      <Project>{0b2aa780-c794-4e87-9465-4da15813790b}</Project>
-      <Name>ArachNGIN.Files.MPQ</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Tracer\ArachNGIN.Tracer.csproj">
       <Project>{40643838-e640-4902-87d8-3e3160679f4c}</Project>
       <Name>ArachNGIN.Tracer</Name>
