@@ -88,8 +88,10 @@ namespace ArachNGIN.Files.FileFormats
         private bool ReadHeader(string fileName)
         {
             var result = true;
-            using (var readStream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+            Stream readStream = null;
+            try
             {
+                readStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                 // read header
                 using (var reader = new BinaryReader(readStream, Encoding.ASCII))
                 {
@@ -124,6 +126,10 @@ namespace ArachNGIN.Files.FileFormats
                     if (Files.Count <= 0) result = false;
                 }
                 if (result) FileName = Path.GetFullPath(fileName);
+            }
+            finally
+            {
+                readStream?.Dispose();
             }
             return result;
         }

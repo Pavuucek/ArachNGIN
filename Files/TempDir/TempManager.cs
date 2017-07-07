@@ -1,14 +1,14 @@
-using ArachNGIN.ClassExtensions;
 using System;
 using System.IO;
 using System.Windows.Forms;
+using ArachNGIN.ClassExtensions;
 
 namespace ArachNGIN.Files.TempDir
 {
     /// <summary>
     ///     Class for handling Temp directory
     /// </summary>
-    public class TempManager : IDisposable
+    public sealed class TempManager : IDisposable
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="TempManager" /> class.
@@ -70,6 +70,14 @@ namespace ArachNGIN.Files.TempDir
         private void Close()
         {
             Directory.Delete(AppTempDir, true);
+        }
+
+        /// <summary>
+        ///     Destroys TempManager
+        /// </summary>
+        ~TempManager()
+        {
+            Close();
         }
     }
 }

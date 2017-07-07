@@ -70,13 +70,20 @@ namespace ArachNGIN.Files.FileFormats
             if (!info.Exists)
                 throw new FileNotFoundException("Can''t open " + fileName);
             // soubor existuje
-            using (var pakStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            Stream pakStream = null;
+            try
             {
+                pakStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+
                 using (var pakReader = new BinaryReader(pakStream, Encoding.ASCII))
                 {
                     if (!ReadHeader(pakStream, pakReader))
                         throw new FileNotFoundException("File " + fileName + " has unsupported format");
                 }
+            }
+            finally
+            {
+                pakStream?.Dispose();
             }
         }
 
@@ -213,10 +220,10 @@ namespace ArachNGIN.Files.FileFormats
         {
             try
             {
-                using (
-                    var fs = new FileStream(strFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite,
-                        FileShare.ReadWrite))
+                Stream fs = null;
+                try
                 {
+                    fs = new FileStream(strFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
                     fs.Position = 0;
                     using (var bw = new BinaryWriter(fs, Encoding.ASCII))
                     {
@@ -230,6 +237,10 @@ namespace ArachNGIN.Files.FileFormats
 
                         return true;
                     }
+                }
+                finally
+                {
+                    fs?.Dispose();
                 }
             }
             catch
@@ -292,8 +303,10 @@ namespace ArachNGIN.Files.FileFormats
             // mame zakazany zapis
             if (!WriteAccess) return false;
             // novy soubor zapisujeme na pozici fatky
-            using (var pakStream = new FileStream(FileName, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
+            Stream pakStream = null;
+            try
             {
+                pakStream = new FileStream(FileName, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
                 pakStream.Seek(_pFatstart, SeekOrigin.Begin);
                 // vytvorit novou fatku a zapsat do ni novy soubor
                 var oldPakFat = _pakFat;
@@ -301,12 +314,12 @@ namespace ArachNGIN.Files.FileFormats
                 _pakFat = new PakFat[_pFilecount];
                 oldPakFat.CopyTo(_pakFat, 0);
                 _pakFat[_pFilecount - 1].FileName = pakFileName;
-                _pakFat[_pFilecount - 1].FileLength = (int)stream.Length;
+                _pakFat[_pFilecount - 1].FileLength = (int) stream.Length;
                 _pakFat[_pFilecount - 1].FileStart = _pFatstart;
                 // zapsat soubor
                 StreamHandling.StreamCopy(stream, pakStream, 0, pakStream.Position);
                 // po dokonceni zapisovani zjistit pozici streamu
-                _pFatstart = (int)pakStream.Position;
+                _pFatstart = (int) pakStream.Position;
                 // zapsat fatku
                 if (writeFat)
                 {
@@ -318,6 +331,10 @@ namespace ArachNGIN.Files.FileFormats
                         WriteFat(pakStream);
                     }
                 }
+            }
+            finally
+            {
+                pakStream?.Dispose();
             }
             return true;
         }
