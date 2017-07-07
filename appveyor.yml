@@ -2,33 +2,43 @@ version: '{branch}-{build}'
 branches:
   except:
   - gh-pages
+configuration:
+- Debug
+- Release
+before_build:
+- cmd: >-
+    nuget restore
+
+    call GitVersioner.bat a -f=SharedAssemblyInfo.cs
 build:
   project: ArachNGIN.sln
   parallel: true
   verbosity: normal
-configuration:
-- Debug
-- Release
+after_build:
+- cmd: >-
+    call GitVersioner.bat ba
+
+    call GitVersioner.bat w -f=zip.bat --no-utf
+
+    call zip.bat
+
+    call GitVersioner.bat r -f=zip.bat
+test:
+  assemblies:
+    only:
+    - '**\_bin\$(configuration).Tests\ArachNGIN.Tests.dll'
 artifacts:
 - path: ArachNGIN_release*.zip
   name: Release
 - path: ArachNGIN_debug*.zip
   name: Debug
-deploy: off
-before_build:
-- cmd: >-
-    nuget restore
-
-    call GitVersioner.bat a SharedAssemblyInfo.cs
-
-after_build:
-- cmd: >-
-    call GitVersioner.bat ba
-    
-    call GitVersioner.bat w zip.bat
-
-    call zip.bat
-
-    call GitVersioner.bat r zip.bat
-test:
-  assemblies: '**\_bin\$(configuration).Tests\ArachNGIN.Tests.dll'
+- path: ArachNGIN*.nupkg
+  name: Nuget
+deploy:
+- provider: GitHub
+  description: Release $(appveyor_build_version)
+  auth_token:
+    secure: jKge4et1WjUOfR6csKy4QDK8NLLTQja2PoHBRRliXs11iFV6op9RHF8mX1/Oocoo
+  artifact: Release, Nuget
+  draft: true
+  force_update: true
