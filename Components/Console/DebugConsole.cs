@@ -154,6 +154,9 @@ namespace ArachNGIN.Components.Console
                     case ConsoleLocation.ScreenCenter:
                         _consoleForm.StartPosition = FormStartPosition.CenterScreen;
                         break;
+                    default:
+                        _consoleForm.StartPosition = FormStartPosition.Manual;
+                        break;
                 }
             }
         }
