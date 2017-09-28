@@ -30,42 +30,40 @@ namespace ArachNGIN.CommandLine
                 if (isParam.IsMatch(s)) parts = splitter.Split(s, 3);
                 else parts = new[] { s };
                 //var parts = splitter.Split(s, 3)
-                switch (parts.Length)
+                if (parts.Length == 1)
                 {
-                    case 1:
-                        if (currentParameter != null)
-                        {
-                            if (!_dict.ContainsKey(currentParameter))
-                            {
-                                parts[0] = remover.Replace(parts[0], "$1");
-                                _dict.Add(currentParameter, parts[0]);
-                            }
-                            currentParameter = null;
-                        }
-                        else
-                        {
-                            // add unmatched parameters as "false" (without -, / or --)
-                            if (!_dict.ContainsKey(parts[0])) _dict.Add(parts[0], "false");
-                        }
-                        break;
-
-                    case 2:
-                        if (currentParameter != null && !_dict.ContainsKey(currentParameter))
-                            _dict.Add(currentParameter, "true");
-                        currentParameter = parts[1];
-                        break;
-
-                    case 3:
-                        if (currentParameter != null && !_dict.ContainsKey(currentParameter))
-                            _dict.Add(currentParameter, "true");
-                        currentParameter = parts[1];
+                    if (currentParameter != null)
+                    {
                         if (!_dict.ContainsKey(currentParameter))
                         {
-                            parts[2] = remover.Replace(parts[2], "$1");
-                            _dict.Add(currentParameter, parts[2]);
+                            parts[0] = remover.Replace(parts[0], "$1");
+                            _dict.Add(currentParameter, parts[0]);
                         }
                         currentParameter = null;
-                        break;
+                    }
+                    else
+                    {
+                        // add unmatched parameters as "false" (without -, / or --)
+                        if (!_dict.ContainsKey(parts[0])) _dict.Add(parts[0], "false");
+                    }
+                }
+                else if (parts.Length == 2)
+                {
+                    if (currentParameter != null && !_dict.ContainsKey(currentParameter))
+                        _dict.Add(currentParameter, "true");
+                    currentParameter = parts[1];
+                }
+                else if (parts.Length == 3)
+                {
+                    if (currentParameter != null && !_dict.ContainsKey(currentParameter))
+                        _dict.Add(currentParameter, "true");
+                    currentParameter = parts[1];
+                    if (!_dict.ContainsKey(currentParameter))
+                    {
+                        parts[2] = remover.Replace(parts[2], "$1");
+                        _dict.Add(currentParameter, parts[2]);
+                    }
+                    currentParameter = null;
                 }
             }
             if (currentParameter != null && !_dict.ContainsKey(currentParameter)) _dict.Add(currentParameter, "true");
