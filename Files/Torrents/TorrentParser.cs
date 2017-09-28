@@ -195,33 +195,30 @@ namespace ArachNGIN.Files.Torrents
                         }
 
                         if (isInfo || isFiles)
-                            switch (itemName)
+                        {
+                            if (itemName == "length")
+                                _infoFile.Length = itemValueInteger;
+                            else if (itemName == "name")
                             {
-                                case "length":
-                                    _infoFile.Length = itemValueInteger;
-                                    break;
-
-                                case "name":
-                                    _infoFile.Name = itemValueString;
-                                    break;
-
-                                case "pieces":
-                                case "piece length":
-                                    _infoFile.PieceLength = itemValueInteger;
-                                    break;
-
-                                case "md5sum":
-                                    _infoFile.Md5Sum = itemValueString;
-                                    break;
-
-                                case "ed2k":
-                                    _infoFile.Ed2K = itemValueByte;
-                                    break;
-
-                                case "sha1":
-                                    _infoFile.Sha1 = itemValueByte;
-                                    break;
+                                _infoFile.Name = itemValueString;
                             }
+                            else if (itemName == "pieces" || itemName == "piece length")
+                            {
+                                _infoFile.PieceLength = itemValueInteger;
+                            }
+                            else if (itemName == "md5sum")
+                            {
+                                _infoFile.Md5Sum = itemValueString;
+                            }
+                            else if (itemName == "ed2k")
+                            {
+                                _infoFile.Ed2K = itemValueByte;
+                            }
+                            else if (itemName == "sha1")
+                            {
+                                _infoFile.Sha1 = itemValueByte;
+                            }
+                        }
                         else
                             switch (itemName)
                             {
