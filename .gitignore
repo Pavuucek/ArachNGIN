@@ -8,6 +8,8 @@
 bin/
 _bin/
 obj/
+.vs/
+
 
 #User Specific Files
 *.user
