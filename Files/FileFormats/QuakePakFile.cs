@@ -16,26 +16,21 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using ArachNGIN.Files.Streams;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using ArachNGIN.Files.Streams;
 
 namespace ArachNGIN.Files.FileFormats
 {
     /// <summary>
     ///     Class for reading Quake PAK files
     /// </summary>
-    public partial class QuakePakFile
+    public class QuakePakFile
     {
-        private static readonly char[] PakId = { 'P', 'A', 'C', 'K' };
-
-        /// <summary>
-        ///     The pak file list
-        /// </summary>
-        public List<string> PakFileList { get; } = new List<string>();
+        private static readonly char[] PakId = {'P', 'A', 'C', 'K'};
 
         /// <summary>
         ///     The PAK File Allocation Table
@@ -96,6 +91,11 @@ namespace ArachNGIN.Files.FileFormats
         }
 
         /// <summary>
+        ///     The pak file list
+        /// </summary>
+        public List<string> PakFileList { get; } = new List<string>();
+
+        /// <summary>
         ///     Gets the name of the file.
         /// </summary>
         /// <value>
@@ -147,10 +147,12 @@ namespace ArachNGIN.Files.FileFormats
                     _pakFat[i].FileStart = pakReader.ReadInt32();
                     _pakFat[i].FileLength = pakReader.ReadInt32();
                 }
+
                 pakStream.Position = 0;
                 //
                 return true;
             }
+
             pakStream.Position = 0;
             return false;
         }
@@ -258,12 +260,12 @@ namespace ArachNGIN.Files.FileFormats
         {
             var result = new char[56];
             // prepsat lomitka
-            filename = filename.Replace("\\", "/");
+            var fName = filename.Replace("\\", "/");
             // kdyz to nekdo prepisk s nazvem souboru tak ho seriznout :-)
-            if (filename.Length > 56)
-                filename.CopyTo(0, result, 0, 55);
+            if (fName.Length > 56)
+                fName.CopyTo(0, result, 0, 55);
             else
-                filename.CopyTo(0, result, 0, filename.Length);
+                fName.CopyTo(0, result, 0, fName.Length);
             return result;
         }
 
@@ -283,6 +285,7 @@ namespace ArachNGIN.Files.FileFormats
                     bw.Write(item.FileStart);
                     bw.Write(item.FileLength);
                 }
+
                 // naseekovat na pocet souboru a zapsat
                 pakStream.Seek(PakId.Length + sizeof(int), SeekOrigin.Begin);
                 bw.Write(_pFilecount * 64); // krat 64. z neznamych duvodu
@@ -336,6 +339,7 @@ namespace ArachNGIN.Files.FileFormats
             {
                 pakStream?.Dispose();
             }
+
             return true;
         }
 
@@ -373,6 +377,7 @@ namespace ArachNGIN.Files.FileFormats
             {
                 result = false;
             }
+
             return result;
         }
     }

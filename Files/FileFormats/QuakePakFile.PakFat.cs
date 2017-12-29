@@ -1,26 +1,23 @@
 namespace ArachNGIN.Files.FileFormats
 {
-    public partial class QuakePakFile
+    /// <summary>
+    ///     PAK File Allocation Table
+    /// </summary>
+    internal struct PakFat
     {
         /// <summary>
-        ///     PAK File Allocation Table
+        ///     The file length
         /// </summary>
-        private struct PakFat
-        {
-            /// <summary>
-            ///     The file length
-            /// </summary>
-            public int FileLength;
+        public int FileLength;
 
-            /// <summary>
-            ///     The file name
-            /// </summary>
-            public string FileName;
+        /// <summary>
+        ///     The file name
+        /// </summary>
+        public string FileName;
 
-            /// <summary>
-            ///     The starting offset of a file
-            /// </summary>
-            public int FileStart;
-        }
+        /// <summary>
+        ///     The starting offset of a file
+        /// </summary>
+        public int FileStart;
     }
 }
