@@ -24,28 +24,33 @@ namespace ArachNGIN.Tracer.Helpers
     public enum TracerLevel
     {
         /// <summary>
-        ///     Trace everything
-        /// </summary>
-        Trace,
-
-        /// <summary>
         ///     Just debug messages
         /// </summary>
-        Debug,
+        Debug = 0,
 
         /// <summary>
         ///     Informations
         /// </summary>
-        Info,
+        Info = 1,
+
+        /// <summary>
+        ///     Trace everything
+        /// </summary>
+        Notice = 2,
 
         /// <summary>
         ///     Warnings
         /// </summary>
-        Warning,
+        Warning = 3,
 
         /// <summary>
         ///     Errors only
         /// </summary>
-        Error
+        Error = 4,
+
+        /// <summary>
+        ///     We're officially screwed :-(
+        /// </summary>
+        Fatal = 5
     }
 }
