@@ -117,20 +117,20 @@ namespace ArachNGIN.Files.FileFormats
         public bool AskFile(string sFile)
         {
             var sIndexfile = string.Empty;
-            sFile = ReplaceSlashesOut(sFile); // jen pro jistotu
-            if (File.Exists(_sTemp + sFile))
+            var _sFile = ReplaceSlashesOut(sFile); // jen pro jistotu
+            if (File.Exists(_sTemp + _sFile))
                 return true;
             // soubor v adresari ma prioritu
-            if (File.Exists(_sDir + sFile))
+            if (File.Exists(_sDir + _sFile))
             {
-                var sFullpath = _sTemp + sFile;
+                var sFullpath = _sTemp + _sFile;
                 Directory.CreateDirectory(Path.GetDirectoryName(sFullpath));
-                File.Copy(_sDir + sFile, sFullpath, true);
+                File.Copy(_sDir + _sFile, sFullpath, true);
                 return true;
             }
 
             // ted uz pracujeme s pakem, takze lomitka do unixovyho tvaru :-)
-            sFile = ReplaceSlashesIn(sFile);
+            _sFile = ReplaceSlashesIn(sFile);
             // soubor musime najit v paku
             if (_pakFat == null || _indexFat == null) return false;
 
@@ -141,25 +141,25 @@ namespace ArachNGIN.Files.FileFormats
                 foreach (var sLine in indexItem)
                     if (
                         sLine.ToLower(CultureInfo.InvariantCulture)
-                            .Contains(sFile.ToLower(CultureInfo.InvariantCulture) + "="))
+                            .Contains(_sFile.ToLower(CultureInfo.InvariantCulture) + "="))
                         sIndexline = sLine;
                 // rozdelit radku indexu na fajl jmeno souboru v paku a skutecne jmeno
                 var aIndexline = sIndexline.Split('=');
                 if (aIndexline.Length <= 1) continue;
                 sIndexfile = aIndexline[0];
-                sFile = aIndexline[1];
+                _sFile = aIndexline[1];
             }
             for (var i = 0; i < _pakFat.Count; i++)
             {
-                if (!_pakFat[i].Contains(sFile)) continue;
+                if (!_pakFat[i].Contains(_sFile)) continue;
                 var sFullpath = _sTemp;
                 if (sIndexfile != string.Empty) sFullpath += sIndexfile;
-                else sFullpath += sFile;
+                else sFullpath += _sFile;
                 // prevest lomitka :-)
                 sFullpath = ReplaceSlashesOut(sFullpath);
                 Directory.CreateDirectory(Path.GetDirectoryName(sFullpath));
                 var q = new QuakePakFile(_sDir + _lPakFiles[i], false);
-                q.ExtractFile(sFile, sFullpath);
+                q.ExtractFile(_sFile, sFullpath);
                 if (File.Exists(sFullpath)) return true;
             }
 

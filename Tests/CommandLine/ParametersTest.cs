@@ -7,21 +7,21 @@ namespace ArachNGIN.Tests.CommandLine
     [TestClass]
     public class ParametersTest
     {
-        private string[] testParameters = { "debug", "test", "-aaa", "\"bbb\"", "/action", "do_action", "--size=100", "/color:blue" };
+        private readonly string[] _testParameters = { "debug", "test", "-aaa", "\"bbb\"", "/action", "do_action", "--size=100", "/color:blue" };
 
-        private string[] testParametersWithPath =
+        private readonly string[] _testParametersWithPath =
         {
             @"/file1:d:\debug.log1", @"--file2=d:\debug.log2", @"-file3",
             @"d:\debug.log3"
         };
 
-        private string[] testParametersWithPathWithSpaces =
+        private readonly string[] _testParametersWithPathWithSpaces =
         {
             "/file1:\"d:\\de bug.log1\"", "--file2=\"d:\\de bug.log2\"",
             "-file3", @"d:\de bug.log 3"
         };
 
-        private string[] testGitVersionParameters =
+        private readonly string[] _testGitVersionParameters =
         {
             "\"d:\\dev\\gitversioner\\GitVersioner.bat\"", "-a",
             @"""d:\dev\gitversioner\Properties\AssemblyInfo.cs"""
@@ -30,7 +30,7 @@ namespace ArachNGIN.Tests.CommandLine
         [TestMethod]
         public void TestParameters()
         {
-            var args = new Parameters(testParameters);
+            var args = new Parameters(_testParameters);
             args["debug"].ShouldBe("false");
             args["test"].ShouldBe("false");
             args["size"].ShouldBe("100");
@@ -42,7 +42,7 @@ namespace ArachNGIN.Tests.CommandLine
         [TestMethod]
         public void TestParametersWithPaths()
         {
-            var args = new Parameters(testParametersWithPath);
+            var args = new Parameters(_testParametersWithPath);
             args["file1"].ShouldBe(@"d:\debug.log1");
             args["file2"].ShouldBe(@"d:\debug.log2");
             args["file3"].ShouldBe(@"d:\debug.log3");
@@ -51,7 +51,7 @@ namespace ArachNGIN.Tests.CommandLine
         [TestMethod]
         public void TestParametersWithPathsWithSpaces()
         {
-            var args = new Parameters(testParametersWithPathWithSpaces);
+            var args = new Parameters(_testParametersWithPathWithSpaces);
             args["file1"].ShouldBe(@"d:\de bug.log1");
             args["file2"].ShouldBe(@"d:\de bug.log2");
             args["file3"].ShouldBe(@"d:\de bug.log 3");
@@ -61,7 +61,7 @@ namespace ArachNGIN.Tests.CommandLine
         [TestMethod]
         public void TestGitVersionerParameters()
         {
-            var args = new Parameters(testGitVersionParameters);
+            var args = new Parameters(_testGitVersionParameters);
             args["a"].ToLower().ShouldBe(@"d:\dev\gitversioner\properties\assemblyinfo.cs");
         }
     }

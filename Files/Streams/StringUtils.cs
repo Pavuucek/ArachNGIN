@@ -86,19 +86,20 @@ namespace ArachNGIN.Files.Streams
         private static TreeNode LastNode(TreeView treeView, char pathSeparator, string path, TreeNode lastNode)
         {
             var subPathAgg = new StringBuilder();
+            var lastN = lastNode;
             foreach (var subPath in path.Split(pathSeparator))
             {
                 subPathAgg.Append(subPath + pathSeparator);
                 var nodes = treeView.Nodes.Find(subPathAgg.ToString(), true);
                 if (nodes.Length == 0)
-                    if (lastNode == null)
-                        lastNode = treeView.Nodes.Add(subPathAgg.ToString(), subPath);
+                    if (lastN == null)
+                        lastN = treeView.Nodes.Add(subPathAgg.ToString(), subPath);
                     else
-                        lastNode = lastNode.Nodes.Add(subPathAgg.ToString(), subPath);
+                        lastN = lastN.Nodes.Add(subPathAgg.ToString(), subPath);
                 else
-                    lastNode = nodes[0];
+                    lastN = nodes[0];
             }
-            return lastNode;
+            return lastN;
         }
     }
 }

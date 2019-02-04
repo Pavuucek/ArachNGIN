@@ -10,9 +10,9 @@ namespace ArachNGIN.Tests.Files.FileFormats
     [TestClass]
     public class QuakePakFileTests
     {
-        private const string TestFile1 = "test.pak";
-        private const string TestFile2 = "testwrite.pak";
-        private const string SimpleFile = "simple.pak";
+        private static readonly string TestFile1 = "test.pak";
+        private static readonly string TestFile2 = "testwrite.pak";
+        private static readonly string SimpleFile = "simple.pak";
 
         [TestMethod]
         public void CreatePakFileAndVerifyFileExists()
