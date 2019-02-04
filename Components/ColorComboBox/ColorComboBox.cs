@@ -30,10 +30,12 @@ namespace ArachNGIN.Components.ColorComboBox
             DropDown += OnDropDown;
 
             _bHideText = true;
+            InitItems();
         }
 
+        /// <inheritdoc />
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ColorComboBox" /> class.
+        ///     Initializes a new instance of the <see cref="T:ArachNGIN.Components.ColorComboBox.ColorComboBox" /> class.
         /// </summary>
         /// <param name="hideText">if set to <c>true</c> [hide text].</param>
         public ColorComboBox(bool hideText) : this()
@@ -56,7 +58,7 @@ namespace ArachNGIN.Components.ColorComboBox
         /// <summary>
         ///     Initializes the items.
         /// </summary>
-        public void InitItems()
+        private void InitItems()
         {
             Items.Add(Color.AliceBlue.Name);
             Items.Add(Color.AntiqueWhite.Name);

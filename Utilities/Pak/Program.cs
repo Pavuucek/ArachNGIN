@@ -102,6 +102,8 @@ namespace Pak
 
             switch (args[0])
             {
+                default:
+                    return;
                 case "a":
                     if (!AddSingleFile(args, pak)) return;
                     break;

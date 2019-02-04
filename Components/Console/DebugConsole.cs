@@ -383,6 +383,8 @@ namespace ArachNGIN.Components.Console
                 case "savelog":
                     SaveLog();
                     break;
+                default:
+                    return;
             }
         }
 

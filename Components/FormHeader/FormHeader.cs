@@ -16,17 +16,17 @@ namespace ArachNGIN.Components.FormHeader
         /// <summary>
         ///     The default message font style
         /// </summary>
-        public const FontStyle DefaultMessageFontStyle = FontStyle.Regular;
+        public static readonly FontStyle DefaultMessageFontStyle = FontStyle.Regular;
 
         /// <summary>
         ///     The default title font style
         /// </summary>
-        public const FontStyle DefaultTitleFontStyle = FontStyle.Bold;
+        public static readonly FontStyle DefaultTitleFontStyle = FontStyle.Bold;
 
         /// <summary>
         ///     The default boundry size
         /// </summary>
-        public const int DefaultBoundrySize = 15;
+        public static readonly int DefaultBoundrySize = 15;
 
         private readonly string _drawTextWorkaroundAppendString = new string(' ', 10000) + ".";
         private int _iBoundrySize = DefaultBoundrySize;

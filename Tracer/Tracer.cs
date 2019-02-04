@@ -30,7 +30,7 @@ namespace ArachNGIN.Tracer
         /// <summary>
         ///     The default tracer level
         /// </summary>
-        public const TracerLevel DefaultLevel = TracerLevel.Info;
+        public static readonly TracerLevel DefaultLevel = TracerLevel.Info;
 
         private static readonly TracerPublisher TracerPublisher;
 
