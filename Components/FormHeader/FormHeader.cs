@@ -16,28 +16,27 @@ namespace ArachNGIN.Components.FormHeader
         /// <summary>
         ///     The default message font style
         /// </summary>
-        public const FontStyle DefaultMessageFontStyle = FontStyle.Regular;
+        public static readonly FontStyle DefaultMessageFontStyle = FontStyle.Regular;
 
         /// <summary>
         ///     The default title font style
         /// </summary>
-        public const FontStyle DefaultTitleFontStyle = FontStyle.Bold;
+        public static readonly FontStyle DefaultTitleFontStyle = FontStyle.Bold;
 
         /// <summary>
         ///     The default boundry size
         /// </summary>
-        public const int DefaultBoundrySize = 15;
+        public static readonly int DefaultBoundrySize = 15;
 
         private readonly string _drawTextWorkaroundAppendString = new string(' ', 10000) + ".";
         private int _iBoundrySize = DefaultBoundrySize;
-
 
         private Icon _icon;
         private Image _image;
         private Font _messageFont;
         private FontStyle _messageFontStyle = DefaultMessageFontStyle;
-        private String _strMessage = String.Empty;
-        private String _strTitle = String.Empty;
+        private string _strMessage = string.Empty;
+        private string _strTitle = string.Empty;
         private Point _textStartPoint = new Point(DefaultBoundrySize, DefaultBoundrySize);
         private Font _titleFont;
         private FontStyle _titleFontStyle = DefaultTitleFontStyle;
@@ -53,7 +52,6 @@ namespace ArachNGIN.Components.FormHeader
             CreateMessageFont();
         }
 
-
         /***************************************************************
             public properties
         ***************************************************************/
@@ -64,7 +62,7 @@ namespace ArachNGIN.Components.FormHeader
         /// <value>
         ///     The message.
         /// </value>
-        public String Message
+        public string Message
         {
             get { return _strMessage; }
             set
@@ -80,7 +78,7 @@ namespace ArachNGIN.Components.FormHeader
         /// <value>
         ///     The title.
         /// </value>
-        public String Title
+        public string Title
         {
             get { return _strTitle; }
             set
@@ -188,7 +186,6 @@ namespace ArachNGIN.Components.FormHeader
             }
         }
 
-
         /***************************************************************
             newly implemented/overridden public properties
         ***************************************************************/
@@ -215,8 +212,7 @@ namespace ArachNGIN.Components.FormHeader
             get { return AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top; }
         }
 
-
-        //only allow black foregound and white background        
+        //only allow black foregound and white background
         /// <summary>
         ///     Gets or sets the foreground color of the control.
         /// </summary>
@@ -297,16 +293,16 @@ namespace ArachNGIN.Components.FormHeader
         protected void DrawMessage(Graphics g)
         {
             //calculate the new startpoint
-            int iNewPosY = TextStartPosition.Y + Font.Height*3/2;
-            int iNewPosX = TextStartPosition.X + Font.Height*3/2;
-            int iTextBoxWidth = Width - iNewPosX;
-            int iTextBoxHeight = Height - iNewPosY;
+            var iNewPosY = TextStartPosition.Y + Font.Height * 3 / 2;
+            var iNewPosX = TextStartPosition.X + Font.Height * 3 / 2;
+            var iTextBoxWidth = Width - iNewPosX;
+            var iTextBoxHeight = Height - iNewPosY;
 
             if (_icon != null)
-                iTextBoxWidth -= (BoundrySize + _icon.Width);
-                // subtract the width of the icon and the boundry size again
+                iTextBoxWidth -= BoundrySize + _icon.Width;
+            // subtract the width of the icon and the boundry size again
             else if (_image != null)
-                iTextBoxWidth -= (BoundrySize + _image.Width);
+                iTextBoxWidth -= BoundrySize + _image.Width;
             // subtract the width of the icon and the boundry size again
 
             var rect = new Rectangle(iNewPosX, iNewPosY, iTextBoxWidth, iTextBoxHeight);
@@ -321,7 +317,7 @@ namespace ArachNGIN.Components.FormHeader
         {
             if (_image == null)
                 return;
-            g.DrawImage(_image, Width - _image.Width - BoundrySize, (Height - _image.Height)/2);
+            g.DrawImage(_image, Width - _image.Width - BoundrySize, (Height - _image.Height) / 2);
         }
 
         /// <summary>
@@ -332,7 +328,7 @@ namespace ArachNGIN.Components.FormHeader
         {
             if (_icon == null)
                 return;
-            g.DrawIcon(_icon, Width - _icon.Width - BoundrySize, (Height - _icon.Height)/2);
+            g.DrawIcon(_icon, Width - _icon.Width - BoundrySize, (Height - _icon.Height) / 2);
         }
 
         /// <summary>
@@ -343,7 +339,6 @@ namespace ArachNGIN.Components.FormHeader
         {
             g.FillRectangle(new SolidBrush(BackColor), 0, 0, Width, Height);
         }
-
 
         /***************************************************************
             overridden methods
@@ -360,17 +355,6 @@ namespace ArachNGIN.Components.FormHeader
         }
 
         /// <summary>
-        ///     Paints the background of the control.
-        /// </summary>
-        /// <param name="pevent">
-        ///     A <see cref="T:System.Windows.Forms.PaintEventArgs" /> that contains information about the control
-        ///     to paint.
-        /// </param>
-        protected override void OnPaintBackground(PaintEventArgs pevent)
-        {
-        }
-
-        /// <summary>
         ///     Raises the <see cref="E:System.Windows.Forms.Control.Paint" /> event.
         /// </summary>
         /// <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs" /> that contains the event data.</param>
@@ -384,6 +368,7 @@ namespace ArachNGIN.Components.FormHeader
                 DrawIcon(e.Graphics);
             else if (_image != null)
                 DrawImage(e.Graphics);
+            base.OnPaint(e);
         }
 
         /// <summary>
@@ -396,7 +381,6 @@ namespace ArachNGIN.Components.FormHeader
             base.OnSizeChanged(e);
         }
     }
-
 
     /*******************************************************************************************************************************
         ColorSlideFormHeader is an extended version of the FormHeader class

@@ -46,6 +46,7 @@ namespace ArachNGIN.Components.Console.Forms
 		private void InitializeComponent()
 		{
             this.lstLogSeparate = new System.Windows.Forms.ListView();
+            this.colNumber = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colMessage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1 = new System.Windows.Forms.Panel();
@@ -53,24 +54,28 @@ namespace ArachNGIN.Components.Console.Forms
             this.txtCommand = new System.Windows.Forms.TextBox();
             this.lblCMD = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
-            this.lstLogPlain = new System.Windows.Forms.ListBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstLogSeparate
             // 
             this.lstLogSeparate.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colNumber,
             this.colTime,
             this.colMessage});
             this.lstLogSeparate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstLogSeparate.Location = new System.Drawing.Point(0, 0);
             this.lstLogSeparate.MultiSelect = false;
             this.lstLogSeparate.Name = "lstLogSeparate";
-            this.lstLogSeparate.Size = new System.Drawing.Size(392, 221);
+            this.lstLogSeparate.Size = new System.Drawing.Size(411, 221);
             this.lstLogSeparate.TabIndex = 0;
             this.lstLogSeparate.UseCompatibleStateImageBehavior = false;
             this.lstLogSeparate.View = System.Windows.Forms.View.Details;
-            this.lstLogSeparate.SizeChanged += new System.EventHandler(this.LstLogSeparateSizeChanged);
+            // 
+            // colNumber
+            // 
+            this.colNumber.Text = "#";
+            this.colNumber.Width = 30;
             // 
             // colTime
             // 
@@ -90,7 +95,7 @@ namespace ArachNGIN.Components.Console.Forms
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 221);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(392, 44);
+            this.panel1.Size = new System.Drawing.Size(411, 44);
             this.panel1.TabIndex = 1;
             // 
             // chkAutoSave
@@ -129,20 +134,11 @@ namespace ArachNGIN.Components.Console.Forms
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             // 
-            // lstLogPlain
-            // 
-            this.lstLogPlain.FormattingEnabled = true;
-            this.lstLogPlain.Location = new System.Drawing.Point(109, 59);
-            this.lstLogPlain.Name = "lstLogPlain";
-            this.lstLogPlain.Size = new System.Drawing.Size(120, 95);
-            this.lstLogPlain.TabIndex = 2;
-            // 
             // ConsoleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 265);
-            this.Controls.Add(this.lstLogPlain);
+            this.ClientSize = new System.Drawing.Size(411, 265);
             this.Controls.Add(this.lstLogSeparate);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -162,6 +158,6 @@ namespace ArachNGIN.Components.Console.Forms
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.ColumnHeader colMessage;
         private System.Windows.Forms.ColumnHeader colTime;
-        internal System.Windows.Forms.ListBox lstLogPlain;
-	}
+        private System.Windows.Forms.ColumnHeader colNumber;
+    }
 }

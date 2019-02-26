@@ -1,6 +1,6 @@
-﻿using System;
+﻿using ArachNGIN.Files.TempDir;
+using System;
 using System.Windows.Forms;
-using ArachNGIN.Files.TempDir;
 
 namespace PakCreator
 {
@@ -12,12 +12,12 @@ namespace PakCreator
         /// <summary>
         ///     The main form
         /// </summary>
-        public static FormMain frmMain;
+        private static FormMain _frmMain;
 
         /// <summary>
         ///     Temporary Directory Manager
         /// </summary>
-        public static TempManager ATemp = new TempManager();
+        public static readonly TempManager ATemp = new TempManager();
 
         /// <summary>
         ///     Defines the entry point of the application.
@@ -27,7 +27,7 @@ namespace PakCreator
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(frmMain = new FormMain());
+            Application.Run(_frmMain = new FormMain());
         }
     }
 }

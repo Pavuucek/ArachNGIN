@@ -5,10 +5,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
  * is furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
  * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
  * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
@@ -16,13 +16,14 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+using ArachNGIN.ClassExtensions;
+using ArachNGIN.Files.FileFormats;
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
-using ArachNGIN.Files.QuakePak;
-using ArachNGIN.Files.Streams;
 
 namespace Pak
 {
@@ -36,12 +37,10 @@ namespace Pak
         /// </summary>
         private static readonly StringCollection PakIndex = new StringCollection();
 
-
         /// <summary>
         ///     The executable name
         /// </summary>
         private static readonly string ExeName = Path.GetFileName(Assembly.GetExecutingAssembly().CodeBase);
-
 
         /// <summary>
         ///     Displays the header.
@@ -52,7 +51,6 @@ namespace Pak
             Console.WriteLine();
             Console.WriteLine();
         }
-
 
         /// <summary>
         ///     Displays the help.
@@ -75,7 +73,6 @@ namespace Pak
             Console.WriteLine("{0} x [název_archivu] [výstupní_cesta]", ExeName);
         }
 
-
         /// <summary>
         ///     Prints a message when more command line arguments are expected.
         /// </summary>
@@ -85,7 +82,6 @@ namespace Pak
             Console.WriteLine();
             DisplayHelp();
         }
-
 
         /// <summary>
         ///     Main function of Pak program.
@@ -106,35 +102,24 @@ namespace Pak
 
             switch (args[0])
             {
+                default:
+                    return;
                 case "a":
-                    if (!AddSingleFile(args, pak))
-                    {
-                        pak.Close();
-                        return;
-                    }
+                    if (!AddSingleFile(args, pak)) return;
                     break;
+
                 case "d":
-                    if (!AddDirectory(args, pak))
-                    {
-                        pak.Close();
-                        return;
-                    }
+                    if (!AddDirectory(args, pak)) return;
                     break;
+
                 case "e":
-                    if (!ExtractSingleFile(args, pak))
-                    {
-                        pak.Close();
-                        return;
-                    }
+                    if (!ExtractSingleFile(args, pak)) return;
                     break;
+
                 case "x":
-                    if (!ExtractAllFiles(args, pak))
-                    {
-                        pak.Close();
-                        return;
-                    }
+                    if (!ExtractAllFiles(args, pak)) return;
                     break;
-                    // pridat a indexovat
+                // pridat a indexovat
                 case "ia":
                     if (args.Length < 3)
                     {
@@ -145,30 +130,29 @@ namespace Pak
 
                     if (ExistsInIndex(args[2]))
                     {
-                        Guid g = Guid.NewGuid();
+                        var g = Guid.NewGuid();
                         ReplaceInIndex(args[2], g.ToString());
                         pak.AddFile(args[2], g.ToString());
                     }
                     else
                     {
-                        string s = AddIndexedFile(args[2]);
+                        var s = AddIndexedFile(args[2]);
                         // TODO: tohle neudělá nic. AddFile neumí nahrazovat :-)
                         pak.AddFile(args[2], s);
                     }
                     //
                     FinishIndex();
-                    Stream ms = new MemoryStream();
-                    StringCollections.SaveToStream(ms, PakIndex);
-                    ms.Seek(0, SeekOrigin.Begin);
-                    pak.AddStream(ms, "(pak-index)", true);
-                    ms.Close();
+                    using (Stream ms = new MemoryStream())
+                    {
+                        PakIndex.SaveToStream(ms);
+                        ms.Seek(0, SeekOrigin.Begin);
+                        pak.AddStream(ms, "(pak-index)", true);
+                    }
                     break;
             }
             Console.WriteLine();
             Console.WriteLine("Hotovo!");
-            pak.Close();
         }
-
 
         /// <summary>
         ///     Extracts all files.
@@ -185,21 +169,18 @@ namespace Pak
             }
 
             if (!Directory.Exists(args[2]))
-            {
                 Console.WriteLine("Chyba: Výstupní adresář neexistuje!");
-            }
 
-            string path = StringUtils.StrAddSlash(args[2]); // +Path.GetDirectoryName(args[1]);
-            foreach (string file in pak.PakFileList)
+            var path = args[2].AddSlash(); // +Path.GetDirectoryName(args[1])
+            foreach (var file in pak.PakFileList)
             {
                 Console.WriteLine("Rozbaluji {0}", file);
-                string localpath = path + file;
+                var localpath = path + file;
                 Directory.CreateDirectory(Path.GetDirectoryName(localpath));
                 pak.ExtractFile(file, localpath);
             }
             return true;
         }
-
 
         /// <summary>
         ///     Extracts a single file.
@@ -207,9 +188,9 @@ namespace Pak
         /// <param name="args">The command line arguments.</param>
         /// <param name="pak">The pak file.</param>
         /// <returns></returns>
-        private static bool ExtractSingleFile(string[] args, QuakePakFile pak)
+        private static bool ExtractSingleFile(IList<string> args, QuakePakFile pak)
         {
-            if (args.Length < 4)
+            if (args.Count < 4)
             {
                 NotEnoughArgs();
                 return false;
@@ -220,18 +201,15 @@ namespace Pak
                 return false;
             }
             if (!Directory.Exists(args[3]))
-            {
                 Console.WriteLine("Chyba: Výstupní adresář neexistuje!");
-            }
             Console.WriteLine("Rozbaluji {0}", args[2]);
-            string path = StringUtils.StrAddSlash(args[3]) + Path.GetDirectoryName(args[2]);
+            var path = args[3].AddSlash() + Path.GetDirectoryName(args[2]);
             Directory.CreateDirectory(path);
-            path = StringUtils.StrAddSlash(path) + Path.GetFileName(args[2]);
+            path = path.AddSlash() + Path.GetFileName(args[2]);
             pak.ExtractFile(args[2], path);
 
             return true;
         }
-
 
         /// <summary>
         ///     Adds a directory to pak file.
@@ -239,9 +217,9 @@ namespace Pak
         /// <param name="args">The command line arguments.</param>
         /// <param name="pak">The pak file.</param>
         /// <returns></returns>
-        private static bool AddDirectory(string[] args, QuakePakFile pak)
+        private static bool AddDirectory(IList<string> args, QuakePakFile pak)
         {
-            if (args.Length < 3)
+            if (args.Count < 3)
             {
                 NotEnoughArgs();
                 return false;
@@ -251,23 +229,22 @@ namespace Pak
                 Console.WriteLine("Chyba: Adresář {0} neexistuje!", args[2]);
                 return false;
             }
-            string path = StringUtils.StrAddSlash(args[2]);
-            string[] filenames = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
+            var path = args[2].AddSlash();
+            var filenames = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
             if (filenames.Length == 0)
             {
                 Console.WriteLine("Chyba: Adresář {0} je prázdný!", args[2]);
                 return false;
             }
-            for (int i = 0; i < filenames.Length; i++)
+            for (var i = 0; i < filenames.Length; i++)
             {
-                bool lastfile = (i == filenames.Length - 1); // posledni po sobe zavre fatku.
-                string plainfilename = filenames[i].Replace(path, "");
+                var lastfile = i == filenames.Length - 1; // posledni po sobe zavre fatku.
+                var plainfilename = filenames[i].Replace(path, "");
                 Console.WriteLine("Přidávám soubor {0}", plainfilename);
                 pak.AddFile(filenames[i], plainfilename, lastfile);
             }
             return true;
         }
-
 
         /// <summary>
         ///     Adds a single file.
@@ -275,9 +252,9 @@ namespace Pak
         /// <param name="args">The command line arguments.</param>
         /// <param name="pak">The pak file.</param>
         /// <returns></returns>
-        private static bool AddSingleFile(string[] args, QuakePakFile pak)
+        private static bool AddSingleFile(IList<string> args, QuakePakFile pak)
         {
-            if (args.Length < 3)
+            if (args.Count < 3)
             {
                 NotEnoughArgs();
                 return false;
@@ -295,7 +272,6 @@ namespace Pak
             return true;
         }
 
-
         /// <summary>
         ///     Adds an indexed file.
         /// </summary>
@@ -303,11 +279,10 @@ namespace Pak
         /// <returns>The file name under which file is stored in pak.</returns>
         private static string AddIndexedFile(string file)
         {
-            Guid g = Guid.NewGuid();
-            PakIndex.Add(file + "=" + g.ToString().ToLower());
-            return g.ToString().ToLower();
+            var g = Guid.NewGuid();
+            PakIndex.Add(file + "=" + g.ToString().ToLowerInvariant());
+            return g.ToString().ToLowerInvariant();
         }
-
 
         /// <summary>
         ///     Finishes the index.
@@ -328,7 +303,6 @@ namespace Pak
             // TODO: dopsat nahrazovani souboru do quakepakfile.
         }
 
-
         /// <summary>
         ///     Cleans the index.
         /// </summary>
@@ -337,15 +311,14 @@ namespace Pak
             var tempIndex = new string[PakIndex.Count];
             PakIndex.CopyTo(tempIndex, 0);
             PakIndex.Clear();
-            foreach (string line in tempIndex)
+            foreach (var line in tempIndex)
             {
-                string[] split = line.Split('=');
+                var split = line.Split('=');
                 // vic jak 1 -> radka je v ini formatu, tj ok a neobsahuje 'filecount' a neni prazdny
-                if (split.Length > 1 && !line.ToLower().Contains("filecount") && !string.IsNullOrEmpty(line))
-                    PakIndex.Add(line.ToLower());
+                if (split.Length > 1 && !line.ToLowerInvariant().Contains("filecount") && !string.IsNullOrEmpty(line))
+                    PakIndex.Add(line.ToLowerInvariant());
             }
         }
-
 
         /// <summary>
         ///     Replaces a file in index.
@@ -357,21 +330,18 @@ namespace Pak
             var tempIndex = new string[PakIndex.Count];
             PakIndex.CopyTo(tempIndex, 0);
             PakIndex.Clear();
-            foreach (string line in tempIndex)
-            {
-                if (line.Contains(oldFile.ToLower()))
+            foreach (var line in tempIndex)
+                if (line.Contains(oldFile.ToLowerInvariant()))
                 {
-                    string[] linesplit = line.Split('=');
+                    var linesplit = line.Split('=');
                     if (linesplit.Length != 2) PakIndex.Add(line);
-                    else PakIndex.Add(linesplit[0] + "=" + newFile.ToLower());
+                    else PakIndex.Add(linesplit[0] + "=" + newFile.ToLowerInvariant());
                 }
                 else
                 {
                     PakIndex.Add(line);
                 }
-            }
         }
-
 
         /// <summary>
         ///     Loads the index.
@@ -383,12 +353,11 @@ namespace Pak
             var ms = new MemoryStream();
             pak.ExtractStream("(pak-index)", ms);
             ms.Seek(0, SeekOrigin.Begin);
-            StringCollections.LoadFromStream(ms, PakIndex);
+            PakIndex.LoadFromStream(ms);
             ms.Close();
             //
             CleanIndex();
         }
-
 
         /// <summary>
         ///     Checks if file exists in index.
@@ -398,12 +367,12 @@ namespace Pak
         private static bool ExistsInIndex(string filename)
         {
             var sd = new StringDictionary();
-            foreach (string s in PakIndex)
+            foreach (var s in PakIndex)
             {
-                string[] split = s.Split('=');
+                var split = s.Split('=');
                 if (split.Length > 1) sd.Add(split[0], split[1]);
             }
-            return sd.ContainsKey(filename.ToLower());
+            return sd.ContainsKey(filename.ToLowerInvariant());
         }
     }
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>ArachNGIN</id>
+    <version>$MajorVersion$.$MinorVersion$.$Revision$.$Commit$</version>
+    <title>ArachNGIN</title>
+    <authors>Michal Kuncl</authors>
+    <owners>Pavuucek</owners>
+    <licenseUrl>https://github.com/Pavuucek/ArachNGIN/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Pavuucek/ArachNGIN</projectUrl>
+    <!--iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A small personal collection of .NET classes and components.</description>
+    <!--releaseNotes>Summary of changes made in this release of the package.</releaseNotes-->
+    <!--copyright>Copyright 2017</copyright-->
+    <!--tags></tags-->
+    <developmentDependency>true</developmentDependency>
+    <!--dependencies>
+      <dependency id="SampleDependency" version="1.0" />
+    </dependencies-->
+  </metadata>
+  <files>
+    <file src="..\_bin\Release\*.*" target="lib" />
+  </files>
+</package>

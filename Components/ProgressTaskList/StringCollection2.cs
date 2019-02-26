@@ -8,15 +8,13 @@ namespace ArachNGIN.Components.ProgressTaskList
     /// </summary>
     public class StringCollection2 : CollectionBase
     {
-        private readonly ProgressTaskList _parent;
-
         /// <summary>
         ///     Constructor requires the  string that owns this collection
         /// </summary>
         /// <param name="parent">ProgressProgressTaskList</param>
         public StringCollection2(ProgressTaskList parent)
         {
-            _parent = parent;
+            Parent = parent;
         }
 
         /// <summary>
@@ -24,18 +22,14 @@ namespace ArachNGIN.Components.ProgressTaskList
         /// </summary>
         public string this[int index]
         {
-            get { return ((string) List[index]); }
+            get { return (string)List[index]; }
             set { List[index] = value; }
         }
 
         /// <summary>
         ///     Returns the ProgressProgressTaskList that owns this collection
         /// </summary>
-        public ProgressTaskList Parent
-        {
-            get { return _parent; }
-        }
-
+        public ProgressTaskList Parent { get; }
 
         /// <summary>
         ///     Adds a string into the Collection
@@ -44,10 +38,9 @@ namespace ArachNGIN.Components.ProgressTaskList
         /// <returns></returns>
         public int Add(string value)
         {
-            int result = List.Add(value);
+            var result = List.Add(value);
             return result;
         }
-
 
         /// <summary>
         ///     Adds an array of strings into the collection. Used by the Studio Designer generated code
@@ -56,10 +49,8 @@ namespace ArachNGIN.Components.ProgressTaskList
         public void AddRange(string[] strings)
         {
             // Use external to validate and add each entry
-            foreach (string s in strings)
-            {
+            foreach (var s in strings)
                 Add(s);
-            }
         }
 
         /// <summary>
@@ -69,7 +60,7 @@ namespace ArachNGIN.Components.ProgressTaskList
         /// <returns>Index of string in collection</returns>
         public int IndexOf(string value)
         {
-            return (List.IndexOf(value));
+            return List.IndexOf(value);
         }
 
         /// <summary>
@@ -81,7 +72,6 @@ namespace ArachNGIN.Components.ProgressTaskList
         {
             List.Insert(index, value);
         }
-
 
         /// <summary>
         ///     Removes the given string from the collection
@@ -101,14 +91,18 @@ namespace ArachNGIN.Components.ProgressTaskList
         public bool Contains(string value)
         {
             // If value is not of type Int16, this will return false.
-            return (List.Contains(value));
+            return List.Contains(value);
         }
 
-
+        /// <summary>
+        ///     Called when [insert complete].
+        /// </summary>
+        /// <param name="index">The index.</param>
+        /// <param name="value">The value.</param>
         protected override void OnInsertComplete(int index, object value)
         {
             base.OnInsertComplete(index, value);
-            _parent.InitLabels();
+            Parent.InitLabels();
         }
 
         /// <summary>
@@ -119,7 +113,7 @@ namespace ArachNGIN.Components.ProgressTaskList
         protected override void OnRemoveComplete(int index, object value)
         {
             base.OnRemoveComplete(index, value);
-            _parent.InitLabels();
+            Parent.InitLabels();
         }
     }
 }

@@ -16,15 +16,12 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#region Usingy
 
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-
-#endregion
 
 namespace ArachNGIN.Components.SplashForm
 {
@@ -33,6 +30,24 @@ namespace ArachNGIN.Components.SplashForm
     /// </summary>
     public class SplashForm : Form
     {
+        #region Dispose        
+
+        /// <summary>
+        ///     Disposes of the resources (other than memory) used by the <see cref="T:System.Windows.Forms.Form" />.
+        /// </summary>
+        /// <param name="disposing">
+        ///     true to release both managed and unmanaged resources; false to release only unmanaged
+        ///     resources.
+        /// </param>
+        protected override void Dispose(bool disposing)
+        {
+            _mBmp.Dispose();
+            base.Dispose(disposing);
+            //_mInstance = null
+        }
+
+        #endregion // Dispose
+
         #region Constructor        
 
         /// <summary>
@@ -41,7 +56,7 @@ namespace ArachNGIN.Components.SplashForm
         /// <param name="imageFile">The image file.</param>
         /// <param name="col">The color.</param>
         /// <exception cref="System.Exception">Failed to load the bitmap file  + imageFile</exception>
-        public SplashForm(String imageFile, Color col)
+        public SplashForm(string imageFile, Color col)
         {
             Debug.Assert(!string.IsNullOrEmpty(imageFile),
                 "A valid file path has to be given");
@@ -86,7 +101,7 @@ namespace ArachNGIN.Components.SplashForm
         ///         class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
         ///         version="1" Unrestricted="true" />
         /// </PermissionSet>
-        public override sealed Color BackColor
+        public sealed override Color BackColor
         {
             get { return base.BackColor; }
             set { base.BackColor = value; }
@@ -101,7 +116,7 @@ namespace ArachNGIN.Components.SplashForm
         /// </summary>
         /// <param name="imageFile">The image file.</param>
         /// <param name="col">The col.</param>
-        public static void ShowModal(String imageFile, Color col)
+        public static void ShowModal(string imageFile, Color col)
         {
             _mImageFile = imageFile;
             _mTransColor = col;
@@ -113,7 +128,7 @@ namespace ArachNGIN.Components.SplashForm
         /// </summary>
         /// <param name="imageFile">The image file.</param>
         /// <param name="col">The color.</param>
-        public static void StartSplash(String imageFile, Color col)
+        public static void StartSplash(string imageFile, Color col)
         {
             _mImageFile = imageFile;
             _mTransColor = col;
@@ -132,24 +147,6 @@ namespace ArachNGIN.Components.SplashForm
         }
 
         #endregion // Public methods
-
-        #region Dispose        
-
-        /// <summary>
-        ///     Disposes of the resources (other than memory) used by the <see cref="T:System.Windows.Forms.Form" />.
-        /// </summary>
-        /// <param name="disposing">
-        ///     true to release both managed and unmanaged resources; false to release only unmanaged
-        ///     resources.
-        /// </param>
-        protected override void Dispose(bool disposing)
-        {
-            _mBmp.Dispose();
-            base.Dispose(disposing);
-            _mInstance = null;
-        }
-
-        #endregion // Dispose
 
         #region Threading code
 
@@ -193,7 +190,7 @@ namespace ArachNGIN.Components.SplashForm
         #region Private variables
 
         private static SplashForm _mInstance;
-        private static String _mImageFile;
+        private static string _mImageFile;
         private static Color _mTransColor;
         private readonly Bitmap _mBmp;
         private readonly DelegateCloseSplash _mDelegateClose;

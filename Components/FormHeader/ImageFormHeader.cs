@@ -55,6 +55,7 @@ namespace ArachNGIN.Components.FormHeader
                 DrawIcon(e.Graphics);
             else if (Image != null)
                 DrawImage(e.Graphics);
+            base.OnPaint(e);
         }
 
         /// <summary>

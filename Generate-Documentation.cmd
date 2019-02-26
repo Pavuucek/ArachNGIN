@@ -1,5 +1,5 @@
 @echo off
 md ..\ArachNGIN_gh-pages >nul
-gitversioner w Doxyfile
+call gitversioner.bat w -f=Doxyfile
 doxygen
-gitversioner r Doxyfile
+call gitversioner.bat r -f=Doxyfile

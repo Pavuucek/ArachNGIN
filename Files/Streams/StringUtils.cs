@@ -5,10 +5,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
  * is furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
  * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
  * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
@@ -16,10 +16,9 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text.RegularExpressions;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ArachNGIN.Files.Streams
@@ -30,83 +29,11 @@ namespace ArachNGIN.Files.Streams
     public static class StringUtils
     {
         /// <summary>
-        ///     Splits a string.
-        /// </summary>
-        /// <param name="wholeString">The whole string.</param>
-        /// <param name="delimiter">The delimiter.</param>
-        /// <returns></returns>
-        public static string[] StringSplit(string wholeString, string delimiter)
-        {
-            var r = new Regex("(" + delimiter + ")");
-            string[] s = r.Split(wholeString);
-            int iHalf = Convert.ToInt16((s.GetUpperBound(0)/2) + 1);
-            var res = new string[iHalf];
-            int j = 0;
-            for (int i = 0; i <= s.GetUpperBound(0); i++)
-            {
-                if (s[i] != delimiter)
-                {
-                    res[j] = s[i];
-                    j++;
-                }
-            }
-            return res;
-        }
-
-        /// <summary>
-        ///     Adds a slasho to the end of a string (if it's not already there)
-        /// </summary>
-        /// <param name="strString">The string.</param>
-        /// <returns></returns>
-        public static string StrAddSlash(string strString)
-        {
-            // zapamatovat si: lomítko je 0x5C!
-            string s = strString;
-            if (s[s.Length - 1] != (char) 0x5C) return s + (char) 0x5C;
-            return s;
-        }
-
-        /// <summary>
-        ///     Checks if a string starts with a slash. If it does it removes it.
-        /// </summary>
-        /// <param name="strString">The string.</param>
-        /// <returns></returns>
-        public static string NoStartingSlash(string strString)
-        {
-            if (string.IsNullOrEmpty(strString)) return string.Empty;
-            if (strString[0] == '\\') return strString.Substring(1);
-            return strString;
-        }
-
-        /// <summary>
-        ///     Checks if a string ends with a slash. if it does it removes it.
-        /// </summary>
-        /// <param name="strString">The string.</param>
-        /// <returns></returns>
-        public static string NoEndingSlash(string strString)
-        {
-            if (string.IsNullOrEmpty(strString)) return string.Empty;
-            string r = strString;
-            if (strString[strString.Length - 1] == '\\') r = strString.Substring(0, strString.Length - 1);
-            return r;
-        }
-
-        /// <summary>
-        ///     Deletes slashes on both ends of a string
-        /// </summary>
-        /// <param name="strString">The string.</param>
-        /// <returns></returns>
-        public static string NoSlashesOnEnds(string strString)
-        {
-            return NoEndingSlash(NoStartingSlash(strString));
-        }
-
-        /// <summary>
         ///     Converts an integer to big endian byte array
         /// </summary>
         /// <param name="x">The integer</param>
         /// <returns></returns>
-        public static byte[] UInt32ToBigEndianBytes(UInt32 x)
+        public static byte[] UInt32ToBigEndianBytes(uint x)
         {
             return new[]
             {
@@ -122,27 +49,12 @@ namespace ArachNGIN.Files.Streams
         /// </summary>
         /// <param name="x">The integer</param>
         /// <returns></returns>
-        public static string UInt32ToByteString(UInt32 x)
+        public static string UInt32ToByteString(uint x)
         {
-            byte[] tmp = UInt32ToBigEndianBytes(x);
-            string s = string.Empty;
-            foreach (byte b in tmp) s += b.ToString("x2");
-            return s;
-        }
-
-        /// <summary>
-        ///     Converts a byte array to string
-        /// </summary>
-        /// <param name="x">The byte array</param>
-        /// <returns></returns>
-        public static string ByteArrayToString(byte[] x)
-        {
-            string s = string.Empty;
-            if ((x != null) && (x.Length > 0))
-            {
-                foreach (byte b in x) s += b.ToString("x2");
-            }
-            return s;
+            var tmp = UInt32ToBigEndianBytes(x);
+            var s = new StringBuilder();
+            foreach (var b in tmp) s.Append(b.ToString("x2"));
+            return s.ToString();
         }
 
         /// <summary>
@@ -153,11 +65,9 @@ namespace ArachNGIN.Files.Streams
         /// <returns></returns>
         public static string PadNumToLength(int number, int length)
         {
-            string result = number.ToString(CultureInfo.InvariantCulture);
+            var result = number.ToString(CultureInfo.InvariantCulture);
             while (result.Length < length)
-            {
                 result = "0" + result;
-            }
             return result;
         }
 
@@ -169,30 +79,27 @@ namespace ArachNGIN.Files.Streams
         /// <param name="pathSeparator">The path separator.</param>
         public static void PopulateTreeViewByFiles(TreeView treeView, IEnumerable<string> paths, char pathSeparator)
         {
-            TreeNode lastNode = null;
-            foreach (string path in paths)
-            {
-                lastNode = LastNode(treeView, pathSeparator, path, null);
-            }
+            foreach (var path in paths)
+                LastNode(treeView, pathSeparator, path, null);
         }
-
 
         private static TreeNode LastNode(TreeView treeView, char pathSeparator, string path, TreeNode lastNode)
         {
-            string subPathAgg = string.Empty;
-            foreach (string subPath in path.Split(pathSeparator))
+            var subPathAgg = new StringBuilder();
+            var lastN = lastNode;
+            foreach (var subPath in path.Split(pathSeparator))
             {
-                subPathAgg += subPath + pathSeparator;
-                TreeNode[] nodes = treeView.Nodes.Find(subPathAgg, true);
+                subPathAgg.Append(subPath + pathSeparator);
+                var nodes = treeView.Nodes.Find(subPathAgg.ToString(), true);
                 if (nodes.Length == 0)
-                    if (lastNode == null)
-                        lastNode = treeView.Nodes.Add(subPathAgg, subPath);
+                    if (lastN == null)
+                        lastN = treeView.Nodes.Add(subPathAgg.ToString(), subPath);
                     else
-                        lastNode = lastNode.Nodes.Add(subPathAgg, subPath);
+                        lastN = lastN.Nodes.Add(subPathAgg.ToString(), subPath);
                 else
-                    lastNode = nodes[0];
+                    lastN = nodes[0];
             }
-            return lastNode;
+            return lastN;
         }
     }
 }

@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ArachNGIN.Files</RootNamespace>
     <AssemblyName>ArachNGIN.Files</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -41,7 +41,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>..\_bin\Debug\ArachNGIN.Files.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -67,25 +67,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CRC\AnimeCrc.cs" />
-    <Compile Include="Graphics\ByteArrayConverters.cs" />
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Crc\AnimeCrc.cs" />
+    <Compile Include="FileFormats\QuakePakFile.PakFat.cs" />
+    <Compile Include="FileFormats\VpDirEntry.cs" />
+    <Compile Include="FileFormats\VpFile.cs" />
     <Compile Include="Graphics\ImageResizer.cs" />
     <Compile Include="Mime\GetMimeTypeFromContent.cs" />
-    <Compile Include="Mime\GetMimeTypeFromExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuakePak\QuakePakFile.cs" />
-    <Compile Include="QuakePak\QuakePakFileSystem.cs" />
-    <Compile Include="Settings\INIFile.cs" />
+    <Compile Include="FileFormats\QuakePakFile.cs" />
+    <Compile Include="FileFormats\QuakePakFileSystem.cs" />
+    <Compile Include="Settings\Ini.cs" />
     <Compile Include="Settings\JSONSettings1.cs" />
     <Compile Include="Settings\JSONSettings2.cs" />
     <Compile Include="Settings\PortableSettingsProvider.cs" />
     <Compile Include="Streams\MultimaskFileSearcher.cs" />
     <Compile Include="Streams\StreamHandling.cs" />
-    <Compile Include="Streams\StringCollections.cs" />
     <Compile Include="Streams\StringUtils.cs" />
-    <Compile Include="Streams\XmlSettings.cs" />
+    <Compile Include="Settings\XmlSettings.cs" />
     <Compile Include="TempDir\TempManager.cs" />
     <Compile Include="Torrents\TorrentParser.cs" />
+    <Compile Include="Torrents\TorrentParser.StFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -104,13 +108,22 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ClassExtensions\ArachNGIN.ClassExtensions.csproj">
+      <Project>{0c62509f-6707-4ace-b644-2a029c1fd942}</Project>
+      <Name>ArachNGIN.ClassExtensions</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)..\GitVersioner.exe" w "$(ProjectDir)Properties\AssemblyInfo.cs"</PreBuildEvent>
+    <PreBuildEvent>rem "$(SolutionDir)GitVersioner.bat" a -f="$(SolutionDir)SharedAssemblyInfo.cs"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>"$(ProjectDir)..\GitVersioner.exe" r "$(ProjectDir)Properties\AssemblyInfo.cs"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

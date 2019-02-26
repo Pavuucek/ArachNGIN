@@ -8,16 +8,13 @@ namespace ArachNGIN.Files.Streams
     /// </summary>
     public class MultimaskFileSearcher
     {
-        private readonly ArrayList _extensions;
-        private bool _recursive;
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="MultimaskFileSearcher" /> class.
         /// </summary>
         public MultimaskFileSearcher()
         {
-            _extensions = ArrayList.Synchronized(new ArrayList());
-            _recursive = true;
+            SearchExtensions = ArrayList.Synchronized(new ArrayList());
+            Recursive = true;
         }
 
         /// <summary>
@@ -26,11 +23,7 @@ namespace ArachNGIN.Files.Streams
         /// <value>
         ///     The search extensions.
         /// </value>
-        public ArrayList SearchExtensions
-        {
-            get { return _extensions; }
-        }
-
+        public ArrayList SearchExtensions { get; }
 
         /// <summary>
         ///     Gets or sets a value indicating whether searching <see cref="MultimaskFileSearcher" /> is recursive.
@@ -38,11 +31,7 @@ namespace ArachNGIN.Files.Streams
         /// <value>
         ///     <c>true</c> if recursive; otherwise, <c>false</c>.
         /// </value>
-        public bool Recursive
-        {
-            get { return _recursive; }
-            set { _recursive = value; }
-        }
+        public bool Recursive { get; set; }
 
         /// <summary>
         ///     Searches the specified path.
@@ -53,22 +42,13 @@ namespace ArachNGIN.Files.Streams
         {
             var root = new DirectoryInfo(path);
             var subFiles = new ArrayList();
-            foreach (FileInfo file in root.GetFiles())
-            {
-                // kdyz chceme vsechno (*.*) tak pridavame vsechno :-)
-                if ((_extensions.Contains(file.Extension)) || (_extensions.Contains("*.*")))
-                {
+            foreach (var file in root.GetFiles())
+                if (SearchExtensions.Contains(file.Extension) || SearchExtensions.Contains("*.*"))
                     subFiles.Add(file);
-                }
-            }
-            if (_recursive)
-            {
-                foreach (DirectoryInfo directory in root.GetDirectories())
-                {
-                    subFiles.AddRange(Search(directory.FullName));
-                }
-            }
-            return (FileInfo[]) subFiles.ToArray(typeof (FileInfo));
+            if (!Recursive) return (FileInfo[])subFiles.ToArray(typeof(FileInfo));
+            foreach (var directory in root.GetDirectories())
+                subFiles.AddRange(Search(directory.FullName));
+            return (FileInfo[])subFiles.ToArray(typeof(FileInfo));
         }
     }
 }

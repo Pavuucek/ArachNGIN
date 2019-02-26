@@ -35,7 +35,7 @@ namespace ArachNGIN.Components.ProgressTaskList
         [Editor(
             "System.Windows.Forms.Design.StringCollectionEditor, System.Design, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
             "System.Drawing.Design.UITypeEditor, System.Drawing, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-            )]
+        )]
         public StringCollection2 TaskItems
         {
             get { return _tasks; }
@@ -57,8 +57,8 @@ namespace ArachNGIN.Components.ProgressTaskList
                 // create array of labels
                 _labels = new Label[_tasks.Count];
                 const int leftIndent = 3;
-                int topPos = 3;
-                for (int i = 0; i < _tasks.Count; i++)
+                var topPos = 3;
+                for (var i = 0; i < _tasks.Count; i++)
                 {
                     var l = new Label
                     {
@@ -120,7 +120,7 @@ namespace ArachNGIN.Components.ProgressTaskList
                 if (_currentTask < _labels.Length)
                 {
                     ScrollControlIntoView(_labels[_currentTask]);
-                        // make sure the label is visible. this is necessary in the case where the panel is scrolling vertically. it is nice for the user to see the current task scrolling into view automatically.
+                    // make sure the label is visible. this is necessary in the case where the panel is scrolling vertically. it is nice for the user to see the current task scrolling into view automatically.
                     _labels[_currentTask].ImageIndex = 0;
                 }
             }
@@ -132,12 +132,8 @@ namespace ArachNGIN.Components.ProgressTaskList
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 if (components != null)
-                {
                     components.Dispose();
-                }
-            }
             base.Dispose(disposing);
         }
 
@@ -150,23 +146,23 @@ namespace ArachNGIN.Components.ProgressTaskList
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            var resources = new System.Resources.ResourceManager(typeof (ProgressTaskList));
+            var resources = new System.Resources.ResourceManager(typeof(ProgressTaskList));
             this._imageList1 = new System.Windows.Forms.ImageList(this.components);
-            // 
+            //
             // imageList1
-            // 
+            //
             this._imageList1.ImageSize = new System.Drawing.Size(10, 10);
             this._imageList1.ImageStream =
-                ((System.Windows.Forms.ImageListStreamer) (resources.GetObject("imageList1.ImageStream")));
+                ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this._imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            // 
+            //
             // ProgressTaskList
-            // 
+            //
             this.AutoScroll = true;
             this.Size = new System.Drawing.Size(175, 50);
         }
 
-        #endregion
+        #endregion Component Designer generated code
 
         private delegate void NextTaskDelegate();
 

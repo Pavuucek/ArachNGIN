@@ -1,16 +1,22 @@
-﻿/* file downloaded from internet. Author unknown. License unknown. 
+﻿/* file downloaded from internet. Author unknown. License unknown.
  */
 
-using System.IO;
 using ArachNGIN.Files.Streams;
+using System.Collections.Generic;
+using System.IO;
 
-namespace ArachNGIN.Files.CRC
+namespace ArachNGIN.Files.Crc
 {
     /// <summary>
     ///     Class for generating file CRC like those found on anime releases (probably a MD5 or something)
     /// </summary>
     public class AnimeCrc
     {
+        /// <summary>
+        ///     The CRC seed
+        /// </summary>
+        private const uint CrcSeed = 0xFFFFFFFF;
+
         #region crc tabule.
 
         /// <summary>
@@ -72,26 +78,12 @@ namespace ArachNGIN.Files.CRC
             0x2d02ef8d
         };
 
-        #endregion
-
-        /// <summary>
-        ///     The CRC seed
-        /// </summary>
-        private const uint CrcSeed = 0xFFFFFFFF;
-
-        /// <summary>
-        ///     The _CRC sof far
-        /// </summary>
-        private uint _crcSofFar;
+        #endregion crc tabule.
 
         /// <summary>
         ///     Calculated value so far
         /// </summary>
-        public uint Value
-        {
-            get { return _crcSofFar; }
-            set { _crcSofFar = value; }
-        }
+        public uint Value { get; set; }
 
         #region konstruktory
 
@@ -102,45 +94,39 @@ namespace ArachNGIN.Files.CRC
         /// <returns></returns>
         public static byte[] Calculate(byte[] value)
         {
-            uint crcVal = 0xffffffff;
-            for (int i = 0; i < value.Length; i++)
-            {
-                crcVal = (crcVal >> 8) ^ CrcTable[(crcVal & 0xff) ^ value[i]];
-            }
+            var crcVal = 0xffffffff;
+            for (var i = 0; i < value.Length; i++)
+                crcVal = (crcVal >> 8) ^ CrcTable[(crcVal & 0xff) ^ i];
             crcVal ^= 0xffffffff; // Toggle operation
             var result = new byte[4];
-            result[0] = (byte) (crcVal >> 24);
-            result[1] = (byte) (crcVal >> 16);
-            result[2] = (byte) (crcVal >> 8);
-            result[3] = (byte) (crcVal);
+            result[0] = (byte)(crcVal >> 24);
+            result[1] = (byte)(crcVal >> 16);
+            result[2] = (byte)(crcVal >> 8);
+            result[3] = (byte)crcVal;
             return result;
         }
 
-        #endregion
+        #endregion konstruktory
 
         /// <summary>
         ///     Gets the CRC from stream in UinT format.
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <returns></returns>
-        public static uint GetCrcFromStreamUint(Stream stream)
+        private static uint GetCrcFromStreamUint(Stream stream)
         {
-            if ((stream == null) && (!stream.CanRead))
-            {
-                return 0;
-            }
+            if (stream == null) return 0;
+            if (!stream.CanRead) return 0;
             stream.Position = 0;
             var acrc = new AnimeCrc();
+            acrc.ResetCrc();
             var buffer = new byte[4096];
-            int len = 0;
-            while ((len = stream.Read(buffer, 0, len)) != 0)
-            {
+            int len;
+            while ((len = stream.Read(buffer, 0, buffer.Length)) != 0)
                 acrc.Update(buffer, 0, len);
-            }
             stream.Position = 0;
             return acrc.Value;
         }
-
 
         /// <summary>
         ///     Gets the CRC from stream in string format.
@@ -149,10 +135,9 @@ namespace ArachNGIN.Files.CRC
         /// <returns></returns>
         public static string GetCrcFromStream(Stream stream)
         {
-            uint r = GetCrcFromStreamUint(stream);
+            var r = GetCrcFromStreamUint(stream);
             return StringUtils.UInt32ToByteString(r);
         }
-
 
         /// <summary>
         ///     Gets the CRC from file in uint format.
@@ -164,20 +149,16 @@ namespace ArachNGIN.Files.CRC
             if (string.IsNullOrEmpty(filename)) return 0;
             if (!File.Exists(filename)) return 0;
             var acrc = new AnimeCrc();
+            acrc.ResetCrc();
             var buffer = new byte[4096];
-            uint r = 0;
             using (var fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
             {
-                int le = 0;
+                int le;
                 while ((le = fs.Read(buffer, 0, buffer.Length)) != 0)
-                {
                     acrc.Update(buffer, 0, le);
-                }
-                r = acrc.Value;
             }
             return acrc.Value;
         }
-
 
         /// <summary>
         ///     Gets the CRC from file in string format.
@@ -186,36 +167,36 @@ namespace ArachNGIN.Files.CRC
         /// <returns></returns>
         public static string GetCrcFromFile(string filename)
         {
-            uint r = GetCrcFromFileUint(filename);
+            var r = GetCrcFromFileUint(filename);
             return StringUtils.UInt32ToByteString(r);
         }
 
         /// <summary>
         ///     Resets the CRC.
         /// </summary>
-        public void ResetCrc()
+        private void ResetCrc()
         {
-            _crcSofFar = 0;
+            Value = 0;
         }
 
         /// <summary>
         ///     Updates the specified bval.
         /// </summary>
         /// <param name="bval">The bval.</param>
-        public void Update(int bval)
+        private void Update(int bval)
         {
-            _crcSofFar ^= CrcSeed;
-            _crcSofFar = CrcTable[_crcSofFar ^ bval & 0xff] ^ (_crcSofFar >> 8);
-            _crcSofFar ^= CrcSeed;
+            Value ^= CrcSeed;
+            Value = CrcTable[Value ^ (bval & 0xff)] ^ (Value >> 8);
+            Value ^= CrcSeed;
         }
 
         /// <summary>
         ///     Updates the specified buffer.
         /// </summary>
         /// <param name="buf">The buffer.</param>
-        public void Update(byte[] buf)
+        private void Update(IList<byte> buf)
         {
-            Update(buf, 0, buf.Length);
+            Update(buf, 0, buf.Count);
         }
 
         /// <summary>
@@ -224,15 +205,14 @@ namespace ArachNGIN.Files.CRC
         /// <param name="b">The b.</param>
         /// <param name="off">The off.</param>
         /// <param name="l">The l.</param>
-        public void Update(byte[] b, int off, int l)
+        private void Update(IList<byte> b, int off, int l)
         {
-            if ((b == null) && (off < 0 || l < 0 || off + l > b.Length)) return;
-            _crcSofFar ^= CrcSeed;
+            if (b == null) return;
+            if (off < 0 || l < 0 || off + l > b.Count) return;
+            Value ^= CrcSeed;
             while (--l >= 0)
-            {
-                _crcSofFar = CrcTable[(_crcSofFar ^ b[off++]) & 0xff] ^ (_crcSofFar >> 8);
-            }
-            _crcSofFar ^= CrcSeed;
+                Value = CrcTable[(Value ^ b[off++]) & 0xff] ^ (Value >> 8);
+            Value ^= CrcSeed;
         }
     }
 }
